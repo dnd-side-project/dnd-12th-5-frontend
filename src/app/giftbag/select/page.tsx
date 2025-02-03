@@ -1,6 +1,7 @@
 import GiftBagList from "../_components/GiftBagList";
 import SelectedGiftBag from "../_components/SelectedGiftBag";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const page = () => {
   const imagePaths = [
@@ -31,9 +32,11 @@ const page = () => {
           />
         </div>
       </div>
-      <Button size="lg" className="p-4">
-        선택 완료
-      </Button>
+      <Link href="/giftbag/name">
+        <Button size="lg" className="p-4">
+          선택 완료
+        </Button>
+      </Link>
     </div>
   );
 };
