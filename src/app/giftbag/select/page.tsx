@@ -12,14 +12,25 @@ const page = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center gap-[45px] overflow-x-hidden">
+    <div className="flex flex-col items-center gap-[45px]">
       <div className="flex flex-col items-center gap-5 p-4">
         <SelectedGiftBag />
         <p className="text-base font-nanum font-bold">
           어떤 보따리에 선물을 담아볼까요?
         </p>
       </div>
-      <GiftBagList numberOfCards={5} size="small" imgPaths={imagePaths} />
+      <div
+        className="w-full overflow-x-auto px-4"
+        style={{ scrollbarWidth: "none" }}
+      >
+        <div className="min-w-max">
+          <GiftBagList
+            numberOfCards={imagePaths.length}
+            size="small"
+            imgPaths={imagePaths}
+          />
+        </div>
+      </div>
       <Button size="lg" className="p-4">
         선택 완료
       </Button>
