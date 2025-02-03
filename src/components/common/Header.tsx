@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 
-import LogoIcon from "../../public/icons/logo.svg";
-import SettingIcon from "../../public/icons/setting_large.svg";
-import ArrowLeftIcon from "../../public/icons/arrow_left_large.svg";
+import LogoIcon from "../../../public/icons/logo.svg";
+import SettingIcon from "../../../public/icons/setting_large.svg";
+import ArrowLeftIcon from "../../../public/icons/arrow_left_large.svg";
 
 // 정적 title 관리
 // 임시 매핑
