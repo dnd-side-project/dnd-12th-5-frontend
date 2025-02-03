@@ -17,7 +17,7 @@ const Card = ({ img, size, isActive, onClick }: CardProps) => {
 
   return (
     <div
-      className={`flex justify-center border-[1.4px] items-center ${borderColorClasses} ${sizeClasses} rounded-xl box-border bg-gray-5 p-1`}
+      className={`flex justify-center border-[1.4px] items-center ${borderColorClasses} ${sizeClasses} rounded-xl box-border bg-gray-50 p-1`}
       onClick={onClick}
     >
       <Image
