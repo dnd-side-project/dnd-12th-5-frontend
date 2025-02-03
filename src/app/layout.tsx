@@ -30,9 +30,9 @@ export default function RootLayout({
       <body
         className={`${pretendard.variable} ${nanumSquareRound.variable} antialiased bg-gray-100`}
       >
-        <div className="w-[375px] mx-auto bg-white min-h-full flex flex-col relative">
-          <Header/>
-        <div className="flex-grow">{children}</div>
+        <div className="w-[375px] mx-auto bg-white min-h-screen flex flex-col relative">
+          <Header />
+          <div className="flex-grow">{children}</div>
         </div>
       </body>
     </html>
