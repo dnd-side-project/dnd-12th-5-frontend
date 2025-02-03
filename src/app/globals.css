@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply font-pretendard
+  @apply font-pretendard;
 }
 
 @layer utilities {
@@ -15,7 +15,7 @@ body {
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --foreground: 240 4% 6%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
