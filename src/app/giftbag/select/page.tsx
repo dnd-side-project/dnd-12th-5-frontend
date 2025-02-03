@@ -1,5 +1,5 @@
-import GiftBagList from "../_components/GiftBagList";
-import SelectedGiftBag from "../_components/SelectedGiftBag";
+import GiftBagList from "@/components/giftbag/GiftBagList";
+import SelectedGiftBag from "@/components/giftbag/SelectedGiftBag";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
