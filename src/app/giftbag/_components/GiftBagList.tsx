@@ -1,6 +1,6 @@
 "use client";
 
-import Card from "@/components/Card";
+import Card from "@/components/common/Card";
 import { useStore } from "../_stores/useStore";
 
 interface GiftBagListProps {
