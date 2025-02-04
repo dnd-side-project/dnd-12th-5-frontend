@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ImageCard from "./ImageCard";
 import ImageIcon from "../../../public/icons/image_medium.svg";
 import Image from "next/image";
@@ -12,6 +12,10 @@ interface UploadImageListProps {
 const UploadImageList = ({ onImagesChange }: UploadImageListProps) => {
   const [images, setImages] = useState<string[]>([]);
 
+  useEffect(() => {
+    onImagesChange(images.length);
+  }, [images, onImagesChange]);
+
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
     const file = event.target.files[0];
@@ -19,11 +23,7 @@ const UploadImageList = ({ onImagesChange }: UploadImageListProps) => {
     const reader = new FileReader();
     reader.onloadend = () => {
       if (typeof reader.result === "string") {
-        setImages((prev) => {
-          const newImages = [...prev, reader.result as string];
-          onImagesChange(newImages.length);
-          return newImages;
-        });
+        setImages((prev) => [...prev, reader.result as string]);
       }
     };
     reader.readAsDataURL(file);
@@ -31,11 +31,7 @@ const UploadImageList = ({ onImagesChange }: UploadImageListProps) => {
   };
 
   const handleDelete = (index: number) => {
-    setImages((prev) => {
-      const newImages = prev.filter((_, i) => i !== index);
-      onImagesChange(newImages.length);
-      return newImages;
-    });
+    setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   return (
