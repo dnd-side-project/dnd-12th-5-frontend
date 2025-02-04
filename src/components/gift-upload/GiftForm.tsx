@@ -8,6 +8,7 @@ import InputReason from "./InputReason";
 import UploadImageList from "./UploadImageList";
 import ErrorMessage from "../common/ErrorMessage";
 import { GIFT_NAME_MAX_LENGTH } from "@/app/constants/constants";
+import Link from "next/link";
 
 const GiftForm = () => {
   const [imageCount, setImageCount] = useState(0);
@@ -46,9 +47,11 @@ const GiftForm = () => {
       </div>
       <InputReason />
       <InputLink />
-      <Button size="lg" onClick={handleSubmit}>
-        채우기 완료
-      </Button>
+      <Link href="/giftbag/add">
+        <Button size="lg" onClick={handleSubmit}>
+          채우기 완료
+        </Button>
+      </Link>
     </div>
   );
 };
