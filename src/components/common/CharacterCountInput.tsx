@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 interface CharacterCountInputProps {
   placeholder: string;
   maxLength: number;
-  onChange: (value: string) => void; // 입력값을 부모 컴포넌트로 전달
+  onChange?: (value: string) => void; // 입력값을 부모 컴포넌트로 전달
 }
 
 const CharacterCountInput = ({
@@ -18,7 +18,7 @@ const CharacterCountInput = ({
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (value.length <= maxLength) {
+    if (value.length <= maxLength && onChange) {
       setText(value);
       onChange(value); // 입력값 변경 시 부모 컴포넌트에 전달
     }
