@@ -5,7 +5,11 @@ import ImageCard from "./ImageCard";
 import ImageIcon from "../../../public/icons/image_medium.svg";
 import Image from "next/image";
 
-const UploadImageList = () => {
+interface UploadImageListProps {
+  onImagesChange: (count: number) => void;
+}
+
+const UploadImageList = ({ onImagesChange }: UploadImageListProps) => {
   const [images, setImages] = useState<string[]>([]);
 
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,16 +19,23 @@ const UploadImageList = () => {
     const reader = new FileReader();
     reader.onloadend = () => {
       if (typeof reader.result === "string") {
-        setImages((prev) => [...prev, reader.result as string]);
+        setImages((prev) => {
+          const newImages = [...prev, reader.result as string];
+          onImagesChange(newImages.length);
+          return newImages;
+        });
       }
     };
     reader.readAsDataURL(file);
-
     event.target.value = "";
   };
 
   const handleDelete = (index: number) => {
-    setImages((prev) => prev.filter((_, i) => i !== index));
+    setImages((prev) => {
+      const newImages = prev.filter((_, i) => i !== index);
+      onImagesChange(newImages.length);
+      return newImages;
+    });
   };
 
   return (
