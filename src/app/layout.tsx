@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/layout/Header";
 import { Suspense } from "react";
+import { Providers } from "./providers";
 
 const pretendard = localFont({
   src: "./fonts/Pretendard.woff",
@@ -34,8 +35,10 @@ export default function RootLayout({
         <div className="w-[375px] mx-auto bg-white min-h-screen flex flex-col relative">
           <Suspense>
             <Header />
+            <Providers>
+              <div className="flex-grow">{children}</div>
+            </Providers>
           </Suspense>
-          <div className="flex-grow">{children}</div>
         </div>
       </body>
     </html>
