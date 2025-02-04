@@ -7,6 +7,7 @@ import InputLink from "./InputLink";
 import InputReason from "./InputReason";
 import UploadImageList from "./UploadImageList";
 import ErrorMessage from "../common/ErrorMessage";
+import { GIFT_NAME_MAX_LENGTH } from "@/app/constants/giftbag/constants";
 
 const GiftForm = () => {
   const [imageCount, setImageCount] = useState(0);
@@ -35,7 +36,7 @@ const GiftForm = () => {
           <ErrorMessage message="필수 입력 정보입니다." />
         )}
         <CharacterCountInput
-          maxLength={20}
+          maxLength={GIFT_NAME_MAX_LENGTH}
           placeholder="선물명을 적어주세요"
           onChange={setGiftName}
         />

@@ -4,6 +4,7 @@ import { useState } from "react";
 import CharacterCountInput from "@/components/common/CharacterCountInput";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { GIFTBAG_NAME_MAX_LENGTH } from "@/app/constants/giftbag/constants";
 
 const GiftBagForm = () => {
   const [giftBagName, setGiftBagName] = useState("");
@@ -11,7 +12,7 @@ const GiftBagForm = () => {
   return (
     <div className="flex flex-col items-center gap-[57px]">
       <CharacterCountInput
-        maxLength={20}
+        maxLength={GIFTBAG_NAME_MAX_LENGTH}
         placeholder="빅토리의 생일 선물 보따리"
         onChange={setGiftBagName}
       />
