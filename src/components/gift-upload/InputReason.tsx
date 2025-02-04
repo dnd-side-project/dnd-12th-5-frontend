@@ -1,38 +1,39 @@
+"use client";
+
 import { useState } from "react";
-import { GIFT_SELECT_REASON_MAX_LENGTH } from "@/app/constants/constants";
-import CustomTextArea from "./CustomTextArea";
-import ChipList from "./ChipList";
-import GiftIcon from "../../../public/img/gift_letter_square.svg";
 import Image from "next/image";
+import ChipList from "./ChipList";
+import CustomTextArea from "./CustomTextArea";
+import { GIFT_SELECT_REASON_MAX_LENGTH } from "@/app/constants/constants";
+import GiftIcon from "../../../public/img/gift_letter_square.svg";
 
-const InputReason = () => {
-  const chipText = [
-    "직접 입력",
-    "취향 저격",
-    "실용적",
-    "특별한 의미",
-    "트렌드",
-  ];
+const chipText = ["직접 입력", "취향 저격", "실용적", "특별한 의미", "트렌드"];
+const chipMessages = [
+  "",
+  "당신의 취향을 저격할 수 있는 선물일 것 같아요!",
+  "매일 쓰면서 저를 떠올려 주세요!",
+  "특별한 순간, 특별한 마음을 담아 준비했어요.",
+  "지금 가장 핫한 아이템으로 마음을 전합니다.",
+];
 
-  const chipMessages = [
-    "",
-    "당신의 취향을 저격할 수 있는 선물일 것 같아요!",
-    "매일 쓰면서 저를 떠올려 주세요!",
-    "특별한 순간, 특별한 마음을 담아 준비했어요.",
-    "지금 가장 핫한 아이템으로 마음을 전합니다.",
-  ];
+interface InputReasonProps {
+  onReasonChange: (text: string) => void;
+}
 
+const InputReason = ({ onReasonChange }: InputReasonProps) => {
   const [isClicked, setIsClicked] = useState(false);
-  const [selectedChipIndex, setSelectedChipIndex] = useState(0);
+  const [selectedChipIndex, setSelectedChipIndex] = useState<number | null>(0);
   const [text, setText] = useState("");
 
   const handleChipClick = (index: number) => {
     setSelectedChipIndex(index);
     setText(chipMessages[index]);
+    onReasonChange(chipMessages[index]);
   };
 
   const handleTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(event.target.value);
+    onReasonChange(event.target.value);
   };
 
   const handleClickToEdit = () => {
@@ -40,7 +41,7 @@ const InputReason = () => {
   };
 
   return (
-    <div className="flex flex-col gap-4 h-[240px]">
+    <div className="flex flex-col gap-4">
       <p className="text-[15px] font-medium">
         이 선물을 고른 이유를 적어 함께 전달해볼까요?
       </p>
@@ -68,16 +69,16 @@ const InputReason = () => {
               <div className="min-w-max">
                 <ChipList
                   chipText={chipText}
-                  selectedChipIndex={selectedChipIndex}
+                  selectedChipIndex={selectedChipIndex ?? -1}
                   onChipClick={handleChipClick}
                 />
               </div>
             </div>
             <CustomTextArea
               placeholder="직접 입력해주세요."
-              maxLength={GIFT_SELECT_REASON_MAX_LENGTH}
               text={text}
               onTextChange={handleTextChange}
+              maxLength={GIFT_SELECT_REASON_MAX_LENGTH}
             />
           </>
         )}

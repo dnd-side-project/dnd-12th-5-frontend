@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import CharacterCountInput from "../common/CharacterCountInput";
 import { Button } from "../ui/button";
 import InputLink from "./InputLink";
@@ -8,11 +9,18 @@ import InputReason from "./InputReason";
 import UploadImageList from "./UploadImageList";
 import ErrorMessage from "../common/ErrorMessage";
 import { GIFT_NAME_MAX_LENGTH } from "@/app/constants/constants";
-import Link from "next/link";
+import { useGiftStore } from "@/stores/gift-upload/useStore";
 
 const GiftForm = () => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const index = Number(searchParams?.get("index"));
+
+  const { updateGiftBox } = useGiftStore();
+
   const [imageCount, setImageCount] = useState(0);
   const [giftName, setGiftName] = useState("");
+  const [giftReason, setGiftReason] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleSubmit = () => {
@@ -20,6 +28,9 @@ const GiftForm = () => {
       setIsSubmitted(true);
       return;
     }
+
+    updateGiftBox(index, giftReason);
+    router.push("/giftbag/add");
   };
 
   return (
@@ -45,13 +56,11 @@ const GiftForm = () => {
           <ErrorMessage message="필수 입력 정보입니다." />
         )}
       </div>
-      <InputReason />
+      <InputReason onReasonChange={setGiftReason} />
       <InputLink />
-      <Link href="/giftbag/add">
-        <Button size="lg" onClick={handleSubmit}>
-          채우기 완료
-        </Button>
-      </Link>
+      <Button size="lg" onClick={handleSubmit}>
+        채우기 완료
+      </Button>
     </div>
   );
 };
