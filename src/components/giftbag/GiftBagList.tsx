@@ -1,6 +1,6 @@
 "use client";
 
-import { useStore } from "@/app/giftbag/_stores/useStore";
+import { useStore } from "@/stores/giftbag/useStore";
 import Card from "@/components/common/Card";
 
 interface GiftBagListProps {

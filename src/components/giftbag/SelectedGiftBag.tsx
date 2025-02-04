@@ -1,6 +1,6 @@
 "use client";
 
-import { useStore } from "@/app/giftbag/_stores/useStore";
+import { useStore } from "@/stores/giftbag/useStore";
 import Image from "next/image";
 
 const SelectedGiftBag = () => {
