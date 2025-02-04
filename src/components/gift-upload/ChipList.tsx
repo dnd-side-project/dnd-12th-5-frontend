@@ -1,19 +1,16 @@
-"use client";
-
-import { useStore } from "@/app/gift-upload/_stores/useStore";
-import Chip from "@/components/common/Chip";
+import Chip from "../common/Chip";
 
 interface ChipListProps {
   chipText: string[];
+  selectedChipIndex: number;
+  onChipClick: (index: number) => void;
 }
 
-const ChipList = ({ chipText }: ChipListProps) => {
-  const { selectedChipIndex, setSelectedChipIndex } = useStore();
-
-  const handleChipClick = (index: number) => {
-    setSelectedChipIndex(index);
-  };
-
+const ChipList = ({
+  chipText,
+  selectedChipIndex,
+  onChipClick,
+}: ChipListProps) => {
   return (
     <div className="flex gap-[7px] whitespace-nowrap">
       {chipText.map((text, index) => (
@@ -21,7 +18,7 @@ const ChipList = ({ chipText }: ChipListProps) => {
           key={index}
           text={text}
           isActive={index === selectedChipIndex}
-          onClick={() => handleChipClick(index)}
+          onClick={() => onChipClick(index)}
         />
       ))}
     </div>
