@@ -7,7 +7,7 @@ import InputLink from "./InputLink";
 import InputReason from "./InputReason";
 import UploadImageList from "./UploadImageList";
 import ErrorMessage from "../common/ErrorMessage";
-import { GIFT_NAME_MAX_LENGTH } from "@/app/constants/giftbag/constants";
+import { GIFT_NAME_MAX_LENGTH } from "@/app/constants/constants";
 
 const GiftForm = () => {
   const [imageCount, setImageCount] = useState(0);
