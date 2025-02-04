@@ -6,6 +6,6 @@ interface Store {
 }
 
 export const useStore = create<Store>((set) => ({
-  selectedChipIndex: -1,
+  selectedChipIndex: 0,
   setSelectedChipIndex: (index) => set({ selectedChipIndex: index }),
 }));
