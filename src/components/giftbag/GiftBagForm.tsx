@@ -16,7 +16,10 @@ const GiftBagForm = () => {
         placeholder="빅토리의 생일 선물 보따리"
         onChange={setGiftBagName}
       />
-      <Link href={`/giftbag/add?title=${encodeURIComponent(giftBagName)}`}>
+      <Link
+        href={`/giftbag/add?title=${encodeURIComponent(giftBagName)}`}
+        className="w-full"
+      >
         <Button size="lg" disabled={giftBagName.length === 0}>
           선물 채우러 가기
         </Button>
