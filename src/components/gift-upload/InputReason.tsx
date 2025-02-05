@@ -62,7 +62,7 @@ const InputReason = ({
         이 선물을 고른 이유를 적어 함께 전달해볼까요?
       </p>
       <div
-        className="h-[208px] w-[343px] rounded-[10px] bg-gray-50 border-[1.4px] border-input px-[14px] py-[15px] flex flex-col gap-3 cursor-pointer"
+        className="h-[208px] rounded-[10px] bg-gray-50 border-[1.4px] border-input px-[14px] py-[15px] flex flex-col gap-3 cursor-pointer"
         onClick={() => setIsClicked(true)}
       >
         {!isClicked ? (
