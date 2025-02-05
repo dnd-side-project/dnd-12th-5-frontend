@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
@@ -55,10 +55,6 @@ const GiftList = ({ value }: GiftListProps) => {
     setIsDialogOpen(false);
     setSelectedBox(null);
   };
-
-  useEffect(() => {
-    console.log("응");
-  }, [giftBoxes]);
 
   return (
     <>
