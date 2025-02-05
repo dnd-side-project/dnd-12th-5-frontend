@@ -10,7 +10,7 @@ const Page = () => {
   const filledGiftCount = giftBoxes.filter((gift) => gift.filled).length;
 
   return (
-    <div className="bg-pink-50 flex flex-col items-center p-4 gap-10">
+    <div className="h-full bg-pink-50 flex flex-col items-center p-4 gap-10">
       <div className="flex flex-col gap-7 w-[300px] items-center">
         <Chip text={`채워진 선물박스 ${filledGiftCount}개`} />
         <GiftList value={giftBoxes} />

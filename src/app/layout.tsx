@@ -27,15 +27,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* bg-gray-100 임시입니다 */}
       <body
-        className={`${pretendard.variable} ${nanumSquareRound.variable} antialiased bg-gray-100`}
+        className={`${pretendard.variable} ${nanumSquareRound.variable} antialiased bg-white`}
       >
-        <div className="w-[375px] mx-auto bg-white min-h-screen flex flex-col relative">
+        <div className="max-w-[430px] min-w-[375px] mx-auto bg-white min-h-screen flex flex-col relative">
           <Suspense>
             <Header />
+            <div className="flex-grow" style={{ height: "calc(100vh - 56px)" }}>
+              {children}
+            </div>
           </Suspense>
-          <div className="flex-grow">{children}</div>
         </div>
       </body>
     </html>

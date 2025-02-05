@@ -18,9 +18,9 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
       },
       size: {
-        sm: "h-[36px] w-[72px]",
-        md: "h-[52px] w-[166px]",
-        lg: "h-[52px] w-[343px]",
+        sm: "h-[36px] w-full",
+        md: "h-[52px] w-full",
+        lg: "h-[52px] w-full",
         icon_sm: "h-[14px] w-[14px]",
         icon_md: "h-[18px] w-[18px]",
         icon_lg: "h-[24px] w-[24px]",

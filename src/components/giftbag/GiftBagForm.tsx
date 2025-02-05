@@ -10,7 +10,7 @@ const GiftBagForm = () => {
   const [giftBagName, setGiftBagName] = useState("");
 
   return (
-    <div className="flex flex-col items-center gap-[57px]">
+    <div className="w-full flex flex-col items-center gap-[57px]">
       <CharacterCountInput
         maxLength={GIFTBAG_NAME_MAX_LENGTH}
         placeholder="빅토리의 생일 선물 보따리"
