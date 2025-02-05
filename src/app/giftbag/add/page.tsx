@@ -13,7 +13,7 @@ const Page = () => {
     <div className="bg-pink-50 flex flex-col items-center p-4 gap-10">
       <div className="flex flex-col gap-7 w-[300px] items-center">
         <Chip text={`채워진 선물박스 ${filledGiftCount}개`} />
-        <GiftList />
+        <GiftList value={giftBoxes} />
       </div>
       <Button disabled={filledGiftCount <= 1} size="lg">
         선물 배달하러 가기

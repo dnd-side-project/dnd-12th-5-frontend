@@ -2,36 +2,35 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { useGiftStore } from "@/stores/gift-upload/useStore";
+import { GiftBox } from "@/types/giftbag/types";
 
-const GiftList = () => {
+const DEFAULT_IMAGES = [
+  "/img/gift_blank_square.svg",
+  "/img/gift_blank_round.svg",
+];
+
+const FILLED_IMAGES = {
+  noLetter: ["/img/gift_no_letter_square.svg", "/img/gift_no_letter_round.svg"],
+  withLetter: ["/img/gift_letter_square.svg", "/img/gift_letter_round.svg"],
+};
+
+interface GiftListProps {
+  value: GiftBox[];
+}
+
+const GiftList = ({ value }: GiftListProps) => {
   const router = useRouter();
-  const { giftBoxes } = useGiftStore();
-
-  const DEFAULT_IMAGES = [
-    "/img/gift_blank_square.svg",
-    "/img/gift_blank_round.svg",
-  ];
-
-  const FILLED_IMAGES = {
-    noLetter: [
-      "/img/gift_no_letter_square.svg",
-      "/img/gift_no_letter_round.svg",
-    ],
-    withLetter: ["/img/gift_letter_square.svg", "/img/gift_letter_round.svg"],
-  };
 
   return (
     <TooltipProvider>
       <div className="grid grid-cols-2 h-[396px] grid-rows-[repeat(6,_1fr)]">
-        {giftBoxes.map((box, index) => {
+        {value.map((box, index) => {
           const hasReason = box.reason.trim().length > 0;
           const imageSet = hasReason
             ? FILLED_IMAGES.withLetter

@@ -1,31 +1,38 @@
+import { GiftBox } from "@/types/giftbag/types";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-interface Store {
-  selectedChipIndex: number;
-  setSelectedChipIndex: (index: number) => void;
+interface TagIndexStore {
+  selectedTagIndex: number;
+  setSelectedTagIndex: (index: number) => void;
 }
 
-export const useStore = create<Store>((set) => ({
-  selectedChipIndex: 0,
-  setSelectedChipIndex: (index) => set({ selectedChipIndex: index }),
+export const useTagIndexStore = create<TagIndexStore>((set) => ({
+  selectedTagIndex: 0,
+  setSelectedTagIndex: (index) => set({ selectedTagIndex: index }),
 }));
-
-interface GiftBox {
-  filled: boolean;
-  reason: string;
-}
 
 interface GiftStore {
   giftBoxes: GiftBox[];
-  updateGiftBox: (index: number, reason: string) => void;
+  updateGiftBox: (index: number, data: Partial<GiftBox>) => void;
 }
 
-export const useGiftStore = create<GiftStore>((set) => ({
-  giftBoxes: Array(6).fill({ filled: false, reason: "" }),
-  updateGiftBox: (index, reason) =>
-    set((state) => {
-      const updatedBoxes = [...state.giftBoxes];
-      updatedBoxes[index] = { filled: true, reason };
-      return { giftBoxes: updatedBoxes };
+export const useGiftStore = create<GiftStore>()(
+  persist(
+    (set) => ({
+      giftBoxes: Array(6).fill({ name: "", filled: false, reason: "" }),
+
+      updateGiftBox: (index, data) =>
+        set((state) => {
+          const updatedBoxes = [...state.giftBoxes];
+          updatedBoxes[index] = {
+            ...updatedBoxes[index],
+            ...data,
+            filled: true,
+          };
+          return { giftBoxes: updatedBoxes };
+        }),
     }),
-}));
+    { name: "gift-storage" },
+  ),
+);

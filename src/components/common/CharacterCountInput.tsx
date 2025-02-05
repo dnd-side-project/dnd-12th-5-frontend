@@ -1,26 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 
 interface CharacterCountInputProps {
   placeholder: string;
   maxLength: number;
-  onChange?: (value: string) => void; // 입력값을 부모 컴포넌트로 전달
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 const CharacterCountInput = ({
   placeholder,
   maxLength,
+  value = "",
   onChange,
 }: CharacterCountInputProps) => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(value);
+
+  useEffect(() => {
+    setText(value);
+  }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value.length <= maxLength && onChange) {
-      setText(value);
-      onChange(value); // 입력값 변경 시 부모 컴포넌트에 전달
+    const newValue = e.target.value;
+    if (newValue.length <= maxLength) {
+      setText(newValue);
+      onChange?.(newValue);
     }
   };
 
