@@ -20,7 +20,7 @@ const GiftBoxDialog = ({
 
   return (
     <Drawer open={isOpen}>
-      <DrawerContent className="w-[375px]">
+      <DrawerContent>
         <DrawerHeader>
           <DrawerTitle />
           <p className="text-base font-medium text-center">채워진 선물 정보</p>
