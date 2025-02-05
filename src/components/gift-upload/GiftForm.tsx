@@ -69,6 +69,7 @@ const GiftForm = () => {
         value={giftReason}
         onReasonChange={setGiftReason}
         onTagChange={setGiftTag}
+        giftBoxIndex={index}
       />
       <InputLink value={giftLink} onChange={setGiftLink} />
       <Button size="lg" onClick={handleSubmit}>

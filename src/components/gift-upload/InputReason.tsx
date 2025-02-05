@@ -6,7 +6,7 @@ import ChipList from "./ChipList";
 import CustomTextArea from "./CustomTextArea";
 import { GIFT_SELECT_REASON_MAX_LENGTH } from "@/app/constants/constants";
 import GiftIcon from "../../../public/img/gift_letter_square.svg";
-import { useTagIndexStore } from "@/stores/gift-upload/useStore";
+import { useGiftStore, useTagIndexStore } from "@/stores/gift-upload/useStore";
 
 const chipText = ["직접 입력", "취향 저격", "실용적", "특별한 의미", "트렌드"];
 const chipMessages = [
@@ -21,25 +21,35 @@ interface InputReasonProps {
   value?: string;
   onReasonChange: (text: string) => void;
   onTagChange: (tag: string) => void;
+  giftBoxIndex: number;
 }
 
 const InputReason = ({
   value = "",
   onReasonChange,
   onTagChange,
+  giftBoxIndex,
 }: InputReasonProps) => {
   const [isClicked, setIsClicked] = useState(false);
-  const { selectedTagIndex, setSelectedTagIndex } = useTagIndexStore();
+  const { setSelectedTagIndex } = useTagIndexStore();
   const [text, setText] = useState(value);
   const [tagIndex, setTagIndex] = useState(0);
+
+  const { giftBoxes } = useGiftStore();
+
+  const selectedTagIndex = giftBoxes[giftBoxIndex].tagIndex || tagIndex;
 
   useEffect(() => {
     setText(value);
   }, [value]);
 
+  useEffect(() => {
+    setSelectedTagIndex(selectedTagIndex);
+  }, [tagIndex]);
+
   const handleChipClick = (index: number) => {
     setTagIndex(index);
-    setSelectedTagIndex(tagIndex);
+    setSelectedTagIndex(index);
     const newText = chipMessages[index];
     setText(newText);
     onReasonChange(newText);
@@ -75,7 +85,7 @@ const InputReason = ({
               <div className="min-w-max">
                 <ChipList
                   chipText={chipText}
-                  selectedChipIndex={selectedTagIndex ?? -1}
+                  selectedChipIndex={selectedTagIndex}
                   onChipClick={handleChipClick}
                 />
               </div>
