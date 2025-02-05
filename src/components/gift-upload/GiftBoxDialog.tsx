@@ -2,6 +2,8 @@ import { GiftBox } from "@/types/giftbag/types";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerHeader } from "../ui/drawer";
 import LinkButton from "../common/LinkButton";
+import Link from "next/link";
+import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 
 interface GiftBoxDialogProps {
   isOpen: boolean;
@@ -10,6 +12,8 @@ interface GiftBoxDialogProps {
 }
 
 const GiftBoxDialog = ({ isOpen, onClose, box }: GiftBoxDialogProps) => {
+  const { setIsBoxEditing } = useEditBoxStore();
+
   return (
     <Drawer open={isOpen} onClose={onClose}>
       <DrawerContent className="w-[375px]">
@@ -39,12 +43,14 @@ const GiftBoxDialog = ({ isOpen, onClose, box }: GiftBoxDialogProps) => {
             >
               박스 비우기
             </Button>
-            <Button
-              className="w-[167px] h-[52px]"
-              onClick={() => alert("수정하기")}
-            >
-              수정하기
-            </Button>
+            <Link href="/gift-upload">
+              <Button
+                className="w-[167px] h-[52px]"
+                onClick={() => setIsBoxEditing(true)}
+              >
+                수정하기
+              </Button>
+            </Link>
           </div>
         </div>
       </DrawerContent>

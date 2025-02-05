@@ -36,3 +36,18 @@ export const useGiftStore = create<GiftStore>()(
     { name: "gift-storage" },
   ),
 );
+
+interface EditBoxStore {
+  isBoxEditing: boolean;
+  setIsBoxEditing: (isEditing: boolean) => void;
+}
+
+export const useEditBoxStore = create<EditBoxStore>()(
+  persist(
+    (set) => ({
+      isBoxEditing: false,
+      setIsBoxEditing: (isBoxEditing) => set({ isBoxEditing }),
+    }),
+    { name: "edit-storage" },
+  ),
+);

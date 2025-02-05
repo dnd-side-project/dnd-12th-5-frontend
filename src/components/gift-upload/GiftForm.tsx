@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import CharacterCountInput from "../common/CharacterCountInput";
 import { Button } from "../ui/button";
@@ -9,7 +9,11 @@ import InputReason from "./InputReason";
 import UploadImageList from "./UploadImageList";
 import ErrorMessage from "../common/ErrorMessage";
 import { GIFT_NAME_MAX_LENGTH } from "@/app/constants/constants";
-import { useTagIndexStore, useGiftStore } from "@/stores/gift-upload/useStore";
+import {
+  useTagIndexStore,
+  useGiftStore,
+  useEditBoxStore,
+} from "@/stores/gift-upload/useStore";
 
 const GiftForm = () => {
   const router = useRouter();
@@ -18,6 +22,7 @@ const GiftForm = () => {
 
   const { giftBoxes, updateGiftBox } = useGiftStore();
   const { selectedTagIndex } = useTagIndexStore();
+  const { isBoxEditing, setIsBoxEditing } = useEditBoxStore();
 
   const existingGift = giftBoxes[index] || {
     name: "",
@@ -26,12 +31,24 @@ const GiftForm = () => {
     tag: "",
   };
 
+  {
+    /* 이미지쪽 추후 수정 필요 (api 달고) */
+  }
   const [imageCount, setImageCount] = useState(existingGift.filled ? 1 : 0);
   const [giftName, setGiftName] = useState(existingGift.name);
   const [giftReason, setGiftReason] = useState(existingGift.reason || "");
   const [giftLink, setGiftLink] = useState(existingGift.purchase_url || "");
   const [giftTag, setGiftTag] = useState(existingGift.tag || "");
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (isBoxEditing) {
+      setGiftName(existingGift.name);
+      setGiftReason(existingGift.reason || "");
+      setGiftLink(existingGift.purchase_url || "");
+      setGiftTag(existingGift.tag || "");
+    }
+  }, [isBoxEditing, existingGift]);
 
   const handleSubmit = () => {
     if (imageCount === 0 || giftName.length === 0) {
@@ -48,6 +65,7 @@ const GiftForm = () => {
     });
 
     router.push("/giftbag/add");
+    setIsBoxEditing(false);
   };
 
   return (
@@ -73,7 +91,7 @@ const GiftForm = () => {
       />
       <InputLink value={giftLink} onChange={setGiftLink} />
       <Button size="lg" onClick={handleSubmit}>
-        채우기 완료
+        {isBoxEditing ? "수정완료" : "채우기 완료"}
       </Button>
     </div>
   );
