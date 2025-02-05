@@ -1,6 +1,6 @@
 import { GiftBox } from "@/types/giftbag/types";
 import { Button } from "@/components/ui/button";
-import { Drawer, DrawerContent, DrawerHeader } from "../ui/drawer";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "../ui/drawer";
 import LinkButton from "../common/LinkButton";
 import Link from "next/link";
 import { useEditBoxStore } from "@/stores/gift-upload/useStore";
@@ -22,6 +22,7 @@ const GiftBoxDialog = ({
     <Drawer open={isOpen}>
       <DrawerContent className="w-[375px]">
         <DrawerHeader>
+          <DrawerTitle />
           <p className="text-base font-medium text-center">채워진 선물 정보</p>
         </DrawerHeader>
         <div className="flex flex-col bg-white p-6 gap-5">
