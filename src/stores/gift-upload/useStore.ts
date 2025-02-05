@@ -28,7 +28,6 @@ export const useGiftStore = create<GiftStore>()(
           updatedBoxes[index] = {
             ...updatedBoxes[index],
             ...data,
-            filled: true,
           };
           return { giftBoxes: updatedBoxes };
         }),

@@ -62,6 +62,7 @@ const GiftForm = () => {
       purchase_url: giftLink,
       tag: giftTag,
       tagIndex: selectedTagIndex,
+      filled: true,
     });
 
     router.push("/giftbag/add");

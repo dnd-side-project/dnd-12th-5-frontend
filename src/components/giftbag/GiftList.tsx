@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/tooltip";
 import { GiftBox } from "@/types/giftbag/types";
 import GiftBoxDialog from "../gift-upload/GiftBoxDialog";
+import { useGiftStore } from "@/stores/gift-upload/useStore";
 
 const DEFAULT_IMAGES = [
   "/img/gift_blank_square.svg",
@@ -29,15 +30,35 @@ const GiftList = ({ value }: GiftListProps) => {
   const [selectedBox, setSelectedBox] = useState<GiftBox | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  const { giftBoxes, updateGiftBox } = useGiftStore();
+
   const openDialog = (box: GiftBox) => {
     setSelectedBox(box);
     setIsDialogOpen(true);
   };
 
-  const closeDialog = () => {
+  const emptyGiftBox = () => {
+    if (selectedBox) {
+      const index = giftBoxes.findIndex((box) => box === selectedBox);
+
+      if (index !== -1) {
+        updateGiftBox(index, {
+          name: "",
+          reason: "",
+          purchase_url: "",
+          tag: "",
+          filled: false,
+        });
+      }
+    }
+
     setIsDialogOpen(false);
     setSelectedBox(null);
   };
+
+  useEffect(() => {
+    console.log("응");
+  }, [giftBoxes]);
 
   return (
     <>
@@ -95,7 +116,7 @@ const GiftList = ({ value }: GiftListProps) => {
       {selectedBox && (
         <GiftBoxDialog
           isOpen={isDialogOpen}
-          onClose={closeDialog}
+          handleEmptyButton={emptyGiftBox}
           box={selectedBox}
         />
       )}

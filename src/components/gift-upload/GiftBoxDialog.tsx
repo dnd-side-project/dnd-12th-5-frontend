@@ -7,15 +7,19 @@ import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 
 interface GiftBoxDialogProps {
   isOpen: boolean;
-  onClose: () => void;
+  handleEmptyButton: () => void;
   box: GiftBox;
 }
 
-const GiftBoxDialog = ({ isOpen, onClose, box }: GiftBoxDialogProps) => {
+const GiftBoxDialog = ({
+  isOpen,
+  handleEmptyButton,
+  box,
+}: GiftBoxDialogProps) => {
   const { setIsBoxEditing } = useEditBoxStore();
 
   return (
-    <Drawer open={isOpen} onClose={onClose}>
+    <Drawer open={isOpen}>
       <DrawerContent className="w-[375px]">
         <DrawerHeader>
           <p className="text-base font-medium text-center">채워진 선물 정보</p>
@@ -39,7 +43,7 @@ const GiftBoxDialog = ({ isOpen, onClose, box }: GiftBoxDialogProps) => {
             <Button
               className="w-[167px] h-[52px]"
               variant="secondary"
-              onClick={onClose}
+              onClick={handleEmptyButton}
             >
               박스 비우기
             </Button>
