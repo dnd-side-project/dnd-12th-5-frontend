@@ -1,5 +1,4 @@
-"use client";
-
+import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
@@ -9,6 +8,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { GiftBox } from "@/types/giftbag/types";
+import GiftBoxDialog from "../gift-upload/GiftBoxDialog";
 
 const DEFAULT_IMAGES = [
   "/img/gift_blank_square.svg",
@@ -26,53 +26,80 @@ interface GiftListProps {
 
 const GiftList = ({ value }: GiftListProps) => {
   const router = useRouter();
+  const [selectedBox, setSelectedBox] = useState<GiftBox | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const openDialog = (box: GiftBox) => {
+    setSelectedBox(box);
+    setIsDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+    setSelectedBox(null);
+  };
 
   return (
-    <TooltipProvider>
-      <div className="grid grid-cols-2 h-[396px] grid-rows-[repeat(6,_1fr)]">
-        {value.map((box, index) => {
-          const hasReason = box.reason.trim().length > 0;
-          const imageSet = hasReason
-            ? FILLED_IMAGES.withLetter
-            : FILLED_IMAGES.noLetter;
-          const imageSrc = box.filled
-            ? imageSet[index % 2]
-            : DEFAULT_IMAGES[index % 2];
+    <>
+      <TooltipProvider>
+        <div className="grid grid-cols-2 h-[396px] grid-rows-[repeat(6,_1fr)]">
+          {value.map((box, index) => {
+            const hasReason = box.reason.trim().length > 0;
+            const imageSet = hasReason
+              ? FILLED_IMAGES.withLetter
+              : FILLED_IMAGES.noLetter;
+            const imageSrc = box.filled
+              ? imageSet[index % 2]
+              : DEFAULT_IMAGES[index % 2];
 
-          return (
-            <div
-              key={index}
-              className="w-[130px] h-[130px] p-[10px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out"
-              onClick={() => router.push(`/gift-upload?index=${index}`)}
-            >
-              <Image
-                src={imageSrc}
-                alt={`gift-item-${index}`}
-                className="w-full h-full object-contain hover:opacity-[75%]"
-                width="110"
-                height="110"
-              />
-              {index === 0 && !box.filled && (
-                <Tooltip>
-                  <TooltipTrigger>
-                    <Image
-                      src={DEFAULT_IMAGES[index % 2]}
-                      alt={`gift-item-${index}`}
-                      className="w-full h-full object-contain hover:opacity-[75%]"
-                      width="110"
-                      height="110"
-                    />
-                  </TooltipTrigger>
-                  <TooltipContent side="top" align="center">
-                    사진으로 간단하게 <br /> 선물박스를 채워볼까요?
-                  </TooltipContent>
-                </Tooltip>
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </TooltipProvider>
+            return (
+              <div
+                key={index}
+                className="w-[130px] h-[130px] p-[10px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out"
+                onClick={() => {
+                  if (box.filled) {
+                    openDialog(box);
+                  } else {
+                    router.push(`/gift-upload?index=${index}`);
+                  }
+                }}
+              >
+                <Image
+                  src={imageSrc}
+                  alt={`gift-item-${index}`}
+                  className="w-full h-full object-contain hover:opacity-[75%]"
+                  width="110"
+                  height="110"
+                />
+                {index === 0 && !box.filled && (
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Image
+                        src={DEFAULT_IMAGES[index % 2]}
+                        alt={`gift-item-${index}`}
+                        className="w-full h-full object-contain hover:opacity-[75%]"
+                        width="110"
+                        height="110"
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent side="top" align="center">
+                      사진으로 간단하게 <br /> 선물박스를 채워볼까요?
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </TooltipProvider>
+      {selectedBox && (
+        <GiftBoxDialog
+          isOpen={isDialogOpen}
+          onClose={closeDialog}
+          box={selectedBox}
+        />
+      )}
+    </>
   );
 };
 
