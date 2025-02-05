@@ -40,9 +40,9 @@ const GiftBoxDialog = ({
               <p className="text-[15px]">{box.reason}</p>
             </div>
           </div>
-          <div className="flex gap-2">
+          <div className="grid grid-cols-2 gap-2">
             <Button
-              className="w-[167px] h-[52px]"
+              className="h-[52px]"
               variant="secondary"
               onClick={handleEmptyButton}
             >
@@ -50,7 +50,7 @@ const GiftBoxDialog = ({
             </Button>
             <Link href="/gift-upload">
               <Button
-                className="w-[167px] h-[52px]"
+                className="h-[52px]"
                 onClick={() => setIsBoxEditing(true)}
               >
                 수정하기
