@@ -94,16 +94,9 @@ const GiftList = ({ value }: GiftListProps) => {
                       router.push(`/gift-upload?index=${index}`);
                     }}
                   >
-                    <Image
-                      src={imageSrc}
-                      alt={`gift-item-${index}`}
-                      className="w-full h-full object-contain hover:opacity-[75%]"
-                      width="110"
-                      height="110"
-                    />
-                    {index === 0 && (
+                    {index === 0 ? (
                       <Tooltip>
-                        <TooltipTrigger>
+                        <TooltipTrigger asChild>
                           <Image
                             src={DEFAULT_IMAGES[index % 2]}
                             alt={`gift-item-${index}`}
@@ -112,10 +105,22 @@ const GiftList = ({ value }: GiftListProps) => {
                             height="110"
                           />
                         </TooltipTrigger>
-                        <TooltipContent side="bottom" align="center">
+                        <TooltipContent
+                          side="bottom"
+                          align="center"
+                          className="bg-white text-black font-nanum -mt-1"
+                        >
                           사진으로 간단하게 <br /> 선물박스를 채워볼까요?
                         </TooltipContent>
                       </Tooltip>
+                    ) : (
+                      <Image
+                        src={imageSrc}
+                        alt={`gift-item-${index}`}
+                        className="w-full h-full object-contain hover:opacity-[75%]"
+                        width="110"
+                        height="110"
+                      />
                     )}
                   </div>
                 )}
