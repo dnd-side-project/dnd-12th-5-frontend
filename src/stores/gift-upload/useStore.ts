@@ -20,7 +20,12 @@ interface GiftStore {
 export const useGiftStore = create<GiftStore>()(
   persist(
     (set) => ({
-      giftBoxes: Array(6).fill({ name: "", filled: false, reason: "" }),
+      giftBoxes: Array(6).fill({
+        name: "",
+        filled: false,
+        reason: "",
+        tagIndex: 0,
+      }),
 
       updateGiftBox: (index, data) =>
         set((state) => {

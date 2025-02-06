@@ -25,21 +25,19 @@ const InputReason = ({
   onTagChange,
   giftBoxIndex,
 }: InputReasonProps) => {
-  const { setSelectedTagIndex } = useTagIndexStore();
+  const { selectedTagIndex, setSelectedTagIndex } = useTagIndexStore();
   const [inputValue, setInputValue] = useState(value);
-  const [tagIndex, setTagIndex] = useState(0);
 
   const { giftBoxes } = useGiftStore();
   const [isClicked, setIsClicked] = useState(giftBoxes[giftBoxIndex].filled);
-
-  const selectedTagIndex = giftBoxes[giftBoxIndex].tagIndex || tagIndex;
+  const [tagIndex, setTagIndex] = useState(giftBoxes[giftBoxIndex].tagIndex);
 
   useEffect(() => {
     setInputValue(value);
   }, [value]);
 
   useEffect(() => {
-    setSelectedTagIndex(selectedTagIndex);
+    setSelectedTagIndex(tagIndex);
   }, [tagIndex]);
 
   const handleChipClick = (index: number) => {

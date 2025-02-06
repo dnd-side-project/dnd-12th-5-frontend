@@ -3,6 +3,6 @@ export interface GiftBox {
   reason: string;
   purchase_url?: string;
   tag?: string;
-  tagIndex?: number;
+  tagIndex: number;
   filled: boolean;
 }
