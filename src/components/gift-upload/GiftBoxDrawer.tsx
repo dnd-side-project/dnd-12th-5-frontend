@@ -37,7 +37,13 @@ const GiftBoxDrawer = ({ handleEmptyButton, box }: GiftBoxDrawerProps) => {
           </div>
           <div>
             <p className="text-xs text-gray-300">선물을 고른 이유</p>
-            <p className="text-[15px]">{box?.reason}</p>
+            {box?.reason ? (
+              <p className="text-[15px] font-medium">{box?.reason}</p>
+            ) : (
+              <p className="text-[15px] text-gray-300 font-medium">
+                입력된 내용이 없습니다.
+              </p>
+            )}
           </div>
         </div>
         <div className="grid grid-cols-2 gap-2">
