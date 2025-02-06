@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { Textarea } from "../ui/textarea";
 
 interface CustomTextAreaProps {
   placeholder: string;
   maxLength: number;
   text: string;
-  onTextChange: (text: string) => void;
+  onTextChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
 
 const CustomTextArea = ({
@@ -14,22 +13,17 @@ const CustomTextArea = ({
   text,
   onTextChange,
 }: CustomTextAreaProps) => {
-  const [inputValue, setInputValue] = useState(text);
-
   return (
     <div className="relative">
       <Textarea
         placeholder={placeholder}
         className="min-h-[135px] h-[135px] resize-none bg-white placeholder:text-gray-300"
-        value={inputValue || text}
+        value={text}
         maxLength={maxLength}
-        onChange={(e) => {
-          setInputValue(e.target.value);
-          onTextChange(e.target.value);
-        }}
+        onChange={(e) => onTextChange(e)}
       />
       <span className="absolute bottom-2 right-2 text-gray-400 text-[10px]">
-        {inputValue.length} / {maxLength}
+        {text.length} / {maxLength}
       </span>
     </div>
   );

@@ -13,20 +13,20 @@ import GiftIcon from "../../../public/img/gift_letter_square.svg";
 import { useGiftStore, useTagIndexStore } from "@/stores/gift-upload/useStore";
 
 interface InputReasonProps {
-  value?: string;
+  value: string;
   onReasonChange: (text: string) => void;
   onTagChange: (tag: string) => void;
   giftBoxIndex: number;
 }
 
 const InputReason = ({
-  value = "",
+  value,
   onReasonChange,
   onTagChange,
   giftBoxIndex,
 }: InputReasonProps) => {
   const { setSelectedTagIndex } = useTagIndexStore();
-  const [text, setText] = useState(value);
+  const [inputValue, setInputValue] = useState(value);
   const [tagIndex, setTagIndex] = useState(0);
 
   const { giftBoxes } = useGiftStore();
@@ -35,7 +35,7 @@ const InputReason = ({
   const selectedTagIndex = giftBoxes[giftBoxIndex].tagIndex || tagIndex;
 
   useEffect(() => {
-    setText(value);
+    setInputValue(value);
   }, [value]);
 
   useEffect(() => {
@@ -46,9 +46,15 @@ const InputReason = ({
     setTagIndex(index);
     setSelectedTagIndex(index);
     const newText = REASON_CHIP_MESSAGES[index];
-    setText(newText);
+    setInputValue(newText);
     onReasonChange(newText);
     onTagChange(REASON_CHIP_TEXTES[index]);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const newText = e.target.value;
+    setInputValue(newText);
+    onReasonChange(newText);
   };
 
   return (
@@ -87,8 +93,8 @@ const InputReason = ({
             </div>
             <CustomTextArea
               placeholder="직접 입력해주세요."
-              text={text}
-              onTextChange={onReasonChange}
+              text={inputValue}
+              onTextChange={handleInputChange}
               maxLength={GIFT_SELECT_REASON_MAX_LENGTH}
             />
           </>
