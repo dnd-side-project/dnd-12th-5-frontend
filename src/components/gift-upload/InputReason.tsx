@@ -88,7 +88,7 @@ const InputReason = ({
             <CustomTextArea
               placeholder="직접 입력해주세요."
               text={text}
-              onTextChange={(e) => onReasonChange(e.target.value)}
+              onTextChange={onReasonChange}
               maxLength={GIFT_SELECT_REASON_MAX_LENGTH}
             />
           </>
