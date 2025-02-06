@@ -69,11 +69,7 @@ const GiftList = ({ value }: GiftListProps) => {
                         key={index}
                         className="w-[130px] h-[130px] p-[10px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out"
                         onClick={() => {
-                          if (!box.filled) {
-                            router.push(`/gift-upload?index=${index}`);
-                          } else {
-                            setSelectedBox(box);
-                          }
+                          setSelectedBox(box);
                         }}
                       >
                         <Image
