@@ -49,6 +49,14 @@ const InputReason = ({
     if (giftBoxes[giftBoxIndex].filled) setIsClicked(true);
   }, [isBoxEditing]);
 
+  useEffect(() => {
+    if (isBoxEditing) {
+      const currentTagIndex = giftBoxes[giftBoxIndex].tagIndex;
+      setTagIndex(currentTagIndex);
+      setSelectedTagIndex(currentTagIndex);
+    }
+  }, [isBoxEditing, giftBoxIndex, giftBoxes]);
+
   const handleChipClick = (index: number) => {
     setTagIndex(index);
     setSelectedTagIndex(index);
