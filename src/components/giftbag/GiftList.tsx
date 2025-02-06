@@ -8,8 +8,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { GiftBox } from "@/types/giftbag/types";
-import GiftBoxDialog from "../gift-upload/GiftBoxDialog";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
+import GiftBoxDrawer from "../gift-upload/GiftBoxDrawer";
 
 const DEFAULT_IMAGES = [
   "/img/gift_blank_square.svg",
@@ -110,7 +110,7 @@ const GiftList = ({ value }: GiftListProps) => {
         </div>
       </TooltipProvider>
       {selectedBox && (
-        <GiftBoxDialog
+        <GiftBoxDrawer
           isOpen={isDialogOpen}
           handleEmptyButton={emptyGiftBox}
           box={selectedBox}

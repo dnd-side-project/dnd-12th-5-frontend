@@ -5,17 +5,17 @@ import LinkButton from "../common/LinkButton";
 import Link from "next/link";
 import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 
-interface GiftBoxDialogProps {
+interface GiftBoxDrawerProps {
   isOpen: boolean;
   handleEmptyButton: () => void;
   box: GiftBox;
 }
 
-const GiftBoxDialog = ({
+const GiftBoxDrawer = ({
   isOpen,
   handleEmptyButton,
   box,
-}: GiftBoxDialogProps) => {
+}: GiftBoxDrawerProps) => {
   const { setIsBoxEditing } = useEditBoxStore();
 
   return (
@@ -63,4 +63,4 @@ const GiftBoxDialog = ({
   );
 };
 
-export default GiftBoxDialog;
+export default GiftBoxDrawer;
