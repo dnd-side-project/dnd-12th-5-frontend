@@ -4,18 +4,13 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import ChipList from "./ChipList";
 import CustomTextArea from "./CustomTextArea";
-import { GIFT_SELECT_REASON_MAX_LENGTH } from "@/app/constants/constants";
+import {
+  GIFT_SELECT_REASON_MAX_LENGTH,
+  REASON_CHIP_MESSAGES,
+  REASON_CHIP_TEXTES,
+} from "@/app/constants/constants";
 import GiftIcon from "../../../public/img/gift_letter_square.svg";
 import { useGiftStore, useTagIndexStore } from "@/stores/gift-upload/useStore";
-
-const chipText = ["직접 입력", "취향 저격", "실용적", "특별한 의미", "트렌드"];
-const chipMessages = [
-  "",
-  "당신의 취향을 저격할 수 있는 선물일 것 같아요!",
-  "매일 쓰면서 저를 떠올려 주세요!",
-  "특별한 순간, 특별한 마음을 담아 준비했어요.",
-  "지금 가장 핫한 아이템으로 마음을 전합니다.",
-];
 
 interface InputReasonProps {
   value?: string;
@@ -50,10 +45,10 @@ const InputReason = ({
   const handleChipClick = (index: number) => {
     setTagIndex(index);
     setSelectedTagIndex(index);
-    const newText = chipMessages[index];
+    const newText = REASON_CHIP_MESSAGES[index];
     setText(newText);
     onReasonChange(newText);
-    onTagChange(chipText[index]);
+    onTagChange(REASON_CHIP_TEXTES[index]);
   };
 
   return (
@@ -84,7 +79,7 @@ const InputReason = ({
             >
               <div className="min-w-max">
                 <ChipList
-                  chipText={chipText}
+                  chipText={REASON_CHIP_TEXTES}
                   selectedChipIndex={selectedTagIndex}
                   onChipClick={handleChipClick}
                 />
