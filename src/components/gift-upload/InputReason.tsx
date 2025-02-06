@@ -10,7 +10,11 @@ import {
   REASON_CHIP_TEXTES,
 } from "@/app/constants/constants";
 import GiftIcon from "../../../public/img/gift_letter_square.svg";
-import { useGiftStore, useTagIndexStore } from "@/stores/gift-upload/useStore";
+import {
+  useEditBoxStore,
+  useGiftStore,
+  useTagIndexStore,
+} from "@/stores/gift-upload/useStore";
 
 interface InputReasonProps {
   value: string;
@@ -26,6 +30,7 @@ const InputReason = ({
   giftBoxIndex,
 }: InputReasonProps) => {
   const { selectedTagIndex, setSelectedTagIndex } = useTagIndexStore();
+  const { isBoxEditing } = useEditBoxStore();
   const [inputValue, setInputValue] = useState(value);
 
   const { giftBoxes } = useGiftStore();
@@ -39,6 +44,10 @@ const InputReason = ({
   useEffect(() => {
     setSelectedTagIndex(tagIndex);
   }, [tagIndex]);
+
+  useEffect(() => {
+    if (giftBoxes[giftBoxIndex].filled) setIsClicked(true);
+  }, [isBoxEditing]);
 
   const handleChipClick = (index: number) => {
     setTagIndex(index);
