@@ -91,9 +91,7 @@ const GiftList = ({ value }: GiftListProps) => {
                     key={index}
                     className="w-[130px] h-[130px] p-[10px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out"
                     onClick={() => {
-                      if (!box.filled) {
-                        router.push(`/gift-upload?index=${index}`);
-                      }
+                      router.push(`/gift-upload?index=${index}`);
                     }}
                   >
                     <Image
@@ -114,7 +112,7 @@ const GiftList = ({ value }: GiftListProps) => {
                             height="110"
                           />
                         </TooltipTrigger>
-                        <TooltipContent side="top" align="center">
+                        <TooltipContent side="bottom" align="center">
                           사진으로 간단하게 <br /> 선물박스를 채워볼까요?
                         </TooltipContent>
                       </Tooltip>
