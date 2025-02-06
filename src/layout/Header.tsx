@@ -30,6 +30,9 @@ const Header = () => {
     pathname ?? "",
   );
   const isHomePage = pathname === "/";
+  const isNotFoundPage = !Object.keys(pageTitles).some((key) =>
+    pathname?.startsWith(key),
+  );
 
   useEffect(() => {
     const title = searchParams?.get("title"); // 쿼리 파라미터에서 title 가져오기
@@ -65,8 +68,8 @@ const Header = () => {
     );
   }
 
-  // 온보딩 / 로그인 / 회원가입 페이지: 로고만
-  if (isAuthPage) {
+  // 온보딩 / 로그인 / 회원가입 페이지 / 404 페이지: 로고만
+  if (isAuthPage || isNotFoundPage) {
     return (
       <div className="h-[56px] flex bg-pink-100 items-center justify-center">
         <Image src={LogoIcon} alt="logo" />
