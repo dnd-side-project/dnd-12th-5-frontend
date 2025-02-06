@@ -25,12 +25,12 @@ const InputReason = ({
   onTagChange,
   giftBoxIndex,
 }: InputReasonProps) => {
-  const [isClicked, setIsClicked] = useState(false);
   const { setSelectedTagIndex } = useTagIndexStore();
   const [text, setText] = useState(value);
   const [tagIndex, setTagIndex] = useState(0);
 
   const { giftBoxes } = useGiftStore();
+  const [isClicked, setIsClicked] = useState(giftBoxes[giftBoxIndex].filled);
 
   const selectedTagIndex = giftBoxes[giftBoxIndex].tagIndex || tagIndex;
 
