@@ -10,6 +10,7 @@ import {
 import { GiftBox } from "@/types/giftbag/types";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 import GiftBoxDrawer from "../gift-upload/GiftBoxDrawer";
+import { Drawer, DrawerTrigger } from "../ui/drawer";
 
 const DEFAULT_IMAGES = [
   "/img/gift_blank_square.svg",
@@ -28,31 +29,21 @@ interface GiftListProps {
 const GiftList = ({ value }: GiftListProps) => {
   const router = useRouter();
   const [selectedBox, setSelectedBox] = useState<GiftBox | null>(null);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const { giftBoxes, updateGiftBox } = useGiftStore();
 
-  const openDialog = (box: GiftBox) => {
-    setSelectedBox(box);
-    setIsDialogOpen(true);
-  };
-
   const emptyGiftBox = () => {
-    if (selectedBox) {
-      const index = giftBoxes.findIndex((box) => box === selectedBox);
+    const index = giftBoxes.findIndex((box) => box === selectedBox);
 
-      if (index !== -1) {
-        updateGiftBox(index, {
-          name: "",
-          reason: "",
-          purchase_url: "",
-          tag: "",
-          filled: false,
-        });
-      }
+    if (index !== -1) {
+      updateGiftBox(index, {
+        name: "",
+        reason: "",
+        purchase_url: "",
+        tag: "",
+        filled: false,
+      });
     }
-
-    setIsDialogOpen(false);
     setSelectedBox(null);
   };
 
@@ -70,52 +61,75 @@ const GiftList = ({ value }: GiftListProps) => {
               : DEFAULT_IMAGES[index % 2];
 
             return (
-              <div
-                key={index}
-                className="w-[130px] h-[130px] p-[10px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out"
-                onClick={() => {
-                  if (box.filled) {
-                    openDialog(box);
-                  } else {
-                    router.push(`/gift-upload?index=${index}`);
-                  }
-                }}
-              >
-                <Image
-                  src={imageSrc}
-                  alt={`gift-item-${index}`}
-                  className="w-full h-full object-contain hover:opacity-[75%]"
-                  width="110"
-                  height="110"
-                />
-                {index === 0 && !box.filled && (
-                  <Tooltip>
-                    <TooltipTrigger>
-                      <Image
-                        src={DEFAULT_IMAGES[index % 2]}
-                        alt={`gift-item-${index}`}
-                        className="w-full h-full object-contain hover:opacity-[75%]"
-                        width="110"
-                        height="110"
-                      />
-                    </TooltipTrigger>
-                    <TooltipContent side="top" align="center">
-                      사진으로 간단하게 <br /> 선물박스를 채워볼까요?
-                    </TooltipContent>
-                  </Tooltip>
+              <Drawer key={index}>
+                {box.filled ? (
+                  <>
+                    <DrawerTrigger>
+                      <div
+                        key={index}
+                        className="w-[130px] h-[130px] p-[10px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out"
+                        onClick={() => {
+                          if (!box.filled) {
+                            router.push(`/gift-upload?index=${index}`);
+                          } else {
+                            setSelectedBox(box);
+                          }
+                        }}
+                      >
+                        <Image
+                          src={imageSrc}
+                          alt={`gift-item-${index}`}
+                          className="w-full h-full object-contain hover:opacity-[75%]"
+                          width="110"
+                          height="110"
+                        />
+                      </div>
+                    </DrawerTrigger>
+                    <GiftBoxDrawer
+                      handleEmptyButton={emptyGiftBox}
+                      box={selectedBox}
+                    />
+                  </>
+                ) : (
+                  <div
+                    key={index}
+                    className="w-[130px] h-[130px] p-[10px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out"
+                    onClick={() => {
+                      if (!box.filled) {
+                        router.push(`/gift-upload?index=${index}`);
+                      }
+                    }}
+                  >
+                    <Image
+                      src={imageSrc}
+                      alt={`gift-item-${index}`}
+                      className="w-full h-full object-contain hover:opacity-[75%]"
+                      width="110"
+                      height="110"
+                    />
+                    {index === 0 && (
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <Image
+                            src={DEFAULT_IMAGES[index % 2]}
+                            alt={`gift-item-${index}`}
+                            className="w-full h-full object-contain hover:opacity-[75%]"
+                            width="110"
+                            height="110"
+                          />
+                        </TooltipTrigger>
+                        <TooltipContent side="top" align="center">
+                          사진으로 간단하게 <br /> 선물박스를 채워볼까요?
+                        </TooltipContent>
+                      </Tooltip>
+                    )}
+                  </div>
                 )}
-              </div>
+              </Drawer>
             );
           })}
         </div>
       </TooltipProvider>
-      {selectedBox && (
-        <GiftBoxDrawer
-          isOpen={isDialogOpen}
-          handleEmptyButton={emptyGiftBox}
-          box={selectedBox}
-        />
-      )}
     </>
   );
 };
