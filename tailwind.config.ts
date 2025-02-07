@@ -7,6 +7,7 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/layout/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -111,16 +112,22 @@ const config: Config = {
           800: "#8c7100",
           900: "#6b5600",
         },
+        symantic: {
+          negative: "#ff564a",
+          notice: "#ff8f4a",
+          positive: "#00b466",
+          informative: "#4a9dff",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      fontFamily:{
-        pretendard:"var(--font-pretendard)",
-        nanum: "var(--font-nanum-square-round)"
-      }
+      fontFamily: {
+        pretendard: "var(--font-pretendard)",
+        nanum: "var(--font-nanum-square-round)",
+      },
     },
   },
   plugins: [tailwindAnimate],

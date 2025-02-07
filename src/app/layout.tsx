@@ -6,14 +6,14 @@ import { Suspense } from "react";
 import { Providers } from "./providers";
 
 const pretendard = localFont({
-  src: "./fonts/Pretendard.woff",
+  src: "./fonts/PretendardVariable.woff2",
   variable: "--font-pretendard",
-  weight: "100 900",
+  weight: "100 200 300 400 500 600 700 800 900",
 });
 const nanumSquareRound = localFont({
   src: "./fonts/NanumSquareRound.ttf",
   variable: "--font-nanum-square-round",
-  weight: "100 900",
+  weight: "100 200 300 400 500 600 700 800 900",
 });
 
 export const metadata: Metadata = {
@@ -28,15 +28,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* bg-gray-100 임시입니다 */}
       <body
-        className={`${pretendard.variable} ${nanumSquareRound.variable} antialiased bg-gray-100`}
+        className={`${pretendard.variable} ${nanumSquareRound.variable} antialiased bg-white`}
       >
-        <div className="w-[375px] mx-auto bg-white min-h-screen flex flex-col relative">
+        <div className="max-w-[430px] min-w-[375px] mx-auto bg-white min-h-screen flex flex-col relative">
           <Suspense>
             <Header />
             <Providers>
-              <div className="flex-grow">{children}</div>
+              <div
+                className="flex-grow"
+                style={{ height: "calc(100vh - 56px)" }}
+              >
+                {children}
+              </div>
             </Providers>
           </Suspense>
         </div>

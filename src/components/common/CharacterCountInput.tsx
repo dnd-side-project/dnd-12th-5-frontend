@@ -1,22 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 
 interface CharacterCountInputProps {
   placeholder: string;
   maxLength: number;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
 const CharacterCountInput = ({
   placeholder,
   maxLength,
+  value = "",
+  onChange,
 }: CharacterCountInputProps) => {
-  const [text, setText] = useState("");
+  const [text, setText] = useState(value);
+
+  useEffect(() => {
+    setText(value);
+  }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length <= maxLength) {
-      setText(e.target.value);
+    const newValue = e.target.value;
+    if (newValue.length <= maxLength) {
+      setText(newValue);
+      onChange?.(newValue);
     }
   };
 

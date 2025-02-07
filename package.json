@@ -11,8 +11,10 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.5",
     "@radix-ui/react-slot": "^1.1.1",
     "@tanstack/react-query": "^5.66.0",
+    "@radix-ui/react-tooltip": "^1.1.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "http-proxy-middleware": "^3.0.3",
@@ -21,7 +23,9 @@
     "react": "^18",
     "react-dom": "^18",
     "tailwind-merge": "^2.6.0",
+    "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
+    "vaul": "^1.1.2",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
@@ -36,7 +40,6 @@
     "lint-staged": "^15.4.3",
     "postcss": "^8",
     "prettier": "^3.4.2",
-    "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
   "lint-staged": {
