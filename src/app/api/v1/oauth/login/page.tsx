@@ -9,37 +9,39 @@ import { useMutation } from "@tanstack/react-query";
 const Page = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const code = searchParams ? searchParams.get("code") : null; // ✅ URL에서 code 가져오기
+  const code = searchParams ? searchParams.get("code") : null;
 
-  // ✅ 백엔드에 로그인 요청
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   const { mutate } = useMutation({
     mutationFn: async (code: string) => {
-      const response = await fetch("https://picktory.net/api/v1/oauth/login", {
+      const response = await fetch(`${API_URL}/api/v1/oauth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({ code }),
+        body: JSON.stringify({ code: code }),
       });
-
-      console.log(response);
 
       if (!response.ok) {
         throw new Error("로그인 실패");
       }
 
+      const text = await response.text();
       try {
-        const data = await response.json();
+        const data = JSON.parse(text);
         return data;
       } catch {
         throw new Error("응답 처리 실패");
       }
     },
     onSuccess: (data) => {
-      console.log("로그인 성공:", data);
-      localStorage.setItem("token", data.token); // ✅ 토큰 저장
-      router.push("/"); // ✅ 로그인 후 홈으로 리다이렉션
+      // 토큰 저장
+      localStorage.setItem("accessToken", data.result.accessToken);
+      localStorage.setItem("refreshToken", data.result.refreshToken);
+
+      router.push("/"); // 로그인 후 홈으로 리다이렉션
     },
     onError: (error) => {
       console.error("로그인 실패:", error);
@@ -48,12 +50,18 @@ const Page = () => {
 
   useEffect(() => {
     if (code) {
-      console.log("code", code);
-      mutate(code); // ✅ `code`가 있으면 백엔드로 전송
+      mutate(code);
     }
   }, [code, mutate]);
 
-  return <p>로그인 처리 중...</p>;
+  // 로딩 처리
+  return (
+    <div className="h-full w-full flex items-center justify-center">
+      <div className="w-[260px] h-[260px] flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-pink-300 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    </div>
+  );
 };
 
 export default Page;
