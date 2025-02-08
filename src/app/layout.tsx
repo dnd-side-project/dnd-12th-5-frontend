@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
-import Header from "@/layout/Header";
 import { Suspense } from "react";
+import localFont from "next/font/local";
+
+import "./globals.css";
+
+import Header from "@/layout/Header";
+import { Toaster } from "@/components/ui/toaster";
+
 import { Providers } from "./providers";
 
 const pretendard = localFont({
@@ -40,6 +44,7 @@ export default function RootLayout({
                 style={{ height: "calc(100vh - 56px)" }}
               >
                 {children}
+                <Toaster />
               </div>
             </Providers>
           </Suspense>

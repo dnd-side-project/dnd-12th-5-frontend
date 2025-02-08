@@ -5,6 +5,7 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
+import { useToast } from "@/hooks/use-toast";
 
 const Page = () => {
   const searchParams = useSearchParams();
@@ -12,6 +13,8 @@ const Page = () => {
   const code = searchParams ? searchParams.get("code") : null;
 
   const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+  const { toast } = useToast();
 
   const { mutate } = useMutation({
     mutationFn: async (code: string) => {
@@ -40,6 +43,11 @@ const Page = () => {
       // 토큰 저장
       localStorage.setItem("accessToken", data.result.accessToken);
       localStorage.setItem("refreshToken", data.result.refreshToken);
+
+      toast({
+        title: "로그인 성공",
+        description: "로그인 되었습니다.",
+      });
 
       router.push("/"); // 로그인 후 홈으로 리다이렉션
     },
