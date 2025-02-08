@@ -17,10 +17,12 @@ const Card = ({ img, size, isActive, onClick }: CardProps) => {
   const borderColorClasses = isActive ? "border-gray-700" : "border-gray-100";
 
   const imageSize = size === "small" ? 60 : 75;
+  const paddingSize =
+    size === "small" ? "px-[12px] py-[9px]" : "px-[14px] py-[11px]";
 
   return (
     <div
-      className={`flex justify-center border-[1.4px] items-center ${borderColorClasses} ${sizeClasses} rounded-xl box-border bg-gray-50 p-1 cursor-pointer active:border-gray-700 hover:border-gray-700`}
+      className={`flex justify-center border-[1.4px] items-center ${borderColorClasses} ${sizeClasses} rounded-xl box-border bg-gray-50 p-1 cursor-pointer ${paddingSize} active:border-gray-700 hover:border-gray-700`}
       onClick={onClick}
     >
       <Image

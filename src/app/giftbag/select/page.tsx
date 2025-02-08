@@ -13,8 +13,8 @@ const page = () => {
   ];
 
   return (
-    <div className="flex flex-col items-center gap-[45px] px-4">
-      <div className="flex flex-col items-center gap-5 p-4">
+    <div className="h-[calc(100%-52px)] flex flex-col items-center justify-center gap-[46px] px-4">
+      <div className="flex flex-col items-center gap-[34px]">
         <SelectedGiftBag />
         <p className="text-base font-nanum font-bold">
           어떤 보따리에 선물을 담아볼까요?
@@ -32,10 +32,8 @@ const page = () => {
           />
         </div>
       </div>
-      <Link href="/giftbag/name" className="w-full">
-        <Button size="lg" className="p-4">
-          선택 완료
-        </Button>
+      <Link href="/giftbag/name" className="w-full px-4 absolute bottom-4">
+        <Button size="lg">선택 완료</Button>
       </Link>
     </div>
   );

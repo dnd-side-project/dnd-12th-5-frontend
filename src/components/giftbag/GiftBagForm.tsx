@@ -18,7 +18,7 @@ const GiftBagForm = () => {
       />
       <Link
         href={`/giftbag/add?title=${encodeURIComponent(giftBagName)}`}
-        className="w-full"
+        className="w-full px-4 absolute bottom-4"
       >
         <Button size="lg" disabled={giftBagName.length === 0}>
           선물 채우러 가기

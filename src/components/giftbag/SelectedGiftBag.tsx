@@ -22,18 +22,18 @@ const SelectedGiftBag = () => {
 
   if (!hydrated) {
     return (
-      <div className="w-[260px] h-[260px] flex items-center justify-center mt-10">
+      <div className="w-[260px] h-[260px] flex items-center justify-center">
         <div className="w-12 h-12 border-4 border-pink-300 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
 
   return (
-    <div className="w-[260px] h-[260px] mt-10 py-4 px-7">
+    <div className="w-[206px] h-[224px]">
       <Image
         src={imagePaths[selectedBagIndex % imagePaths.length]}
         alt={`Gift Bag ${selectedBagIndex}`}
-        className="w-full h-full object-cover"
+        className="w-full h-full"
         width="200"
         height="200"
       />

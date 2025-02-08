@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import MyBottariList from "@/components/MyGiftBagList";
+import MyBottariList from "@/components/myGiftbag/MyGiftBagList";
 
 import MainGraphic from "/public/img/main_graphic.svg";
 import ArrowRightIcon from "/public/icons/arrow_right_small.svg";

@@ -89,7 +89,7 @@ const GiftList = ({ value }: GiftListProps) => {
                 ) : (
                   <div
                     key={index}
-                    className="w-[130px] h-[130px] p-[10px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out"
+                    className="w-[130px] h-[130px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out"
                     onClick={() => {
                       router.push(`/gift-upload?index=${index}`);
                     }}

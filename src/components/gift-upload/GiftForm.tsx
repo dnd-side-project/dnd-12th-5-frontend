@@ -70,30 +70,41 @@ const GiftForm = () => {
   };
 
   return (
-    <div className="flex flex-col p-4 gap-[50px]">
-      <UploadImageList onImagesChange={setImageCount} />
-      {isSubmitted && imageCount === 0 && (
-        <ErrorMessage message="필수 입력 정보입니다." />
-      )}
-      <CharacterCountInput
-        maxLength={GIFT_NAME_MAX_LENGTH}
-        value={giftName}
-        placeholder="선물명을 적어주세요"
-        onChange={setGiftName}
-      />
-      {isSubmitted && giftName.length === 0 && (
-        <ErrorMessage message="필수 입력 정보입니다." />
-      )}
-      <InputReason
-        value={giftReason}
-        onReasonChange={setGiftReason}
-        onTagChange={setGiftTag}
-        giftBoxIndex={index}
-      />
-      <InputLink value={giftLink} onChange={setGiftLink} />
-      <Button size="lg" onClick={handleSubmit}>
-        {isBoxEditing ? "수정완료" : "채우기 완료"}
-      </Button>
+    <div className="px-4 flex flex-col h-full">
+      <div className="flex flex-col flex-grow gap-[50px]  overflow-y-auto mt-[18px] pb-[70px]">
+        <div>
+          <div className="mb-[22px]">
+            <UploadImageList onImagesChange={setImageCount} />
+            {isSubmitted && imageCount === 0 && (
+              <ErrorMessage message="필수 입력 정보입니다." />
+            )}
+          </div>
+          <div>
+            <CharacterCountInput
+              maxLength={GIFT_NAME_MAX_LENGTH}
+              value={giftName}
+              placeholder="선물명을 적어주세요"
+              onChange={setGiftName}
+            />
+            {isSubmitted && giftName.length === 0 && (
+              <ErrorMessage message="필수 입력 정보입니다." />
+            )}
+          </div>
+        </div>
+        <InputReason
+          value={giftReason}
+          onReasonChange={setGiftReason}
+          onTagChange={setGiftTag}
+          giftBoxIndex={index}
+        />
+        <InputLink value={giftLink} onChange={setGiftLink} />
+      </div>
+
+      <div className="sticky bottom-4 w-full left-0">
+        <Button size="lg" onClick={handleSubmit}>
+          {isBoxEditing ? "수정 완료" : "채우기 완료"}
+        </Button>
+      </div>
     </div>
   );
 };

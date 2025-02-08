@@ -12,7 +12,7 @@ const MyGiftBagList = ({ bottariData }: MyGiftBagListtProps) => {
   const router = useRouter();
 
   const handleCardClick = (index: number) => {
-    router.push(`/my-bottari?index=${index}`);
+    router.push(`/giftbag/list?index=${index}`);
   };
 
   return (

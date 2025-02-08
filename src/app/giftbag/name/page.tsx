@@ -3,7 +3,7 @@ import GiftBagForm from "@/components/giftbag/GiftBagForm";
 
 const page = () => {
   return (
-    <div className="flex flex-col items-center gap-[45px] p-4">
+    <div className="h-[calc(100%-52px)] flex flex-col items-center justify-center gap-[40px] px-4">
       <div className="flex flex-col items-center gap-5">
         <SelectedGiftBag />
         <p className="text-base font-nanum font-bold">

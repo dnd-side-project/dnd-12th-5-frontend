@@ -32,7 +32,7 @@ const GiftBoxDrawer = ({ handleEmptyButton, box }: GiftBoxDrawerProps) => {
         <DrawerDescription />
         <p className="text-base font-medium text-center">채워진 선물 정보</p>
       </DrawerHeader>
-      <div className="flex flex-col gap-5 p-6">
+      <div className="flex flex-col gap-[22px] px-[18px] py-[22px]">
         {isConfirmingEmpty ? (
           <div className="flex flex-col items-center justify-center gap-5">
             <div className="mt-2 mb-5">
@@ -62,16 +62,18 @@ const GiftBoxDrawer = ({ handleEmptyButton, box }: GiftBoxDrawerProps) => {
         ) : (
           <>
             <div>
-              <div className="h-[88px] bg-pink-100 mb-4">이미지</div>
+              <div className="h-[88px] bg-pink-100 mb-2">이미지</div>
               <LinkButton linkUrl={box?.purchase_url || ""} />
             </div>
             <div className="flex flex-col gap-[27px]">
               <div>
-                <p className="text-xs text-gray-300">선물 이름</p>
+                <p className="text-xs text-gray-300 font-medium">선물 이름</p>
                 <p className="text-[15px]">{box?.name}</p>
               </div>
               <div>
-                <p className="text-xs text-gray-300">선물을 고른 이유</p>
+                <p className="text-xs text-gray-300 font-medium">
+                  선물을 고른 이유
+                </p>
                 {box?.reason ? (
                   <p className="text-[15px] font-medium">{box?.reason}</p>
                 ) : (
@@ -81,7 +83,7 @@ const GiftBoxDrawer = ({ handleEmptyButton, box }: GiftBoxDrawerProps) => {
                 )}
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-2 gap-[5px]">
               <Button
                 className="h-[52px]"
                 variant="secondary"
