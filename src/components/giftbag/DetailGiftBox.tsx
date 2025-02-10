@@ -76,6 +76,11 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
                               objectFit="cover"
                               className="rounded-t-[18px]"
                             />
+                            <div className="absolute bottom-2 right-2 w-10 h-[23px] rounded-[40px] px-[10px] py-1 bg-white/70 text-center">
+                              <p className="text-[10px] text-gray-600">
+                                {index + 1} / {gift.imageUrls.length}
+                              </p>
+                            </div>
                           </CarouselItem>
                         );
                       })}
