@@ -5,11 +5,12 @@ import Image from "next/image";
 interface CardProps {
   img: string;
   size: "small" | "medium";
+  type?: "design" | "image";
   isActive?: boolean;
   onClick: () => void;
 }
 
-const Card = ({ img, size, isActive, onClick }: CardProps) => {
+const Card = ({ img, size, type, isActive, onClick }: CardProps) => {
   const sizeClasses =
     size === "small"
       ? "w-[70px] h-[70px] min-w-[70px]"
@@ -18,11 +19,15 @@ const Card = ({ img, size, isActive, onClick }: CardProps) => {
 
   const imageSize = size === "small" ? 60 : 75;
   const paddingSize =
-    size === "small" ? "px-[12px] py-[9px]" : "px-[14px] py-[11px]";
+    type && type === "image"
+      ? ""
+      : size === "small"
+        ? "px-[12px] py-[9px]"
+        : "px-[14px] py-[11px]";
 
   return (
     <div
-      className={`flex justify-center border-[1.4px] items-center ${borderColorClasses} ${sizeClasses} rounded-xl box-border bg-gray-50 p-1 cursor-pointer ${paddingSize} active:border-gray-700 hover:border-gray-700`}
+      className={`flex justify-center border-[1.4px] items-center ${borderColorClasses} ${sizeClasses} rounded-xl box-border bg-gray-50 cursor-pointer ${paddingSize} active:border-gray-700 hover:border-gray-700`}
       onClick={onClick}
     >
       <Image
@@ -30,7 +35,7 @@ const Card = ({ img, size, isActive, onClick }: CardProps) => {
         alt="card"
         width={imageSize}
         height={imageSize}
-        className="object-cover rounded-xl"
+        className={`rounded-xl object-cover ${type && type === "image" ? "w-full h-full" : ""}`}
       />
     </div>
   );
