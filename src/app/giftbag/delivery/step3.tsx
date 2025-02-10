@@ -40,7 +40,7 @@ const Step3 = () => {
         </button>
         <button className="flex flex-col items-center gap-1">
           <Image src={LinkCopyButtonIcon} alt="linkCopy" />
-          <p className="text-gray-300text-xs">링크 복사</p>
+          <p className="text-gray-300 text-xs">링크 복사</p>
         </button>
       </section>
 
