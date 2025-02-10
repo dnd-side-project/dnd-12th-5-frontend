@@ -79,7 +79,7 @@ const GiftForm = () => {
               <ErrorMessage message="필수 입력 정보입니다." />
             )}
           </div>
-          <div>
+          <div className="flex flex-col px-1">
             <CharacterCountInput
               maxLength={GIFT_NAME_MAX_LENGTH}
               value={giftName}
