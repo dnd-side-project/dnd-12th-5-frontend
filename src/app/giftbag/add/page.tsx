@@ -15,7 +15,7 @@ const Page = () => {
     <div className="h-full bg-pink-50 px-4">
       <div className="h-[calc(100%-52px)] flex flex-col items-center justify-center">
         <div className="flex flex-col gap-7 w-[300px] items-center">
-          <Chip text={`채워진 선물박스 ${filledGiftCount}개`} />
+          <Chip text={`채워진 선물박스 ${filledGiftCount}개`} width="126px" />
           <GiftList value={giftBoxes} />
         </div>
         <div className="w-full px-4 absolute bottom-4">
