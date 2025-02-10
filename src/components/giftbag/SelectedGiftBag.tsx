@@ -21,7 +21,7 @@ const SelectedGiftBag = () => {
     setHydrated(true);
   }, []);
 
-  if (hydrated) {
+  if (!hydrated) {
     return <Loading width={"260px"} height={"260px"} />;
   }
 
