@@ -18,7 +18,7 @@ const ReciveGiftList = ({ giftList }: ReciveGiftListProps) => {
         return (
           <div
             key={index}
-            className="flex justify-center items-center w-[130px] h-[130px] p-[10px]"
+            className="flex justify-center items-center w-[130px] h-[130px]"
           >
             <Image
               src={`/img/gift_${letterType}_${shape}.svg`}
