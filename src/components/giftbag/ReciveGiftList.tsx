@@ -3,9 +3,10 @@ import Image from "next/image";
 
 interface ReciveGiftListProps {
   giftList: ReciveGiftBox[];
+  onClick: () => void;
 }
 
-const ReciveGiftList = ({ giftList }: ReciveGiftListProps) => {
+const ReciveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
   return (
     <div
       className={`grid grid-cols-2 grid-rows-[repeat(${giftList.length},_1fr)] max-h-[390px]`}
@@ -19,6 +20,7 @@ const ReciveGiftList = ({ giftList }: ReciveGiftListProps) => {
           <div
             key={index}
             className="flex justify-center items-center hover:opacity-[75%] cursor-pointer"
+            onClick={onClick}
           >
             <Image
               src={`/img/gift_${letterType}_${shape}.svg`}
