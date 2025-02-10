@@ -2,11 +2,11 @@
 
 import Image from "next/image";
 
-import giftBag_Red from "/public/img/giftbag_red.svg";
-import giftBag_Green from "/public/img/giftbag_green.svg";
-import giftBag_Blue from "/public/img/giftbag_blue.svg";
-import giftBag_Yellow from "/public/img/giftbag_yellow.svg";
-import giftBag_Pink from "/public/img/giftbag_pink.svg";
+import giftBag_Red from "/public/img/giftBag_red.svg";
+import giftBag_Green from "/public/img/giftBag_green.svg";
+import giftBag_Blue from "/public/img/giftBag_blue.svg";
+import giftBag_Yellow from "/public/img/giftBag_yellow.svg";
+import giftBag_Pink from "/public/img/giftBag_pink.svg";
 
 import { Button } from "@/components/ui/button";
 import MyGiftBagNameChip from "@/components/myGiftbag/MyGiftBagNameChip";
