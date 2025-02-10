@@ -114,7 +114,7 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
         {giftList.map((_, index) => {
           return (
             <p
-              className={`text-[30px] text-${currentCarousel === index + 1 ? "pink-500" : "gray-300"}`}
+              className={`text-[30px] ${currentCarousel === index + 1 ? "text-pink-500" : "text-gray-300"}`}
               key={index}
             >
               •
