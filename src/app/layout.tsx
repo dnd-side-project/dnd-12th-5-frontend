@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
-import Header from "@/layout/Header";
 import { Suspense } from "react";
+import localFont from "next/font/local";
+
+import "./globals.css";
+
+import Header from "@/layout/Header";
+import { Toaster } from "@/components/ui/toaster";
+
+import { Providers } from "./providers";
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
@@ -33,9 +38,15 @@ export default function RootLayout({
         <div className="max-w-[430px] min-w-[375px] mx-auto bg-white min-h-screen flex flex-col relative">
           <Suspense>
             <Header />
-            <div className="flex-grow" style={{ height: "calc(100vh - 56px)" }}>
-              {children}
-            </div>
+            <Providers>
+              <div
+                className="flex-grow"
+                style={{ height: "calc(100vh - 56px)" }}
+              >
+                {children}
+                <Toaster />
+              </div>
+            </Providers>
           </Suspense>
         </div>
       </body>
