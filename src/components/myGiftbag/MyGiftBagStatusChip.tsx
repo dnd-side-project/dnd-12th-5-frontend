@@ -4,7 +4,7 @@ import IndicatorIcon from "/public/icons/indicator.svg";
 
 const MyGiftBagStatusChip = ({
   status,
-  isRead,
+  isRead = true,
 }: {
   status: string;
   isRead: boolean;
@@ -24,10 +24,12 @@ const MyGiftBagStatusChip = ({
   }
 
   return (
-    <div className={`rounded-[6px] ${bgColor} py-[3px] px-[8px] flex gap-1`}>
+    <span
+      className={`rounded-[6px] ${bgColor} py-[3px] px-[8px] inline-flex gap-1`}
+    >
       <p className="text-[10px] font-medium">{text}</p>
       {!isRead && <Image src={IndicatorIcon} alt="IndicatorIcon" />}
-    </div>
+    </span>
   );
 };
 
