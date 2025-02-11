@@ -1,6 +1,6 @@
 interface LoadingProps {
-  width: number | string;
-  height: number | string;
+  width?: number | string;
+  height?: number | string;
 }
 
 const Loading = ({ width, height }: LoadingProps) => {
