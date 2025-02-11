@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import MyBottariList from "@/components/myGiftbag/MyGiftBagList";
+import MyCardList from "@/components/myGiftbag/MyCardList";
 
 import MainGraphic from "/public/img/main_graphic.svg";
 import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
@@ -31,7 +31,7 @@ export default function Home() {
           className="mx-[2px]"
           onClick={() => router.push(`/giftbag/select`)}
         >
-          <Image src={MainGraphic} alt="MainGraphic" />
+          <Image src={MainGraphic} alt="MainGraphic" width={394} height={346} />
         </button>
         <section className="flex flex-col gap-[14px] w-full">
           <div
@@ -41,7 +41,7 @@ export default function Home() {
             <p className="font-medium text-gray-900">내가 만든 보따리</p>
             <button className="flex justify-center items-center">
               <p className="text-gray-600 text-sm">더보기</p>
-              <Image src={ArrowRightIcon} alt="more" />
+              <Image src={ArrowRightIcon} alt="more" width={14} height={14} />
             </button>
           </div>
           <div
@@ -49,7 +49,7 @@ export default function Home() {
             style={{ scrollbarWidth: "none" }}
           >
             {isHave ? (
-              <MyBottariList bottariData={ImagePaths} />
+              <MyCardList data={ImagePaths} type="design" size="medium" />
             ) : (
               <p className="h-[88px] flex justify-center items-center text-gray-200">
                 아직 만들어진 보따리가 없습니다.

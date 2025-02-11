@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 import MyGiftBagCard from "@/components/myGiftbag/MyGiftBagCard";
 import CheckIcon from "/public/icons/check.svg";
@@ -14,7 +15,7 @@ const bottariData = [
     name: "보따리 1",
     design_type: "/img/giftBag_red.svg",
     isRead: true,
-    status: "답변 대기 중",
+    status: "PUBLISHED",
     created_at: "2025-02-07",
   },
   {
@@ -22,7 +23,7 @@ const bottariData = [
     name: "보따리 2",
     design_type: "/img/giftBag_pink.svg",
     isRead: true,
-    status: "답변 완료",
+    status: "COMPLETED",
     created_at: "2025-02-03",
   },
   {
@@ -30,7 +31,7 @@ const bottariData = [
     name: "보따리 3",
     design_type: "/img/giftBag_blue.svg",
     isRead: true,
-    status: "임시 저장",
+    status: "DRAFT",
     created_at: "2025-01-11",
   },
   {
@@ -38,7 +39,7 @@ const bottariData = [
     name: "보따리 4",
     design_type: "/img/giftBag_yellow.svg",
     isRead: false,
-    status: "답변 완료",
+    status: "COMPLETED",
     created_at: "2025-01-05",
   },
   {
@@ -46,7 +47,7 @@ const bottariData = [
     name: "보따리 5",
     design_type: "/img/giftBag_red.svg",
     isRead: true,
-    status: "답변 대기 중",
+    status: "PUBLISHED",
     created_at: "2025-02-07",
   },
   {
@@ -54,7 +55,7 @@ const bottariData = [
     name: "보따리 6",
     design_type: "/img/giftBag_pink.svg",
     isRead: true,
-    status: "답변 완료",
+    status: "COMPLETED",
     created_at: "2025-02-03",
   },
   {
@@ -62,7 +63,7 @@ const bottariData = [
     name: "보따리 7",
     design_type: "/img/giftBag_blue.svg",
     isRead: true,
-    status: "임시 저장",
+    status: "DRAFT",
     created_at: "2025-01-11",
   },
   {
@@ -70,7 +71,7 @@ const bottariData = [
     name: "보따리 8",
     design_type: "/img/giftBag_yellow.svg",
     isRead: false,
-    status: "답변 완료",
+    status: "COMPLETED",
     created_at: "2025-01-05",
   },
 ];
@@ -81,7 +82,7 @@ const Page = () => {
 
   // 임시 저장된 보따리 필터링
   const filteredBottariData = bottariData.filter(
-    (bottari) => !isChecked || bottari.status === "임시 저장",
+    (bottari) => !isChecked || bottari.status === "DRAFT",
   );
 
   return (
@@ -103,7 +104,7 @@ const Page = () => {
       </div>
       <button
         onClick={() => setIsEdit(!isEdit)}
-        className="absolute right-6 top-4 text-gray-500 text-[15px] font-medium"
+        className="absolute right-6 top-4 text-gray-500 text-[15px] font-medium z-50"
       >
         {isEdit ? "완료" : "편집"}
       </button>
@@ -112,15 +113,17 @@ const Page = () => {
         style={{ scrollbarWidth: "none" }}
       >
         {filteredBottariData.map((bottari) => (
-          <MyGiftBagCard
-            key={bottari.id}
-            isEdit={isEdit}
-            design_type={bottari.design_type}
-            is_read={bottari.isRead}
-            status={bottari.status}
-            name={bottari.name}
-            created_at={bottari.created_at}
-          />
+          <Link key={bottari.id} href={`/giftbag/detail/${bottari.id}`}>
+            <MyGiftBagCard
+              key={bottari.id}
+              isEdit={isEdit}
+              design_type={bottari.design_type}
+              is_read={bottari.isRead}
+              status={bottari.status}
+              name={bottari.name}
+              created_at={bottari.created_at}
+            />
+          </Link>
         ))}
       </section>
     </main>

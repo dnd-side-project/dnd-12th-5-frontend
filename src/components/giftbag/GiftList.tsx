@@ -67,7 +67,7 @@ const GiftList = ({ value }: GiftListProps) => {
                     <DrawerTrigger>
                       <div
                         key={index}
-                        className="w-[130px] h-[130px] p-[10px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out"
+                        className="w-[130px] h-[130px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out"
                         onClick={() => {
                           setSelectedBox(box);
                         }}
@@ -76,8 +76,8 @@ const GiftList = ({ value }: GiftListProps) => {
                           src={imageSrc}
                           alt={`gift-item-${index}`}
                           className="w-full h-full object-contain hover:opacity-[75%]"
-                          width="110"
-                          height="110"
+                          width="130"
+                          height="130"
                         />
                       </div>
                     </DrawerTrigger>
@@ -101,8 +101,8 @@ const GiftList = ({ value }: GiftListProps) => {
                             src={DEFAULT_IMAGES[index % 2]}
                             alt={`gift-item-${index}`}
                             className="w-full h-full object-contain hover:opacity-[75%]"
-                            width="110"
-                            height="110"
+                            width="130"
+                            height="130"
                           />
                         </TooltipTrigger>
                         <TooltipContent
@@ -118,8 +118,8 @@ const GiftList = ({ value }: GiftListProps) => {
                         src={imageSrc}
                         alt={`gift-item-${index}`}
                         className="w-full h-full object-contain hover:opacity-[75%]"
-                        width="110"
-                        height="110"
+                        width="130"
+                        height="130"
                       />
                     )}
                   </div>
