@@ -18,7 +18,7 @@ const MyCardList = ({ type, data, size }: MyCardListProps) => {
   };
 
   return (
-    <div className="flex gap-4 whitespace-nowrap">
+    <div className="flex gap-[12px] whitespace-nowrap">
       {data &&
         Array.from({ length: data.length }, (_, index) => (
           <Card
