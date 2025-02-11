@@ -17,3 +17,11 @@ export const REASON_CHIP_MESSAGES = [
   "특별한 순간, 특별한 마음을 담아 준비했어요.",
   "지금 가장 핫한 아이템으로 마음을 전합니다.",
 ];
+
+export const GIFT_ANSWER_CHIP_TEXTES = [
+  "갖고 싶던 선물이에요!",
+  "마음에 들어요!",
+  "이미 가지고 있어요",
+  "잘 모르겠어요",
+  "제 취향이 아니에요",
+];

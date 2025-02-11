@@ -11,18 +11,11 @@ import {
 import Image from "next/image";
 import Chip from "../common/Chip";
 import { useEffect, useState } from "react";
+import { GIFT_ANSWER_CHIP_TEXTES } from "@/app/constants/constants";
 
 interface DetailGiftBoxProps {
   giftList: ReciveGiftBox[];
 }
-
-const giftAnswer = [
-  "갖고 싶던 선물이에요!",
-  "마음에 들어요!",
-  "이미 가지고 있어요",
-  "잘 모르겠어요",
-  "제 취향이 아니에요",
-];
 
 const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
   const [selectedIndex, setSelectedIndex] = useState<{ [key: number]: number }>(
@@ -97,7 +90,7 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
                       선물에 대한 답변을 선택해주세요
                     </p>
                     <div className="flex gap-2 flex-wrap w-[272px]">
-                      {giftAnswer.map((answer, index) => {
+                      {GIFT_ANSWER_CHIP_TEXTES.map((answer, index) => {
                         return (
                           <Chip
                             key={index}
