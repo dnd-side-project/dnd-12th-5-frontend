@@ -12,6 +12,9 @@ import Image from "next/image";
 import Chip from "../common/Chip";
 import { useEffect, useRef, useState } from "react";
 import { GIFT_ANSWER_CHIP_TEXTES } from "@/app/constants/constants";
+import { Button } from "../ui/button";
+import LeftIcon from "../../../public/icons/arrow_left_large.svg";
+import RightIcon from "../../../public/icons/arrow_right_large.svg";
 
 interface DetailGiftBoxProps {
   giftList: ReciveGiftBox[];
@@ -57,6 +60,20 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
     }));
   };
 
+  const handlePrevImage = (giftIndex: number) => {
+    const api = imgCarouselApis.current[giftIndex];
+    if (api) {
+      api.scrollTo(currentImageIndexes[giftIndex] - 1);
+    }
+  };
+
+  const handleNextImage = (giftIndex: number) => {
+    const api = imgCarouselApis.current[giftIndex];
+    if (api) {
+      api.scrollTo(currentImageIndexes[giftIndex] + 1);
+    }
+  };
+
   return (
     <div className="flex flex-col justify-center items-center">
       <Carousel className="w-[380px] px-4" setApi={setCarouselApi}>
@@ -67,10 +84,7 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
                 key={giftIndex}
                 className="bg-white px-4 h-[540px] w-[304px] rounded-[18px] flex flex-col overflow-hidden"
               >
-                <div
-                  className="-mx-4"
-                  onPointerDown={(e) => e.stopPropagation()}
-                >
+                <div className="-mx-4">
                   <Carousel
                     setApi={(api) => {
                       imgCarouselApis.current[giftIndex] = api;
@@ -78,6 +92,7 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
                         handleImageCarouselSelect(giftIndex),
                       );
                     }}
+                    opts={{ watchDrag: false }}
                   >
                     <CarouselContent className="flex">
                       {gift.imageUrls.map((url, index) => {
@@ -91,12 +106,41 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
                               alt={`image_${index}`}
                               layout="fill"
                               objectFit="cover"
-                              className="rounded-t-[18px]"
+                              className="rounded-t-[18px] pointer-events-none"
                             />
                           </CarouselItem>
                         );
                       })}
                     </CarouselContent>
+                    {currentImageIndexes[giftIndex] !== 0 && (
+                      <Button
+                        className="absolute left-2 top-1/2 transform -translate-y-1/2 w-7 h-7 bg-gray-100 opacity-30 rounded-full hover:opacity-60
+                        "
+                        onClick={() => handlePrevImage(giftIndex)}
+                        disabled={currentImageIndexes[giftIndex] === 0}
+                        variant="ghost"
+                      >
+                        <Image src={LeftIcon} alt={"leftArrow"} width={"15"} />
+                      </Button>
+                    )}
+                    {currentImageIndexes[giftIndex] !==
+                      gift.imageUrls.length - 1 && (
+                      <Button
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 w-7 h-7 opacity-30 rounded-full bg-gray-100 hover:opacity-60"
+                        onClick={() => handleNextImage(giftIndex)}
+                        disabled={
+                          currentImageIndexes[giftIndex] ===
+                          gift.imageUrls.length - 1
+                        }
+                        variant="ghost"
+                      >
+                        <Image
+                          src={RightIcon}
+                          alt={"RightArrow"}
+                          width={"15"}
+                        />
+                      </Button>
+                    )}
                     <div className="absolute fixed bottom-2 right-2 w-10 h-[23px] rounded-[40px] px-[10px] py-1 bg-white/70 text-center">
                       <p className="text-[10px] text-gray-600 tracking-[2px]">
                         {currentImageIndexes[giftIndex] + 1}/
