@@ -38,7 +38,7 @@ const Step2 = () => {
       imageUrls: ["/img/KakaoTalk_20250210_165219597.jpg"],
     },
     {
-      name: "초콜릿",
+      name: "초콜릿초콜릿초콜릿초콜릿초콜릿초콜릿초콜",
       message: "달콤한 하루 보내!",
       imageUrls: [
         "/img/KakaoTalk_20250210_165219597.jpg",
