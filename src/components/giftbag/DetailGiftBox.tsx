@@ -15,7 +15,10 @@ import { GIFT_ANSWER_CHIP_TEXTES } from "@/app/constants/constants";
 import { Button } from "../ui/button";
 import LeftIcon from "../../../public/icons/arrow_left_large.svg";
 import RightIcon from "../../../public/icons/arrow_right_large.svg";
-import { useGiftAnswerStore } from "@/stores/giftbag/useStore";
+import {
+  useGiftAnswerStore,
+  useSelectedGiftBoxStore,
+} from "@/stores/giftbag/useStore";
 
 interface DetailGiftBoxProps {
   giftList: ReciveGiftBox[];
@@ -34,15 +37,22 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
   const [currentImageIndexes, setCurrentImageIndexes] = useState<{
     [key: number]: number;
   }>(giftList.reduce((acc, _, index) => ({ ...acc, [index]: 0 }), {}));
+  const { selectedGiftIndex } = useSelectedGiftBoxStore();
 
   useEffect(() => {
-    if (!carouselApi) return;
-    setCurrentCarousel(carouselApi.selectedScrollSnap() + 1);
-
-    carouselApi.on("select", () => {
+    if (carouselApi && selectedGiftIndex !== null) {
+      carouselApi.scrollTo(selectedGiftIndex, true);
+      setCurrentCarousel(selectedGiftIndex + 1);
+    } else if (carouselApi) {
       setCurrentCarousel(carouselApi.selectedScrollSnap() + 1);
-    });
-  }, [carouselApi]);
+    }
+
+    if (carouselApi) {
+      carouselApi.on("select", () => {
+        setCurrentCarousel(carouselApi.selectedScrollSnap() + 1);
+      });
+    }
+  }, [carouselApi, selectedGiftIndex]);
 
   const handleImageCarouselSelect = (giftIndex: number) => {
     const api = imgCarouselApis.current[giftIndex];

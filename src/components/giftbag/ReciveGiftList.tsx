@@ -1,4 +1,7 @@
-import { useGiftAnswerStore } from "@/stores/giftbag/useStore";
+import {
+  useGiftAnswerStore,
+  useSelectedGiftBoxStore,
+} from "@/stores/giftbag/useStore";
 import { ReciveGiftBox } from "@/types/giftbag/types";
 import Image from "next/image";
 
@@ -9,6 +12,7 @@ interface ReciveGiftListProps {
 
 const ReciveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
   const answers = useGiftAnswerStore((state) => state.answers);
+  const { setSelectedGiftIndex } = useSelectedGiftBoxStore();
 
   return (
     <div className="grid grid-cols-2 grid-rows-[repeat(auto-fill, minmax(130px, 1fr))] max-h-[390px] gap-4">
@@ -26,7 +30,10 @@ const ReciveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
           <div
             key={index}
             className="relative flex justify-center items-center hover:opacity-[75%] cursor-pointer w-[130px] h-[130px]"
-            onClick={onClick}
+            onClick={() => {
+              onClick();
+              setSelectedGiftIndex(index);
+            }}
           >
             <Image
               src={isAnswered ? backgroundImage : defaultGiftImage}
