@@ -27,3 +27,23 @@ export const useIsOpenDetailGiftBoxStore = create<IsOpenDetailGiftBoxStore>(
     setIsOpenDetailGiftBox: (isOpen) => set({ isOpenDetailGiftBox: isOpen }),
   }),
 );
+
+interface GiftAnswerStore {
+  answers: { [key: number]: number };
+  setAnswer: (giftIndex: number, answerIndex: number) => void;
+}
+
+export const useGiftAnswerStore = create(
+  persist<GiftAnswerStore>(
+    (set) => ({
+      answers: {},
+      setAnswer: (giftIndex, answerIndex) =>
+        set((state) => ({
+          answers: { ...state.answers, [giftIndex]: answerIndex },
+        })),
+    }),
+    {
+      name: "gift-answers",
+    },
+  ),
+);
