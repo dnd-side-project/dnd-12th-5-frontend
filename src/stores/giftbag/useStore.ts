@@ -47,3 +47,13 @@ export const useGiftAnswerStore = create(
     },
   ),
 );
+
+interface SelectedGiftBoxState {
+  selectedGiftIndex: number | null;
+  setSelectedGiftIndex: (index: number | null) => void;
+}
+
+export const useSelectedGiftBoxStore = create<SelectedGiftBoxState>((set) => ({
+  selectedGiftIndex: null,
+  setSelectedGiftIndex: (index) => set({ selectedGiftIndex: index }),
+}));
