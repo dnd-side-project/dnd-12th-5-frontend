@@ -4,7 +4,7 @@ import Card from "@/components/common/Card";
 import AnswerChip from "@/components/giftbag/AnswerChip";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import ArrowIcon from "../../../../../../public/icons/arrow_right_large.svg";
+import ArrowIcon from "../../../../../../public/icons/arrow_right_medium.svg";
 import Image from "next/image";
 
 const Page = () => {
