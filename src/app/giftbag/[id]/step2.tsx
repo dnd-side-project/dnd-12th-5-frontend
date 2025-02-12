@@ -4,15 +4,16 @@ import Chip from "@/components/giftbag/Chip";
 import DetailGiftBox from "@/components/giftbag/DetailGiftBox";
 import ReciveGiftList from "@/components/giftbag/ReciveGiftList";
 import { Button } from "@/components/ui/button";
+import { isOpenDetailGiftBoxStore } from "@/stores/giftbag/useStore";
 import { ReciveGiftBox } from "@/types/giftbag/types";
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
 //import { useState } from "react";
 
 const Step2 = () => {
   const router = useRouter();
   const { id } = useParams() as { id: string };
-  const [isOpenGiftBox, setIsOpenGiftBox] = useState(false);
+  const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
+    isOpenDetailGiftBoxStore();
 
   const handleOnclick = () => {
     //api 추가
@@ -22,7 +23,7 @@ const Step2 = () => {
   //const [isAnswered, setIsAnswered] = useState(true);
 
   const openGiftBox = () => {
-    setIsOpenGiftBox(true);
+    setIsOpenDetailGiftBox(true);
   };
 
   const gifts: ReciveGiftBox[] = [
@@ -50,7 +51,7 @@ const Step2 = () => {
 
   return (
     <div className="relative flex flex-col bg-pink-50 justify-center items-center py-[10px] px-4 h-full">
-      {isOpenGiftBox ? (
+      {isOpenDetailGiftBox ? (
         <>
           <DetailGiftBox giftList={gifts} />
         </>

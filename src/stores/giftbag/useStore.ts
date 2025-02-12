@@ -15,3 +15,15 @@ export const useStore = create<Store>()(
     { name: "selectedBag-storage" },
   ),
 );
+
+interface IsOpenDetailGiftBoxStore {
+  isOpenDetailGiftBox: boolean;
+  setIsOpenDetailGiftBox: (isOpen: boolean) => void;
+}
+
+export const isOpenDetailGiftBoxStore = create<IsOpenDetailGiftBoxStore>(
+  (set) => ({
+    isOpenDetailGiftBox: false,
+    setIsOpenDetailGiftBox: (isOpen) => set({ isOpenDetailGiftBox: isOpen }),
+  }),
+);
