@@ -21,7 +21,7 @@ interface IsOpenDetailGiftBoxStore {
   setIsOpenDetailGiftBox: (isOpen: boolean) => void;
 }
 
-export const isOpenDetailGiftBoxStore = create<IsOpenDetailGiftBoxStore>(
+export const useIsOpenDetailGiftBoxStore = create<IsOpenDetailGiftBoxStore>(
   (set) => ({
     isOpenDetailGiftBox: false,
     setIsOpenDetailGiftBox: (isOpen) => set({ isOpenDetailGiftBox: isOpen }),

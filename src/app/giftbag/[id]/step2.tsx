@@ -4,7 +4,7 @@ import Chip from "@/components/giftbag/Chip";
 import DetailGiftBox from "@/components/giftbag/DetailGiftBox";
 import ReciveGiftList from "@/components/giftbag/ReciveGiftList";
 import { Button } from "@/components/ui/button";
-import { isOpenDetailGiftBoxStore } from "@/stores/giftbag/useStore";
+import { useIsOpenDetailGiftBoxStore } from "@/stores/giftbag/useStore";
 import { ReciveGiftBox } from "@/types/giftbag/types";
 import { useParams, useRouter } from "next/navigation";
 //import { useState } from "react";
@@ -13,7 +13,7 @@ const Step2 = () => {
   const router = useRouter();
   const { id } = useParams() as { id: string };
   const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
-    isOpenDetailGiftBoxStore();
+    useIsOpenDetailGiftBoxStore();
 
   const handleOnclick = () => {
     //api 추가
