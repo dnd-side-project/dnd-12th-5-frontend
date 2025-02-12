@@ -10,7 +10,7 @@ import {
 } from "../ui/carousel";
 import Image from "next/image";
 import Chip from "../common/Chip";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { GIFT_ANSWER_CHIP_TEXTES } from "@/app/constants/constants";
 
 interface DetailGiftBoxProps {
@@ -33,6 +33,10 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
 
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [currentCarousel, setCurrentCarousel] = useState(0);
+  const imgCarouselApis = useRef<{ [key: number]: CarouselApi | null }>({});
+  const [currentImageIndexes, setCurrentImageIndexes] = useState<{
+    [key: number]: number;
+  }>(giftList.reduce((acc, _, index) => ({ ...acc, [index]: 0 }), {}));
 
   useEffect(() => {
     if (!carouselApi) return;
@@ -42,6 +46,16 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
       setCurrentCarousel(carouselApi.selectedScrollSnap() + 1);
     });
   }, [carouselApi]);
+
+  const handleImageCarouselSelect = (giftIndex: number) => {
+    const api = imgCarouselApis.current[giftIndex];
+    if (!api) return;
+
+    setCurrentImageIndexes((prev) => ({
+      ...prev,
+      [giftIndex]: api.selectedScrollSnap(),
+    }));
+  };
 
   return (
     <div className="flex flex-col justify-center items-center">
@@ -53,8 +67,18 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
                 key={giftIndex}
                 className="bg-white px-4 h-[540px] w-[304px] rounded-[18px] flex flex-col overflow-hidden"
               >
-                <div className="-mx-4">
-                  <Carousel>
+                <div
+                  className="-mx-4"
+                  onPointerDown={(e) => e.stopPropagation()}
+                >
+                  <Carousel
+                    setApi={(api) => {
+                      imgCarouselApis.current[giftIndex] = api;
+                      api?.on("select", () =>
+                        handleImageCarouselSelect(giftIndex),
+                      );
+                    }}
+                  >
                     <CarouselContent className="flex">
                       {gift.imageUrls.map((url, index) => {
                         return (
@@ -69,15 +93,16 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
                               objectFit="cover"
                               className="rounded-t-[18px]"
                             />
-                            <div className="absolute bottom-2 right-2 w-10 h-[23px] rounded-[40px] px-[10px] py-1 bg-white/70 text-center">
-                              <p className="text-[10px] text-gray-600 tracking-[2px]">
-                                {index + 1}/{gift.imageUrls.length}
-                              </p>
-                            </div>
                           </CarouselItem>
                         );
                       })}
                     </CarouselContent>
+                    <div className="absolute fixed bottom-2 right-2 w-10 h-[23px] rounded-[40px] px-[10px] py-1 bg-white/70 text-center">
+                      <p className="text-[10px] text-gray-600 tracking-[2px]">
+                        {currentImageIndexes[giftIndex] + 1}/
+                        {gift.imageUrls.length}
+                      </p>
+                    </div>
                   </Carousel>
                 </div>
                 <div className="flex flex-col gap-[22px] my-[18px]">
