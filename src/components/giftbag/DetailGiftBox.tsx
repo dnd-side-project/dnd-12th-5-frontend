@@ -15,23 +15,17 @@ import { GIFT_ANSWER_CHIP_TEXTES } from "@/app/constants/constants";
 import { Button } from "../ui/button";
 import LeftIcon from "../../../public/icons/arrow_left_large.svg";
 import RightIcon from "../../../public/icons/arrow_right_large.svg";
+import { useGiftAnswerStore } from "@/stores/giftbag/useStore";
 
 interface DetailGiftBoxProps {
   giftList: ReciveGiftBox[];
 }
 
 const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
-  const [selectedIndex, setSelectedIndex] = useState<{ [key: number]: number }>(
-    giftList.reduce(
-      (acc) => {
-        return acc;
-      },
-      {} as { [key: number]: number },
-    ),
-  );
+  const { answers, setAnswer } = useGiftAnswerStore();
 
   const handleSelectAnswer = (giftIndex: number, answerIndex: number) => {
-    setSelectedIndex({ [giftIndex]: answerIndex });
+    setAnswer(giftIndex, answerIndex);
   };
 
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
@@ -164,7 +158,7 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
                           <Chip
                             key={index}
                             text={answer}
-                            isActive={selectedIndex[giftIndex] === index}
+                            isActive={answers[giftIndex] === index}
                             onClick={() => handleSelectAnswer(giftIndex, index)}
                           />
                         );
