@@ -32,7 +32,7 @@ const Step1 = () => {
           너무 궁금해서 참을 수가 없어요!
         </p>
       </div>
-      <div className="absolute bottom-2 px-4 w-full">
+      <div className="absolute bottom-4 px-4 w-full">
         <Button size="lg" onClick={handleOnClick}>
           선물 보따리 풀어보기
         </Button>
