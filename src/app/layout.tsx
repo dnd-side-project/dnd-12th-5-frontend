@@ -1,14 +1,21 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
-import Header from "@/layout/Header";
 import { Suspense } from "react";
+import localFont from "next/font/local";
+
+import "./globals.css";
+
+import Header from "@/layout/Header";
+import { Toaster } from "@/components/ui/toaster";
+import PageTransition from "@/app/PageTransition";
+
+import { Providers } from "./providers";
 
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
   variable: "--font-pretendard",
   weight: "100 200 300 400 500 600 700 800 900",
 });
+
 const nanumSquareRound = localFont({
   src: "./fonts/NanumSquareRound.ttf",
   variable: "--font-nanum-square-round",
@@ -33,9 +40,17 @@ export default function RootLayout({
         <div className="max-w-[430px] min-w-[375px] mx-auto bg-white min-h-screen flex flex-col relative">
           <Suspense>
             <Header />
-            <div className="flex-grow" style={{ height: "calc(100vh - 56px)" }}>
-              {children}
-            </div>
+            <Providers>
+              <PageTransition>
+                <div
+                  className="flex-grow"
+                  style={{ height: "calc(100vh - 56px)" }}
+                >
+                  {children}
+                </div>
+              </PageTransition>
+              <Toaster />
+            </Providers>
           </Suspense>
         </div>
       </body>

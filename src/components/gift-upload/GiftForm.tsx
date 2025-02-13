@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import CharacterCountInput from "../common/CharacterCountInput";
 import { Button } from "../ui/button";
@@ -24,12 +24,16 @@ const GiftForm = () => {
   const { selectedTagIndex } = useTagIndexStore();
   const { isBoxEditing, setIsBoxEditing } = useEditBoxStore();
 
-  const existingGift = giftBoxes[index] || {
-    name: "",
-    message: "",
-    purchase_url: "",
-    tag: "",
-  };
+  const existingGift = useMemo(
+    () =>
+      giftBoxes[index] || {
+        name: "",
+        message: "",
+        purchase_url: "",
+        tag: "",
+      },
+    [giftBoxes, index]
+  );
 
   {
     /* 이미지쪽 추후 수정 필요 (api 달고) */
