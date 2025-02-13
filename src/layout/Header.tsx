@@ -101,7 +101,7 @@ const Header = () => {
   // 메인 페이지: 로고 + 설정 아이콘
   if (isHomePage) {
     return (
-      <div className="h-[56px] flex">
+      <div className="h-[56px] flex bg-white">
         <div className="flex items-center justify-between px-4 w-full">
           <button onClick={() => router.push("/")}>
             <Image src={LogoIcon} alt="logo" />
@@ -119,7 +119,7 @@ const Header = () => {
   // 온보딩 / 로그인 / 회원가입 페이지 / 404 페이지: 로고만
   if (isAuthPage || isNotFoundPage) {
     return (
-      <div className="h-[56px] flex items-center justify-center">
+      <div className="bg-white h-[56px] flex items-center justify-center">
         <Image src={LogoIcon} alt="logo" />
       </div>
     );
@@ -127,7 +127,7 @@ const Header = () => {
 
   // 나머지 페이지: 뒤로가기 버튼 + 중앙 페이지 타이틀
   return (
-    <div className="h-[56px] flex items-center px-4 sticky top-0 z-10">
+    <div className="bg-white h-[56px] flex items-center px-4 sticky top-0 z-10">
       {/* step이 3일 때만 뒤로가기 버튼 숨기기 */}
       {!(isStepThree && isGiftbagDeliveryPage) && (
         <button
