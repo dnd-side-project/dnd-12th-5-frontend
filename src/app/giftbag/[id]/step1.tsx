@@ -16,7 +16,7 @@ const Step1 = () => {
 
   return (
     <div className="h-full flex flex-col gap-[90px] jusfity-center items-center relative">
-      <div className="flex flex-col justify-center items-center mt-[90px] gap-8">
+      <div className="h-[calc(100%-68px)] flex flex-col justify-center items-center gap-8">
         <p className="text-lg font-bold font-nanum">
           똑똑! 선물 보따리 배달왔습니다!
         </p>
