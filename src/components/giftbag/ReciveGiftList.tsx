@@ -15,7 +15,7 @@ const ReciveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
   const { setSelectedGiftIndex } = useSelectedGiftBoxStore();
 
   return (
-    <div className="grid grid-cols-2 grid-rows-[repeat(auto-fill, minmax(130px, 1fr))] max-h-[390px] gap-4">
+    <div className="grid grid-cols-2 grid-rows-[repeat(auto-fill, minmax(130px, 1fr))] max-h-[390px] gap-[3px]">
       {giftList.map((gift, index) => {
         const isMessageEmpty = gift.message === "";
         const shape = index % 2 === 0 ? "square" : "round";
