@@ -5,7 +5,9 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useMutation } from "@tanstack/react-query";
+
 import { useToast } from "@/hooks/use-toast";
+import Loading from "@/components/common/Loading";
 
 const Page = () => {
   const searchParams = useSearchParams();
@@ -65,9 +67,7 @@ const Page = () => {
   // 로딩 처리
   return (
     <div className="h-full w-full flex items-center justify-center">
-      <div className="w-[260px] h-[260px] flex items-center justify-center">
-        <div className="w-12 h-12 border-4 border-pink-300 border-t-transparent rounded-full animate-spin"></div>
-      </div>
+      <Loading />
     </div>
   );
 };
