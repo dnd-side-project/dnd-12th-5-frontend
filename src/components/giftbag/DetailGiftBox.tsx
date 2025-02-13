@@ -1,24 +1,27 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { ReciveGiftBox } from "@/types/giftbag/types";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
 } from "../ui/carousel";
-import Image from "next/image";
-import Chip from "../common/Chip";
-import { useEffect, useRef, useState } from "react";
-import { GIFT_ANSWER_CHIP_TEXTES } from "@/app/constants/constants";
 import { Button } from "../ui/button";
-import LeftIcon from "../../../public/icons/arrow_left_large.svg";
-import RightIcon from "../../../public/icons/arrow_right_large.svg";
+import Chip from "../common/Chip";
+
+import LeftIcon from "/public/icons/arrow_left_large.svg";
+import RightIcon from "/public/icons/arrow_right_large.svg";
+
+import { GIFT_ANSWER_CHIP_TEXTES } from "@/app/constants/constants";
 import {
   useGiftAnswerStore,
   useSelectedGiftBoxStore,
 } from "@/stores/giftbag/useStore";
+import { ReciveGiftBox } from "@/types/giftbag/types";
 
 interface DetailGiftBoxProps {
   giftList: ReciveGiftBox[];
@@ -79,14 +82,14 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <Carousel className="w-[380px] px-4" setApi={setCarouselApi}>
-        <CarouselContent className="gap-[14px] p-4 pb-0">
+    <div className="h-full flex flex-col justify-center items-center">
+      <Carousel className="w-[304px]" setApi={setCarouselApi}>
+        <CarouselContent className="gap-[14px] pb-0">
           {giftList.map((gift, giftIndex) => {
             return (
               <CarouselItem
                 key={giftIndex}
-                className="bg-white px-4 h-[540px] w-[304px] rounded-[18px] flex flex-col overflow-hidden"
+                className="bg-white h-[540px] w-[304px] rounded-[18px] flex flex-col overflow-hidden"
               >
                 <div className="-mx-4">
                   <Carousel
@@ -181,15 +184,13 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
           })}
         </CarouselContent>
       </Carousel>
-      <div className="flex">
+      <div className="flex gap-2 mt-[17px]">
         {giftList.map((_, index) => {
           return (
             <p
-              className={`text-[30px] ${currentCarousel === index + 1 ? "text-pink-500" : "text-gray-300"}`}
+              className={`${currentCarousel === index + 1 ? "bg-pink-500" : "bg-gray-300"} w-[6px] h-[6px] rounded-full`}
               key={index}
-            >
-              •
-            </p>
+            ></p>
           );
         })}
       </div>
