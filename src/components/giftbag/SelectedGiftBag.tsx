@@ -21,8 +21,12 @@ const SelectedGiftBag = () => {
     setHydrated(true);
   }, []);
 
-  if (!hydrated) {
-    return <Loading width={"260px"} height={"260px"} />;
+  if (hydrated) {
+    return (
+      <div className="w-[260px] h-[260px] flex justify-center items-center">
+        <Loading />
+      </div>
+    );
   }
 
   return (
