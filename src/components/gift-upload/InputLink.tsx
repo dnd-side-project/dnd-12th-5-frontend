@@ -13,7 +13,7 @@ const InputLink = ({ value = "", onChange }: InputLinkProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 px-1">
       <div className="flex flex-col gap-[5px]">
         <p className="text-[15px]">선물 링크를 메모해보세요.</p>
         <p className="text-gray-400 text-xs">

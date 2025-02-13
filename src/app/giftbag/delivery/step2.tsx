@@ -21,7 +21,7 @@ const Step2 = ({ onNextStep }: Step2Props) => {
       <section className="flex flex-col items-center ">
         <div className="flex flex-col items-center">
           <div className="mb-[3px] ">
-            <p className="font-nanum text-[12px] font-bold">
+            <p className="font-nanum text-xs font-bold">
               {deliveryCharacterData[character || "포리"].bubbleText}
             </p>
           </div>
@@ -37,12 +37,12 @@ const Step2 = ({ onNextStep }: Step2Props) => {
             <p className="text-gray-400 font-bold font-nanum">
               {deliveryCharacterData[character || "포리"].jobTitle}
             </p>
-            <h1 className="text-gray-800 text-center text-[24px] font-bold font-nanum">
+            <h1 className="text-gray-800 text-center text-2xl font-bold font-nanum">
               {character || "포리"}
             </h1>
           </div>
           <div>
-            <p className="text-[12px] text-gray-700 font-medium text-center">
+            <p className="text-xs text-gray-700 font-medium text-center">
               {deliveryCharacterData[character || "포리"].description
                 .split("\n")
                 .map((line, index) => (

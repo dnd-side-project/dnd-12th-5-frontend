@@ -12,10 +12,12 @@ import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 // 정적 title 관리
 // 임시 매핑
 const pageTitles: { [key: string]: string } = {
+  "/giftbag/detail": "내가 만든 보따리",
   "/giftbag/list": "내가 만든 보따리",
   "/giftbag/delivery": "선물 보따리 배달하기",
   "/giftbag": "선물 보따리 만들기",
   "/gift-upload": "선물 박스 채우기",
+  "/setting/account": "연결된 계정",
   "/setting": "설정",
 };
 
@@ -27,8 +29,9 @@ const Header = () => {
   const [dynamicTitle, setDynamicTitle] = useState<string>(
     pageTitles[pathname ?? ""],
   );
-  const [isStepThree, setIsStepThree] = useState<boolean>(false);
+  const [isStepThree, setIsStepThree] = useState(false);
   const { setIsBoxEditing } = useEditBoxStore();
+  const [showSettingIcon, setShowSettingIcon] = useState(false);
 
   const isAuthPage = ["/onboarding", "/login", "/signup"].includes(
     pathname ?? "",
@@ -68,6 +71,17 @@ const Header = () => {
     }
   }, [pathname, searchParams]);
 
+  // 로컬 스토리지에서 토큰 확인
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (accessToken && refreshToken) {
+      setShowSettingIcon(true);
+    } else {
+      setShowSettingIcon(false);
+    }
+  }, []);
+
   // 메인 페이지: 로고 + 설정 아이콘
   if (isHomePage) {
     return (
@@ -76,9 +90,11 @@ const Header = () => {
           <button onClick={() => router.push("/")}>
             <Image src={LogoIcon} alt="logo" />
           </button>
-          <button onClick={() => router.push("/setting")}>
-            <Image src={SettingIcon} alt="setting" />
-          </button>
+          {showSettingIcon && (
+            <button onClick={() => router.push("/setting")}>
+              <Image src={SettingIcon} alt="setting" />
+            </button>
+          )}
         </div>
       </div>
     );
@@ -87,7 +103,7 @@ const Header = () => {
   // 온보딩 / 로그인 / 회원가입 페이지 / 404 페이지: 로고만
   if (isAuthPage || isNotFoundPage) {
     return (
-      <div className="h-[56px] flex  items-center justify-center">
+      <div className="h-[56px] flex items-center justify-center">
         <Image src={LogoIcon} alt="logo" />
       </div>
     );
@@ -95,7 +111,7 @@ const Header = () => {
 
   // 나머지 페이지: 뒤로가기 버튼 + 중앙 페이지 타이틀
   return (
-    <div className="h-[56px] flex items-center px-4 sticky top-0 z-50">
+    <div className="h-[56px] flex items-center px-4 sticky top-0 z-10">
       {/* step이 3일 때만 뒤로가기 버튼 숨기기 */}
       {!(isStepThree && isGiftbagDeliveryPage) && (
         <button

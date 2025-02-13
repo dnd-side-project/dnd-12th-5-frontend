@@ -20,7 +20,7 @@ const DeliveryCard = ({
     >
       <Image src={imageSrc} alt="delivery" width={140} height={140} />
       <div className="text-center text-gray-800">
-        <p className="text-[14px] font-nanum">{characterDescription}</p>
+        <p className="text-sm font-nanum">{characterDescription}</p>
         <p className="font-bold font-nanum">{characterTitle}</p>
       </div>
     </div>

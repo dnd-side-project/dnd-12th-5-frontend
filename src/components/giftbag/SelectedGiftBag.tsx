@@ -3,6 +3,7 @@
 import { useStore } from "@/stores/giftbag/useStore";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Loading from "../common/Loading";
 
 const SelectedGiftBag = () => {
   const { selectedBagIndex } = useStore();
@@ -21,11 +22,7 @@ const SelectedGiftBag = () => {
   }, []);
 
   if (!hydrated) {
-    return (
-      <div className="w-[260px] h-[260px] flex items-center justify-center">
-        <div className="w-12 h-12 border-4 border-pink-300 border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <Loading width={"260px"} height={"260px"} />;
   }
 
   return (

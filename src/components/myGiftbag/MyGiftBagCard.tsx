@@ -48,7 +48,7 @@ const MyGiftBagCard = ({
       />
       <div>
         <p className="text-[15px] font-medium text-center">{name}</p>
-        <p className="text-gray-400 text-[12px] font-medium text-center">
+        <p className="text-gray-400 text-xs font-medium text-center">
           {created_at}
         </p>
       </div>
