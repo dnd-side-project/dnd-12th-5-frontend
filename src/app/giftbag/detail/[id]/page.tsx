@@ -15,11 +15,11 @@ import CopyLinkButton from "@/components/myGiftbag/CopyLinkButton";
 
 // 임시 선물 데이터
 const ImagePaths = [
-  "/img/KakaoTalk_20250210_165219597.jpg",
-  "/img/KakaoTalk_20250210_165219597_01.jpg",
-  "/img/KakaoTalk_20250210_165219597_02.jpg",
-  "/img/KakaoTalk_20250210_165219597_03.jpg",
-  "/img/KakaoTalk_20250210_165219597_01.jpg",
+  "/img/gift_1.jpg",
+  "/img/gift_2.jpg",
+  "/img/gift_3_1.jpg",
+  "/img/gift_4.jpg",
+  "/img/gift_3_3.jpg",
 ];
 
 const Page = () => {

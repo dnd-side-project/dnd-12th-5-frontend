@@ -21,19 +21,19 @@ const SelectedGiftBag = () => {
     setHydrated(true);
   }, []);
 
-  if (!hydrated) {
-    return <Loading width={"260px"} height={"260px"} />;
-  }
-
   return (
-    <div className="w-[206px] h-[224px]">
-      <Image
-        src={imagePaths[selectedBagIndex % imagePaths.length]}
-        alt={`Gift Bag ${selectedBagIndex}`}
-        className="w-full h-full"
-        width="200"
-        height="200"
-      />
+    <div className="w-[206px] h-[224px] flex justify-center items-center">
+      {!hydrated ? (
+        <Loading />
+      ) : (
+        <Image
+          src={imagePaths[selectedBagIndex % imagePaths.length]}
+          alt={`Gift Bag ${selectedBagIndex}`}
+          className="w-full h-full"
+          width="200"
+          height="200"
+        />
+      )}
     </div>
   );
 };

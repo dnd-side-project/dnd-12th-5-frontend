@@ -16,7 +16,7 @@ const Step1 = () => {
 
   return (
     <div className="h-full flex flex-col gap-[90px] jusfity-center items-center relative">
-      <div className="flex flex-col justify-center items-center mt-[90px] gap-8">
+      <div className="h-[calc(100%-68px)] flex flex-col justify-center items-center gap-8">
         <p className="text-lg font-bold font-nanum">
           똑똑! 선물 보따리 배달왔습니다!
         </p>
@@ -32,7 +32,7 @@ const Step1 = () => {
           너무 궁금해서 참을 수가 없어요!
         </p>
       </div>
-      <div className="absolute bottom-2 px-4 w-full">
+      <div className="absolute bottom-4 px-4 w-full">
         <Button size="lg" onClick={handleOnClick}>
           선물 보따리 풀어보기
         </Button>
