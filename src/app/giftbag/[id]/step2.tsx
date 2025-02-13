@@ -32,23 +32,23 @@ const Step2 = () => {
 
   const gifts: ReciveGiftBox[] = [
     {
-      name: "향수",
+      name: "휴대폰 케이스",
       message: "",
-      imageUrls: ["/img/KakaoTalk_20250210_165219597.jpg"],
+      imageUrls: ["/img/gift_1.jpg"],
     },
     {
-      name: "초콜릿",
+      name: "텀블러",
       message:
         "글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글",
-      imageUrls: ["/img/KakaoTalk_20250210_165219597_01.jpg"],
+      imageUrls: ["/img/gift_2.jpg"],
     },
     {
-      name: "초콜릿초콜릿초콜릿초콜릿초콜릿초콜릿초콜",
+      name: "신발",
       message: "달콤한 하루 보내!",
       imageUrls: [
-        "/img/KakaoTalk_20250210_165219597_02.jpg",
-        "/img/KakaoTalk_20250213_152013296_01.jpg",
-        "/img/KakaoTalk_20250213_152013296.jpg",
+        "/img/gift_3_1.jpg",
+        "/img/gift_3_2.jpg",
+        "/img/gift_3_3.jpg",
       ],
     },
   ];
