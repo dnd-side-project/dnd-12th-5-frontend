@@ -2,8 +2,10 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 
 import MyCardList from "@/components/myGiftbag/MyCardList";
+import Loading from "@/components/common/Loading";
 
 import MainGraphic from "/public/img/main_graphic.svg";
 import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
@@ -21,7 +23,29 @@ const ImagePaths = [
 export default function Home() {
   const router = useRouter();
 
-  // 임시 상태
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // 로그인 상태 체크
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      router.push("/auth/login");
+    } else {
+      setIsLoggedIn(true);
+    }
+    setIsLoading(false);
+  }, [router]);
+
+  if (isLoading)
+    return (
+      <div className="h-full w-full flex justify-center items-center">
+        <Loading />
+      </div>
+    );
+
+  if (!isLoggedIn) return null;
+
   const isHave = false;
 
   return (
