@@ -4,7 +4,7 @@ import Card from "@/components/common/Card";
 import AnswerChip from "@/components/giftbag/AnswerChip";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import ArrowIcon from "../../../../../../public/icons/arrow_right_large.svg";
+import ArrowIcon from "../../../../../../public/icons/arrow_right_medium.svg";
 import Image from "next/image";
 
 const Page = () => {
@@ -13,63 +13,39 @@ const Page = () => {
   }
   const mockGiftData = [
     {
-      name: "향수",
+      name: "휴대폰 케이스",
       link: "https://www.naver.com/",
-      images: [
-        "/img/KakaoTalk_20250210_165219597.jpg",
-        "/img/KakaoTalk_20250210_165219597_01.jpg",
-        "/img/KakaoTalk_20250210_165219597_02.jpg",
-      ],
+      images: ["/img/gift_1.jpg"],
       message: "갖고 싶던 선물이에요!",
     },
     {
-      name: "초콜릿초콜릿초콜릿초콜릿초콜릿초콜릿초콜",
+      name: "텀블러텀블러텀블러텀블러텀블러텀블러텀블",
       link: "https://www.naver.com/",
-      images: [
-        "/img/KakaoTalk_20250210_165219597.jpg",
-        "/img/KakaoTalk_20250210_165219597_01.jpg",
-        "/img/KakaoTalk_20250210_165219597_02.jpg",
-      ],
+      images: ["/img/gift_2.jpg"],
       message: "갖고 싶던 선물이에요!",
     },
     {
-      name: "티비",
+      name: "신발",
       link: "",
-      images: [
-        "/img/KakaoTalk_20250210_165219597.jpg",
-        "/img/KakaoTalk_20250210_165219597_01.jpg",
-        "/img/KakaoTalk_20250210_165219597_02.jpg",
-      ],
+      images: ["/img/gift_3_1.jpg", "/img/gift_3_2.jpg", "/img/gift_3_3.jpg"],
       message: "마음에 들어요!",
     },
     {
-      name: "냉장고",
+      name: "휴대폰 케이스",
       link: "https://www.naver.com/",
-      images: [
-        "/img/KakaoTalk_20250210_165219597.jpg",
-        "/img/KakaoTalk_20250210_165219597_01.jpg",
-        "/img/KakaoTalk_20250210_165219597_02.jpg",
-      ],
+      images: ["/img/gift_1.jpg"],
       message: "제 취향이 아니에요",
     },
     {
       name: "신발",
-      link: "https://www.naver.com/",
-      images: [
-        "/img/KakaoTalk_20250210_165219597.jpg",
-        "/img/KakaoTalk_20250210_165219597_01.jpg",
-        "/img/KakaoTalk_20250210_165219597_02.jpg",
-      ],
+      link: "",
+      images: ["/img/gift_3_1.jpg", "/img/gift_3_2.jpg", "/img/gift_3_3.jpg"],
       message: "이미 가지고 있어요",
     },
     {
-      name: "노트북",
+      name: "텀블러텀블러텀블러텀블러텀블러텀블러텀블",
       link: "https://www.naver.com/",
-      images: [
-        "/img/KakaoTalk_20250210_165219597.jpg",
-        "/img/KakaoTalk_20250210_165219597_01.jpg",
-        "/img/KakaoTalk_20250210_165219597_02.jpg",
-      ],
+      images: ["/img/gift_2.jpg"],
       message: "잘 모르겠어요",
     },
   ];

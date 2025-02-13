@@ -10,7 +10,7 @@ const Page = () => {
   const step = searchParams ? searchParams.get("step") : null;
 
   return (
-    <div className="h-full px-4 relative">
+    <div className={`h-full relative ${step === "2" && "bg-pink-50 "}`}>
       {step === "1" && <Step1 />}
       {step === "2" && <Step2 />}
       {step === "3" && <Step3 />}

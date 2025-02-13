@@ -1,60 +1,106 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { ReciveGiftBox } from "@/types/giftbag/types";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
 } from "../ui/carousel";
-import Image from "next/image";
+import { Button } from "../ui/button";
 import Chip from "../common/Chip";
-import { useEffect, useState } from "react";
+
+import LeftIcon from "/public/icons/arrow_left_large.svg";
+import RightIcon from "/public/icons/arrow_right_large.svg";
+
 import { GIFT_ANSWER_CHIP_TEXTES } from "@/app/constants/constants";
+import {
+  useGiftAnswerStore,
+  useSelectedGiftBoxStore,
+} from "@/stores/giftbag/useStore";
+import { ReciveGiftBox } from "@/types/giftbag/types";
 
 interface DetailGiftBoxProps {
   giftList: ReciveGiftBox[];
 }
 
 const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
-  const [selectedIndex, setSelectedIndex] = useState<{ [key: number]: number }>(
-    giftList.reduce(
-      (acc) => {
-        return acc;
-      },
-      {} as { [key: number]: number },
-    ),
-  );
+  const { answers, setAnswer } = useGiftAnswerStore();
 
   const handleSelectAnswer = (giftIndex: number, answerIndex: number) => {
-    setSelectedIndex({ [giftIndex]: answerIndex });
+    setAnswer(giftIndex, answerIndex);
   };
 
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [currentCarousel, setCurrentCarousel] = useState(0);
+  const imgCarouselApis = useRef<{ [key: number]: CarouselApi | null }>({});
+  const [currentImageIndexes, setCurrentImageIndexes] = useState<{
+    [key: number]: number;
+  }>(giftList.reduce((acc, _, index) => ({ ...acc, [index]: 0 }), {}));
+  const { selectedGiftIndex } = useSelectedGiftBoxStore();
 
   useEffect(() => {
-    if (!carouselApi) return;
-    setCurrentCarousel(carouselApi.selectedScrollSnap() + 1);
-
-    carouselApi.on("select", () => {
+    if (carouselApi && selectedGiftIndex !== null) {
+      carouselApi.scrollTo(selectedGiftIndex, true);
+      setCurrentCarousel(selectedGiftIndex + 1);
+    } else if (carouselApi) {
       setCurrentCarousel(carouselApi.selectedScrollSnap() + 1);
-    });
-  }, [carouselApi]);
+    }
+
+    if (carouselApi) {
+      carouselApi.on("select", () => {
+        setCurrentCarousel(carouselApi.selectedScrollSnap() + 1);
+      });
+    }
+  }, [carouselApi, selectedGiftIndex]);
+
+  const handleImageCarouselSelect = (giftIndex: number) => {
+    const api = imgCarouselApis.current[giftIndex];
+    if (!api) return;
+
+    setCurrentImageIndexes((prev) => ({
+      ...prev,
+      [giftIndex]: api.selectedScrollSnap(),
+    }));
+  };
+
+  const handlePrevImage = (giftIndex: number) => {
+    const api = imgCarouselApis.current[giftIndex];
+    if (api) {
+      api.scrollTo(currentImageIndexes[giftIndex] - 1);
+    }
+  };
+
+  const handleNextImage = (giftIndex: number) => {
+    const api = imgCarouselApis.current[giftIndex];
+    if (api) {
+      api.scrollTo(currentImageIndexes[giftIndex] + 1);
+    }
+  };
 
   return (
-    <div className="flex flex-col justify-center items-center">
-      <Carousel className="w-[380px] px-4" setApi={setCarouselApi}>
-        <CarouselContent className="gap-[14px] p-4 pb-0">
+    <div className="h-full flex flex-col justify-center items-center">
+      <Carousel className="w-[304px]" setApi={setCarouselApi}>
+        <CarouselContent className="gap-[14px] pb-0">
           {giftList.map((gift, giftIndex) => {
             return (
               <CarouselItem
                 key={giftIndex}
-                className="bg-white px-4 h-[540px] w-[304px] rounded-[18px] flex flex-col overflow-hidden"
+                className="bg-white h-[540px] w-[304px] rounded-[18px] flex flex-col overflow-hidden"
               >
                 <div className="-mx-4">
-                  <Carousel>
+                  <Carousel
+                    setApi={(api) => {
+                      imgCarouselApis.current[giftIndex] = api;
+                      api?.on("select", () =>
+                        handleImageCarouselSelect(giftIndex),
+                      );
+                    }}
+                    opts={{ watchDrag: false }}
+                  >
                     <CarouselContent className="flex">
                       {gift.imageUrls.map((url, index) => {
                         return (
@@ -67,17 +113,47 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
                               alt={`image_${index}`}
                               layout="fill"
                               objectFit="cover"
-                              className="rounded-t-[18px]"
+                              className="rounded-t-[18px] pointer-events-none"
                             />
-                            <div className="absolute bottom-2 right-2 w-10 h-[23px] rounded-[40px] px-[10px] py-1 bg-white/70 text-center">
-                              <p className="text-[10px] text-gray-600 tracking-[2px]">
-                                {index + 1}/{gift.imageUrls.length}
-                              </p>
-                            </div>
                           </CarouselItem>
                         );
                       })}
                     </CarouselContent>
+                    {currentImageIndexes[giftIndex] !== 0 && (
+                      <Button
+                        className="absolute left-2 top-1/2 transform -translate-y-1/2 w-7 h-7 bg-gray-100 opacity-30 rounded-full hover:opacity-60
+                        "
+                        onClick={() => handlePrevImage(giftIndex)}
+                        disabled={currentImageIndexes[giftIndex] === 0}
+                        variant="ghost"
+                      >
+                        <Image src={LeftIcon} alt={"leftArrow"} width={"15"} />
+                      </Button>
+                    )}
+                    {currentImageIndexes[giftIndex] !==
+                      gift.imageUrls.length - 1 && (
+                      <Button
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 w-7 h-7 opacity-30 rounded-full bg-gray-100 hover:opacity-60"
+                        onClick={() => handleNextImage(giftIndex)}
+                        disabled={
+                          currentImageIndexes[giftIndex] ===
+                          gift.imageUrls.length - 1
+                        }
+                        variant="ghost"
+                      >
+                        <Image
+                          src={RightIcon}
+                          alt={"RightArrow"}
+                          width={"15"}
+                        />
+                      </Button>
+                    )}
+                    <div className="absolute fixed bottom-2 right-2 w-10 h-[23px] rounded-[40px] px-[10px] py-1 bg-white/70 text-center">
+                      <p className="text-[10px] text-gray-600 tracking-[2px]">
+                        {currentImageIndexes[giftIndex] + 1}/
+                        {gift.imageUrls.length}
+                      </p>
+                    </div>
                   </Carousel>
                 </div>
                 <div className="flex flex-col gap-[22px] my-[18px]">
@@ -95,7 +171,7 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
                           <Chip
                             key={index}
                             text={answer}
-                            isActive={selectedIndex[giftIndex] === index}
+                            isActive={answers[giftIndex] === index}
                             onClick={() => handleSelectAnswer(giftIndex, index)}
                           />
                         );
@@ -108,15 +184,13 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
           })}
         </CarouselContent>
       </Carousel>
-      <div className="flex">
+      <div className="flex gap-2 mt-[17px]">
         {giftList.map((_, index) => {
           return (
             <p
-              className={`text-[30px] ${currentCarousel === index + 1 ? "text-pink-500" : "text-gray-300"}`}
+              className={`${currentCarousel === index + 1 ? "bg-pink-500" : "bg-gray-300"} w-[6px] h-[6px] rounded-full`}
               key={index}
-            >
-              •
-            </p>
+            ></p>
           );
         })}
       </div>
