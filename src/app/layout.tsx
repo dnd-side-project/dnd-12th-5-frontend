@@ -6,6 +6,7 @@ import "./globals.css";
 
 import Header from "@/layout/Header";
 import { Toaster } from "@/components/ui/toaster";
+import PageTransition from "@/app/PageTransition";
 
 import { Providers } from "./providers";
 
@@ -14,6 +15,7 @@ const pretendard = localFont({
   variable: "--font-pretendard",
   weight: "100 200 300 400 500 600 700 800 900",
 });
+
 const nanumSquareRound = localFont({
   src: "./fonts/NanumSquareRound.ttf",
   variable: "--font-nanum-square-round",
@@ -39,13 +41,15 @@ export default function RootLayout({
           <Suspense>
             <Header />
             <Providers>
-              <div
-                className="flex-grow"
-                style={{ height: "calc(100vh - 56px)" }}
-              >
-                {children}
-                <Toaster />
-              </div>
+              <PageTransition>
+                <div
+                  className="flex-grow"
+                  style={{ height: "calc(100vh - 56px)" }}
+                >
+                  {children}
+                </div>
+              </PageTransition>
+              <Toaster />
             </Providers>
           </Suspense>
         </div>
