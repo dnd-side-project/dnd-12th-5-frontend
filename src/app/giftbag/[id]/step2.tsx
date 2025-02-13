@@ -1,5 +1,8 @@
 "use client";
 
+import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
 import Chip from "@/components/giftbag/Chip";
 import DetailGiftBox from "@/components/giftbag/DetailGiftBox";
 import ReciveGiftList from "@/components/giftbag/ReciveGiftList";
@@ -9,8 +12,6 @@ import {
   useIsOpenDetailGiftBoxStore,
 } from "@/stores/giftbag/useStore";
 import { ReciveGiftBox } from "@/types/giftbag/types";
-import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
 const Step2 = () => {
   const router = useRouter();
@@ -39,15 +40,15 @@ const Step2 = () => {
       name: "초콜릿",
       message:
         "글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글",
-      imageUrls: ["/img/KakaoTalk_20250210_165219597.jpg"],
+      imageUrls: ["/img/KakaoTalk_20250210_165219597_01.jpg"],
     },
     {
       name: "초콜릿초콜릿초콜릿초콜릿초콜릿초콜릿초콜",
       message: "달콤한 하루 보내!",
       imageUrls: [
-        "/img/KakaoTalk_20250210_165219597.jpg",
-        "/img/KakaoTalk_20250210_165219597_01.jpg",
         "/img/KakaoTalk_20250210_165219597_02.jpg",
+        "/img/KakaoTalk_20250213_152013296_01.jpg",
+        "/img/KakaoTalk_20250213_152013296.jpg",
       ],
     },
   ];
@@ -64,17 +65,15 @@ const Step2 = () => {
   }, [answers]);
 
   return (
-    <div className="relative flex flex-col bg-pink-50 justify-center items-center py-[10px] px-4 h-full">
+    <div className="relative bg-pink-50 overflow-hidden h-full">
       {isOpenDetailGiftBox ? (
-        <>
-          <DetailGiftBox giftList={gifts} />
-        </>
+        <DetailGiftBox giftList={gifts} />
       ) : (
-        <>
+        <div className="h-[calc(100%-113px)] flex flex-col justify-center items-center mt-[45px]">
           <div className="absolute top-4">
             <Chip text={chipText} width="176px" />
           </div>
-          <div className="-mt-[120px]">
+          <div>
             <ReciveGiftList giftList={gifts} onClick={openGiftBox} />
           </div>
           <div className="absolute bottom-4 w-full px-4">
@@ -82,7 +81,7 @@ const Step2 = () => {
               답변 전송하기
             </Button>
           </div>
-        </>
+        </div>
       )}
     </div>
   );
