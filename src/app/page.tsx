@@ -32,6 +32,7 @@ export default function Home() {
             width={394}
             height={346}
             loading="eager"
+            className="hover:opacity-70"
           />
         </Link>
         <section className="flex flex-col gap-[14px] w-full">
