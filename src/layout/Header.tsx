@@ -95,7 +95,11 @@ const Header = () => {
   const isReceiveGiftbagPage =
     pathname?.startsWith("/giftbag/") &&
     !pathname.includes("list") &&
-    !pathname.includes("detail");
+    !pathname.includes("detail") &&
+    !pathname.includes("add") &&
+    !pathname.includes("delivery") &&
+    !pathname.includes("name") &&
+    !pathname.includes("select");
   /*const isReceiveGiftbagStep1or2 =
     isReceiveGiftbagPage && (step === "1" || step === "2");
   const isReceiveGiftbagStep3 = isReceiveGiftbagPage && step === "3";*/
