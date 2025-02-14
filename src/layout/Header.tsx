@@ -65,14 +65,20 @@ const Header = () => {
     if (title) {
       setDynamicTitle(title);
     } else {
-      // pageTitles의 모든 경로에 대해 pathname이 포함되는지 확인
-      const matchedTitle = Object.keys(pageTitles).find(
-        (key) => pathname && pathname.includes(key),
-      );
-      if (matchedTitle) {
-        setDynamicTitle(pageTitles[matchedTitle]);
+      // 동적 경로 처리
+      if (pathname?.match(/^\/giftbag\/detail\/[^/]+\/answer$/)) {
+        setDynamicTitle("보따리 결과");
       } else {
-        setDynamicTitle("PICKTORY"); // 기본 제목 설정
+        // 정적 매핑 확인
+        const matchedTitle = Object.keys(pageTitles).find(
+          (key) => pathname && pathname.includes(key),
+        );
+
+        if (matchedTitle) {
+          setDynamicTitle(pageTitles[matchedTitle]);
+        } else {
+          setDynamicTitle("PICKTORY"); // 기본 제목 설정
+        }
       }
     }
   }, [pathname, searchParams]);
