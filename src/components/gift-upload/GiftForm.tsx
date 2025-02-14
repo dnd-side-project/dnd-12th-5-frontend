@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import CharacterCountInput from "../common/CharacterCountInput";
 import { Button } from "../ui/button";
@@ -24,6 +24,7 @@ const GiftForm = () => {
   const { selectedTagIndex } = useTagIndexStore();
   const { isBoxEditing, setIsBoxEditing } = useEditBoxStore();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const existingGift = giftBoxes[index] || {
     name: "",
     message: "",
@@ -31,15 +32,18 @@ const GiftForm = () => {
     tag: "",
   };
 
-  {
-    /* 이미지쪽 추후 수정 필요 (api 달고) */
-  }
   const [imageCount, setImageCount] = useState(existingGift.filled ? 1 : 0);
   const [giftName, setGiftName] = useState(existingGift.name);
   const [giftReason, setGiftReason] = useState(existingGift.reason || "");
   const [giftLink, setGiftLink] = useState(existingGift.purchase_url || "");
   const [giftTag, setGiftTag] = useState(existingGift.tag || "");
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const isGiftNameFilled = useRef(giftName.length > 0);
+  const isReasonFilled = useRef(giftReason.length > 0);
+
+  const reasonRef = useRef<HTMLDivElement>(null);
+  const linkRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isBoxEditing) {
@@ -49,6 +53,41 @@ const GiftForm = () => {
       setGiftTag(existingGift.tag || "");
     }
   }, [isBoxEditing, existingGift]);
+
+  useEffect(() => {
+    if (!isGiftNameFilled.current && giftName.length > 0) {
+      isGiftNameFilled.current = true;
+      setTimeout(() => {
+        reasonRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 100);
+    }
+  }, [giftName]);
+
+  useEffect(() => {
+    if (!isReasonFilled.current && giftReason.length > 0) {
+      isReasonFilled.current = true;
+      setTimeout(() => {
+        linkRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 100);
+    }
+  }, [giftReason]);
+
+  useEffect(() => {
+    if (giftReason.length > 0) {
+      setTimeout(() => {
+        linkRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 100);
+    }
+  }, [giftReason]);
 
   const handleSubmit = () => {
     if (imageCount === 0 || giftName.length === 0) {
@@ -70,8 +109,8 @@ const GiftForm = () => {
   };
 
   return (
-    <div className="px-4 flex flex-col h-full">
-      <div className="flex flex-col flex-grow gap-[50px]  overflow-y-auto mt-[18px] pb-[70px]">
+    <div className="px-4 flex flex-col h-full overflow-y-auto">
+      <div className="flex flex-col flex-grow gap-[50px] mt-[18px] pb-[70px]">
         <div>
           <div className="mb-[22px]">
             <UploadImageList onImagesChange={setImageCount} />
@@ -84,22 +123,33 @@ const GiftForm = () => {
               maxLength={GIFT_NAME_MAX_LENGTH}
               value={giftName}
               placeholder="선물명을 적어주세요"
-              onChange={setGiftName}
+              onChange={(text) => {
+                setGiftName(text);
+              }}
             />
             {isSubmitted && giftName.length === 0 && (
               <ErrorMessage message="필수 입력 정보입니다." />
             )}
           </div>
         </div>
-        <InputReason
-          value={giftReason}
-          onReasonChange={setGiftReason}
-          onTagChange={setGiftTag}
-          giftBoxIndex={index}
-        />
-        <InputLink value={giftLink} onChange={setGiftLink} />
+        {isGiftNameFilled.current && (
+          <div ref={reasonRef}>
+            <InputReason
+              value={giftReason}
+              onReasonChange={(text) => {
+                setGiftReason(text);
+              }}
+              onTagChange={setGiftTag}
+              giftBoxIndex={index}
+            />
+          </div>
+        )}
+        {isReasonFilled.current && (
+          <div ref={linkRef}>
+            <InputLink value={giftLink} onChange={setGiftLink} />
+          </div>
+        )}
       </div>
-
       <div className="sticky bottom-4 w-full left-0">
         <Button size="lg" onClick={handleSubmit}>
           {isBoxEditing ? "수정 완료" : "채우기 완료"}
