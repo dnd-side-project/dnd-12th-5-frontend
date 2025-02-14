@@ -1,7 +1,7 @@
 "use client"; // 클라이언트 컴포넌트로 선언
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import MyCardList from "@/components/myGiftbag/MyCardList";
 
@@ -19,30 +19,37 @@ const ImagePaths = [
 ];
 
 export default function Home() {
-  const router = useRouter();
-
   // 임시 상태
-  const isHave = false;
+  const isHave = true;
 
   return (
     <div>
       <main className="flex flex-col gap-10 items-center justify-center pt-3 px-4">
-        <button
-          className="mx-[2px]"
-          onClick={() => router.push(`/giftbag/select`)}
-        >
-          <Image src={MainGraphic} alt="MainGraphic" width={394} height={346} />
-        </button>
+        <Link href="/giftbag/select" className="mx-[2px]">
+          <Image
+            src={MainGraphic}
+            alt="MainGraphic"
+            width={394}
+            height={346}
+            loading="eager"
+          />
+        </Link>
         <section className="flex flex-col gap-[14px] w-full">
-          <div
-            className="flex justify-between items-center"
-            onClick={() => router.push(`/giftbag/list`)}
-          >
+          <div className="flex justify-between items-center">
             <p className="font-medium text-gray-900">내가 만든 보따리</p>
-            <button className="flex justify-center items-center">
+            <Link
+              href="/giftbag/list"
+              className="flex justify-center items-center"
+            >
               <p className="text-gray-600 text-sm">더보기</p>
-              <Image src={ArrowRightIcon} alt="more" width={14} height={14} />
-            </button>
+              <Image
+                src={ArrowRightIcon}
+                alt="more"
+                width={14}
+                height={14}
+                loading="eager"
+              />
+            </Link>
           </div>
           <div
             className="overflow-x-auto overflow-y-hidden"
