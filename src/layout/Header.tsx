@@ -48,10 +48,11 @@ const Header = () => {
   const isGiftUploadPage = pathname === "/gift-upload";
   const isGiftbagAddPage = pathname === "/giftbag/add";
 
+  const step = searchParams?.get("step");
+
   useEffect(() => {
-    const step = searchParams?.get("step");
     setIsStepThree(step === "3");
-  }, [searchParams]);
+  }, [searchParams, step]);
 
   // pathname 변경 시 isStepThree 상태 초기화
   useEffect(() => {
@@ -90,6 +91,15 @@ const Header = () => {
   const isGiftbagDetailStepTwo =
     pathname?.startsWith("/giftbag/") && searchParams?.get("step") === "2";
 
+  // 상대방이 받아보는 페이지 (giftbag/[id])
+  const isReceiveGiftbagPage =
+    pathname?.startsWith("/giftbag/") &&
+    !pathname.includes("list") &&
+    !pathname.includes("detail");
+  /*const isReceiveGiftbagStep1or2 =
+    isReceiveGiftbagPage && (step === "1" || step === "2");
+  const isReceiveGiftbagStep3 = isReceiveGiftbagPage && step === "3";*/
+
   if (isGiftbagDetailStepTwo && isOpenDetailGiftBox) {
     return (
       <div className="h-[56px] bg-pink-50 flex items-center justify-end px-4 sticky top-0 z-10">
@@ -99,6 +109,29 @@ const Header = () => {
       </div>
     );
   }
+
+  if (isReceiveGiftbagPage) {
+    return (
+      <div
+        className={`h-[56px] flex items-center justify-center ${step === "2" ? "bg-pink-50" : "bg-white"}`}
+      >
+        <Image src={LogoIcon} alt="logo" />
+      </div>
+    );
+  }
+
+  /* 상대방이 받아보는 페이지(step=3) → Logo 중앙, X 아이콘 오른쪽
+  if (isReceiveGiftbagStep3) {
+    return (
+      <div className="bg-white h-[56px] flex items-center justify-between px-4">
+        <div className="w-[24px]"></div>
+        <Image src={LogoIcon} alt="logo" />
+        <button onClick={() => window.close()}>
+          <Image src="/icons/close.svg" alt="close" width={24} height={24} />
+        </button>
+      </div>
+    );
+  }*/
 
   // 메인 페이지: 로고 + 설정 아이콘
   if (isHomePage) {
