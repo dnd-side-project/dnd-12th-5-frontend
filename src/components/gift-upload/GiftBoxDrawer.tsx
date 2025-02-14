@@ -14,9 +14,14 @@ import { GiftBox } from "@/types/giftbag/types";
 interface GiftBoxDrawerProps {
   handleEmptyButton: () => void;
   box: GiftBox | null;
+  index: number | null;
 }
 
-const GiftBoxDrawer = ({ handleEmptyButton, box }: GiftBoxDrawerProps) => {
+const GiftBoxDrawer = ({
+  handleEmptyButton,
+  box,
+  index,
+}: GiftBoxDrawerProps) => {
   const { setIsBoxEditing } = useEditBoxStore();
   const [isConfirmingEmpty, setIsConfirmingEmpty] = useState(false);
 
@@ -91,7 +96,7 @@ const GiftBoxDrawer = ({ handleEmptyButton, box }: GiftBoxDrawerProps) => {
               >
                 박스 비우기
               </Button>
-              <Link href="/gift-upload">
+              <Link href={`/gift-upload?index=${index ?? 0}`}>
                 <Button
                   className="h-[52px]"
                   onClick={() => setIsBoxEditing(true)}
