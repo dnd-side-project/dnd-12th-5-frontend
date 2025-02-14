@@ -24,7 +24,6 @@ const GiftForm = () => {
   const { selectedTagIndex } = useTagIndexStore();
   const { isBoxEditing, setIsBoxEditing } = useEditBoxStore();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const existingGift = giftBoxes[index] || {
     name: "",
     message: "",
@@ -39,8 +38,13 @@ const GiftForm = () => {
   const [giftTag, setGiftTag] = useState(existingGift.tag || "");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const isGiftNameFilled = useRef(giftName.length > 0);
-  const isReasonFilled = useRef(giftReason.length > 0);
+  // 🔥 useRef 대신 useState 사용 → 새로고침해도 유지!
+  const [isGiftNameFilled, setIsGiftNameFilled] = useState(
+    giftName.length > 0 || !!existingGift.name,
+  );
+  const [isReasonFilled, setIsReasonFilled] = useState(
+    giftReason.length > 0 || !!existingGift.reason,
+  );
 
   const reasonRef = useRef<HTMLDivElement>(null);
   const linkRef = useRef<HTMLDivElement>(null);
@@ -51,12 +55,15 @@ const GiftForm = () => {
       setGiftReason(existingGift.reason || "");
       setGiftLink(existingGift.purchase_url || "");
       setGiftTag(existingGift.tag || "");
+
+      setIsGiftNameFilled(!!existingGift.name);
+      setIsReasonFilled(!!existingGift.reason);
     }
   }, [isBoxEditing, existingGift]);
 
   useEffect(() => {
-    if (!isGiftNameFilled.current && giftName.length > 0) {
-      isGiftNameFilled.current = true;
+    if (!isGiftNameFilled && giftName.length > 0) {
+      setIsGiftNameFilled(true);
       setTimeout(() => {
         reasonRef.current?.scrollIntoView({
           behavior: "smooth",
@@ -67,8 +74,8 @@ const GiftForm = () => {
   }, [giftName]);
 
   useEffect(() => {
-    if (!isReasonFilled.current && giftReason.length > 0) {
-      isReasonFilled.current = true;
+    if (!isReasonFilled && giftReason.length > 0) {
+      setIsReasonFilled(true);
       setTimeout(() => {
         linkRef.current?.scrollIntoView({
           behavior: "smooth",
@@ -132,7 +139,7 @@ const GiftForm = () => {
             )}
           </div>
         </div>
-        {isGiftNameFilled.current && (
+        {isGiftNameFilled && (
           <div ref={reasonRef}>
             <InputReason
               value={giftReason}
@@ -144,7 +151,7 @@ const GiftForm = () => {
             />
           </div>
         )}
-        {isReasonFilled.current && (
+        {isReasonFilled && (
           <div ref={linkRef}>
             <InputLink value={giftLink} onChange={setGiftLink} />
           </div>
