@@ -47,6 +47,8 @@ const GiftList = ({ value }: GiftListProps) => {
     setSelectedBox(null);
   };
 
+  const oneOrMoreFilledBox = giftBoxes.filter((box) => box.filled).length;
+
   return (
     <>
       <TooltipProvider>
@@ -94,7 +96,7 @@ const GiftList = ({ value }: GiftListProps) => {
                       router.push(`/gift-upload?index=${index}`);
                     }}
                   >
-                    {index === 0 ? (
+                    {index === 0 && !oneOrMoreFilledBox ? (
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <Image
