@@ -62,7 +62,7 @@ const GiftForm = () => {
   }, [isBoxEditing, existingGift]);
 
   useEffect(() => {
-    if (!isGiftNameFilled && giftName.length > 0) {
+    if (!isGiftNameFilled && giftName.length > 0 && !isBoxEditing) {
       setIsGiftNameFilled(true);
       setTimeout(() => {
         reasonRef.current?.scrollIntoView({
@@ -74,7 +74,7 @@ const GiftForm = () => {
   }, [giftName]);
 
   useEffect(() => {
-    if (!isReasonFilled && giftReason.length > 0) {
+    if (!isReasonFilled && giftReason.length > 0 && !isBoxEditing) {
       setIsReasonFilled(true);
       setTimeout(() => {
         linkRef.current?.scrollIntoView({
@@ -86,7 +86,7 @@ const GiftForm = () => {
   }, [giftReason]);
 
   useEffect(() => {
-    if (giftReason.length > 0) {
+    if (giftReason.length > 0 && !isBoxEditing) {
       setTimeout(() => {
         linkRef.current?.scrollIntoView({
           behavior: "smooth",
