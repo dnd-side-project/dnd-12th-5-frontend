@@ -9,6 +9,7 @@ import SettingIcon from "../../public/icons/setting_large.svg";
 import ArrowLeftIcon from "../../public/icons/arrow_left_large.svg";
 import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 import { useIsOpenDetailGiftBoxStore } from "@/stores/giftbag/useStore";
+import { Button } from "@/components/ui/button";
 
 // 정적 title 관리
 // 임시 매핑
@@ -45,6 +46,7 @@ const Header = () => {
   );
   const isGiftbagDeliveryPage = pathname === "/giftbag/delivery";
   const isGiftUploadPage = pathname === "/gift-upload";
+  const isGiftbagAddPage = pathname === "/giftbag/add";
 
   useEffect(() => {
     const step = searchParams?.get("step");
@@ -127,23 +129,35 @@ const Header = () => {
 
   // 나머지 페이지: 뒤로가기 버튼 + 중앙 페이지 타이틀
   return (
-    <div className="bg-white h-[56px] flex items-center px-4 sticky top-0 z-10">
+    <div
+      className={`${isGiftbagAddPage ? "bg-pink-50" : "bg-white"} h-[56px] flex justify-between items-center px-4 sticky top-0 z-10`}
+    >
       {/* step이 3일 때만 뒤로가기 버튼 숨기기 */}
       {!(isStepThree && isGiftbagDeliveryPage) && (
-        <button
+        <Button
           onClick={() => {
             if (isGiftUploadPage) {
               setIsBoxEditing(false);
             }
             router.back();
           }}
+          variant="ghost"
+          className="flex justify-start"
         >
           <Image src={ArrowLeftIcon} alt="back" />
-        </button>
+        </Button>
       )}
-      <h1 className="text-center text-lg font-bold absolute left-1/2 transform -translate-x-1/2 w-[185px] overflow-hidden whitespace-nowrap text-ellipsis">
+      <h1 className="text-center text-lg font-medium w-[185px] overflow-hidden whitespace-nowrap text-ellipsis absolute left-1/2 -translate-x-1/2">
         {dynamicTitle}
       </h1>
+      {isGiftbagAddPage && (
+        <Button
+          variant="ghost"
+          className="text-[15px] text-gray-200 flex justify-end"
+        >
+          임시저장
+        </Button>
+      )}
     </div>
   );
 };
