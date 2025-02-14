@@ -65,7 +65,7 @@ const Page = () => {
   return (
     <div className="h-full overflow-hidden">
       <div
-        className="overflow-y-auto h-[calc(100%-26px)] px-4 pb-4 overflow-x-hidden mt-[26px]"
+        className="overflow-y-auto h-[calc(100%-26px)] px-4 pb-4 overflow-x-hidden"
         style={{ scrollbarWidth: "none" }}
       >
         {Object.entries(groupedGifts).map(([message, gifts], idx) => (
@@ -74,6 +74,7 @@ const Page = () => {
               {idx !== 0 && (
                 <hr className="my-4 border-gray-100 border-[1px] mb-[26px]" />
               )}
+              {idx === 0 && <div className="mt-[26px]" />}
               <AnswerChip text={message} />
             </div>
             <div className="flex flex-col gap-[14px]">
