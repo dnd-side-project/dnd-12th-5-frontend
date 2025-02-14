@@ -8,6 +8,7 @@ import LogoIcon from "../../public/icons/logo.svg";
 import SettingIcon from "../../public/icons/setting_large.svg";
 import ArrowLeftIcon from "../../public/icons/arrow_left_large.svg";
 import { useEditBoxStore } from "@/stores/gift-upload/useStore";
+import { useIsOpenDetailGiftBoxStore } from "@/stores/giftbag/useStore";
 
 // 정적 title 관리
 // 임시 매핑
@@ -32,6 +33,8 @@ const Header = () => {
   const [isStepThree, setIsStepThree] = useState(false);
   const { setIsBoxEditing } = useEditBoxStore();
   const [showSettingIcon, setShowSettingIcon] = useState(false);
+  const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
+    useIsOpenDetailGiftBoxStore();
 
   const isAuthPage = ["/onboarding", "/login", "/signup"].includes(
     pathname ?? "",
@@ -81,6 +84,19 @@ const Header = () => {
       setShowSettingIcon(false);
     }
   }, []);
+
+  const isGiftbagDetailStepTwo =
+    pathname?.startsWith("/giftbag/") && searchParams?.get("step") === "2";
+
+  if (isGiftbagDetailStepTwo && isOpenDetailGiftBox) {
+    return (
+      <div className="h-[56px] bg-pink-50 flex items-center justify-end px-4 sticky top-0 z-10">
+        <button onClick={() => setIsOpenDetailGiftBox(false)}>
+          <Image src="/icons/close.svg" alt="close" width={24} height={24} />
+        </button>
+      </div>
+    );
+  }
 
   // 메인 페이지: 로고 + 설정 아이콘
   if (isHomePage) {
