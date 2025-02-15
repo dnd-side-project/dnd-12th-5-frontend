@@ -1,26 +1,20 @@
-// 리다이렉트 페이지
-
 "use client";
 
-import { useSearchParams, useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useMutation } from "@tanstack/react-query";
 
-import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
 import Loading from "@/components/common/Loading";
+import { toast } from "@/hooks/use-toast";
 
 const Page = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const code = searchParams ? searchParams.get("code") : null;
-
-  const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-  const { toast } = useToast();
+  const code = searchParams?.get("code");
 
   const { mutate } = useMutation({
     mutationFn: async (code: string) => {
-      const response = await fetch(`${API_URL}/api/v1/oauth/login`, {
+      const response = await fetch("/api/v1/oauth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,6 +36,8 @@ const Page = () => {
       }
     },
     onSuccess: (data) => {
+      console.log(data);
+
       // 토큰 저장
       localStorage.setItem("accessToken", data.result.accessToken);
       localStorage.setItem("refreshToken", data.result.refreshToken);
@@ -51,7 +47,7 @@ const Page = () => {
         description: "로그인 되었습니다.",
       });
 
-      router.push("/"); // 로그인 후 홈으로 리다이렉션
+      router.push("/"); // 로그인 후 홈으로
     },
     onError: (error) => {
       console.error("로그인 실패:", error);
@@ -59,12 +55,13 @@ const Page = () => {
   });
 
   useEffect(() => {
+    console.log("Code", code);
+
     if (code) {
       mutate(code);
     }
-  }, [code, mutate]);
+  }, [code]);
 
-  // 로딩 처리
   return (
     <div className="h-full w-full flex items-center justify-center">
       <Loading />
