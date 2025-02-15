@@ -8,13 +8,18 @@ interface MyCardListProps {
   type?: "design" | "image";
   data: string[];
   size: "small" | "medium";
+  giftbagIndex?: string;
 }
 
-const MyCardList = ({ type, data, size }: MyCardListProps) => {
+const MyCardList = ({ type, data, size, giftbagIndex }: MyCardListProps) => {
   const router = useRouter();
 
   const handleCardClick = (index: number) => {
-    router.push(`/giftbag/detail/${index}`);
+    if (type === "image") {
+      router.push(`/giftbag/list/${giftbagIndex}/${index}`);
+    } else {
+      router.push(`/giftbag/list/${index}`);
+    }
   };
 
   return (
