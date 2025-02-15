@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import MyGiftBagNameChip from "@/components/myGiftbag/MyGiftBagNameChip";
-import MyGiftBagList from "@/components/myGiftbag/MyCardList";
+import MyCardList from "@/components/myGiftbag/MyCardList";
 import CopyLinkButton from "@/components/myGiftbag/CopyLinkButton";
 
 import { giftBagData } from "@/data/giftbagData";
@@ -68,7 +68,7 @@ const Page = () => {
           className="overflow-x-auto overflow-y-hidden"
           style={{ scrollbarWidth: "none" }}
         >
-          <MyGiftBagList
+          <MyCardList
             data={ImagePaths}
             type="image"
             size="small"
