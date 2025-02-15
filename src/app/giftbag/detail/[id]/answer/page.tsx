@@ -63,70 +63,76 @@ const Page = () => {
   );
 
   return (
-    <div className="px-4 py-6">
-      {Object.entries(groupedGifts).map(([message, gifts], idx) => (
-        <div key={message} className="flex flex-col gap-[26px]">
-          <div>
-            {idx !== 0 && (
-              <hr className="my-4 border-gray-100 border-[1px] mb-[26px]" />
-            )}
-            <AnswerChip text={message} />
-          </div>
-          <div className="flex flex-col gap-[14px]">
-            {gifts.map((gift, index) => (
-              <div
-                className="flex items-center h-[70px] justify-between relative hover:opacity-70 cursor-pointer"
-                key={index}
-              >
-                <div className="flex gap-4 w-full">
-                  <Card
-                    img={gift.images[0]}
-                    size="small"
-                    type="image"
-                    noHoverStyle={true}
-                    noActiveStyle={true}
-                  />
-                  <div className="flex justify-center flex-col items-start">
-                    <div className="text-[15px] font-medium max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap">
-                      {gift.name}
-                    </div>
-                    {gift.link ? (
-                      <Link
-                        href={gift.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Button
-                          variant="link"
-                          className="text-xs text-gray-400"
-                        >
-                          링크 바로가기
-                        </Button>
-                      </Link>
-                    ) : (
-                      <div>
-                        <Button
-                          variant="link"
-                          disabled
-                          className="text-xs text-gray-200"
-                        >
-                          링크 바로가기
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <Button
-                  variant="ghost"
-                  className="absolute left-44 top-1/2 transform -translate-y-1/2"
+    <div className="h-full overflow-hidden">
+      <div
+        className="overflow-y-auto h-[calc(100%-26px)] px-4 pb-4 overflow-x-hidden"
+        style={{ scrollbarWidth: "none" }}
+      >
+        {Object.entries(groupedGifts).map(([message, gifts], idx) => (
+          <div key={message} className="flex flex-col gap-6">
+            <div className="mt-1">
+              {idx !== 0 && (
+                <hr className="my-4 border-gray-100 border-[1px] mb-[26px]" />
+              )}
+              {idx === 0 && <div className="mt-[26px]" />}
+              <AnswerChip text={message} />
+            </div>
+            <div className="flex flex-col gap-[14px]">
+              {gifts.map((gift, index) => (
+                <div
+                  className="flex items-center h-[70px] justify-between relative hover:opacity-70 cursor-pointer"
+                  key={index}
                 >
-                  <Image src={ArrowIcon} alt="arrowIcon" />
-                </Button>
-              </div>
-            ))}
+                  <div className="flex gap-4 w-full">
+                    <Card
+                      img={gift.images[0]}
+                      size="small"
+                      type="image"
+                      noHoverStyle={true}
+                      noActiveStyle={true}
+                    />
+                    <div className="flex justify-center flex-col items-start">
+                      <div className="text-[15px] font-medium max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap">
+                        {gift.name}
+                      </div>
+                      {gift.link ? (
+                        <Link
+                          href={gift.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <Button
+                            variant="link"
+                            className="text-xs text-gray-400"
+                          >
+                            링크 바로가기
+                          </Button>
+                        </Link>
+                      ) : (
+                        <div>
+                          <Button
+                            variant="link"
+                            disabled
+                            className="text-xs text-gray-200"
+                          >
+                            링크 바로가기
+                          </Button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <Button
+                    variant="ghost"
+                    className="absolute left-44 top-1/2 transform -translate-y-1/2"
+                  >
+                    <Image src={ArrowIcon} alt="arrowIcon" />
+                  </Button>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
