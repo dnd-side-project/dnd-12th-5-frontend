@@ -52,15 +52,12 @@ const GiftBoxDrawer = ({
               <Button
                 className="h-[52px]"
                 variant="secondary"
-                onClick={handleConfirmEmpty}
-              >
-                박스 비우기
-              </Button>
-              <Button
-                className="h-[52px]"
                 onClick={() => setIsConfirmingEmpty(false)}
               >
                 돌아가기
+              </Button>
+              <Button className="h-[52px]" onClick={handleConfirmEmpty}>
+                박스 비우기
               </Button>
             </div>
           </div>
