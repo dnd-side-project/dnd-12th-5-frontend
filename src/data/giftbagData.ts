@@ -1,7 +1,8 @@
 // 임시 데이터
 
-import { MyGiftBag } from "@/types/giftbag/types";
+import { MyGiftBag, FilledGiftDetail } from "@/types/giftbag/types";
 
+// 내가 만든 보따리 데이터
 export const giftBagData: MyGiftBag[] = [
   {
     id: 0,
@@ -66,5 +67,45 @@ export const giftBagData: MyGiftBag[] = [
     isRead: false,
     status: "COMPLETED",
     updatedAt: new Date("2025-01-05"),
+  },
+];
+
+// 선물 데이터
+export const filledGiftList: FilledGiftDetail[] = [
+  {
+    id: 0,
+    name: "휴대폰 케이스",
+    message: "",
+    purchaseUrl: "https://www.naver.com/",
+    imageUrls: ["/img/gift_1.jpg"],
+  },
+  {
+    id: 1,
+    name: "텀블러",
+    message:
+      "글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트",
+    purchaseUrl: "",
+    imageUrls: ["/img/gift_2.jpg"],
+  },
+  {
+    id: 2,
+    name: "신발",
+    message: "달콤한 하루 보내!",
+    purchaseUrl: "",
+    imageUrls: ["/img/gift_3_1.jpg", "/img/gift_3_2.jpg", "/img/gift_3_3.jpg"],
+  },
+  {
+    id: 3,
+    name: "맨투맨",
+    message: "당신의 취향을 저격할 수 있는 선물일 것 같아요!",
+    purchaseUrl: "https://www.naver.com/",
+    imageUrls: ["/img/gift_4.jpg"],
+  },
+  {
+    id: 4,
+    name: "신발",
+    message: "지금 가장 핫한 아이템으로 마음을 전합니다.",
+    purchaseUrl: "",
+    imageUrls: ["/img/gift_3_1.jpg", "/img/gift_3_2.jpg", "/img/gift_3_3.jpg"],
   },
 ];
