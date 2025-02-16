@@ -65,6 +65,12 @@ const Page = () => {
       </div>
     );
 
+  const hasMessage = filledGiftList[parseInt(giftId)].message;
+  const message =
+    filledGiftList[parseInt(giftId)].message === ""
+      ? "입력된 내용이 없어요"
+      : filledGiftList[parseInt(giftId)].message;
+
   return (
     <div className="h-full">
       <Carousel
@@ -118,18 +124,14 @@ const Page = () => {
         </div>
       </Carousel>
 
-      <div className="flex flex-col gap-[22px] my-[18px] px-4">
-        {filledGiftList[parseInt(giftId)].message && (
-          <>
-            <p className="text-xs text-gray-600">선물을 고른 이유</p>
-            <p className="text-[15px]">
-              {filledGiftList[parseInt(giftId)].message}
-            </p>
-          </>
-        )}
-        {filledGiftList[parseInt(giftId)].purchaseUrl && (
-          <LinkButton linkUrl={filledGiftList[parseInt(giftId)].purchaseUrl} />
-        )}
+      <div className="flex flex-col gap-4 my-[18px] px-4">
+        <div className="flex flex-col gap-[2px]">
+          <p className="text-xs text-gray-600">선물을 고른 이유</p>
+          <p className={`text-[15px] ${!hasMessage ? "text-gray-300" : ""}`}>
+            {message}
+          </p>
+        </div>
+        <LinkButton linkUrl={filledGiftList[parseInt(giftId)].purchaseUrl} />
       </div>
     </div>
   );
