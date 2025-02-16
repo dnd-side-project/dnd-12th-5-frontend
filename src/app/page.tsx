@@ -8,15 +8,7 @@ import MyCardList from "@/components/myGiftbag/MyCardList";
 import MainGraphic from "/public/img/main_graphic.svg";
 import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
 
-// 임시 데이터
-// 추후 서버에서 받아오기
-const ImagePaths = [
-  "/img/giftBag_red.svg",
-  "/img/giftBag_pink.svg",
-  "/img/giftBag_blue.svg",
-  "/img/giftBag_yellow.svg",
-  "/img/giftBag_green.svg",
-];
+import { giftBagData } from "@/data/giftbagData";
 
 export default function Home() {
   // 임시 상태
@@ -56,7 +48,7 @@ export default function Home() {
             style={{ scrollbarWidth: "none" }}
           >
             {isHave ? (
-              <MyCardList data={ImagePaths} type="design" size="medium" />
+              <MyCardList data={giftBagData} type="design" size="medium" />
             ) : (
               <p className="h-[88px] flex justify-center items-center text-gray-200">
                 아직 만들어진 보따리가 없습니다.
