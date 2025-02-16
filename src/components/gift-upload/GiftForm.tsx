@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import CharacterCountInput from "../common/CharacterCountInput";
