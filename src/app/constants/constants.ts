@@ -25,3 +25,11 @@ export const GIFT_ANSWER_CHIP_TEXTES = [
   "잘 모르겠어요",
   "제 취향이 아니에요",
 ];
+
+export const DESIGN_TYPE_MAP: Record<string, string> = {
+  GREEN: "/img/giftBag_green.svg",
+  RED: "/img/giftBag_red.svg",
+  BLUE: "/img/giftBag_blue.svg",
+  PINK: "/img/giftBag_pink.svg",
+  YELLOW: "/img/giftBag_yellow.svg",
+};

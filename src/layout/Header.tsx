@@ -4,15 +4,16 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
+import { useEditBoxStore } from "@/stores/gift-upload/useStore";
+import { useIsOpenDetailGiftBoxStore } from "@/stores/giftbag/useStore";
+
+import { Button } from "@/components/ui/button";
+
 import LogoIcon from "../../public/icons/logo.svg";
 import SettingIcon from "../../public/icons/setting_large.svg";
 import ArrowLeftIcon from "../../public/icons/arrow_left_large.svg";
-import { useEditBoxStore } from "@/stores/gift-upload/useStore";
-import { useIsOpenDetailGiftBoxStore } from "@/stores/giftbag/useStore";
-import { Button } from "@/components/ui/button";
 
 // 정적 title 관리
-// 임시 매핑
 const pageTitles: { [key: string]: string } = {
   "/giftbag/detail": "내가 만든 보따리",
   "/giftbag/list": "내가 만든 보따리",
@@ -37,10 +38,8 @@ const Header = () => {
   const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
     useIsOpenDetailGiftBoxStore();
 
-  const isAuthPage = ["/onboarding", "/login", "/signup"].includes(
-    pathname ?? "",
-  );
-  const isHomePage = pathname === "/";
+  const isAuthPage = ["/auth/login"].includes(pathname ?? "");
+  const isHomePage = pathname === "/home";
   const isNotFoundPage = !Object.keys(pageTitles).some((key) =>
     pathname?.startsWith(key),
   );
@@ -161,7 +160,7 @@ const Header = () => {
     );
   }
 
-  // 온보딩 / 로그인 / 회원가입 페이지 / 404 페이지: 로고만
+  // 온보딩 / 로그인 페이지 / 404 페이지: 로고만 중앙 정렬
   if (isAuthPage || isNotFoundPage) {
     return (
       <div className="bg-white h-[56px] flex items-center justify-center">
@@ -170,7 +169,7 @@ const Header = () => {
     );
   }
 
-  // 나머지 페이지: 뒤로가기 버튼 + 중앙 페이지 타이틀
+  // 나머지 페이지: 뒤로가기 버튼 + 페이지 타이틀
   return (
     <div
       className={`${isGiftbagAddPage ? "bg-pink-50" : "bg-white"} h-[56px] flex justify-between items-center px-4 sticky top-0 z-10`}
