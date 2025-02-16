@@ -25,7 +25,7 @@ const Page = () => {
 
   const name = giftbagId ? giftBagData[Number(giftbagId)]?.name : null;
   const design_type = giftbagId
-    ? giftBagData[Number(giftbagId)]?.design_type
+    ? giftBagData[Number(giftbagId)]?.designType
     : null;
   const status = giftbagId ? giftBagData[Number(giftbagId)]?.status : null;
 
@@ -53,7 +53,7 @@ const Page = () => {
       <div className="flex flex-col justify-center items-center gap-[20px] mt-[26px] mb-[40px]">
         {giftbagId && (
           <Image
-            src={giftBagData[Number(giftbagId)]?.design_type}
+            src={giftBagData[Number(giftbagId)]?.designType}
             alt={`giftBag_design_${design_type}`}
             width={179}
             height={199}
