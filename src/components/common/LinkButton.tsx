@@ -18,7 +18,7 @@ const LinkButton = ({ linkUrl }: LinkButtonProps) => {
     <Button
       onClick={handleLinkButtonClick}
       disabled={!linkUrl}
-      className="w-[141px] h-[30px] text-xs"
+      className="w-[141px] h-[30px] text-xs hover:opacity-70"
       variant="secondary"
     >
       첨부한 링크 바로가기
