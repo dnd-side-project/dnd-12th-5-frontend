@@ -114,7 +114,7 @@ const Page = () => {
 
                   <div className="w-full flex flex-col justify-center items-center gap-[22px] mb-5 mt-[26px]">
                     <div>
-                      <p className="text-[15px]">
+                      <p className="text-[15px] font-medium">
                         선물 보따리를 정말 삭제할까요?
                       </p>
                       <p className="text-sm text-gray-300">
