@@ -5,11 +5,11 @@ import React from "react";
 
 import Card from "@/components/common/Card";
 
-import { FilledGiftListPreview } from "@/types/giftbag/types";
+import { FilledGiftListPreview, MyGiftBagPreview } from "@/types/giftbag/types";
 
 interface MyCardListProps {
   type?: "design" | "image";
-  data: FilledGiftListPreview[];
+  data: MyGiftBagPreview[] | FilledGiftListPreview[] | string[];
   size: "small" | "medium";
   giftbagIndex?: string;
 }
@@ -33,7 +33,7 @@ const MyCardList = ({ type, data, size, giftbagIndex }: MyCardListProps) => {
             key={index}
             type={type}
             size={size}
-            img={data[index].thumbnail}
+            img={""}
             onClick={() => handleCardClick(index)}
           />
         ))}
