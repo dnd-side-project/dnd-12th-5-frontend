@@ -9,6 +9,7 @@ import SettingIcon from "../../public/icons/setting_large.svg";
 import ArrowLeftIcon from "../../public/icons/arrow_left_large.svg";
 import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 import { useIsOpenDetailGiftBoxStore } from "@/stores/giftbag/useStore";
+import { Button } from "@/components/ui/button";
 
 // 정적 title 관리
 // 임시 매핑
@@ -45,11 +46,13 @@ const Header = () => {
   );
   const isGiftbagDeliveryPage = pathname === "/giftbag/delivery";
   const isGiftUploadPage = pathname === "/gift-upload";
+  const isGiftbagAddPage = pathname === "/giftbag/add";
+
+  const step = searchParams?.get("step");
 
   useEffect(() => {
-    const step = searchParams?.get("step");
     setIsStepThree(step === "3");
-  }, [searchParams]);
+  }, [searchParams, step]);
 
   // pathname 변경 시 isStepThree 상태 초기화
   useEffect(() => {
@@ -62,14 +65,20 @@ const Header = () => {
     if (title) {
       setDynamicTitle(title);
     } else {
-      // pageTitles의 모든 경로에 대해 pathname이 포함되는지 확인
-      const matchedTitle = Object.keys(pageTitles).find(
-        (key) => pathname && pathname.includes(key),
-      );
-      if (matchedTitle) {
-        setDynamicTitle(pageTitles[matchedTitle]);
+      // 동적 경로 처리
+      if (pathname?.match(/^\/giftbag\/detail\/[^/]+\/answer$/)) {
+        setDynamicTitle("보따리 결과");
       } else {
-        setDynamicTitle("PICKTORY"); // 기본 제목 설정
+        // 정적 매핑 확인
+        const matchedTitle = Object.keys(pageTitles).find(
+          (key) => pathname && pathname.includes(key),
+        );
+
+        if (matchedTitle) {
+          setDynamicTitle(pageTitles[matchedTitle]);
+        } else {
+          setDynamicTitle("PICKTORY"); // 기본 제목 설정
+        }
       }
     }
   }, [pathname, searchParams]);
@@ -88,6 +97,19 @@ const Header = () => {
   const isGiftbagDetailStepTwo =
     pathname?.startsWith("/giftbag/") && searchParams?.get("step") === "2";
 
+  // 상대방이 받아보는 페이지 (giftbag/[id])
+  const isReceiveGiftbagPage =
+    pathname?.startsWith("/giftbag/") &&
+    !pathname.includes("list") &&
+    !pathname.includes("detail") &&
+    !pathname.includes("add") &&
+    !pathname.includes("delivery") &&
+    !pathname.includes("name") &&
+    !pathname.includes("select");
+  /*const isReceiveGiftbagStep1or2 =
+    isReceiveGiftbagPage && (step === "1" || step === "2");
+  const isReceiveGiftbagStep3 = isReceiveGiftbagPage && step === "3";*/
+
   if (isGiftbagDetailStepTwo && isOpenDetailGiftBox) {
     return (
       <div className="h-[56px] bg-pink-50 flex items-center justify-end px-4 sticky top-0 z-10">
@@ -97,6 +119,29 @@ const Header = () => {
       </div>
     );
   }
+
+  if (isReceiveGiftbagPage) {
+    return (
+      <div
+        className={`h-[56px] flex items-center justify-center ${step === "2" ? "bg-pink-50" : "bg-white"}`}
+      >
+        <Image src={LogoIcon} alt="logo" />
+      </div>
+    );
+  }
+
+  /* 상대방이 받아보는 페이지(step=3) → Logo 중앙, X 아이콘 오른쪽
+  if (isReceiveGiftbagStep3) {
+    return (
+      <div className="bg-white h-[56px] flex items-center justify-between px-4">
+        <div className="w-[24px]"></div>
+        <Image src={LogoIcon} alt="logo" />
+        <button onClick={() => window.close()}>
+          <Image src="/icons/close.svg" alt="close" width={24} height={24} />
+        </button>
+      </div>
+    );
+  }*/
 
   // 메인 페이지: 로고 + 설정 아이콘
   if (isHomePage) {
@@ -127,23 +172,35 @@ const Header = () => {
 
   // 나머지 페이지: 뒤로가기 버튼 + 중앙 페이지 타이틀
   return (
-    <div className="bg-white h-[56px] flex items-center px-4 sticky top-0 z-10">
+    <div
+      className={`${isGiftbagAddPage ? "bg-pink-50" : "bg-white"} h-[56px] flex justify-between items-center px-4 sticky top-0 z-10`}
+    >
       {/* step이 3일 때만 뒤로가기 버튼 숨기기 */}
       {!(isStepThree && isGiftbagDeliveryPage) && (
-        <button
+        <Button
           onClick={() => {
             if (isGiftUploadPage) {
               setIsBoxEditing(false);
             }
             router.back();
           }}
+          variant="ghost"
+          className="flex justify-start"
         >
           <Image src={ArrowLeftIcon} alt="back" />
-        </button>
+        </Button>
       )}
-      <h1 className="text-center text-lg font-bold absolute left-1/2 transform -translate-x-1/2 w-[185px] overflow-hidden whitespace-nowrap text-ellipsis">
+      <h1 className="text-center text-lg font-medium w-[185px] overflow-hidden whitespace-nowrap text-ellipsis absolute left-1/2 -translate-x-1/2">
         {dynamicTitle}
       </h1>
+      {isGiftbagAddPage && (
+        <Button
+          variant="ghost"
+          className="text-[15px] text-gray-200 flex justify-end"
+        >
+          임시저장
+        </Button>
+      )}
     </div>
   );
 };
