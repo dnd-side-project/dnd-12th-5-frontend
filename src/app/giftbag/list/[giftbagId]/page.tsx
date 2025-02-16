@@ -8,36 +8,23 @@ import MyGiftBagNameChip from "@/components/myGiftbag/MyGiftBagNameChip";
 import MyCardList from "@/components/myGiftbag/MyCardList";
 import CopyLinkButton from "@/components/myGiftbag/CopyLinkButton";
 
-import { giftBagData } from "@/data/giftbagData";
-
-// 임시 내가 담았던 선물 데이터
-const ImagePaths = [
-  "/img/gift_1.jpg",
-  "/img/gift_2.jpg",
-  "/img/gift_3_1.jpg",
-  "/img/gift_4.jpg",
-  "/img/gift_3_3.jpg",
-];
+import { giftBagDetailData } from "@/data/giftbagData";
 
 const Page = () => {
   const { giftbagId } = useParams() as { giftbagId: string };
-  console.log(giftbagId);
 
-  const name = giftbagId ? giftBagData[Number(giftbagId)]?.name : null;
-  const design_type = giftbagId
-    ? giftBagData[Number(giftbagId)]?.designType
-    : null;
-  const status = giftbagId ? giftBagData[Number(giftbagId)]?.status : null;
-
-  const link = "https://www.naver.com/"; // 상대방에게 전달할 링크
+  const giftbagData = giftBagDetailData[Number(giftbagId)];
+  const { name, designType, link, status, gifts } = giftbagData;
 
   const handleCopyLink = () => {
-    navigator.clipboard
-      .writeText(link)
-      .then(() => {
-        alert("링크가 복사되었습니다.");
-      })
-      .catch((err) => alert("복사에 실패하였습니다. " + err));
+    if (link !== null) {
+      navigator.clipboard
+        .writeText(link)
+        .then(() => {
+          alert("링크가 복사되었습니다.");
+        })
+        .catch((err) => alert("복사에 실패하였습니다. " + err));
+    }
   };
 
   return (
@@ -53,8 +40,8 @@ const Page = () => {
       <div className="flex flex-col justify-center items-center gap-[20px] mt-[26px] mb-[40px]">
         {giftbagId && (
           <Image
-            src={giftBagData[Number(giftbagId)]?.designType}
-            alt={`giftBag_design_${design_type}`}
+            src={giftBagDetailData[Number(giftbagId)]?.designType}
+            alt={`giftBag_design_${designType}`}
             width={179}
             height={199}
           />
@@ -69,7 +56,7 @@ const Page = () => {
           style={{ scrollbarWidth: "none" }}
         >
           <MyCardList
-            data={ImagePaths}
+            data={gifts}
             type="image"
             size="small"
             giftbagIndex={giftbagId}

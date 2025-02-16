@@ -4,9 +4,11 @@ import { useRouter } from "next/navigation";
 
 import Card from "@/components/common/Card";
 
+import { FilledGiftListPreview } from "@/types/giftbag/types";
+
 interface MyCardListProps {
   type?: "design" | "image";
-  data: string[];
+  data: FilledGiftListPreview[];
   size: "small" | "medium";
   giftbagIndex?: string;
 }
@@ -30,7 +32,7 @@ const MyCardList = ({ type, data, size, giftbagIndex }: MyCardListProps) => {
             key={index}
             type={type}
             size={size}
-            img={data[index % data.length]}
+            img={data[index].thumbnail}
             onClick={() => handleCardClick(index)}
           />
         ))}
