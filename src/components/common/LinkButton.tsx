@@ -27,4 +27,4 @@ const LinkButton = ({ linkUrl }: LinkButtonProps) => {
   );
 };
 
-export default LinkButton;
+export default React.memo(LinkButton);

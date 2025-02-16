@@ -1,19 +1,16 @@
 "use client";
 
+import { useParams } from "next/navigation";
 import Image from "next/image";
-
-import giftBag_Red from "/public/img/giftBag_red.svg";
-import giftBag_Green from "/public/img/giftBag_green.svg";
-import giftBag_Blue from "/public/img/giftBag_blue.svg";
-import giftBag_Yellow from "/public/img/giftBag_yellow.svg";
-import giftBag_Pink from "/public/img/giftBag_pink.svg";
 
 import { Button } from "@/components/ui/button";
 import MyGiftBagNameChip from "@/components/myGiftbag/MyGiftBagNameChip";
-import MyGiftBagList from "@/components/myGiftbag/MyCardList";
+import MyCardList from "@/components/myGiftbag/MyCardList";
 import CopyLinkButton from "@/components/myGiftbag/CopyLinkButton";
 
-// 임시 선물 데이터
+import { giftBagData } from "@/data/giftbagData";
+
+// 임시 내가 담았던 선물 데이터
 const ImagePaths = [
   "/img/gift_1.jpg",
   "/img/gift_2.jpg",
@@ -23,34 +20,16 @@ const ImagePaths = [
 ];
 
 const Page = () => {
-  // const { id } = useParams();
+  const { giftbagId } = useParams() as { giftbagId: string };
+  console.log(giftbagId);
 
-  // const [name, setName] = useState("픽토리의 생일 선물 보따리");
-  // const [design_type, setDesignType] = useState("PINK");
-  // const [status, setStatus] = useState("PUBLISHED");
-  // const [link, setLink] = useState("https://www.naver.com/");
+  const name = giftbagId ? giftBagData[Number(giftbagId)]?.name : null;
+  const design_type = giftbagId
+    ? giftBagData[Number(giftbagId)]?.design_type
+    : null;
+  const status = giftbagId ? giftBagData[Number(giftbagId)]?.status : null;
 
-  // 임시 데이터
-  const name = "픽토리의 생일 선물 보따리";
-  const design_type = "GREEN";
-  const status = "DRAFT";
-  const link = "https://www.naver.com/";
-
-  // const getData = () => {
-  // 1. 보따리 상세 조회 API
-  // GET /api/v1/bundles/{id}
-  // };
-
-  const giftBagDesignURL =
-    design_type === "GREEN"
-      ? giftBag_Green
-      : design_type === "RED"
-        ? giftBag_Red
-        : design_type === "BLUE"
-          ? giftBag_Blue
-          : design_type === "YELLOW"
-            ? giftBag_Yellow
-            : giftBag_Pink;
+  const link = "https://www.naver.com/"; // 상대방에게 전달할 링크
 
   const handleCopyLink = () => {
     navigator.clipboard
@@ -70,14 +49,17 @@ const Page = () => {
       ) : status === "PUBLISHED" ? (
         <CopyLinkButton onClick={handleCopyLink} />
       ) : null}
+
       <div className="flex flex-col justify-center items-center gap-[20px] mt-[26px] mb-[40px]">
-        <Image
-          src={giftBagDesignURL}
-          alt={`giftBag_design_${design_type}`}
-          width={179}
-          height={199}
-        />
-        <MyGiftBagNameChip name={name} />
+        {giftbagId && (
+          <Image
+            src={giftBagData[Number(giftbagId)]?.design_type}
+            alt={`giftBag_design_${design_type}`}
+            width={179}
+            height={199}
+          />
+        )}
+        {name && <MyGiftBagNameChip name={name} />}
       </div>
 
       <div className="flex flex-col gap-[14px] w-full">
@@ -86,7 +68,12 @@ const Page = () => {
           className="overflow-x-auto overflow-y-hidden"
           style={{ scrollbarWidth: "none" }}
         >
-          <MyGiftBagList data={ImagePaths} type="image" size="small" />
+          <MyCardList
+            data={ImagePaths}
+            type="image"
+            size="small"
+            giftbagIndex={giftbagId}
+          />
         </div>
       </div>
 
