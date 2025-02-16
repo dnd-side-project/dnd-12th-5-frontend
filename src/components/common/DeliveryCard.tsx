@@ -16,7 +16,7 @@ const DeliveryCard = ({
   return (
     <div
       onClick={onClick}
-      className="flex flex-col items-center gap-[3px] pt-[14px] px-[11px] pb-[10px] box-border bg-gray-50 rounded-[17px] cursor-pointer border-[1.4px] border-gray-100 "
+      className="flex flex-col items-center gap-[3px] pt-[14px] px-[11px] pb-[10px] box-border bg-gray-50 rounded-[17px] cursor-pointer border-[1.4px] border-gray-100 hover:opacity-70"
     >
       <Image src={imageSrc} alt="delivery" width={140} height={140} />
       <div className="text-center text-gray-800">
