@@ -50,11 +50,11 @@ const Page = () => {
             <MyGiftBagCard
               key={bottari.id}
               isEdit={isEdit}
-              design_type={bottari.design_type}
+              design_type={bottari.designType}
               is_read={bottari.isRead}
               status={bottari.status}
               name={bottari.name}
-              created_at={bottari.created_at}
+              updatedAt={bottari.updatedAt}
             />
           </Link>
         ))}
