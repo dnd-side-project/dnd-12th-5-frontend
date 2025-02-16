@@ -76,22 +76,22 @@ export const filledGiftList: FilledGiftDetail[] = [
     id: 0,
     name: "휴대폰 케이스",
     message: "",
-    purchaseUrl: "https://www.naver.com/",
+    purchaseUrl: "",
     imageUrls: ["/img/gift_1.jpg"],
   },
   {
     id: 1,
     name: "텀블러",
     message:
-      "글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트",
+      "너가 물을 많이 마시니까 매일 사용할 수 있어 실용적이고, 디자인도 마음에 들어할 것 같아서 선택했어. 환경을 생각하는 마음도 담겨있어서 너에게 딱 맞는 선물일 것 같아. 너가 좋",
     purchaseUrl: "",
     imageUrls: ["/img/gift_2.jpg"],
   },
   {
     id: 2,
     name: "신발",
-    message: "달콤한 하루 보내!",
-    purchaseUrl: "",
+    message: "",
+    purchaseUrl: "https://www.naver.com/",
     imageUrls: ["/img/gift_3_1.jpg", "/img/gift_3_2.jpg", "/img/gift_3_3.jpg"],
   },
   {
