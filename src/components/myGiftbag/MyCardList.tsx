@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import React from "react";
 
 import Card from "@/components/common/Card";
 
@@ -40,4 +41,4 @@ const MyCardList = ({ type, data, size, giftbagIndex }: MyCardListProps) => {
   );
 };
 
-export default MyCardList;
+export default React.memo(MyCardList);
