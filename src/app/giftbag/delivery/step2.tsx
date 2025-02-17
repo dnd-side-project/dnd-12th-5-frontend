@@ -7,6 +7,8 @@ import { useSearchParams } from "next/navigation";
 import { deliveryCharacterData } from "@/data/deliveryCharacterData";
 
 import { Button } from "@/components/ui/button";
+import { useGiftStore, useTagIndexStore } from "@/stores/gift-upload/useStore";
+import { useGiftBagStore } from "@/stores/giftbag/useStore";
 
 interface Step2Props {
   onNextStep: (selectedCharacter: string) => void;
@@ -15,6 +17,24 @@ interface Step2Props {
 const Step2 = ({ onNextStep }: Step2Props) => {
   const searchParams = useSearchParams();
   const character = searchParams ? searchParams.get("character") : null;
+  const { setSelectedTagIndex } = useTagIndexStore();
+  const { setGiftBagName } = useGiftBagStore();
+
+  const resetStore = () => {
+    useGiftStore.setState({
+      giftBoxes: Array(6).fill({
+        name: "",
+        filled: false,
+        reason: "",
+        tagIndex: 0,
+        purchase_url: "",
+        tag: "",
+      }),
+    });
+
+    setSelectedTagIndex(0);
+    setGiftBagName("");
+  };
 
   return (
     <div className="h-[calc(100%-52px)] w-full flex flex-col items-center justify-center gap-7">
@@ -56,7 +76,13 @@ const Step2 = ({ onNextStep }: Step2Props) => {
         </div>
       </section>
       <div className="w-full px-4 absolute bottom-4">
-        <Button onClick={() => onNextStep(character || "포리")} size="lg">
+        <Button
+          onClick={() => {
+            onNextStep(character || "포리");
+            resetStore();
+          }}
+          size="lg"
+        >
           선물 보따리 배달하기
         </Button>
       </div>
