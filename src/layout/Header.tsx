@@ -5,7 +5,10 @@ import Image from "next/image";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 import { useEditBoxStore } from "@/stores/gift-upload/useStore";
-import { useIsOpenDetailGiftBoxStore } from "@/stores/giftbag/useStore";
+import {
+  useGiftBagStore,
+  useIsOpenDetailGiftBoxStore,
+} from "@/stores/giftbag/useStore";
 
 import { Button } from "@/components/ui/button";
 
@@ -48,6 +51,7 @@ const Header = () => {
   const isGiftbagAddPage = pathname === "/giftbag/add";
 
   const step = searchParams?.get("step");
+  const { giftBagName } = useGiftBagStore();
 
   useEffect(() => {
     setIsStepThree(step === "3");
@@ -59,11 +63,14 @@ const Header = () => {
   }, [pathname]);
 
   useEffect(() => {
-    const title = searchParams?.get("title");
-
-    if (title) {
-      setDynamicTitle(title);
+    if (giftBagName && pathname === "/giftbag/add") {
+      setDynamicTitle(giftBagName);
     } else {
+      const title = searchParams?.get("title");
+
+      if (title) {
+        setDynamicTitle(title);
+      }
       // 동적 경로 처리
       if (pathname?.match(/^\/giftbag\/detail\/[^/]+\/answer$/)) {
         setDynamicTitle("보따리 결과");
@@ -80,7 +87,7 @@ const Header = () => {
         }
       }
     }
-  }, [pathname, searchParams]);
+  }, [giftBagName, pathname, searchParams]);
 
   // 로컬 스토리지에서 토큰 확인
   useEffect(() => {

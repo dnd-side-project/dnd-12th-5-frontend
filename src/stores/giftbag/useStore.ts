@@ -16,6 +16,23 @@ export const useStore = create<Store>()(
   ),
 );
 
+interface GiftBagState {
+  giftBagName: string;
+  setGiftBagName: (name: string) => void;
+}
+
+export const useGiftBagStore = create<GiftBagState>()(
+  persist(
+    (set) => ({
+      giftBagName: "",
+      setGiftBagName: (name) => set({ giftBagName: name }),
+    }),
+    {
+      name: "giftbag-name",
+    },
+  ),
+);
+
 interface IsOpenDetailGiftBoxStore {
   isOpenDetailGiftBox: boolean;
   setIsOpenDetailGiftBox: (isOpen: boolean) => void;
