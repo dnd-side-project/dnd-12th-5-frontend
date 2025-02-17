@@ -4,7 +4,7 @@ import { useState } from "react";
 import CharacterCountInput from "@/components/common/CharacterCountInput";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { GIFTBAG_NAME_MAX_LENGTH } from "@/app/constants/constants";
+import { GIFTBAG_NAME_MAX_LENGTH } from "@/constants/constants";
 
 const GiftBagForm = () => {
   const [giftBagName, setGiftBagName] = useState("");

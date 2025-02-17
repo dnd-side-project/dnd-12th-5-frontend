@@ -8,7 +8,7 @@ import {
   GIFT_SELECT_REASON_MAX_LENGTH,
   REASON_CHIP_MESSAGES,
   REASON_CHIP_TEXTES,
-} from "@/app/constants/constants";
+} from "@/constants/constants";
 import GiftIcon from "../../../public/img/gift_letter_square.svg";
 import {
   useEditBoxStore,
