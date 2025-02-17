@@ -8,7 +8,7 @@ import InputLink from "./InputLink";
 import InputReason from "./InputReason";
 import UploadImageList from "./UploadImageList";
 import ErrorMessage from "../common/ErrorMessage";
-import { GIFT_NAME_MAX_LENGTH } from "@/app/constants/constants";
+import { GIFT_NAME_MAX_LENGTH } from "@/constants/constants";
 import {
   useTagIndexStore,
   useGiftStore,

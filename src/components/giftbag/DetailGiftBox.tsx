@@ -16,7 +16,7 @@ import Chip from "../common/Chip";
 import LeftIcon from "/public/icons/arrow_left_large.svg";
 import RightIcon from "/public/icons/arrow_right_large.svg";
 
-import { GIFT_ANSWER_CHIP_TEXTES } from "@/app/constants/constants";
+import { GIFT_ANSWER_CHIP_TEXTES } from "@/constants/constants";
 import {
   useGiftAnswerStore,
   useSelectedGiftBoxStore,
