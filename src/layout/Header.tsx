@@ -105,9 +105,6 @@ const Header = () => {
     !pathname.includes("delivery") &&
     !pathname.includes("name") &&
     !pathname.includes("select");
-  /*const isReceiveGiftbagStep1or2 =
-    isReceiveGiftbagPage && (step === "1" || step === "2");
-  const isReceiveGiftbagStep3 = isReceiveGiftbagPage && step === "3";*/
 
   if (isGiftbagDetailStepTwo && isOpenDetailGiftBox) {
     return (
@@ -128,19 +125,6 @@ const Header = () => {
       </div>
     );
   }
-
-  /* 상대방이 받아보는 페이지(step=3) → Logo 중앙, X 아이콘 오른쪽
-  if (isReceiveGiftbagStep3) {
-    return (
-      <div className="bg-white h-[56px] flex items-center justify-between px-4">
-        <div className="w-[24px]"></div>
-        <Image src={LogoIcon} alt="logo" />
-        <button onClick={() => window.close()}>
-          <Image src="/icons/close.svg" alt="close" width={24} height={24} />
-        </button>
-      </div>
-    );
-  }*/
 
   // 메인 페이지: 로고 + 설정 아이콘
   if (isHomePage) {
