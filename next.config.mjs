@@ -9,8 +9,12 @@ const nextConfig = {
     ];
   },
   images: {
-    domains: [
-      "dnd-picktory-gift-bundles-bucket.s3.ap-northeast-2.amazonaws.com",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname:
+          "dnd-picktory-gift-bundles-bucket.s3.ap-northeast-2.amazonaws.com",
+      },
     ],
   },
 };
