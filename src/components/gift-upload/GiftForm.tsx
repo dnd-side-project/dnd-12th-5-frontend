@@ -38,6 +38,7 @@ const GiftForm = () => {
   );
 
   const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [removedImages, setRemovedImages] = useState<string[]>([]);
   const [giftName, setGiftName] = useState(existingGift.name);
   const [giftReason, setGiftReason] = useState(existingGift.reason || "");
   const [giftLink, setGiftLink] = useState(existingGift.purchase_url || "");
@@ -97,7 +98,7 @@ const GiftForm = () => {
       });
 
       if (!response.ok) {
-        console.error("이미지 업로드 실패");
+        throw new Error("이미지 업로드 실패");
       }
 
       const data = await response.json();
@@ -105,14 +106,22 @@ const GiftForm = () => {
     },
     onSuccess: (uploadedUrls: string[]) => {
       updateGiftBox(index, {
-        imgUrls: uploadedUrls,
+        imgUrls: [
+          ...existingGift.imgUrls.filter((url) => !removedImages.includes(url)),
+          ...uploadedUrls,
+        ],
       });
     },
   });
 
   const handleSubmit = () => {
-    if (imageFiles.length === 0 || giftName.length === 0) {
+    const remainingImages =
+      existingGift.imgUrls.filter((url) => !removedImages.includes(url))
+        .length + imageFiles.length;
+
+    if (remainingImages === 0) {
       setIsSubmitted(true);
+      return;
     }
 
     updateGiftBox(index, {
@@ -121,12 +130,17 @@ const GiftForm = () => {
       purchase_url: giftLink,
       tag: giftTag,
       tagIndex: selectedTagIndex,
+      imgUrls: [
+        ...existingGift.imgUrls.filter((url) => !removedImages.includes(url)),
+      ],
       filled: true,
     });
 
-    const formData = new FormData();
-    imageFiles.forEach((file) => formData.append("files", file));
-    uploadMutation.mutate(formData);
+    if (imageFiles.length > 0) {
+      const formData = new FormData();
+      imageFiles.forEach((file) => formData.append("files", file));
+      uploadMutation.mutate(formData);
+    }
 
     router.push("/giftbag/add");
     setIsBoxEditing(false);
@@ -142,11 +156,16 @@ const GiftForm = () => {
           >
             <UploadImageList
               onFilesChange={setImageFiles}
-              giftBoxIndex={index}
+              existingImages={existingGift.imgUrls}
+              onRemoveImage={(url) =>
+                setRemovedImages((prev) => [...prev, url])
+              }
             />
-            {isSubmitted && imageFiles.length === 0 && (
-              <ErrorMessage message="필수 입력 정보입니다." />
-            )}
+            {isSubmitted &&
+              existingGift.imgUrls.filter((url) => !removedImages.includes(url))
+                .length +
+                imageFiles.length ===
+                0 && <ErrorMessage message="필수 입력 정보입니다." />}
           </div>
           <div className="flex flex-col px-1">
             <CharacterCountInput
