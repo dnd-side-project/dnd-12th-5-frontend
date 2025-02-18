@@ -2,15 +2,15 @@ import {
   useGiftAnswerStore,
   useSelectedGiftBoxStore,
 } from "@/stores/giftbag/useStore";
-import { ReciveGiftBox } from "@/types/giftbag/types";
+import { ReceiveGiftBox } from "@/types/giftbag/types";
 import Image from "next/image";
 
 interface ReciveGiftListProps {
-  giftList: ReciveGiftBox[];
+  giftList: ReceiveGiftBox[];
   onClick: () => void;
 }
 
-const ReciveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
+const ReceiveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
   const answers = useGiftAnswerStore((state) => state.answers);
   const { setSelectedGiftIndex } = useSelectedGiftBoxStore();
 
@@ -64,4 +64,4 @@ const ReciveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
   );
 };
 
-export default ReciveGiftList;
+export default ReceiveGiftList;

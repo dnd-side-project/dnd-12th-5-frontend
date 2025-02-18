@@ -4,7 +4,6 @@ import { useParams, useRouter } from "next/navigation";
 
 import Chip from "@/components/giftbag/Chip";
 import DetailGiftBox from "@/components/giftbag/DetailGiftBox";
-import ReciveGiftList from "@/components/giftbag/ReciveGiftList";
 import { Button } from "@/components/ui/button";
 import {
   useGiftAnswerStore,
@@ -13,6 +12,7 @@ import {
 } from "@/stores/giftbag/useStore";
 import { ReceiveGiftBox } from "@/types/giftbag/types";
 import { useEffect, useState } from "react";
+import ReceiveGiftList from "@/components/giftbag/ReceiveGiftList";
 
 const Step2 = ({ gifts }: { gifts: ReceiveGiftBox[] }) => {
   const router = useRouter();
@@ -55,7 +55,7 @@ const Step2 = ({ gifts }: { gifts: ReceiveGiftBox[] }) => {
             <Chip text={chipText} width="176px" />
           </div>
           <div>
-            <ReciveGiftList giftList={gifts} onClick={openGiftBox} />
+            <ReceiveGiftList giftList={gifts} onClick={openGiftBox} />
           </div>
           <div className="absolute bottom-4 w-full px-4">
             <Button
