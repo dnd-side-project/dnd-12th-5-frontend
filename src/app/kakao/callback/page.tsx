@@ -36,8 +36,6 @@ const Page = () => {
       }
     },
     onSuccess: (data) => {
-      console.log(data);
-
       // 토큰 저장
       localStorage.setItem("accessToken", data.result.accessToken);
       localStorage.setItem("refreshToken", data.result.refreshToken);
@@ -47,7 +45,7 @@ const Page = () => {
         description: "로그인 되었습니다.",
       });
 
-      router.push("/"); // 로그인 후 홈으로
+      router.push("/home"); // 로그인 후 홈으로
     },
     onError: (error) => {
       console.error("로그인 실패:", error);
@@ -55,12 +53,11 @@ const Page = () => {
   });
 
   useEffect(() => {
-    console.log("Code", code);
-
     if (code) {
       mutate(code);
     }
-  }, [code]);
+  }, [code, mutate]);
+
 
   return (
     <div className="h-full w-full flex items-center justify-center">
