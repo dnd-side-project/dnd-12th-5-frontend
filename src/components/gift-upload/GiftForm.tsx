@@ -15,6 +15,7 @@ import {
   useGiftStore,
   useEditBoxStore,
 } from "@/stores/gift-upload/useStore";
+import { motion } from "framer-motion";
 
 const GiftForm = () => {
   const router = useRouter();
@@ -180,19 +181,29 @@ const GiftForm = () => {
           </div>
         </div>
         {isGiftNameFilled && (
-          <div ref={reasonRef}>
+          <motion.div
+            ref={reasonRef}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
             <InputReason
               value={giftReason}
               onReasonChange={setGiftReason}
               onTagChange={setGiftTag}
               giftBoxIndex={index}
             />
-          </div>
+          </motion.div>
         )}
         {isReasonFilled && (
-          <div ref={linkRef}>
+          <motion.div
+            ref={linkRef}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
             <InputLink value={giftLink} onChange={setGiftLink} />
-          </div>
+          </motion.div>
         )}
       </div>
       <div className="sticky bottom-4 w-full left-0">
