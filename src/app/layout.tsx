@@ -25,6 +25,15 @@ const nanumSquareRound = localFont({
 export const metadata: Metadata = {
   title: "Picktory",
   description: "마음을 전하는 가장 쉬운 방법, Picktory",
+  icons: {
+    icon: [
+      { rel: "icon", url: "/favicon/favicon-16x16.png", sizes: "16x16" },
+      { rel: "icon", url: "/favicon/favicon-32x32.png", sizes: "32x32" },
+      { rel: "icon", url: "/favicon/favicon-96x396.png", sizes: "96x96" },
+      { rel: "icon", url: "/favicon/favicon-128x128.png", sizes: "128x128" },
+      { rel: "icon", url: "/favicon/favicon-192x192.png", sizes: "192x192" },
+    ],
+  },
 };
 
 export default function RootLayout({

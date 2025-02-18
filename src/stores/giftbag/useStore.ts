@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface Store {
+interface SelectedBagStore {
   selectedBagIndex: number;
   setSelectedBagIndex: (index: number) => void;
 }
 
-export const useStore = create<Store>()(
+export const useSelectedBagStore = create<SelectedBagStore>()(
   persist(
     (set) => ({
       selectedBagIndex: 0,
@@ -65,12 +65,12 @@ export const useGiftAnswerStore = create(
   ),
 );
 
-interface SelectedGiftBoxState {
+interface SelectedGiftBoxStore {
   selectedGiftIndex: number | null;
   setSelectedGiftIndex: (index: number | null) => void;
 }
 
-export const useSelectedGiftBoxStore = create<SelectedGiftBoxState>((set) => ({
+export const useSelectedGiftBoxStore = create<SelectedGiftBoxStore>((set) => ({
   selectedGiftIndex: null,
   setSelectedGiftIndex: (index) => set({ selectedGiftIndex: index }),
 }));
@@ -89,6 +89,25 @@ export const useGiftNameStore = create<GiftName>()(
     }),
     {
       name: "gift-name",
+    },
+  ),
+);
+
+interface IsUploadAnswerStore {
+  isUploadedAnswer: boolean;
+  setIsUploadedAnswer: (isUploaded: boolean) => void;
+}
+
+export const useIsUploadAnswerStore = create<IsUploadAnswerStore>()(
+  persist(
+    (set) => ({
+      isUploadedAnswer: false,
+      setIsUploadedAnswer: (isUploaded) =>
+        set({ isUploadedAnswer: isUploaded }),
+    }),
+    {
+      name: "uploaded-answer-storage",
+
     },
   ),
 );

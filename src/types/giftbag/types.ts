@@ -10,10 +10,20 @@ export interface GiftBox {
 {
   /* 퍼블리싱을 위한 임시 타입 지정 (추후 api 연결 시 수정 요함) */
 }
-export interface ReciveGiftBox {
+export interface ReceiveGiftBag {
+  status: string;
+  delivery_character_type: string;
+  design_type: string;
+  gifts: ReceiveGiftBox[];
+  total_gifts: number;
+}
+
+export interface ReceiveGiftBox {
   name: string;
-  message: string;
+  id: number;
+  message: null | string;
   imageUrls: string[];
+  thumbnail: string;
 }
 
 /** 내가 만든 보따리 관련 임시 타입 */

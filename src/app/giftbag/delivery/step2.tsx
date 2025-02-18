@@ -7,8 +7,11 @@ import { useSearchParams } from "next/navigation";
 import { deliveryCharacterData } from "@/data/deliveryCharacterData";
 
 import { Button } from "@/components/ui/button";
-import { useGiftStore, useTagIndexStore } from "@/stores/gift-upload/useStore";
-import { useGiftBagStore } from "@/stores/giftbag/useStore";
+import { useGiftStore } from "@/stores/gift-upload/useStore";
+import {
+  useGiftBagStore,
+  useSelectedBagStore,
+} from "@/stores/giftbag/useStore";
 
 interface Step2Props {
   onNextStep: (selectedCharacter: string) => void;
@@ -17,7 +20,7 @@ interface Step2Props {
 const Step2 = ({ onNextStep }: Step2Props) => {
   const searchParams = useSearchParams();
   const character = searchParams ? searchParams.get("character") : null;
-  const { setSelectedTagIndex } = useTagIndexStore();
+  const { setSelectedBagIndex } = useSelectedBagStore();
   const { setGiftBagName } = useGiftBagStore();
 
   const resetStore = () => {
@@ -32,7 +35,7 @@ const Step2 = ({ onNextStep }: Step2Props) => {
       }),
     });
 
-    setSelectedTagIndex(0);
+    setSelectedBagIndex(0);
     setGiftBagName("");
   };
 
