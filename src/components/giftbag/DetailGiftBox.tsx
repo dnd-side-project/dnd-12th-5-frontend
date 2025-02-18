@@ -22,10 +22,10 @@ import {
   useIsUploadAnswerStore,
   useSelectedGiftBoxStore,
 } from "@/stores/giftbag/useStore";
-import { ReciveGiftBox } from "@/types/giftbag/types";
+import { ReceiveGiftBox } from "@/types/giftbag/types";
 
 interface DetailGiftBoxProps {
-  giftList: ReciveGiftBox[];
+  giftList: ReceiveGiftBox[];
 }
 
 const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {

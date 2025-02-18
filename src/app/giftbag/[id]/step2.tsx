@@ -11,10 +11,10 @@ import {
   useIsOpenDetailGiftBoxStore,
   useIsUploadAnswerStore,
 } from "@/stores/giftbag/useStore";
-import { ReciveGiftBox } from "@/types/giftbag/types";
+import { ReceiveGiftBox } from "@/types/giftbag/types";
 import { useEffect, useState } from "react";
 
-const Step2 = () => {
+const Step2 = ({ gifts }: { gifts: ReceiveGiftBox[] }) => {
   const router = useRouter();
   const { id } = useParams() as { id: string };
   const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
@@ -32,24 +32,6 @@ const Step2 = () => {
     router.push(`/giftbag/${id}?step=3`);
     setIsUploadedAnswer(true);
   };
-
-  const gifts: ReciveGiftBox[] = [
-    { name: "휴대폰 케이스", message: "", imageUrls: ["/img/gift_1.jpg"] },
-    {
-      name: "텀블러",
-      message: "테스트 메시지...",
-      imageUrls: ["/img/gift_2.jpg"],
-    },
-    {
-      name: "신발",
-      message: "달콤한 하루 보내!",
-      imageUrls: [
-        "/img/gift_3_1.jpg",
-        "/img/gift_3_2.jpg",
-        "/img/gift_3_3.jpg",
-      ],
-    },
-  ];
 
   const [isAnswered, setIsAnswered] = useState(false);
 
