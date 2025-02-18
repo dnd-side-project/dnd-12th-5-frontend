@@ -46,7 +46,7 @@ const ReceiveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
               <div
                 className={`absolute top-1/2 left-1/2 w-[90px] h-[90px] flex justify-center items-center overflow-hidden 
                 transform -translate-x-1/2 -translate-y-1/2
-                ${shape === "square" ? "rounded-lg" : "rounded-full"}`}
+                ${shape === "square" ? "rounded-2xl" : "rounded-full"}`}
               >
                 <Image
                   src={giftImageUrl}
