@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-interface Store {
+interface SelectedBagStore {
   selectedBagIndex: number;
   setSelectedBagIndex: (index: number) => void;
 }
 
-export const useStore = create<Store>()(
+export const useSelectedBagStore = create<SelectedBagStore>()(
   persist(
     (set) => ({
       selectedBagIndex: 0,

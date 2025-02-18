@@ -1,7 +1,7 @@
 "use client";
 
-import { useStore } from "@/stores/giftbag/useStore";
 import Card from "@/components/common/Card";
+import { useSelectedBagStore } from "@/stores/giftbag/useStore";
 
 interface GiftBagListProps {
   numberOfCards: number;
@@ -10,7 +10,7 @@ interface GiftBagListProps {
 }
 
 const GiftBagList = ({ numberOfCards, size, imgPaths }: GiftBagListProps) => {
-  const { selectedBagIndex, setSelectedBagIndex } = useStore();
+  const { selectedBagIndex, setSelectedBagIndex } = useSelectedBagStore();
 
   const handleCardClick = (index: number) => {
     setSelectedBagIndex(index);

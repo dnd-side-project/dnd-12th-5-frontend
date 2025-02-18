@@ -1,12 +1,12 @@
 "use client";
 
-import { useStore } from "@/stores/giftbag/useStore";
+import { useSelectedBagStore } from "@/stores/giftbag/useStore";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Loading from "../common/Loading";
 
 const SelectedGiftBag = () => {
-  const { selectedBagIndex } = useStore();
+  const { selectedBagIndex } = useSelectedBagStore();
   const [hydrated, setHydrated] = useState(false);
 
   const imagePaths = [
