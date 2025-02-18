@@ -21,6 +21,7 @@ const Page = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [selectedGiftBagName, setSelectedGiftBagName] = useState("");
 
   const filteredBottariData = giftBagData.filter(
     (giftBag) => !isChecked || giftBag.status === "DRAFT",
@@ -28,6 +29,7 @@ const Page = () => {
 
   const handleDelete = () => {
     // DELETE /api/v1/bundles/{id}
+    setIsDrawerOpen(false);
   };
 
   return (
@@ -60,15 +62,21 @@ const Page = () => {
         >
           {filteredBottariData.map((bottari) =>
             isEdit ? (
-              <MyGiftBagCard
-                key={bottari.id}
-                isEdit={isEdit}
-                design_type={bottari.designType}
-                is_read={bottari.isRead}
-                status={bottari.status}
-                name={bottari.name}
-                updatedAt={bottari.updatedAt}
-              />
+              <>
+                <MyGiftBagCard
+                  key={bottari.id}
+                  isEdit={isEdit}
+                  design_type={bottari.designType}
+                  is_read={bottari.isRead}
+                  status={bottari.status}
+                  name={bottari.name}
+                  updatedAt={bottari.updatedAt}
+                  onDelete={() => {
+                    setSelectedGiftBagName(bottari.name);
+                    setIsDrawerOpen(true);
+                  }}
+                />
+              </>
             ) : (
               <Link key={bottari.id} href={`/giftbag/list/${bottari.id}`}>
                 <MyGiftBagCard
@@ -87,7 +95,7 @@ const Page = () => {
         {isDrawerOpen && (
           <DrawerContent>
             <DrawerHeader className="relative flex justify-center py-3">
-              <DrawerTitle>보따리 삭제</DrawerTitle>
+              <DrawerTitle>{selectedGiftBagName}</DrawerTitle>
               <DrawerClose className="absolute top-2 right-[14px]">
                 <Image
                   src="/icons/close.svg"

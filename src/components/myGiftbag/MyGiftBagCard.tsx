@@ -13,6 +13,7 @@ interface MyGiftBagCardProps {
   status: string;
   name: string;
   updatedAt: Date;
+  onDelete?: () => void;
 }
 
 const MyGiftBagCard = ({
@@ -22,9 +23,13 @@ const MyGiftBagCard = ({
   status,
   name,
   updatedAt,
+  onDelete,
 }: MyGiftBagCardProps) => {
-  const handleDelete = () => {
+  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     // 14. 보따리 삭제 API 호출
+    e.preventDefault();
+    e.stopPropagation();
+    if (onDelete) onDelete();
   };
 
   const memoizedImage = useMemo(
