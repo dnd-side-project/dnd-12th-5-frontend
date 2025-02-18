@@ -42,7 +42,6 @@ const GiftForm = () => {
   const [giftTag, setGiftTag] = useState(existingGift.tag || "");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // 🔥 useRef 대신 useState 사용 → 새로고침해도 유지!
   const [isGiftNameFilled, setIsGiftNameFilled] = useState(
     giftName.length > 0 || !!existingGift.name,
   );
