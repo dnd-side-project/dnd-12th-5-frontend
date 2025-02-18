@@ -2,15 +2,15 @@ import {
   useGiftAnswerStore,
   useSelectedGiftBoxStore,
 } from "@/stores/giftbag/useStore";
-import { ReciveGiftBox } from "@/types/giftbag/types";
+import { ReceiveGiftBox } from "@/types/giftbag/types";
 import Image from "next/image";
 
 interface ReciveGiftListProps {
-  giftList: ReciveGiftBox[];
+  giftList: ReceiveGiftBox[];
   onClick: () => void;
 }
 
-const ReciveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
+const ReceiveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
   const answers = useGiftAnswerStore((state) => state.answers);
   const { setSelectedGiftIndex } = useSelectedGiftBoxStore();
 
@@ -46,7 +46,7 @@ const ReciveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
               <div
                 className={`absolute top-1/2 left-1/2 w-[90px] h-[90px] flex justify-center items-center overflow-hidden 
                 transform -translate-x-1/2 -translate-y-1/2
-                ${shape === "square" ? "rounded-lg" : "rounded-full"}`}
+                ${shape === "square" ? "rounded-2xl" : "rounded-full"}`}
               >
                 <Image
                   src={giftImageUrl}
@@ -64,4 +64,4 @@ const ReciveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
   );
 };
 
-export default ReciveGiftList;
+export default ReceiveGiftList;

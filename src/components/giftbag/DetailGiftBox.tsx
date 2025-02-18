@@ -19,12 +19,13 @@ import RightIcon from "/public/icons/arrow_right_large.svg";
 import { GIFT_ANSWER_CHIP_TEXTES } from "@/constants/constants";
 import {
   useGiftAnswerStore,
+  useIsUploadAnswerStore,
   useSelectedGiftBoxStore,
 } from "@/stores/giftbag/useStore";
-import { ReciveGiftBox } from "@/types/giftbag/types";
+import { ReceiveGiftBox } from "@/types/giftbag/types";
 
 interface DetailGiftBoxProps {
-  giftList: ReciveGiftBox[];
+  giftList: ReceiveGiftBox[];
 }
 
 const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
@@ -33,6 +34,8 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
   const handleSelectAnswer = (giftIndex: number, answerIndex: number) => {
     setAnswer(giftIndex, answerIndex);
   };
+
+  const { isUploadedAnswer } = useIsUploadAnswerStore();
 
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [currentCarousel, setCurrentCarousel] = useState(0);
@@ -162,7 +165,7 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
                     <p className="text-[15px]">{gift.message}</p>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <p className="text-xs text-gray-300">
+                    <p className="text-xs text-gray-500">
                       선물에 대한 답변을 선택해주세요
                     </p>
                     <div className="flex gap-2 flex-wrap w-[272px]">
@@ -173,6 +176,7 @@ const DetailGiftBox = ({ giftList }: DetailGiftBoxProps) => {
                             text={answer}
                             isActive={answers[giftIndex] === index}
                             onClick={() => handleSelectAnswer(giftIndex, index)}
+                            disabled={isUploadedAnswer}
                           />
                         );
                       })}
