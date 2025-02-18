@@ -18,9 +18,15 @@ import LeftIcon from "/public/icons/arrow_left_large.svg";
 import RightIcon from "/public/icons/arrow_right_large.svg";
 
 import { filledGiftList } from "@/data/giftbagData";
+import { useGiftNameStore } from "@/stores/giftbag/useStore";
 
 const Page = () => {
   const { giftId } = useParams() as { giftId: string };
+  const { setGiftName } = useGiftNameStore();
+
+  useEffect(() => {
+    setGiftName(filledGiftList[parseInt(giftId)].name);
+  }, [giftId, setGiftName]);
 
   const [currentImageIndexes, setCurrentImageIndexes] = useState<{
     [key: number]: number;

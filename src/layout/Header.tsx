@@ -2,11 +2,17 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import {
+  useRouter,
+  usePathname,
+  useSearchParams,
+  useParams,
+} from "next/navigation";
 
 import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 import {
   useGiftBagStore,
+  useGiftNameStore,
   useIsOpenDetailGiftBoxStore,
 } from "@/stores/giftbag/useStore";
 
@@ -31,6 +37,8 @@ const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const step = searchParams?.get("step");
+  const { giftId } = useParams() as { giftId?: string };
 
   const [dynamicTitle, setDynamicTitle] = useState<string>(
     pageTitles[pathname ?? ""],
@@ -50,8 +58,8 @@ const Header = () => {
   const isGiftUploadPage = pathname === "/gift-upload";
   const isGiftbagAddPage = pathname === "/giftbag/add";
 
-  const step = searchParams?.get("step");
   const { giftBagName } = useGiftBagStore();
+  const { giftName } = useGiftNameStore();
 
   useEffect(() => {
     setIsStepThree(step === "3");
@@ -63,6 +71,10 @@ const Header = () => {
   }, [pathname]);
 
   useEffect(() => {
+    if (giftName && giftId) {
+      return setDynamicTitle(giftName);
+    }
+
     if (giftBagName && pathname === "/giftbag/add") {
       setDynamicTitle(giftBagName);
     } else {
@@ -87,7 +99,7 @@ const Header = () => {
         }
       }
     }
-  }, [giftBagName, pathname, searchParams]);
+  }, [giftBagName, giftId, giftName, pathname, searchParams]);
 
   // 로컬 스토리지에서 토큰 확인
   useEffect(() => {
