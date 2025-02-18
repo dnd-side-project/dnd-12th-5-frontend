@@ -35,3 +35,10 @@ export const deliveryCharacterData: Record<
     bubbleText: "소중하게 골라주신 선물, 안전하게 배달할게요!",
   },
 };
+
+export const CHARACTER_MAP: Record<string, string> = {
+  CHARACTER_1: "pori",
+  CHARACTER_2: "chichi",
+  CHARACTER_3: "max",
+  CHARACTER_4: "hearty",
+};

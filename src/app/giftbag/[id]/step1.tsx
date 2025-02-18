@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { CHARACTER_MAP } from "@/data/deliveryCharacterData";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 
@@ -12,12 +13,6 @@ interface Step1Props {
 {
   /* 임시 매핑, 추후 백엔드 답변에 따라 수정해야 할 수도 있음 */
 }
-const CHARACTER_MAP: Record<string, string> = {
-  CHARACTER_1: "pori",
-  CHARACTER_2: "chichi",
-  CHARACTER_3: "max",
-  CHARACTER_4: "hearty",
-};
 
 const TEXT_MAP: Record<string, string> = {
   pori: "똑똑 서프라이즈~ @ 보따리가 도착했어요!",
