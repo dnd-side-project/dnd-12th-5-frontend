@@ -10,6 +10,8 @@ interface UploadImageListProps {
   giftBoxIndex: number;
 }
 
+const allowedExtensions = ["jpg", "jpeg", "png", "webp", "heic", "heif"];
+
 const UploadImageList = ({ onFilesChange }: UploadImageListProps) => {
   const [previewImages, setPreviewImages] = useState<string[]>([]);
   const [imageFiles, setImageFiles] = useState<File[]>([]);
@@ -18,11 +20,24 @@ const UploadImageList = ({ onFilesChange }: UploadImageListProps) => {
     if (!event.target.files) return;
 
     const files = Array.from(event.target.files);
-    const filePreviews = files.map((file) => URL.createObjectURL(file));
+    const validFiles: File[] = [];
+    const filePreviews: string[] = [];
 
-    setImageFiles((prev) => [...prev, ...files]);
+    files.forEach((file) => {
+      const fileExtension = file.name.split(".").pop()?.toLowerCase();
+      if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
+        alert(
+          "지원되지 않는 파일 형식입니다. (jpg, jpeg, png, webp, heic, heif 만 가능)",
+        );
+        return;
+      }
+      validFiles.push(file);
+      filePreviews.push(URL.createObjectURL(file));
+    });
+
+    setImageFiles((prev) => [...prev, ...validFiles]);
     setPreviewImages((prev) => [...prev, ...filePreviews]);
-    onFilesChange([...imageFiles, ...files]);
+    onFilesChange([...imageFiles, ...validFiles]);
 
     event.target.value = "";
   };
@@ -39,7 +54,9 @@ const UploadImageList = ({ onFilesChange }: UploadImageListProps) => {
   return (
     <div className="flex gap-2 whitespace-nowrap">
       <label
-        className={`flex flex-shrink-0 flex-col items-center justify-center rounded-[10px] h-[88px] w-[88px] bg-gray-50 border-[1.4px] border-gray-100 ${imageFiles.length === 5 ? "cursor-not-allowed" : "cursor-pointer"}`}
+        className={`flex flex-shrink-0 flex-col items-center justify-center rounded-[10px] h-[88px] w-[88px] bg-gray-50 border-[1.4px] border-gray-100 ${
+          imageFiles.length === 5 ? "cursor-not-allowed" : "cursor-pointer"
+        }`}
       >
         <Image src={ImageIcon} alt="image" width={14} height={14} />
         <span className="text-[10px] text-gray-300 mt-1">
@@ -47,7 +64,7 @@ const UploadImageList = ({ onFilesChange }: UploadImageListProps) => {
         </span>
         <input
           type="file"
-          accept="image/*"
+          accept={allowedExtensions.map((ext) => `.${ext}`).join(", ")}
           className="hidden"
           onChange={handleUpload}
           disabled={imageFiles.length >= 5}
