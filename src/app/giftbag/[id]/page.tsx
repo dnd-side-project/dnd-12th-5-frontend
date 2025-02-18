@@ -4,12 +4,13 @@ import { useSearchParams } from "next/navigation";
 import Step1 from "./step1";
 import Step2 from "./step2";
 import Step3 from "./step3";
+import { ReceiveGiftBag } from "@/types/giftbag/types";
 
 const Page = () => {
   const searchParams = useSearchParams();
   const step = searchParams ? searchParams.get("step") : null;
 
-  const gifts = {
+  const giftBag: ReceiveGiftBag = {
     delivery_character_type: "CHARACTER_4",
     design_type: "YELLOW",
     status: "PUBLISHED",
@@ -18,7 +19,11 @@ const Page = () => {
         id: 1234,
         name: "신발",
         message: null,
-        imageUrls: ["/img/gift_3_2.jpg", , "/img/gift_3_3.jpg", ,],
+        imageUrls: [
+          "/img/gift_3_1.jpg",
+          "/img/gift_3_2.jpg",
+          "/img/gift_3_3.jpg",
+        ],
         thumbnail: "/img/gift_3_1.jpg",
       },
       {
@@ -43,11 +48,11 @@ const Page = () => {
     <div className={`h-full relative ${step === "2" && "bg-pink-50 "}`}>
       {step === "1" && (
         <Step1
-          delivery={gifts.delivery_character_type}
-          color={gifts.design_type}
+          delivery={giftBag.delivery_character_type}
+          color={giftBag.design_type}
         />
       )}
-      {step === "2" && <Step2 />}
+      {step === "2" && <Step2 gifts={giftBag.gifts} />}
       {step === "3" && <Step3 />}
     </div>
   );
