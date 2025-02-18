@@ -16,6 +16,7 @@ import {
   useEditBoxStore,
 } from "@/stores/gift-upload/useStore";
 import { motion } from "framer-motion";
+import { uploadGiftImages } from "@/api/gift-upload/api";
 
 const GiftForm = () => {
   const router = useRouter();
@@ -89,22 +90,7 @@ const GiftForm = () => {
   }, [giftReason]);
 
   const uploadMutation = useMutation<string[], Error, FormData>({
-    mutationFn: async (formData: FormData) => {
-      const response = await fetch("/api/v1/gifts/images/upload", {
-        method: "POST",
-        body: formData,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error("이미지 업로드 실패");
-      }
-
-      const data = await response.json();
-      return data.result.uploadedUrls as string[];
-    },
+    mutationFn: uploadGiftImages,
     onSuccess: (uploadedUrls: string[]) => {
       updateGiftBox(index, {
         imgUrls: [
