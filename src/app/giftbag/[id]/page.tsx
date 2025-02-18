@@ -53,7 +53,7 @@ const Page = () => {
         />
       )}
       {step === "2" && <Step2 gifts={giftBag.gifts} />}
-      {step === "3" && <Step3 />}
+      {step === "3" && <Step3 delivery={giftBag.delivery_character_type} />}
     </div>
   );
 };
