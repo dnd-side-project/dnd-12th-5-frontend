@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Image from "next/image";
 
-import RemoveBtn from "/public/icons/btn_erase.svg";
+import DeleteIcon from "/public/icons/btn_erase.svg";
 
 import MyGiftBagStatusChip from "./MyGiftBagStatusChip";
+import { DrawerTrigger } from "../ui/drawer";
 
 interface MyGiftBagCardProps {
   isEdit: boolean;
@@ -26,19 +27,8 @@ const MyGiftBagCard = ({
     // 14. 보따리 삭제 API 호출
   };
 
-  return (
-    <div className="bg-white border-[1px] box-border border-gray-200 px-2 pb-[22px] pt-[8px] rounded-[12px] cursor-pointer flex flex-col justify-center items-center relative hover:bg-gray-100">
-      <div className="w-full flex flex-start">
-        <MyGiftBagStatusChip status={status} isRead={is_read} />
-      </div>
-      {isEdit && (
-        <button
-          onClick={handleDelete}
-          className="absolute right-[6px] top-[6px]"
-        >
-          <Image src={RemoveBtn} alt="RemoveBtn" />
-        </button>
-      )}
+  const memoizedImage = useMemo(
+    () => (
       <Image
         src={design_type}
         alt="GiftBag"
@@ -46,6 +36,30 @@ const MyGiftBagCard = ({
         height={94}
         className="mt-[8px] mb-[14px]"
       />
+    ),
+    [design_type],
+  );
+
+  return (
+    <div
+      className={`bg-white border-[1px] box-border border-gray-200 px-2 pb-[22px] pt-[8px] rounded-[12px] cursor-pointer flex flex-col justify-center items-center relative ${
+        !isEdit && "hover:bg-gray-100"
+      }`}
+    >
+      <div className="w-full flex flex-start">
+        <MyGiftBagStatusChip status={status} isRead={is_read} />
+      </div>
+      {isEdit && (
+        <DrawerTrigger asChild>
+          <button
+            onClick={handleDelete}
+            className="absolute right-[6px] top-[6px]"
+          >
+            <Image src={DeleteIcon} alt="delete-btn" />
+          </button>
+        </DrawerTrigger>
+      )}
+      {memoizedImage}
       <div>
         <p className="text-[15px] font-medium text-center">{name}</p>
         <p className="text-gray-400 text-xs font-medium text-center">
