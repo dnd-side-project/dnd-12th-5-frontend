@@ -5,6 +5,7 @@ import DeleteIcon from "/public/icons/btn_erase.svg";
 
 import MyGiftBagStatusChip from "./MyGiftBagStatusChip";
 import { DrawerTrigger } from "../ui/drawer";
+import { DESIGN_TYPE_MAP } from "@/constants/constants";
 
 interface MyGiftBagCardProps {
   isEdit: boolean;
@@ -32,17 +33,19 @@ const MyGiftBagCard = ({
     if (onDelete) onDelete();
   };
 
+  const imageSrc = DESIGN_TYPE_MAP[design_type];
+
   const memoizedImage = useMemo(
     () => (
       <Image
-        src={design_type}
+        src={imageSrc}
         alt="GiftBag"
         width={89}
         height={94}
         className="mt-[8px] mb-[14px]"
       />
     ),
-    [design_type],
+    [imageSrc],
   );
 
   return (
@@ -68,7 +71,7 @@ const MyGiftBagCard = ({
       <div>
         <p className="text-[15px] font-medium text-center">{name}</p>
         <p className="text-gray-400 text-xs font-medium text-center">
-          {updatedAt.toISOString().split("T")[0]}
+          {new Date(updatedAt).toISOString().split("T")[0]}
         </p>
       </div>
     </div>
