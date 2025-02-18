@@ -65,12 +65,30 @@ export const useGiftAnswerStore = create(
   ),
 );
 
-interface SelectedGiftBoxState {
+interface SelectedGiftBoxStore {
   selectedGiftIndex: number | null;
   setSelectedGiftIndex: (index: number | null) => void;
 }
 
-export const useSelectedGiftBoxStore = create<SelectedGiftBoxState>((set) => ({
+export const useSelectedGiftBoxStore = create<SelectedGiftBoxStore>((set) => ({
   selectedGiftIndex: null,
   setSelectedGiftIndex: (index) => set({ selectedGiftIndex: index }),
 }));
+
+interface IsUploadAnswerStore {
+  isUploadedAnswer: boolean;
+  setIsUploadedAnswer: (isUploaded: boolean) => void;
+}
+
+export const useIsUploadAnswerStore = create<IsUploadAnswerStore>()(
+  persist(
+    (set) => ({
+      isUploadedAnswer: false,
+      setIsUploadedAnswer: (isUploaded) =>
+        set({ isUploadedAnswer: isUploaded }),
+    }),
+    {
+      name: "uploaded-answer-storage",
+    },
+  ),
+);

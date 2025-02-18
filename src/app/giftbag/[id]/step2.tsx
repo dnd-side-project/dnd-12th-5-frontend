@@ -1,7 +1,6 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
 import Chip from "@/components/giftbag/Chip";
 import DetailGiftBox from "@/components/giftbag/DetailGiftBox";
@@ -10,36 +9,35 @@ import { Button } from "@/components/ui/button";
 import {
   useGiftAnswerStore,
   useIsOpenDetailGiftBoxStore,
+  useIsUploadAnswerStore,
 } from "@/stores/giftbag/useStore";
 import { ReciveGiftBox } from "@/types/giftbag/types";
+import { useEffect, useState } from "react";
 
 const Step2 = () => {
   const router = useRouter();
   const { id } = useParams() as { id: string };
   const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
     useIsOpenDetailGiftBoxStore();
-
-  const handleOnclick = () => {
-    //api 추가
-    router.push(`/giftbag/${id}?step=3`);
-  };
-
-  const [isAnswered, setIsAnswered] = useState(false);
+  const { answers } = useGiftAnswerStore();
+  const { isUploadedAnswer, setIsUploadedAnswer } = useIsUploadAnswerStore();
 
   const openGiftBox = () => {
     setIsOpenDetailGiftBox(true);
   };
 
+  const handleOnclick = () => {
+    // TODO: API 통신 추가
+
+    router.push(`/giftbag/${id}?step=3`);
+    setIsUploadedAnswer(true);
+  };
+
   const gifts: ReciveGiftBox[] = [
-    {
-      name: "휴대폰 케이스",
-      message: "",
-      imageUrls: ["/img/gift_1.jpg"],
-    },
+    { name: "휴대폰 케이스", message: "", imageUrls: ["/img/gift_1.jpg"] },
     {
       name: "텀블러",
-      message:
-        "글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글자수가최대일때테스트글",
+      message: "테스트 메시지...",
       imageUrls: ["/img/gift_2.jpg"],
     },
     {
@@ -53,7 +51,8 @@ const Step2 = () => {
     },
   ];
 
-  const answers = useGiftAnswerStore((state) => state.answers);
+  const [isAnswered, setIsAnswered] = useState(false);
+
   const answeredCount = Object.keys(answers).length;
   const chipText =
     answeredCount > 0
@@ -77,8 +76,12 @@ const Step2 = () => {
             <ReciveGiftList giftList={gifts} onClick={openGiftBox} />
           </div>
           <div className="absolute bottom-4 w-full px-4">
-            <Button size="lg" onClick={handleOnclick} disabled={!isAnswered}>
-              답변 전송하기
+            <Button
+              size="lg"
+              onClick={handleOnclick}
+              disabled={isUploadedAnswer || !isAnswered}
+            >
+              {isUploadedAnswer ? "답변 전송 완료!" : "답변 전송하기"}
             </Button>
           </div>
         </div>
