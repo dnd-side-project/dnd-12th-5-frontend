@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,16 +21,20 @@ const Page = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [selectedGiftBagName, setSelectedGiftBagName] = useState("");
+  const [selectedGiftBagInfo, setSelectedGiftBagInfo] = useState<{
+    id: number;
+    name: string;
+  } | null>(null);
 
   const filteredBottariData = giftBagData.filter(
     (giftBag) => !isChecked || giftBag.status === "DRAFT",
   );
 
-  const handleDelete = () => {
+  const handleDelete = useCallback((id: number) => {
     // DELETE /api/v1/bundles/{id}
+    alert(id);
     setIsDrawerOpen(false);
-  };
+  }, []);
 
   return (
     <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
@@ -38,7 +42,7 @@ const Page = () => {
         <div className="w-full flex items-center gap-2 mt-[10px] mb-6 cursor-pointer">
           <div
             onClick={() => setIsChecked(!isChecked)}
-            className={`w-5 h-5 flex items-center justify-center rounded-[4px] bg-slate-100`}
+            className="w-5 h-5 flex items-center justify-center rounded-[4px] bg-slate-100"
           >
             {isChecked && (
               <div className="w-full h-full bg-pink-500 rounded-sm flex items-center justify-center">
@@ -62,21 +66,22 @@ const Page = () => {
         >
           {filteredBottariData.map((bottari) =>
             isEdit ? (
-              <>
-                <MyGiftBagCard
-                  key={bottari.id}
-                  isEdit={isEdit}
-                  design_type={bottari.designType}
-                  is_read={bottari.isRead}
-                  status={bottari.status}
-                  name={bottari.name}
-                  updatedAt={bottari.updatedAt}
-                  onDelete={() => {
-                    setSelectedGiftBagName(bottari.name);
-                    setIsDrawerOpen(true);
-                  }}
-                />
-              </>
+              <MyGiftBagCard
+                key={bottari.id}
+                isEdit={isEdit}
+                design_type={bottari.designType}
+                is_read={bottari.isRead}
+                status={bottari.status}
+                name={bottari.name}
+                updatedAt={bottari.updatedAt}
+                onDelete={() => {
+                  setSelectedGiftBagInfo({
+                    id: bottari.id,
+                    name: bottari.name,
+                  });
+                  setIsDrawerOpen(true);
+                }}
+              />
             ) : (
               <Link key={bottari.id} href={`/giftbag/list/${bottari.id}`}>
                 <MyGiftBagCard
@@ -95,7 +100,9 @@ const Page = () => {
         {isDrawerOpen && (
           <DrawerContent>
             <DrawerHeader className="relative flex justify-center py-3">
-              <DrawerTitle>{selectedGiftBagName}</DrawerTitle>
+              <DrawerTitle>
+                {selectedGiftBagInfo ? selectedGiftBagInfo.name : ""}
+              </DrawerTitle>
               <DrawerClose className="absolute top-2 right-[14px]">
                 <Image
                   src="/icons/close.svg"
@@ -122,7 +129,12 @@ const Page = () => {
                   </Button>
                 </DrawerClose>
 
-                <Button size="lg" onClick={handleDelete}>
+                <Button
+                  size="lg"
+                  onClick={() =>
+                    selectedGiftBagInfo && handleDelete(selectedGiftBagInfo.id)
+                  }
+                >
                   삭제하기
                 </Button>
               </div>
