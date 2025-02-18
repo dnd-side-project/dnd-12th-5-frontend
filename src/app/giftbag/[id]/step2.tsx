@@ -62,7 +62,7 @@ const Step2 = () => {
 
   useEffect(() => {
     if (answeredCount === gifts.length) setIsAnswered(true);
-  }, [answers]);
+  }, [answeredCount, answers, gifts.length]);
 
   return (
     <div className="relative bg-pink-50 overflow-hidden h-full">
