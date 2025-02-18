@@ -29,14 +29,13 @@ interface GiftListProps {
 const GiftList = ({ value }: GiftListProps) => {
   const router = useRouter();
   const [selectedBox, setSelectedBox] = useState<GiftBox | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
   const { giftBoxes, updateGiftBox } = useGiftStore();
 
   const emptyGiftBox = () => {
-    const index = giftBoxes.findIndex((box) => box === selectedBox);
-
-    if (index !== -1) {
-      updateGiftBox(index, {
+    if (selectedIndex !== null) {
+      updateGiftBox(selectedIndex, {
         name: "",
         reason: "",
         purchase_url: "",
@@ -45,7 +44,10 @@ const GiftList = ({ value }: GiftListProps) => {
       });
     }
     setSelectedBox(null);
+    setSelectedIndex(null);
   };
+
+  const oneOrMoreFilledBox = giftBoxes.filter((box) => box.filled).length;
 
   return (
     <>
@@ -64,14 +66,13 @@ const GiftList = ({ value }: GiftListProps) => {
               <Drawer key={index}>
                 {box.filled ? (
                   <>
-                    <DrawerTrigger>
-                      <div
-                        key={index}
-                        className="w-[130px] h-[130px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out"
-                        onClick={() => {
-                          setSelectedBox(box);
-                        }}
-                      >
+                    <DrawerTrigger
+                      onClick={() => {
+                        setSelectedBox(giftBoxes[index]);
+                        setSelectedIndex(index);
+                      }}
+                    >
+                      <div className="w-[130px] h-[130px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out">
                         <Image
                           src={imageSrc}
                           alt={`gift-item-${index}`}
@@ -84,17 +85,17 @@ const GiftList = ({ value }: GiftListProps) => {
                     <GiftBoxDrawer
                       handleEmptyButton={emptyGiftBox}
                       box={selectedBox}
+                      index={selectedIndex}
                     />
                   </>
                 ) : (
                   <div
-                    key={index}
                     className="w-[130px] h-[130px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out"
                     onClick={() => {
                       router.push(`/gift-upload?index=${index}`);
                     }}
                   >
-                    {index === 0 ? (
+                    {index === 0 && !oneOrMoreFilledBox ? (
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <Image

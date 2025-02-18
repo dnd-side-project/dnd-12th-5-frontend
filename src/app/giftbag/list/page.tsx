@@ -7,82 +7,15 @@ import Link from "next/link";
 import MyGiftBagCard from "@/components/myGiftbag/MyGiftBagCard";
 import CheckIcon from "/public/icons/check.svg";
 
-// 임시 데이터
-// 추후 API 연동
-const bottariData = [
-  {
-    id: 1,
-    name: "보따리 1",
-    design_type: "/img/giftBag_red.svg",
-    isRead: true,
-    status: "PUBLISHED",
-    created_at: "2025-02-07",
-  },
-  {
-    id: 2,
-    name: "보따리 2",
-    design_type: "/img/giftBag_pink.svg",
-    isRead: true,
-    status: "COMPLETED",
-    created_at: "2025-02-03",
-  },
-  {
-    id: 3,
-    name: "보따리 3",
-    design_type: "/img/giftBag_blue.svg",
-    isRead: true,
-    status: "DRAFT",
-    created_at: "2025-01-11",
-  },
-  {
-    id: 4,
-    name: "보따리 4",
-    design_type: "/img/giftBag_yellow.svg",
-    isRead: false,
-    status: "COMPLETED",
-    created_at: "2025-01-05",
-  },
-  {
-    id: 5,
-    name: "보따리 5",
-    design_type: "/img/giftBag_red.svg",
-    isRead: true,
-    status: "PUBLISHED",
-    created_at: "2025-02-07",
-  },
-  {
-    id: 6,
-    name: "보따리 6",
-    design_type: "/img/giftBag_pink.svg",
-    isRead: true,
-    status: "COMPLETED",
-    created_at: "2025-02-03",
-  },
-  {
-    id: 7,
-    name: "보따리 7",
-    design_type: "/img/giftBag_blue.svg",
-    isRead: true,
-    status: "DRAFT",
-    created_at: "2025-01-11",
-  },
-  {
-    id: 8,
-    name: "보따리 8",
-    design_type: "/img/giftBag_yellow.svg",
-    isRead: false,
-    status: "COMPLETED",
-    created_at: "2025-01-05",
-  },
-];
+import { giftBagData } from "@/data/giftbagData";
 
 const Page = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
   // 임시 저장된 보따리 필터링
-  const filteredBottariData = bottariData.filter(
-    (bottari) => !isChecked || bottari.status === "DRAFT",
+  const filteredBottariData = giftBagData.filter(
+    (giftBag) => !isChecked || giftBag.status === "DRAFT",
   );
 
   return (
@@ -113,15 +46,15 @@ const Page = () => {
         style={{ scrollbarWidth: "none" }}
       >
         {filteredBottariData.map((bottari) => (
-          <Link key={bottari.id} href={`/giftbag/detail/${bottari.id}`}>
+          <Link key={bottari.id} href={`/giftbag/list/${bottari.id}`}>
             <MyGiftBagCard
               key={bottari.id}
               isEdit={isEdit}
-              design_type={bottari.design_type}
+              design_type={bottari.designType}
               is_read={bottari.isRead}
               status={bottari.status}
               name={bottari.name}
-              created_at={bottari.created_at}
+              updatedAt={bottari.updatedAt}
             />
           </Link>
         ))}

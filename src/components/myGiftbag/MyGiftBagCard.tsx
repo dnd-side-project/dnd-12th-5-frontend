@@ -11,7 +11,7 @@ interface MyGiftBagCardProps {
   is_read: boolean;
   status: string;
   name: string;
-  created_at: string;
+  updatedAt: Date;
 }
 
 const MyGiftBagCard = ({
@@ -20,7 +20,7 @@ const MyGiftBagCard = ({
   is_read,
   status,
   name,
-  created_at,
+  updatedAt,
 }: MyGiftBagCardProps) => {
   const handleDelete = () => {
     // 14. 보따리 삭제 API 호출
@@ -49,7 +49,7 @@ const MyGiftBagCard = ({
       <div>
         <p className="text-[15px] font-medium text-center">{name}</p>
         <p className="text-gray-400 text-xs font-medium text-center">
-          {created_at}
+          {updatedAt.toISOString().split("T")[0]}
         </p>
       </div>
     </div>
