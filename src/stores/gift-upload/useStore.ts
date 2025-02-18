@@ -25,6 +25,7 @@ export const useGiftStore = create<GiftStore>()(
         filled: false,
         reason: "",
         tagIndex: 0,
+        imgUrls: [], // 기본적으로 빈 배열로 초기화
       }),
 
       updateGiftBox: (index, data) =>

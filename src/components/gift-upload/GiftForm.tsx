@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 import CharacterCountInput from "../common/CharacterCountInput";
 import { Button } from "../ui/button";
 import InputLink from "./InputLink";
@@ -28,26 +29,23 @@ const GiftForm = () => {
     () =>
       giftBoxes[index] || {
         name: "",
-        message: "",
+        reason: "",
         purchase_url: "",
         tag: "",
+        imgUrls: [],
       },
     [giftBoxes, index],
   );
 
-  const [imageCount, setImageCount] = useState(existingGift.filled ? 1 : 0);
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [giftName, setGiftName] = useState(existingGift.name);
   const [giftReason, setGiftReason] = useState(existingGift.reason || "");
   const [giftLink, setGiftLink] = useState(existingGift.purchase_url || "");
   const [giftTag, setGiftTag] = useState(existingGift.tag || "");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const [isGiftNameFilled, setIsGiftNameFilled] = useState(
-    giftName.length > 0 || !!existingGift.name,
-  );
-  const [isReasonFilled, setIsReasonFilled] = useState(
-    giftReason.length > 0 || !!existingGift.reason,
-  );
+  const [isGiftNameFilled, setIsGiftNameFilled] = useState(!!giftName);
+  const [isReasonFilled, setIsReasonFilled] = useState(!!giftReason);
 
   const reasonRef = useRef<HTMLDivElement>(null);
   const linkRef = useRef<HTMLDivElement>(null);
@@ -88,21 +86,33 @@ const GiftForm = () => {
     }
   }, [giftReason]);
 
-  useEffect(() => {
-    if (giftReason.length > 0 && !isBoxEditing) {
-      setTimeout(() => {
-        linkRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }, 100);
-    }
-  }, [giftReason]);
+  const uploadMutation = useMutation<string[], Error, FormData>({
+    mutationFn: async (formData: FormData) => {
+      const response = await fetch("/api/v1/gifts/images/upload", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      });
+
+      if (!response.ok) {
+        console.error("이미지 업로드 실패");
+      }
+
+      const data = await response.json();
+      return data.result.uploadedUrls as string[];
+    },
+    onSuccess: (uploadedUrls: string[]) => {
+      updateGiftBox(index, {
+        imgUrls: uploadedUrls,
+      });
+    },
+  });
 
   const handleSubmit = () => {
-    if (imageCount === 0 || giftName.length === 0) {
+    if (imageFiles.length === 0 || giftName.length === 0) {
       setIsSubmitted(true);
-      return;
     }
 
     updateGiftBox(index, {
@@ -114,6 +124,10 @@ const GiftForm = () => {
       filled: true,
     });
 
+    const formData = new FormData();
+    imageFiles.forEach((file) => formData.append("files", file));
+    uploadMutation.mutate(formData);
+
     router.push("/giftbag/add");
     setIsBoxEditing(false);
   };
@@ -122,9 +136,15 @@ const GiftForm = () => {
     <div className="px-4 flex flex-col h-full overflow-y-auto">
       <div className="flex flex-col flex-grow gap-[50px] mt-[18px] pb-[70px]">
         <div>
-          <div className="mb-[22px]">
-            <UploadImageList onImagesChange={setImageCount} />
-            {isSubmitted && imageCount === 0 && (
+          <div
+            className="w-full overflow-x-auto px-4 mb-[22px] min-w-full"
+            style={{ scrollbarWidth: "none" }}
+          >
+            <UploadImageList
+              onFilesChange={setImageFiles}
+              giftBoxIndex={index}
+            />
+            {isSubmitted && imageFiles.length === 0 && (
               <ErrorMessage message="필수 입력 정보입니다." />
             )}
           </div>
@@ -133,9 +153,7 @@ const GiftForm = () => {
               maxLength={GIFT_NAME_MAX_LENGTH}
               value={giftName}
               placeholder="선물명을 적어주세요"
-              onChange={(text) => {
-                setGiftName(text);
-              }}
+              onChange={(text) => setGiftName(text)}
             />
             {isSubmitted && giftName.length === 0 && (
               <ErrorMessage message="필수 입력 정보입니다." />
@@ -146,9 +164,7 @@ const GiftForm = () => {
           <div ref={reasonRef}>
             <InputReason
               value={giftReason}
-              onReasonChange={(text) => {
-                setGiftReason(text);
-              }}
+              onReasonChange={setGiftReason}
               onTagChange={setGiftTag}
               giftBoxIndex={index}
             />
