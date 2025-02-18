@@ -1,12 +1,15 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import React from "react";
 
 import Card from "@/components/common/Card";
 
+import { FilledGiftListPreview, MyGiftBagPreview } from "@/types/giftbag/types";
+
 interface MyCardListProps {
   type?: "design" | "image";
-  data: string[];
+  data: MyGiftBagPreview[] | FilledGiftListPreview[] | string[];
   size: "small" | "medium";
   giftbagIndex?: string;
 }
@@ -30,7 +33,7 @@ const MyCardList = ({ type, data, size, giftbagIndex }: MyCardListProps) => {
             key={index}
             type={type}
             size={size}
-            img={data[index % data.length]}
+            img={""}
             onClick={() => handleCardClick(index)}
           />
         ))}
@@ -38,4 +41,4 @@ const MyCardList = ({ type, data, size, giftbagIndex }: MyCardListProps) => {
   );
 };
 
-export default MyCardList;
+export default React.memo(MyCardList);
