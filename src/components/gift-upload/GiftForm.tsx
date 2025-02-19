@@ -31,6 +31,7 @@ const GiftForm = () => {
         message: "",
         purchase_url: "",
         tag: "",
+        imageUrls: [],
       },
     [giftBoxes, index],
   );

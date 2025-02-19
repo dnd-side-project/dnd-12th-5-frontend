@@ -25,6 +25,7 @@ export const useGiftStore = create<GiftStore>()(
         filled: false,
         reason: "",
         tagIndex: 0,
+        imgUrls: [],
       }),
 
       updateGiftBox: (index, data) =>
