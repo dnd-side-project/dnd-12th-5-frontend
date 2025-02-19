@@ -33,6 +33,7 @@ const Step2 = ({ onNextStep }: Step2Props) => {
         purchase_url: "",
         tag: "",
         imgUrls: [],
+        id: null,
       }),
     });
 

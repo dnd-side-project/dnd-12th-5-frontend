@@ -12,6 +12,7 @@ import {
 } from "@/stores/giftbag/useStore";
 import { useMutation } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
+import { GiftBox } from "@/types/giftbag/types";
 
 const Page = () => {
   const { giftBoxes } = useGiftStore();
@@ -40,6 +41,12 @@ const Page = () => {
     onSuccess: (res) => {
       if (res?.id) {
         setGiftBagId(res.id);
+      }
+
+      if (res?.gifts?.length) {
+        res.gifts.forEach((gift: GiftBox, index: number) => {
+          useGiftStore.getState().updateGiftBox(index, { id: gift.id });
+        });
       }
     },
   });

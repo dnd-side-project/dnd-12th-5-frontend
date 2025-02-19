@@ -24,6 +24,7 @@ import SettingIcon from "../../public/icons/setting_large.svg";
 import ArrowLeftIcon from "../../public/icons/arrow_left_large.svg";
 import { createGiftBag } from "@/api/giftbag/api";
 import { toast } from "@/hooks/use-toast";
+import { GiftBox } from "@/types/giftbag/types";
 
 // 정적 title 관리
 const pageTitles: { [key: string]: string } = {
@@ -141,9 +142,34 @@ const Header = () => {
     setShowTempSave(filledCount >= 2);
   }, [giftBoxes]);
 
+  const [giftBagId, setGiftBagId] = useState<string | null>(
+    () => sessionStorage.getItem("giftBagId") || null,
+  );
+
+  useEffect(() => {
+    if (giftBagId) {
+      sessionStorage.setItem("giftBagId", giftBagId);
+    }
+  }, [giftBagId]);
+
   const handleTempSave = async () => {
     try {
-      await createGiftBag({ giftBagName, selectedBagIndex, giftBoxes });
+      const res = await createGiftBag({
+        giftBagName,
+        selectedBagIndex,
+        giftBoxes,
+      });
+
+      if (res?.id) {
+        setGiftBagId(res.id);
+      }
+
+      if (res?.gifts?.length) {
+        res.gifts.forEach((gift: GiftBox, index: number) => {
+          useGiftStore.getState().updateGiftBox(index, { id: gift.id });
+        });
+      }
+
       toast({
         title: "임시저장 성공",
         description: "보따리가 임시저장되었습니다.",
