@@ -34,7 +34,7 @@ const Step2 = ({ onNextStep }: Step2Props) => {
         tagIndex: 0,
         purchase_url: "",
         tag: "",
-        imageUrls: [],
+        imgUrls: [],
       }),
     });
 

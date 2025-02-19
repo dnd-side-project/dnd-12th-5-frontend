@@ -28,8 +28,8 @@ export const createGiftBag = async ({
           name: gift.name,
           message: gift.reason, //수정 필요
           purchaseUrl: gift.purchase_url,
-          imageUrls: gift.imageUrls?.length
-            ? gift.imageUrls
+          imageUrls: gift.imgUrls?.length
+            ? gift.imgUrls
             : ["https://www.naver.com"], //수정 필요
         })),
     }),
