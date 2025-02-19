@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import ImageCard from "./ImageCard";
 import ImageIcon from "../../../public/icons/image_medium.svg";
 import Image from "next/image";
+import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 
 interface UploadImageListProps {
   onFilesChange: (files: File[]) => void;
@@ -20,10 +21,17 @@ const UploadImageList = ({
 }: UploadImageListProps) => {
   const [previewImages, setPreviewImages] = useState<string[]>(existingImages);
   const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const { isBoxEditing } = useEditBoxStore();
 
   useEffect(() => {
-    setPreviewImages(existingImages);
-  }, [existingImages]);
+    if (isBoxEditing) {
+      setPreviewImages((prev) => {
+        return JSON.stringify(prev) === JSON.stringify(existingImages)
+          ? prev
+          : existingImages;
+      });
+    }
+  }, [existingImages, isBoxEditing]);
 
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;

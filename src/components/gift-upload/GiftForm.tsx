@@ -92,41 +92,67 @@ const GiftForm = () => {
   const uploadMutation = useMutation<string[], Error, FormData>({
     mutationFn: uploadGiftImages,
     onSuccess: (uploadedUrls: string[]) => {
-      updateGiftBox(index, {
-        imgUrls: [
-          ...existingGift.imgUrls.filter((url) => !removedImages.includes(url)),
-          ...uploadedUrls,
-        ],
-      });
+      if (isBoxEditing) {
+        updateGiftBox(index, {
+          imgUrls: [
+            ...existingGift.imgUrls.filter(
+              (url) => !removedImages.includes(url),
+            ),
+            ...uploadedUrls,
+          ],
+        });
+      } else {
+        updateGiftBox(index, {
+          imgUrls: uploadedUrls,
+        });
+      }
     },
   });
 
   const handleSubmit = () => {
-    const remainingImages =
-      existingGift.imgUrls.filter((url) => !removedImages.includes(url))
-        .length + imageFiles.length;
+    const remainingImages = isBoxEditing
+      ? (existingGift.imgUrls ?? []).filter(
+          (url) => !removedImages.includes(url),
+        ).length + imageFiles.length
+      : imageFiles.length;
 
     if (remainingImages === 0) {
       setIsSubmitted(true);
       return;
     }
 
-    updateGiftBox(index, {
+    const updatedGiftBox = {
       name: giftName,
       reason: giftReason,
       purchase_url: giftLink,
       tag: giftTag,
       tagIndex: selectedTagIndex,
-      imgUrls: [
-        ...existingGift.imgUrls.filter((url) => !removedImages.includes(url)),
-      ],
       filled: true,
-    });
+      imgUrls: isBoxEditing
+        ? [
+            ...(existingGift.imgUrls ?? []).filter(
+              (url) => !removedImages.includes(url),
+            ),
+          ]
+        : [],
+    };
+
+    updateGiftBox(index, updatedGiftBox);
 
     if (imageFiles.length > 0) {
       const formData = new FormData();
       imageFiles.forEach((file) => formData.append("files", file));
-      uploadMutation.mutate(formData);
+
+      uploadMutation.mutate(formData, {
+        onSuccess: (uploadedUrls: string[]) => {
+          updateGiftBox(index, {
+            ...updatedGiftBox,
+            imgUrls: isBoxEditing
+              ? [...updatedGiftBox.imgUrls, ...uploadedUrls]
+              : uploadedUrls,
+          });
+        },
+      });
     }
 
     router.push("/giftbag/add");
