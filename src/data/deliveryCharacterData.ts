@@ -5,6 +5,13 @@ export const CHARACTER_MAP: Record<string, string> = {
   CHARACTER_4: "하티",
 };
 
+export const API_CHARACTER_MAP: Record<string, string> = {
+  포리: "CHARACTER_1",
+  치치: "CHARACTER_2",
+  맥스: "CHARACTER_3",
+  하티: "CHARACTER_4",
+};
+
 export const CHARACTER_EN_MAP: Record<string, string> = {
   포리: "pori",
   치치: "chichi",
@@ -15,36 +22,32 @@ export const CHARACTER_EN_MAP: Record<string, string> = {
 export const deliveryCharacterData: Record<
   string,
   {
-    jobTitle: string;
     description: string;
     imageSrc: string;
     bubbleText: string;
   }
 > = {
   포리: {
-    jobTitle: "긍정 배달부",
     description:
       "밝고 긍정적인 에너지를 가득 담아 선물을 전해요.\n포리의 재빠른 발걸음으로 기쁨이 두 배!",
     imageSrc: "/img/delivery_1.svg",
     bubbleText: "와우! 선물 배달 출발~ 신나게 달려볼게요!",
   },
   하티: {
-    jobTitle: "사랑꾼 배달부",
-    description: "사랑이 가득 담긴 선물,\n하티가 확실하게 전해드릴게요!",
+    description:
+      "사랑이 넘치는 배달, 하티가 책임질게요!\n보따리에 설렘을 한 스푼 더해 전달해요.",
     imageSrc: "/img/delivery_4.svg",
     bubbleText: "사랑이 필요할 땐, 하티가 도와줄게요!",
   },
   맥스: {
-    jobTitle: "츤데레 배달부",
     description:
-      "무뚝뚝하지만 속은 따뜻한 맥스,\n배달 하나는 누구보다 완벽하답니다!",
+      "츤츤거리는 매력이 특징인 맥스!\n무심하지만 때로는 다정하게 선물을 전달해요.",
     imageSrc: "/img/delivery_3.svg",
     bubbleText: "어... 오다가 주웠어. 그냥 한 번 봐봐.",
   },
   치치: {
-    jobTitle: "수줍은 배달부",
     description:
-      "선물 고르시느라 정말 고생 많으셨어요!\n치치가 작은 마음까지 소중하게 전달할게요.",
+      "선물을 준비하던 정성 가득한 순간,\n누구보다 세심한 치치가 소중하게 전달할거에요!",
     imageSrc: "/img/delivery_2.svg",
     bubbleText: "소중하게 골라주신 선물, 안전하게 배달할게요!",
   },
