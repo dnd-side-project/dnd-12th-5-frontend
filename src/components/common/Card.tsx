@@ -33,11 +33,7 @@ const Card = ({
 
   const imageSize = size === "small" ? 60 : 75;
   const paddingSize =
-    type && type === "image"
-      ? ""
-      : size === "small"
-        ? "px-[12px] py-[9px]"
-        : "px-[14px] py-[11px]";
+    type && type === "image" ? "" : size === "small" ? "p-[10px]" : "p-[13px]";
 
   const cursorClass = noCursorPointerStyle
     ? "cursor-default"

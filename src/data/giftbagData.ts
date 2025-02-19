@@ -2,8 +2,9 @@
 
 import {
   MyGiftBag,
-  MyGiftBagDetail,
   FilledGiftDetail,
+  MyGiftBagPreview,
+  MyGiftBagDetail,
 } from "@/types/giftbag/types";
 
 // 내가 만든 보따리 데이터
@@ -11,7 +12,7 @@ export const giftBagData: MyGiftBag[] = [
   {
     id: 0,
     name: "보따리 1",
-    designType: "/img/giftBag_red.svg",
+    designType: "/img/giftBag_green.svg",
     isRead: true,
     status: "PUBLISHED",
     updatedAt: new Date("2025-02-07"),
@@ -19,7 +20,7 @@ export const giftBagData: MyGiftBag[] = [
   {
     id: 1,
     name: "보따리 2",
-    designType: "/img/giftBag_pink.svg",
+    designType: "/img/giftBag_yellow.svg",
     isRead: true,
     status: "COMPLETED",
     updatedAt: new Date("2025-02-03"),
@@ -27,7 +28,7 @@ export const giftBagData: MyGiftBag[] = [
   {
     id: 2,
     name: "보따리 3",
-    designType: "/img/giftBag_blue.svg",
+    designType: "/img/giftBag_red.svg",
     isRead: true,
     status: "DRAFT",
     updatedAt: new Date("2025-01-11"),
@@ -35,7 +36,7 @@ export const giftBagData: MyGiftBag[] = [
   {
     id: 3,
     name: "보따리 4",
-    designType: "/img/giftBag_yellow.svg",
+    designType: "/img/giftBag_blue.svg",
     isRead: false,
     status: "COMPLETED",
     updatedAt: new Date("2025-01-05"),
@@ -43,7 +44,7 @@ export const giftBagData: MyGiftBag[] = [
   {
     id: 4,
     name: "보따리 5",
-    designType: "/img/giftBag_red.svg",
+    designType: "/img/giftBag_pink.svg",
     isRead: true,
     status: "PUBLISHED",
     updatedAt: new Date("2025-02-07"),
@@ -51,7 +52,7 @@ export const giftBagData: MyGiftBag[] = [
   {
     id: 5,
     name: "보따리 6",
-    designType: "/img/giftBag_pink.svg",
+    designType: "/img/giftBag_red.svg",
     isRead: true,
     status: "COMPLETED",
     updatedAt: new Date("2025-02-03"),
@@ -59,7 +60,7 @@ export const giftBagData: MyGiftBag[] = [
   {
     id: 6,
     name: "보따리 7",
-    designType: "/img/giftBag_blue.svg",
+    designType: "/img/giftBag_green.svg",
     isRead: true,
     status: "DRAFT",
     updatedAt: new Date("2025-01-11"),
@@ -74,111 +75,54 @@ export const giftBagData: MyGiftBag[] = [
   },
 ];
 
-export const giftBagDetailData: MyGiftBagDetail[] = [
-  {
-    id: 0,
-    name: "보따리 1",
-    designType: "/img/giftBag_red.svg",
-    status: "PUBLISHED",
-    link: "https://picktory.net/bundle/0/",
-    gifts: [
-      { id: 101, thumbnail: "/img/gift_1.jpg" },
-      { id: 102, thumbnail: "/img/gift_2.jpg" },
-      { id: 103, thumbnail: "/img/gift_3_1.jpg" },
-      { id: 104, thumbnail: "/img/gift_4.jpg" },
-      { id: 105, thumbnail: "/img/gift_3_2.jpg" },
-    ],
-  },
+export const giftBagPreviewData: MyGiftBagPreview[] = [
   {
     id: 1,
-    name: "보따리 2",
-    designType: "/img/giftBag_pink.svg",
-    status: "COMPLETED",
-    link: "https://picktory.net/bundle/1/",
-    gifts: [
-      { id: 101, thumbnail: "/img/gift_1.jpg" },
-      { id: 102, thumbnail: "/img/gift_2.jpg" },
-      { id: 103, thumbnail: "/img/gift_3_1.jpg" },
-      { id: 104, thumbnail: "/img/gift_4.jpg" },
-    ],
+    name: "생일 선물 보따리",
+    designType: "GREEN",
+    updatedAt: new Date("2024-02-01T10:00:00Z"),
   },
   {
     id: 2,
-    name: "보따리 3",
-    designType: "/img/giftBag_blue.svg",
-    status: "DRAFT",
-    link: null,
-    gifts: [
-      { id: 101, thumbnail: "/img/gift_1.jpg" },
-      { id: 102, thumbnail: "/img/gift_2.jpg" },
-      { id: 103, thumbnail: "/img/gift_3_1.jpg" },
-      { id: 104, thumbnail: "/img/gift_4.jpg" },
-    ],
+    name: "연말 정산 보따리",
+    designType: "YELLOW",
+    updatedAt: new Date("2024-02-02T12:30:00Z"),
   },
   {
     id: 3,
-    name: "보따리 4",
-    designType: "/img/giftBag_yellow.svg",
-    status: "COMPLETED",
-    link: "https://picktory.net/bundle/3/",
-    gifts: [
-      { id: 101, thumbnail: "/img/gift_1.jpg.jpg" },
-      { id: 102, thumbnail: "/img/gift_2.jpg.jpg" },
-      { id: 103, thumbnail: "/img/gift_3_1.jpg" },
-      { id: 104, thumbnail: "/img/gift_4.jpg" },
-    ],
+    name: "친구 선물 모음",
+    designType: "RED",
+    updatedAt: new Date("2024-02-03T15:45:00Z"),
   },
   {
     id: 4,
-    name: "보따리 5",
-    designType: "/img/giftBag_red.svg",
-    status: "PUBLISHED",
-    link: "https://picktory.net/bundle/4/",
-    gifts: [
-      { id: 101, thumbnail: "/img/gift_1.jpg" },
-      { id: 102, thumbnail: "/img/gift_2.jpg" },
-      { id: 103, thumbnail: "/img/gift_3_1.jpg" },
-      { id: 104, thumbnail: "/img/gift_4.jpg" },
-    ],
+    name: "여행 기념 보따리",
+    designType: "BLUE",
+    updatedAt: new Date("2024-02-04T09:20:00Z"),
   },
   {
     id: 5,
-    name: "보따리 6",
-    designType: "/img/giftBag_pink.svg",
-    status: "COMPLETED",
-    link: "https://picktory.net/bundle/5/",
-    gifts: [
-      { id: 101, thumbnail: "/img/gift_1.jpg" },
-      { id: 102, thumbnail: "/img/gift_2.jpg" },
-      { id: 103, thumbnail: "/img/gift_3_1.jpg" },
-      { id: 104, thumbnail: "/img/gift_4.jpg" },
-    ],
+    name: "감사 선물 세트",
+    designType: "PINK",
+    updatedAt: new Date("2024-02-05T14:10:00Z"),
   },
   {
     id: 6,
-    name: "보따리 7",
-    designType: "/img/giftBag_blue.svg",
-    status: "DRAFT",
-    link: null,
-    gifts: [
-      { id: 101, thumbnail: "/img/gift_1.jpg" },
-      { id: 102, thumbnail: "/img/gift_2.jpg" },
-      { id: 103, thumbnail: "/img/gift_3_1.jpg" },
-      { id: 104, thumbnail: "/img/gift_4.jpg" },
-    ],
+    name: "특별한 날 보따리",
+    designType: "RED",
+    updatedAt: new Date("2024-02-06T18:00:00Z"),
   },
   {
     id: 7,
-    name: "보따리 8",
-    designType: "/img/giftBag_yellow.svg",
-    status: "COMPLETED",
-    link: "https://picktory.net/bundle/7/",
-    gifts: [
-      { id: 101, thumbnail: "/img/gift_1.jpg" },
-      { id: 102, thumbnail: "/img/gift_2.jpg" },
-      { id: 103, thumbnail: "/img/gift_3_1.jpg" },
-      { id: 104, thumbnail: "/img/gift_4.jpg" },
-    ],
+    name: "가족 선물 보따리",
+    designType: "GREEN",
+    updatedAt: new Date("2024-02-07T11:05:00Z"),
+  },
+  {
+    id: 8,
+    name: "회사 동료 선물",
+    designType: "YELLOW",
+    updatedAt: new Date("2024-02-08T16:25:00Z"),
   },
 ];
 
@@ -219,5 +163,112 @@ export const filledGiftList: FilledGiftDetail[] = [
     message: "지금 가장 핫한 아이템으로 마음을 전합니다.",
     purchaseUrl: "",
     imageUrls: ["/img/gift_3_1.jpg", "/img/gift_3_2.jpg", "/img/gift_3_3.jpg"],
+  },
+];
+
+export const giftBagDetailData: MyGiftBagDetail[] = [
+  {
+    id: 0,
+    name: "보따리 1",
+    designType: "/img/giftBag_green.svg",
+    status: "PUBLISHED",
+    link: "www.naver.com",
+    gifts: [
+      { id: 0, thumbnail: "/img/gift_1.jpg" },
+      { id: 1, thumbnail: "/img/gift_2.jpg" },
+      { id: 2, thumbnail: "/img/gift_3_1.jpg" },
+      { id: 3, thumbnail: "/img/gift_4.jpg" },
+    ],
+  },
+  {
+    id: 1,
+    name: "보따리 2",
+    designType: "/img/giftBag_yellow.svg",
+    status: "COMPLETED",
+    link: "www.naver.com",
+    gifts: [
+      { id: 0, thumbnail: "/img/gift_1.jpg" },
+      { id: 1, thumbnail: "/img/gift_2.jpg" },
+      { id: 2, thumbnail: "/img/gift_3_1.jpg" },
+      { id: 3, thumbnail: "/img/gift_4.jpg" },
+    ],
+  },
+  {
+    id: 2,
+    name: "보따리 3",
+    designType: "/img/giftBag_red.svg",
+    status: "DRAFT",
+    link: "www.naver.com",
+    gifts: [
+      { id: 0, thumbnail: "/img/gift_1.jpg" },
+      { id: 1, thumbnail: "/img/gift_2.jpg" },
+      { id: 2, thumbnail: "/img/gift_3_1.jpg" },
+      { id: 3, thumbnail: "/img/gift_4.jpg" },
+    ],
+  },
+  {
+    id: 3,
+    name: "보따리 4",
+    designType: "/img/giftBag_blue.svg",
+    status: "COMPLETED",
+    link: "www.naver.com",
+    gifts: [
+      { id: 0, thumbnail: "/img/gift_1.jpg" },
+      { id: 1, thumbnail: "/img/gift_2.jpg" },
+      { id: 2, thumbnail: "/img/gift_3_1.jpg" },
+      { id: 3, thumbnail: "/img/gift_4.jpg" },
+    ],
+  },
+  {
+    id: 4,
+    name: "보따리 5",
+    designType: "/img/giftBag_pink.svg",
+    status: "PUBLISHED",
+    link: "www.naver.com",
+    gifts: [
+      { id: 0, thumbnail: "/img/gift_1.jpg" },
+      { id: 1, thumbnail: "/img/gift_2.jpg" },
+      { id: 2, thumbnail: "/img/gift_3_1.jpg" },
+      { id: 3, thumbnail: "/img/gift_4.jpg" },
+    ],
+  },
+  {
+    id: 5,
+    name: "보따리 6",
+    designType: "/img/giftBag_red.svg",
+    status: "COMPLETED",
+    link: "www.naver.com",
+    gifts: [
+      { id: 0, thumbnail: "/img/gift_1.jpg" },
+      { id: 1, thumbnail: "/img/gift_2.jpg" },
+      { id: 2, thumbnail: "/img/gift_3_1.jpg" },
+      { id: 3, thumbnail: "/img/gift_4.jpg" },
+    ],
+  },
+  {
+    id: 6,
+    name: "보따리 7",
+    designType: "/img/giftBag_green.svg",
+    status: "DRAFT",
+    link: "www.naver.com",
+    gifts: [
+      { id: 0, thumbnail: "/img/gift_1.jpg" },
+      { id: 1, thumbnail: "/img/gift_2.jpg" },
+      { id: 2, thumbnail: "/img/gift_3_1.jpg" },
+      { id: 3, thumbnail: "/img/gift_4.jpg" },
+    ],
+  },
+  {
+    id: 7,
+    name: "보따리 8",
+    designType: "/img/giftBag_yellow.svg",
+    status: "COMPLETED",
+    link: "www.naver.com",
+    gifts: [
+      { id: 0, thumbnail: "/img/gift_1.jpg" },
+      { id: 1, thumbnail: "/img/gift_2.jpg" },
+      { id: 2, thumbnail: "/img/gift_3_1.jpg" },
+      { id: 3, thumbnail: "/img/gift_4.jpg" },
+    ],
   },
 ];

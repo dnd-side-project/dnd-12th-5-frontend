@@ -75,6 +75,24 @@ export const useSelectedGiftBoxStore = create<SelectedGiftBoxStore>((set) => ({
   setSelectedGiftIndex: (index) => set({ selectedGiftIndex: index }),
 }));
 
+// 내가 담았던 선물 이름
+interface GiftName {
+  giftName: string;
+  setGiftName: (name: string) => void;
+}
+
+export const useGiftNameStore = create<GiftName>()(
+  persist(
+    (set) => ({
+      giftName: "",
+      setGiftName: (name) => set({ giftName: name }),
+    }),
+    {
+      name: "gift-name",
+    },
+  ),
+);
+
 interface IsUploadAnswerStore {
   isUploadedAnswer: boolean;
   setIsUploadedAnswer: (isUploaded: boolean) => void;
@@ -89,6 +107,7 @@ export const useIsUploadAnswerStore = create<IsUploadAnswerStore>()(
     }),
     {
       name: "uploaded-answer-storage",
+
     },
   ),
 );
