@@ -75,3 +75,10 @@ export interface GiftBagResponse {
   id: number;
   gifts: GiftResponse[];
 }
+
+// 배달부 설정 API Body TYPE
+export type DeliveryCharacterAPIType =
+  | "CHARACTER_1"
+  | "CHARACTER_2"
+  | "CHARACTER_3"
+  | "CHARACTER_4";
