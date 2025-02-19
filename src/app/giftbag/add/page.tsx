@@ -5,11 +5,49 @@ import Chip from "@/components/giftbag/Chip";
 import GiftList from "@/components/giftbag/GiftList";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { createGiftBag } from "@/api/giftbag/api";
+import {
+  useSelectedBagStore,
+  useGiftBagStore,
+} from "@/stores/giftbag/useStore";
+import { useMutation } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 
 const Page = () => {
   const { giftBoxes } = useGiftStore();
   const filledGiftCount = giftBoxes.filter((gift) => gift.filled).length;
   const router = useRouter();
+  const { selectedBagIndex } = useSelectedBagStore();
+  const { giftBagName } = useGiftBagStore();
+
+  const [giftBagId, setGiftBagId] = useState<string | null>(
+    () => sessionStorage.getItem("giftBagId") || null,
+  );
+
+  useEffect(() => {
+    if (giftBagId) {
+      sessionStorage.setItem("giftBagId", giftBagId);
+    }
+  }, [giftBagId]);
+
+  const mutation = useMutation({
+    mutationFn: () =>
+      createGiftBag({
+        giftBagName,
+        selectedBagIndex,
+        giftBoxes,
+      }),
+    onSuccess: (res) => {
+      if (res?.id) {
+        setGiftBagId(res.id);
+      }
+    },
+  });
+
+  const handleClickButton = () => {
+    mutation.mutate();
+    router.push("/giftbag/delivery?step=1");
+  };
 
   return (
     <div className="h-full bg-pink-50 px-4">
@@ -24,7 +62,7 @@ const Page = () => {
           <Button
             disabled={filledGiftCount <= 1}
             size="lg"
-            onClick={() => router.push("/giftbag/delivery?step=1")}
+            onClick={handleClickButton}
           >
             선물 배달하러 가기
           </Button>
