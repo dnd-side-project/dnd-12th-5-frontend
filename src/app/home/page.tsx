@@ -4,14 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 
 import MyCardList from "@/components/myGiftbag/MyCardList";
-
-import { giftBagPreviewData } from "@/data/giftbagData";
+import Loading from "@/components/common/Loading";
 
 import MainGraphic from "/public/img/main_graphic.svg";
 import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
 
+import { useGiftBagPreview } from "@/hooks/api/useMyGiftBagPreview";
+
 const Page = () => {
-  const isHave = true;
+  const { data, isLoading } = useGiftBagPreview();
+  const hasGiftBag = data?.result?.length;
 
   return (
     <main className="flex flex-col gap-10 items-center justify-center pt-3 px-4">
@@ -46,8 +48,12 @@ const Page = () => {
           className="overflow-x-auto overflow-y-hidden"
           style={{ scrollbarWidth: "none" }}
         >
-          {isHave ? (
-            <MyCardList data={giftBagPreviewData} type="design" size="medium" />
+          {isLoading ? (
+            <div className="w-full flex justify-center items-center">
+              <Loading />
+            </div>
+          ) : hasGiftBag ? (
+            <MyCardList data={data.result} type="design" size="medium" />
           ) : (
             <p className="h-[88px] flex justify-center items-center text-gray-200">
               아직 만들어진 보따리가 없습니다.
