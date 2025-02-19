@@ -50,7 +50,7 @@ const MyCardList = ({ type, data, size, giftbagIndex }: MyCardListProps) => {
                   ? item.thumbnail
                   : giftBagDesignURL || ""
               }
-              onClick={() => handleCardClick(index)}
+              onClick={() => handleCardClick(item.id)}
             />
           );
         })}
