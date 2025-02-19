@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
@@ -24,6 +24,16 @@ const Step2 = ({ onNextStep }: Step2Props) => {
   const { setSelectedBagIndex, selectedBagIndex } = useSelectedBagStore();
   const { setGiftBagName, giftBagName } = useGiftBagStore();
   const { giftBoxes } = useGiftStore();
+
+  const [giftBagId, setGiftBagId] = useState<string | null>(
+    () => sessionStorage.getItem("giftBagId") || null,
+  );
+
+  useEffect(() => {
+    if (giftBagId) {
+      sessionStorage.setItem("giftBagId", giftBagId);
+    }
+  }, [giftBagId]);
 
   const resetStore = () => {
     useGiftStore.setState({
@@ -49,7 +59,10 @@ const Step2 = ({ onNextStep }: Step2Props) => {
         selectedBagIndex,
         giftBoxes,
       }),
-    onSuccess: () => {
+    onSuccess: (res) => {
+      if (res?.id) {
+        setGiftBagId(res.id);
+      }
       resetStore();
       onNextStep(character || "포리");
     },
