@@ -107,7 +107,6 @@ export const useIsUploadAnswerStore = create<IsUploadAnswerStore>()(
     }),
     {
       name: "uploaded-answer-storage",
-
     },
   ),
 );

@@ -79,12 +79,7 @@ const Page = () => {
             className="overflow-x-auto overflow-y-hidden"
             style={{ scrollbarWidth: "none" }}
           >
-            <MyCardList
-              data={gifts}
-              type="image"
-              size="small"
-              giftbagIndex={giftbagId}
-            />
+            <MyCardList data={gifts} type="image" size="small" />
           </div>
         </div>
 

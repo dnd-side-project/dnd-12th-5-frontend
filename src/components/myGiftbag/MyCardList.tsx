@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import Card from "@/components/common/Card";
 
@@ -13,17 +13,18 @@ interface MyCardListProps {
   type?: "design" | "image";
   data: MyGiftBagPreview[] | FilledGiftListPreview[];
   size: "small" | "medium";
-  giftbagIndex?: string;
 }
 
-const MyCardList = ({ type, data, size, giftbagIndex }: MyCardListProps) => {
+const MyCardList = ({ type, data, size }: MyCardListProps) => {
   const router = useRouter();
+  const params = useParams();
+  const giftbagId = params?.giftbagId as string;
 
-  const handleCardClick = (index: number) => {
+  const handleCardClick = (clickedIndex: number) => {
     if (type === "image") {
-      router.push(`/giftbag/list/${giftbagIndex}/${index}`);
+      router.push(`/giftbag/list/${giftbagId}/${clickedIndex}`);
     } else {
-      router.push(`/giftbag/list/${index}`);
+      router.push(`/giftbag/list/${clickedIndex}`);
     }
   };
 
@@ -50,7 +51,7 @@ const MyCardList = ({ type, data, size, giftbagIndex }: MyCardListProps) => {
                   ? item.thumbnail
                   : giftBagDesignURL || ""
               }
-              onClick={() => handleCardClick(index)}
+              onClick={() => handleCardClick(item.id)}
             />
           );
         })}
