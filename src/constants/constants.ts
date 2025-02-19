@@ -25,3 +25,5 @@ export const GIFT_ANSWER_CHIP_TEXTES = [
   "잘 모르겠어요",
   "제 취향이 아니에요",
 ];
+
+export const GIFTBAG_COLORS = ["RED", "PINK", "BLUE", "YELLOW", "GREEN"];
