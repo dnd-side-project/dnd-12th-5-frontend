@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import LogoIcon from "../../public/icons/logo.svg";
 import SettingIcon from "../../public/icons/setting_large.svg";
 import ArrowLeftIcon from "../../public/icons/arrow_left_large.svg";
-import { createGiftBag } from "@/api/giftbag/api";
+import { createGiftBag, updateGiftBag } from "@/api/giftbag/api";
 import { toast } from "@/hooks/use-toast";
 import { GiftBox } from "@/types/giftbag/types";
 
@@ -153,32 +153,36 @@ const Header = () => {
   }, [giftBagId]);
 
   const handleTempSave = async () => {
-    try {
-      const res = await createGiftBag({
-        giftBagName,
-        selectedBagIndex,
-        giftBoxes,
-      });
+    if (giftBagId) {
+      updateGiftBag(giftBoxes);
+    } else {
+      try {
+        const res = await createGiftBag({
+          giftBagName,
+          selectedBagIndex,
+          giftBoxes,
+        });
 
-      if (res?.id) {
-        setGiftBagId(res.id);
-      }
+        if (res?.id) {
+          setGiftBagId(res.id);
+        }
 
-      if (res?.gifts?.length) {
-        res.gifts.forEach((gift: GiftBox, index: number) => {
-          useGiftStore.getState().updateGiftBox(index, { id: gift.id });
+        if (res?.gifts?.length) {
+          res.gifts.forEach((gift: GiftBox, index: number) => {
+            useGiftStore.getState().updateGiftBox(index, { id: gift.id });
+          });
+        }
+
+        toast({
+          title: "임시저장 성공",
+          description: "보따리가 임시저장되었습니다.",
+        });
+      } catch (error) {
+        toast({
+          title: "임시저장 실패",
+          description: `보따리 임시저장에 실패했습니다. ${error}`,
         });
       }
-
-      toast({
-        title: "임시저장 성공",
-        description: "보따리가 임시저장되었습니다.",
-      });
-    } catch (error) {
-      toast({
-        title: "임시저장 실패",
-        description: `보따리 임시저장에 실패했습니다. ${error}`,
-      });
     }
   };
 

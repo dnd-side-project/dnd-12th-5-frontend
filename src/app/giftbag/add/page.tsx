@@ -5,7 +5,7 @@ import Chip from "@/components/giftbag/Chip";
 import GiftList from "@/components/giftbag/GiftList";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { createGiftBag } from "@/api/giftbag/api";
+import { createGiftBag, updateGiftBag } from "@/api/giftbag/api";
 import {
   useSelectedBagStore,
   useGiftBagStore,
@@ -51,9 +51,17 @@ const Page = () => {
     },
   });
 
-  const handleClickButton = () => {
-    mutation.mutate();
-    router.push("/giftbag/delivery?step=1");
+  const handleClickButton = async () => {
+    try {
+      if (giftBagId) {
+        await updateGiftBag(giftBoxes);
+      } else {
+        await mutation.mutateAsync();
+      }
+      router.push("/giftbag/delivery?step=1");
+    } catch (error) {
+      alert(`보따리 저장에 실패했습니다. ${error}`);
+    }
   };
 
   return (
