@@ -44,10 +44,16 @@ export const createGiftBag = async ({
   /* 보따리 업데이트 api */
 }
 export const updateGiftBag = async (giftBoxes: GiftBox[]) => {
-  const bundleId = sessionStorage.getItem("giftBagId");
+  const bundleIdStr = sessionStorage.getItem("giftBagId");
 
-  if (!bundleId) {
+  if (!bundleIdStr) {
     throw new Error("선물 보따리 ID가 없습니다.");
+  }
+
+  const bundleId = parseInt(bundleIdStr, 10);
+
+  if (isNaN(bundleId)) {
+    throw new Error("유효하지 않은 선물 보따리 ID입니다.");
   }
 
   const gifts = giftBoxes.map((gift) => ({
