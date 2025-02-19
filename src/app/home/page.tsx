@@ -4,14 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 
 import MyCardList from "@/components/myGiftbag/MyCardList";
-
-import { giftBagPreviewData } from "@/data/giftbagData";
+import Loading from "@/components/common/Loading";
 
 import MainGraphic from "/public/img/main_graphic.svg";
 import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
 
 import { useGiftBagPreview } from "@/hooks/api/useMyGiftBagPreview";
-import Loading from "@/components/common/Loading";
 
 const Page = () => {
   const { data, isLoading } = useGiftBagPreview();
@@ -55,7 +53,7 @@ const Page = () => {
               <Loading />
             </div>
           ) : hasGiftBag ? (
-            <MyCardList data={giftBagPreviewData} type="design" size="medium" />
+            <MyCardList data={data.result} type="design" size="medium" />
           ) : (
             <p className="h-[88px] flex justify-center items-center text-gray-200">
               아직 만들어진 보따리가 없습니다.
