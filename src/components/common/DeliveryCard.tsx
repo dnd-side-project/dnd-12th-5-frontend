@@ -4,14 +4,12 @@ interface DeliveryCardProps {
   onClick?: () => void;
   imageSrc: string;
   characterTitle: string;
-  characterDescription: string;
 }
 
 const DeliveryCard = ({
   onClick,
   imageSrc,
   characterTitle,
-  characterDescription,
 }: DeliveryCardProps) => {
   return (
     <div
@@ -20,7 +18,6 @@ const DeliveryCard = ({
     >
       <Image src={imageSrc} alt="delivery" width={120} height={120} />
       <div className="text-center text-gray-800">
-        <p className="text-sm font-nanum">{characterDescription}</p>
         <p className="font-bold font-nanum">{characterTitle}</p>
       </div>
     </div>

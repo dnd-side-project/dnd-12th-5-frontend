@@ -21,7 +21,6 @@ const Step1 = ({ onNextStep }: Step1Props) => {
           <DeliveryCard
             key={key}
             imageSrc={deliveryCharacterData[key].imageSrc}
-            characterDescription={deliveryCharacterData[key].jobTitle}
             characterTitle={key}
             onClick={() => onNextStep(key)}
           />
