@@ -27,3 +27,11 @@ export const GIFT_ANSWER_CHIP_TEXTES = [
 ];
 
 export const GIFTBAG_COLORS = ["RED", "PINK", "BLUE", "YELLOW", "GREEN"];
+
+export const DESIGN_TYPE_MAP: Record<string, string> = {
+  GREEN: "/img/giftBag_green.svg",
+  RED: "/img/giftBag_red.svg",
+  BLUE: "/img/giftBag_blue.svg",
+  PINK: "/img/giftBag_pink.svg",
+  YELLOW: "/img/giftBag_yellow.svg",
+};

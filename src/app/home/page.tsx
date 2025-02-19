@@ -1,23 +1,17 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 
 import MyCardList from "@/components/myGiftbag/MyCardList";
 
+import { giftBagPreviewData } from "@/data/giftbagData";
+
 import MainGraphic from "/public/img/main_graphic.svg";
 import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
 
-// 임시 데이터
-// 추후 서버에서 받아오기
-const ImagePaths = [
-  "/img/giftBag_red.svg",
-  "/img/giftBag_pink.svg",
-  "/img/giftBag_blue.svg",
-  "/img/giftBag_yellow.svg",
-  "/img/giftBag_green.svg",
-];
-
 const Page = () => {
-  const isHave = false;
+  const isHave = true;
 
   return (
     <main className="flex flex-col gap-10 items-center justify-center pt-3 px-4">
@@ -53,7 +47,7 @@ const Page = () => {
           style={{ scrollbarWidth: "none" }}
         >
           {isHave ? (
-            <MyCardList data={ImagePaths} type="design" size="medium" />
+            <MyCardList data={giftBagPreviewData} type="design" size="medium" />
           ) : (
             <p className="h-[88px] flex justify-center items-center text-gray-200">
               아직 만들어진 보따리가 없습니다.

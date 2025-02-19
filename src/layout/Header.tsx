@@ -2,11 +2,17 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import {
+  useRouter,
+  usePathname,
+  useSearchParams,
+  useParams,
+} from "next/navigation";
 
 import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 import {
   useGiftBagStore,
+  useGiftNameStore,
   useIsOpenDetailGiftBoxStore,
 } from "@/stores/giftbag/useStore";
 
@@ -31,6 +37,8 @@ const Header = () => {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+  const step = searchParams?.get("step");
+  const { giftId } = useParams() as { giftId?: string };
 
   const [dynamicTitle, setDynamicTitle] = useState<string>(
     pageTitles[pathname ?? ""],
@@ -50,19 +58,24 @@ const Header = () => {
   const isGiftUploadPage = pathname === "/gift-upload";
   const isGiftbagAddPage = pathname === "/giftbag/add";
 
-  const step = searchParams?.get("step");
   const { giftBagName } = useGiftBagStore();
+  const { giftName } = useGiftNameStore();
+
+  const bgColor = isAuthPage ? "bg-pink-50" : "bg-white";
 
   useEffect(() => {
     setIsStepThree(step === "3");
   }, [searchParams, step]);
 
-  // pathname 변경 시 isStepThree 상태 초기화
   useEffect(() => {
     setIsStepThree(false);
   }, [pathname]);
 
   useEffect(() => {
+    if (giftName && giftId) {
+      return setDynamicTitle(giftName);
+    }
+
     if (giftBagName && pathname === "/giftbag/add") {
       setDynamicTitle(giftBagName);
     } else {
@@ -87,7 +100,7 @@ const Header = () => {
         }
       }
     }
-  }, [giftBagName, pathname, searchParams]);
+  }, [giftBagName, giftId, giftName, pathname, searchParams]);
 
   // 로컬 스토리지에서 토큰 확인
   useEffect(() => {
@@ -154,7 +167,7 @@ const Header = () => {
   // 온보딩 / 로그인 페이지 / 404 페이지: 로고만 중앙 정렬
   if (isAuthPage || isNotFoundPage) {
     return (
-      <div className="bg-white h-[56px] flex items-center justify-center">
+      <div className={`${bgColor} h-[56px] flex items-center justify-center`}>
         <Image src={LogoIcon} alt="logo" />
       </div>
     );

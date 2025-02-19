@@ -41,7 +41,7 @@ const GiftList = ({ value }: GiftListProps) => {
         purchase_url: "",
         tag: "",
         filled: false,
-        imageUrls: [],
+        imgUrls: [],
       });
     }
     setSelectedBox(null);

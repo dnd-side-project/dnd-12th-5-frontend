@@ -51,8 +51,8 @@ const Page = () => {
       <Image
         src={imageSrc}
         alt={`giftBag_design_${designType}`}
-        width={179}
-        height={199}
+        width={187}
+        height={187}
       />
     );
   }, [giftbagId, designType]);

@@ -10,17 +10,19 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
 import LinkButton from "@/components/common/LinkButton";
 import Loading from "@/components/common/Loading";
 
-import LeftIcon from "/public/icons/arrow_left_large.svg";
-import RightIcon from "/public/icons/arrow_right_large.svg";
-
 import { filledGiftList } from "@/data/giftbagData";
+import { useGiftNameStore } from "@/stores/giftbag/useStore";
 
 const Page = () => {
   const { giftId } = useParams() as { giftId: string };
+  const { setGiftName } = useGiftNameStore();
+
+  useEffect(() => {
+    setGiftName(filledGiftList[parseInt(giftId)].name);
+  }, [giftId, setGiftName]);
 
   const [currentImageIndexes, setCurrentImageIndexes] = useState<{
     [key: number]: number;
@@ -91,32 +93,7 @@ const Page = () => {
           ))}
         </CarouselContent>
 
-        {currentImageIndexes[parseInt(giftId)] !== 0 && (
-          <Button
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 w-7 h-7 bg-gray-100 opacity-30 rounded-full hover:opacity-60"
-            onClick={() => innerCarouselApi?.scrollPrev()}
-            disabled={currentImageIndexes[parseInt(giftId)] === 0}
-            variant="ghost"
-          >
-            <Image src={LeftIcon} alt="leftArrow" width={15} height={15} />
-          </Button>
-        )}
-        {currentImageIndexes[parseInt(giftId)] !==
-          filledGiftList[parseInt(giftId)].imageUrls.length - 1 && (
-          <Button
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 w-7 h-7 bg-gray-100 opacity-30 rounded-full hover:opacity-60"
-            onClick={() => innerCarouselApi?.scrollNext()}
-            disabled={
-              currentImageIndexes[parseInt(giftId)] ===
-              filledGiftList[parseInt(giftId)].imageUrls.length - 1
-            }
-            variant="ghost"
-          >
-            <Image src={RightIcon} alt="RightArrow" width={15} height={15} />
-          </Button>
-        )}
-
-        <div className="absolute bottom-2 right-2 w-10 h-[23px] rounded-[40px] px-[10px] py-1 bg-white/70 text-center">
+        <div className="absolute bottom-[12px] right-[12px] h-[23px] rounded-[40px] px-[10px] py-1 bg-white/70 text-center">
           <p className="text-[10px] text-gray-600 tracking-[2px]">
             {currentImageIndexes[parseInt(giftId)] + 1}/
             {filledGiftList[parseInt(giftId)].imageUrls.length}
