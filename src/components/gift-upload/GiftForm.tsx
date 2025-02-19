@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 import CharacterCountInput from "../common/CharacterCountInput";
 import { Button } from "../ui/button";
 import InputLink from "./InputLink";
@@ -14,6 +15,8 @@ import {
   useGiftStore,
   useEditBoxStore,
 } from "@/stores/gift-upload/useStore";
+import { motion } from "framer-motion";
+import { uploadGiftImages } from "@/api/gift-upload/api";
 
 const GiftForm = () => {
   const router = useRouter();
@@ -28,27 +31,24 @@ const GiftForm = () => {
     () =>
       giftBoxes[index] || {
         name: "",
-        message: "",
+        reason: "",
         purchase_url: "",
         tag: "",
+        imgUrls: [],
       },
     [giftBoxes, index],
   );
 
-  const [imageCount, setImageCount] = useState(existingGift.filled ? 1 : 0);
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const [removedImages, setRemovedImages] = useState<string[]>([]);
   const [giftName, setGiftName] = useState(existingGift.name);
   const [giftReason, setGiftReason] = useState(existingGift.reason || "");
   const [giftLink, setGiftLink] = useState(existingGift.purchase_url || "");
   const [giftTag, setGiftTag] = useState(existingGift.tag || "");
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // 🔥 useRef 대신 useState 사용 → 새로고침해도 유지!
-  const [isGiftNameFilled, setIsGiftNameFilled] = useState(
-    giftName.length > 0 || !!existingGift.name,
-  );
-  const [isReasonFilled, setIsReasonFilled] = useState(
-    giftReason.length > 0 || !!existingGift.reason,
-  );
+  const [isGiftNameFilled, setIsGiftNameFilled] = useState(!!giftName);
+  const [isReasonFilled, setIsReasonFilled] = useState(!!giftReason);
 
   const reasonRef = useRef<HTMLDivElement>(null);
   const linkRef = useRef<HTMLDivElement>(null);
@@ -89,31 +89,71 @@ const GiftForm = () => {
     }
   }, [giftReason]);
 
-  useEffect(() => {
-    if (giftReason.length > 0 && !isBoxEditing) {
-      setTimeout(() => {
-        linkRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
+  const uploadMutation = useMutation<string[], Error, FormData>({
+    mutationFn: uploadGiftImages,
+    onSuccess: (uploadedUrls: string[]) => {
+      if (isBoxEditing) {
+        updateGiftBox(index, {
+          imgUrls: [
+            ...existingGift.imgUrls.filter(
+              (url) => !removedImages.includes(url),
+            ),
+            ...uploadedUrls,
+          ],
         });
-      }, 100);
-    }
-  }, [giftReason]);
+      } else {
+        updateGiftBox(index, {
+          imgUrls: uploadedUrls,
+        });
+      }
+    },
+  });
 
   const handleSubmit = () => {
-    if (imageCount === 0 || giftName.length === 0) {
+    const remainingImages = isBoxEditing
+      ? (existingGift.imgUrls ?? []).filter(
+          (url) => !removedImages.includes(url),
+        ).length + imageFiles.length
+      : imageFiles.length;
+
+    if (remainingImages === 0) {
       setIsSubmitted(true);
       return;
     }
 
-    updateGiftBox(index, {
+    const updatedGiftBox = {
       name: giftName,
       reason: giftReason,
       purchase_url: giftLink,
       tag: giftTag,
       tagIndex: selectedTagIndex,
       filled: true,
-    });
+      imgUrls: isBoxEditing
+        ? [
+            ...(existingGift.imgUrls ?? []).filter(
+              (url) => !removedImages.includes(url),
+            ),
+          ]
+        : [],
+    };
+
+    updateGiftBox(index, updatedGiftBox);
+
+    if (imageFiles.length > 0) {
+      const formData = new FormData();
+      imageFiles.forEach((file) => formData.append("files", file));
+
+      uploadMutation.mutate(formData, {
+        onSuccess: (uploadedUrls: string[]) => {
+          updateGiftBox(index, {
+            ...updatedGiftBox,
+            imgUrls: isBoxEditing
+              ? [...updatedGiftBox.imgUrls, ...uploadedUrls]
+              : uploadedUrls,
+          });
+        },
+      });
+    }
 
     router.push("/giftbag/add");
     setIsBoxEditing(false);
@@ -123,20 +163,29 @@ const GiftForm = () => {
     <div className="px-4 flex flex-col h-full overflow-y-auto">
       <div className="flex flex-col flex-grow gap-[50px] mt-[18px] pb-[70px]">
         <div>
-          <div className="mb-[22px]">
-            <UploadImageList onImagesChange={setImageCount} />
-            {isSubmitted && imageCount === 0 && (
-              <ErrorMessage message="필수 입력 정보입니다." />
-            )}
+          <div
+            className="w-full overflow-x-auto px-4 mb-[22px] min-w-full"
+            style={{ scrollbarWidth: "none" }}
+          >
+            <UploadImageList
+              onFilesChange={setImageFiles}
+              existingImages={existingGift.imgUrls}
+              onRemoveImage={(url) =>
+                setRemovedImages((prev) => [...prev, url])
+              }
+            />
+            {isSubmitted &&
+              existingGift.imgUrls.filter((url) => !removedImages.includes(url))
+                .length +
+                imageFiles.length ===
+                0 && <ErrorMessage message="필수 입력 정보입니다." />}
           </div>
           <div className="flex flex-col px-1">
             <CharacterCountInput
               maxLength={GIFT_NAME_MAX_LENGTH}
               value={giftName}
               placeholder="선물명을 적어주세요"
-              onChange={(text) => {
-                setGiftName(text);
-              }}
+              onChange={(text) => setGiftName(text)}
             />
             {isSubmitted && giftName.length === 0 && (
               <ErrorMessage message="필수 입력 정보입니다." />
@@ -144,21 +193,29 @@ const GiftForm = () => {
           </div>
         </div>
         {isGiftNameFilled && (
-          <div ref={reasonRef}>
+          <motion.div
+            ref={reasonRef}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
             <InputReason
               value={giftReason}
-              onReasonChange={(text) => {
-                setGiftReason(text);
-              }}
+              onReasonChange={setGiftReason}
               onTagChange={setGiftTag}
               giftBoxIndex={index}
             />
-          </div>
+          </motion.div>
         )}
         {isReasonFilled && (
-          <div ref={linkRef}>
+          <motion.div
+            ref={linkRef}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
             <InputLink value={giftLink} onChange={setGiftLink} />
-          </div>
+          </motion.div>
         )}
       </div>
       <div className="sticky bottom-4 w-full left-0">

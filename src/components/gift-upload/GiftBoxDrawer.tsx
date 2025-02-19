@@ -10,6 +10,7 @@ import LinkButton from "../common/LinkButton";
 import Link from "next/link";
 import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 import { GiftBox } from "@/types/giftbag/types";
+import Card from "../common/Card";
 
 interface GiftBoxDrawerProps {
   handleEmptyButton: () => void;
@@ -64,7 +65,24 @@ const GiftBoxDrawer = ({
         ) : (
           <>
             <div>
-              <div className="h-[88px] bg-pink-100 mb-2">이미지</div>
+              <div
+                style={{ scrollbarWidth: "none" }}
+                className="h-[88px] mb-2 flex gap-[11px] whitespace-nowrap w-full overflow-x-auto min-w-full"
+              >
+                {box?.imgUrls.map((url, index) => {
+                  return (
+                    <Card
+                      img={url}
+                      size="medium"
+                      type="image"
+                      noHoverStyle={true}
+                      noActiveStyle={true}
+                      noCursorPointerStyle={true}
+                      key={index}
+                    />
+                  );
+                })}
+              </div>
               <LinkButton linkUrl={box?.purchase_url || ""} />
             </div>
             <div className="flex flex-col gap-[27px]">

@@ -10,6 +10,7 @@ interface CardProps {
   onClick?: () => void;
   noHoverStyle?: boolean;
   noActiveStyle?: boolean;
+  noCursorPointerStyle?: boolean;
 }
 
 const Card = ({
@@ -20,6 +21,7 @@ const Card = ({
   onClick,
   noHoverStyle,
   noActiveStyle,
+  noCursorPointerStyle,
 }: CardProps) => {
   const sizeClasses =
     size === "small"
@@ -33,9 +35,13 @@ const Card = ({
   const paddingSize =
     type && type === "image" ? "" : size === "small" ? "p-[10px]" : "p-[13px]";
 
+  const cursorClass = noCursorPointerStyle
+    ? "cursor-default"
+    : "cursor-pointer";
+
   return (
     <div
-      className={`flex justify-center border-[1.4px] items-center ${borderColorClasses} ${sizeClasses} rounded-xl box-border bg-gray-50 cursor-pointer ${paddingSize} ${activeClass} ${hoverClass} `}
+      className={`flex justify-center border-[1.4px] items-center ${borderColorClasses} ${sizeClasses} rounded-xl box-border bg-gray-50 ${cursorClass} ${paddingSize} ${activeClass} ${hoverClass} `}
       onClick={onClick}
     >
       <Image

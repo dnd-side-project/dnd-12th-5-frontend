@@ -6,6 +6,8 @@ import Image from "next/image";
 import MyCardList from "@/components/myGiftbag/MyCardList";
 import Loading from "@/components/common/Loading";
 
+import { giftBagPreviewData } from "@/data/giftbagData";
+
 import MainGraphic from "/public/img/main_graphic.svg";
 import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
 

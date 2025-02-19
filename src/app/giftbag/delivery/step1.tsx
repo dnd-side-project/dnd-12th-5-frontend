@@ -16,7 +16,7 @@ const Step1 = ({ onNextStep }: Step1Props) => {
           당신의 마음을 전할 배달부를 골라주세요.
         </p>
       </div>
-      <section className="grid grid-cols-2 grid-rows-2 gap-4">
+      <section className="grid grid-cols-2 grid-rows-2 gap-2">
         {Object.keys(deliveryCharacterData).map((key) => (
           <DeliveryCard
             key={key}
