@@ -19,6 +19,8 @@ import {
 
 import { giftBagDetailData } from "@/data/giftbagData";
 
+import { useDeleteGiftBag } from "@/hooks/api/useDeleteMyGiftBag";
+
 const Page = () => {
   const router = useRouter();
   const { giftbagId } = useParams() as { giftbagId: string };
@@ -39,8 +41,22 @@ const Page = () => {
     }
   };
 
+  {
+  }
+
+  const { mutate: deleteGiftBag } = useDeleteGiftBag();
   const handleDelete = () => {
-    // DELETE /api/v1/bundles/{id}
+    if (!giftbagId) return;
+
+    deleteGiftBag(parseInt(giftbagId), {
+      onSuccess: () => {
+        router.push("/giftbag/list");
+      },
+      onError: (error) => {
+        alert("삭제에 실패했습니다. 다시 시도해주세요.");
+        console.error(error);
+      },
+    });
   };
 
   const memoizedImage = useMemo(() => {
