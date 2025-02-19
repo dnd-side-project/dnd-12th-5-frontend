@@ -4,52 +4,97 @@ import { useState, useEffect } from "react";
 import ImageCard from "./ImageCard";
 import ImageIcon from "../../../public/icons/image_medium.svg";
 import Image from "next/image";
+import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 
 interface UploadImageListProps {
-  onImagesChange: (count: number) => void;
+  onFilesChange: (files: File[]) => void;
+  existingImages?: string[];
+  onRemoveImage?: (url: string) => void;
 }
 
-const UploadImageList = ({ onImagesChange }: UploadImageListProps) => {
-  const [images, setImages] = useState<string[]>([]);
+const allowedExtensions = ["jpg", "jpeg", "png", "webp", "heic", "heif"];
+
+const UploadImageList = ({
+  onFilesChange,
+  existingImages = [],
+  onRemoveImage,
+}: UploadImageListProps) => {
+  const [previewImages, setPreviewImages] = useState<string[]>(existingImages);
+  const [imageFiles, setImageFiles] = useState<File[]>([]);
+  const { isBoxEditing } = useEditBoxStore();
 
   useEffect(() => {
-    onImagesChange(images.length);
-  }, [images, onImagesChange]);
+    if (isBoxEditing) {
+      setPreviewImages((prev) => {
+        return JSON.stringify(prev) === JSON.stringify(existingImages)
+          ? prev
+          : existingImages;
+      });
+    }
+  }, [existingImages, isBoxEditing]);
 
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
-    const file = event.target.files[0];
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      if (typeof reader.result === "string") {
-        setImages((prev) => [...prev, reader.result as string]);
+    const files = Array.from(event.target.files);
+    const validFiles: File[] = [];
+    const filePreviews: string[] = [];
+
+    files.forEach((file) => {
+      const fileExtension = file.name.split(".").pop()?.toLowerCase();
+      if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
+        alert(
+          "지원되지 않는 파일 형식입니다. (jpg, jpeg, png, webp, heic, heif 만 가능)",
+        );
+        return;
       }
-    };
-    reader.readAsDataURL(file);
+      validFiles.push(file);
+      filePreviews.push(URL.createObjectURL(file));
+    });
+
+    setImageFiles((prev) => [...prev, ...validFiles]);
+    setPreviewImages((prev) => [...prev, ...filePreviews]);
+    onFilesChange([...imageFiles, ...validFiles]);
+
     event.target.value = "";
   };
 
   const handleDelete = (index: number) => {
-    setImages((prev) => prev.filter((_, i) => i !== index));
+    const removedImage = previewImages[index];
+
+    const newFiles = imageFiles.filter((_, i) => i !== index);
+    const newPreviews = previewImages.filter((_, i) => i !== index);
+
+    setImageFiles(newFiles);
+    setPreviewImages(newPreviews);
+    onFilesChange(newFiles);
+
+    if (existingImages.includes(removedImage) && onRemoveImage) {
+      onRemoveImage(removedImage);
+    }
   };
 
   return (
     <div className="flex gap-2 whitespace-nowrap">
-      <label className="flex flex-col items-center justify-center rounded-[10px] h-[88px] w-[88px] bg-gray-50 border-[1.4px] border-gray-100 cursor-pointer">
+      <label
+        className={`flex flex-shrink-0 flex-col items-center justify-center rounded-[10px] h-[88px] w-[88px] bg-gray-50 border-[1.4px] border-gray-100 ${
+          previewImages.length === 5 ? "cursor-not-allowed" : "cursor-pointer"
+        }`}
+      >
         <Image src={ImageIcon} alt="image" width={14} height={14} />
         <span className="text-[10px] text-gray-300 mt-1">
-          {images.length}/5
+          {previewImages.length}/5
         </span>
         <input
           type="file"
-          accept="image/*"
+          accept={allowedExtensions.map((ext) => `.${ext}`).join(", ")}
           className="hidden"
           onChange={handleUpload}
-          disabled={images.length >= 5}
+          disabled={previewImages.length >= 5}
+          multiple
         />
       </label>
-      {images.map((image, index) => (
+      {previewImages.map((image, index) => (
         <ImageCard
           key={index}
           src={image}

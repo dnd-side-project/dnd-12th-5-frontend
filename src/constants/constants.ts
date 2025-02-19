@@ -26,6 +26,8 @@ export const GIFT_ANSWER_CHIP_TEXTES = [
   "제 취향이 아니에요",
 ];
 
+export const GIFTBAG_COLORS = ["RED", "PINK", "BLUE", "YELLOW", "GREEN"];
+
 export const DESIGN_TYPE_MAP: Record<string, string> = {
   GREEN: "/img/giftBag_green.svg",
   RED: "/img/giftBag_red.svg",

@@ -89,8 +89,9 @@ export const useGiftNameStore = create<GiftName>()(
     }),
     {
       name: "gift-name",
-    }))
-
+    },
+  ),
+);
 
 interface IsUploadAnswerStore {
   isUploadedAnswer: boolean;

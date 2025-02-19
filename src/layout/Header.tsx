@@ -61,11 +61,12 @@ const Header = () => {
   const { giftBagName } = useGiftBagStore();
   const { giftName } = useGiftNameStore();
 
+  const bgColor = isAuthPage ? "bg-pink-50" : "bg-white";
+
   useEffect(() => {
     setIsStepThree(step === "3");
   }, [searchParams, step]);
 
-  // pathname 변경 시 isStepThree 상태 초기화
   useEffect(() => {
     setIsStepThree(false);
   }, [pathname]);
@@ -166,7 +167,7 @@ const Header = () => {
   // 온보딩 / 로그인 페이지 / 404 페이지: 로고만 중앙 정렬
   if (isAuthPage || isNotFoundPage) {
     return (
-      <div className="bg-white h-[56px] flex items-center justify-center">
+      <div className={`${bgColor} h-[56px] flex items-center justify-center`}>
         <Image src={LogoIcon} alt="logo" />
       </div>
     );
