@@ -17,18 +17,24 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import { giftBagDetailData } from "@/data/giftbagData";
-
+import { useMyGiftBagDetail } from "@/hooks/api/useMyGiftBagDetail";
 import { useDeleteGiftBag } from "@/hooks/api/useDeleteMyGiftBag";
+
+import { DESIGN_TYPE_MAP } from "@/constants/constants";
 
 const Page = () => {
   const router = useRouter();
   const { giftbagId } = useParams() as { giftbagId: string };
-
-  const giftbagData = giftBagDetailData[Number(giftbagId)];
-  const { name, designType, link, status, gifts } = giftbagData;
-
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const { data } = useMyGiftBagDetail(parseInt(giftbagId));
+  const { name, designType, link, status, gifts } = data?.result || {
+    name: "",
+    designType: "",
+    link: "",
+    status: "",
+    gifts: [],
+  };
 
   const handleCopyLink = () => {
     if (link !== null) {
@@ -62,10 +68,9 @@ const Page = () => {
   const memoizedImage = useMemo(() => {
     if (!giftbagId) return null;
 
-    const imageSrc = giftBagDetailData[Number(giftbagId)]?.designType;
     return (
       <Image
-        src={imageSrc}
+        src={DESIGN_TYPE_MAP[designType]}
         alt={`giftBag_design_${designType}`}
         width={187}
         height={187}
