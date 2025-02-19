@@ -9,11 +9,12 @@ import {
   useParams,
 } from "next/navigation";
 
-import { useEditBoxStore } from "@/stores/gift-upload/useStore";
+import { useEditBoxStore, useGiftStore } from "@/stores/gift-upload/useStore";
 import {
   useGiftBagStore,
   useGiftNameStore,
   useIsOpenDetailGiftBoxStore,
+  useSelectedBagStore,
 } from "@/stores/giftbag/useStore";
 
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,8 @@ import { Button } from "@/components/ui/button";
 import LogoIcon from "../../public/icons/logo.svg";
 import SettingIcon from "../../public/icons/setting_large.svg";
 import ArrowLeftIcon from "../../public/icons/arrow_left_large.svg";
+import { createGiftBag } from "@/api/giftbag/api";
+import { toast } from "@/hooks/use-toast";
 
 // 정적 title 관리
 const pageTitles: { [key: string]: string } = {
@@ -126,6 +129,33 @@ const Header = () => {
     !pathname.includes("name") &&
     !pathname.includes("select");
 
+  {
+    /** 보따리 임시저장 관련 코드 */
+  }
+  const { giftBoxes } = useGiftStore();
+  const { selectedBagIndex } = useSelectedBagStore();
+  const [showTempSave, setShowTempSave] = useState(false);
+
+  useEffect(() => {
+    const filledCount = giftBoxes.filter((box) => box.filled).length;
+    setShowTempSave(filledCount >= 2);
+  }, [giftBoxes]);
+
+  const handleTempSave = async () => {
+    try {
+      await createGiftBag({ giftBagName, selectedBagIndex, giftBoxes });
+      toast({
+        title: "임시저장 성공",
+        description: "보따리가 임시저장되었습니다.",
+      });
+    } catch (error) {
+      toast({
+        title: "임시저장 실패",
+        description: `보따리 임시저장에 실패했습니다. ${error}`,
+      });
+    }
+  };
+
   if (isGiftbagDetailStepTwo && isOpenDetailGiftBox) {
     return (
       <div className="h-[56px] bg-pink-50 flex items-center justify-end px-4 sticky top-0 z-10">
@@ -196,9 +226,10 @@ const Header = () => {
       <h1 className="text-center text-lg font-medium w-[185px] overflow-hidden whitespace-nowrap text-ellipsis absolute left-1/2 -translate-x-1/2">
         {dynamicTitle}
       </h1>
-      {isGiftbagAddPage && (
+      {showTempSave && isGiftbagAddPage && (
         <Button
           variant="ghost"
+          onClick={handleTempSave}
           className="text-[15px] text-gray-200 flex justify-end"
         >
           임시저장
