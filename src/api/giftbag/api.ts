@@ -26,11 +26,9 @@ export const createGiftBag = async ({
         .filter((gift) => gift.name.trim() !== "")
         .map((gift) => ({
           name: gift.name,
-          message: gift.reason, //수정 필요
+          message: gift.reason,
           purchaseUrl: gift.purchase_url,
-          imageUrls: gift.imgUrls?.length
-            ? gift.imgUrls
-            : ["https://www.naver.com"], //수정 필요
+          imageUrls: gift.imgUrls,
         })),
     }),
   });
