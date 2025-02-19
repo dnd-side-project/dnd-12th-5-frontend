@@ -1,9 +1,8 @@
 "use client";
 
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useMutation } from "@tanstack/react-query";
 
 import { deliveryCharacterData } from "@/data/deliveryCharacterData";
 import { Button } from "@/components/ui/button";
@@ -12,7 +11,6 @@ import {
   useGiftBagStore,
   useSelectedBagStore,
 } from "@/stores/giftbag/useStore";
-import { createGiftBag } from "@/api/giftbag/api";
 
 interface Step2Props {
   onNextStep: (selectedCharacter: string) => void;
@@ -21,19 +19,9 @@ interface Step2Props {
 const Step2 = ({ onNextStep }: Step2Props) => {
   const searchParams = useSearchParams();
   const character = searchParams ? searchParams.get("character") : null;
-  const { setSelectedBagIndex, selectedBagIndex } = useSelectedBagStore();
-  const { setGiftBagName, giftBagName } = useGiftBagStore();
-  const { giftBoxes } = useGiftStore();
 
-  const [giftBagId, setGiftBagId] = useState<string | null>(
-    () => sessionStorage.getItem("giftBagId") || null,
-  );
-
-  useEffect(() => {
-    if (giftBagId) {
-      sessionStorage.setItem("giftBagId", giftBagId);
-    }
-  }, [giftBagId]);
+  const { setSelectedBagIndex } = useSelectedBagStore();
+  const { setGiftBagName } = useGiftBagStore();
 
   const resetStore = () => {
     useGiftStore.setState({
@@ -52,21 +40,10 @@ const Step2 = ({ onNextStep }: Step2Props) => {
     setGiftBagName("");
   };
 
-  const mutation = useMutation({
-    mutationFn: () =>
-      createGiftBag({
-        giftBagName,
-        selectedBagIndex,
-        giftBoxes,
-      }),
-    onSuccess: (res) => {
-      if (res?.id) {
-        setGiftBagId(res.id);
-      }
-      resetStore();
-      onNextStep(character || "포리");
-    },
-  });
+  const handleClickButton = () => {
+    resetStore();
+    onNextStep(character || "포리");
+  };
 
   return (
     <div className="h-[calc(100%-52px)] w-full flex flex-col items-center justify-center gap-7">
@@ -108,12 +85,7 @@ const Step2 = ({ onNextStep }: Step2Props) => {
         </div>
       </section>
       <div className="w-full px-4 absolute bottom-4">
-        <Button
-          onClick={() => {
-            mutation.mutate();
-          }}
-          size="lg"
-        >
+        <Button onClick={handleClickButton} size="lg">
           선물 보따리 배달하기
         </Button>
       </div>
