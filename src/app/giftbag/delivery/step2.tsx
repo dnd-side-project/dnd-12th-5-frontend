@@ -39,6 +39,8 @@ const Step2 = ({ onNextStep }: Step2Props) => {
 
     setSelectedBagIndex(0);
     setGiftBagName("");
+
+    sessionStorage.removeItem("giftBagId");
   };
 
   const handleClickButton = () => {
