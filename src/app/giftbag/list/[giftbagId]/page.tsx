@@ -111,6 +111,20 @@ const Page = () => {
     sessionStorage.removeItem("giftBagId"); //세션스토리지에서 보따리 id 삭제
   };
 
+  const getTagIndex = (message: string): number => {
+    if (message.includes("당신의 취향을 저격할 수 있는 선물일 것 같아요")) {
+      return 1;
+    } else if (message.includes("매일 쓰면서 저를 떠올려 주세요")) {
+      return 2;
+    } else if (message.includes("특별한 순간, 특별한 마음을 담아 준비했어요")) {
+      return 3;
+    } else if (message.includes("지금 가장 핫한 아이템으로 마음을 전합니다")) {
+      return 4;
+    }
+
+    return 0; // 기본값 0
+  };
+
   const { data: fillGiftData } = useFillGift(parseInt(giftBagId));
 
   const fetchSavedGift = () => {
@@ -126,11 +140,13 @@ const Page = () => {
         },
         index: number,
       ) => {
+        const tagIndex = getTagIndex(gift.message);
+
         const updatedGiftBox = {
           name: gift.name,
           reason: gift.message,
           purchase_url: gift.purchaseUrl,
-          tagIndex: 0,
+          tagIndex: tagIndex,
           filled: true,
           imgUrls: gift.imageUrls,
         };
@@ -142,7 +158,7 @@ const Page = () => {
 
   const handleFillGiftBag = () => {
     resetStore(); // 기존 임시 저장 데이터 초기화
-    if (giftBagId) sessionStorage.setItem("giftBagId", giftBagId); 
+    if (giftBagId) sessionStorage.setItem("giftBagId", giftBagId);
     fetchSavedGift();
     router.push("/giftbag/add");
   };
