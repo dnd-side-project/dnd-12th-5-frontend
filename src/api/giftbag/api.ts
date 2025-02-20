@@ -56,13 +56,15 @@ export const updateGiftBag = async (giftBoxes: GiftBox[]) => {
     throw new Error("유효하지 않은 선물 보따리 ID입니다.");
   }
 
-  const gifts = giftBoxes.map((gift) => ({
-    id: gift.id,
-    name: gift.name,
-    message: gift.reason,
-    purchaseUrl: gift.purchase_url,
-    imageUrls: gift.imgUrls,
-  }));
+  const gifts = giftBoxes
+    .filter((gift) => gift.filled)
+    .map((gift) => ({
+      id: gift.id,
+      name: gift.name,
+      message: gift.reason,
+      purchaseUrl: gift.purchase_url,
+      imageUrls: gift.imgUrls,
+    }));
 
   const requestBody = {
     bundleId,
