@@ -1,35 +1,29 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 import Chip from "@/components/giftbag/Chip";
 import DetailGiftBox from "@/components/giftbag/DetailGiftBox";
+import ReceiveGiftList from "@/components/giftbag/ReceiveGiftList";
 import { Button } from "@/components/ui/button";
+
 import {
   useGiftAnswerStore,
   useIsOpenDetailGiftBoxStore,
   useIsUploadAnswerStore,
 } from "@/stores/giftbag/useStore";
 import { ReceiveGiftBox } from "@/types/giftbag/types";
-import { useEffect, useState } from "react";
-import ReceiveGiftList from "@/components/giftbag/ReceiveGiftList";
+import { RESPONSE_TAGS } from "@/constants/constants";
 
 const Step2 = ({ gifts }: { gifts: ReceiveGiftBox[] }) => {
   const router = useRouter();
-  const { id } = useParams() as { id: string };
+  const { id: link } = useParams() as { id: string };
+
   const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
     useIsOpenDetailGiftBoxStore();
   const { answers } = useGiftAnswerStore();
   const { isUploadedAnswer, setIsUploadedAnswer } = useIsUploadAnswerStore();
-
-  const openGiftBox = () => {
-    setIsOpenDetailGiftBox(true);
-  };
-
-  const handleOnclick = () => {
-    router.push(`/giftbag/${id}?step=3`);
-    setIsUploadedAnswer(true);
-  };
 
   const [isAnswered, setIsAnswered] = useState(false);
 
@@ -43,6 +37,38 @@ const Step2 = ({ gifts }: { gifts: ReceiveGiftBox[] }) => {
     if (answeredCount === gifts.length) setIsAnswered(true);
   }, [answeredCount, answers, gifts.length]);
 
+  const submitGiftResponses = async () => {
+    const requestBody = {
+      bundleId: sessionStorage.getItem("receiveGiftBagId"),
+      gifts: gifts.map((gift, index) => ({
+        giftId: gift.id,
+        responseTag: RESPONSE_TAGS[answers[index] ?? 0],
+      })),
+    };
+
+    try {
+      const response = await fetch(
+        `/api/v1/responses/bundles/${link}/answers`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("답변 제출에 실패했습니다.");
+      }
+      setIsUploadedAnswer(true);
+      router.push(`/giftbag/${link}?step=3`);
+    } catch (error) {
+      console.error("Error submitting responses:", error);
+      alert("오류가 발생했습니다. 다시 시도해주세요.");
+    }
+  };
+
   return (
     <div className="relative bg-pink-50 overflow-hidden h-full">
       {isOpenDetailGiftBox ? (
@@ -53,12 +79,15 @@ const Step2 = ({ gifts }: { gifts: ReceiveGiftBox[] }) => {
             <Chip text={chipText} width="176px" />
           </div>
           <div>
-            <ReceiveGiftList giftList={gifts} onClick={openGiftBox} />
+            <ReceiveGiftList
+              giftList={gifts}
+              onClick={() => setIsOpenDetailGiftBox(true)}
+            />
           </div>
           <div className="absolute bottom-4 w-full px-4">
             <Button
               size="lg"
-              onClick={handleOnclick}
+              onClick={submitGiftResponses}
               disabled={isUploadedAnswer || !isAnswered}
             >
               {isUploadedAnswer ? "답변 전송 완료!" : "답변 전송하기"}

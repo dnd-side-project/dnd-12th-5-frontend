@@ -104,7 +104,13 @@ export const fetchResponseBundle = async (link: string) => {
     }
 
     const jsonData = await response.json();
-    return jsonData.result.bundle as ReceiveGiftBag;
+    const bundleData = jsonData.result.bundle as ReceiveGiftBag;
+
+    if (bundleData?.id) {
+      sessionStorage.setItem("receiveGiftBagId", bundleData.id.toString());
+    }
+
+    return bundleData;
   } catch (error) {
     console.error(`보따리 불러오기 실패 ${error}`);
     return null;

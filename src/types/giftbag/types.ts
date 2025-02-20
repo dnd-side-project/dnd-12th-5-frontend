@@ -13,6 +13,7 @@ export interface GiftBox {
   /* 퍼블리싱을 위한 임시 타입 지정 (추후 api 연결 시 수정 요함) */
 }
 export interface ReceiveGiftBag {
+  id: number;
   status: string;
   delivery_character_type: string;
   design_type: string;

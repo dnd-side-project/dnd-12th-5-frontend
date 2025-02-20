@@ -35,3 +35,11 @@ export const DESIGN_TYPE_MAP: Record<string, string> = {
   PINK: "/img/giftBag_pink.svg",
   YELLOW: "/img/giftBag_yellow.svg",
 };
+
+export const RESPONSE_TAGS = [
+  "GREAT",
+  "GOOD",
+  "ALREADY_HAVE",
+  "NOT_SURE",
+  "NOT_MY_STYLE",
+];
