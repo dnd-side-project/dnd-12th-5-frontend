@@ -19,15 +19,19 @@ import {
 
 import { useMyGiftBagDetail } from "@/hooks/api/useMyGiftBagDetail";
 import { useDeleteGiftBag } from "@/hooks/api/useDeleteMyGiftBag";
+import { toast } from "@/hooks/use-toast";
+import { useFillGift } from "@/hooks/api/useFillGift";
+import { ToastAction } from "@radix-ui/react-toast";
+import { useGiftStore } from "@/stores/gift-upload/useStore";
 
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
-
 const Page = () => {
   const router = useRouter();
-  const { giftbagId } = useParams() as { giftbagId: string };
+  const { giftBagId } = useParams() as { giftBagId: string };
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { updateGiftBox } = useGiftStore();
 
-  const { data } = useMyGiftBagDetail(parseInt(giftbagId));
+  const { data } = useMyGiftBagDetail(parseInt(giftBagId));
   const { name, designType, link, status, gifts } = data?.result || {
     name: "",
     designType: "",
@@ -41,9 +45,17 @@ const Page = () => {
       navigator.clipboard
         .writeText(`http://localhost:3000/giftbag/${link}?step=1`)
         .then(() => {
-          alert("링크가 복사되었습니다.");
+          toast({
+            description: "링크를 복사하였습니다.",
+          });
         })
-        .catch((err) => alert("복사에 실패하였습니다. " + err));
+        .catch(() =>
+          toast({
+            variant: "destructive",
+            description: "링크 복사에 실패하였습니다.",
+            action: <ToastAction altText="Try again">다시 시도</ToastAction>,
+          }),
+        );
     }
   };
 
@@ -52,21 +64,24 @@ const Page = () => {
 
   const { mutate: deleteGiftBag } = useDeleteGiftBag();
   const handleDelete = () => {
-    if (!giftbagId) return;
+    if (!giftBagId) return;
 
-    deleteGiftBag(parseInt(giftbagId), {
+    deleteGiftBag(parseInt(giftBagId), {
       onSuccess: () => {
         router.push("/giftbag/list");
       },
-      onError: (error) => {
-        alert("삭제에 실패했습니다. 다시 시도해주세요.");
-        console.error(error);
+      onError: () => {
+        toast({
+          variant: "destructive",
+          description: "삭제에 실패하였습니다.",
+          action: <ToastAction altText="Try again">다시 시도</ToastAction>,
+        });
       },
     });
   };
 
   const memoizedImage = useMemo(() => {
-    if (!giftbagId) return null;
+    if (!giftBagId) return null;
 
     return (
       <Image
@@ -76,7 +91,61 @@ const Page = () => {
         height={187}
       />
     );
-  }, [giftbagId, designType]);
+  }, [giftBagId, designType]);
+
+  // 재사용 분리 필요
+  const resetStore = () => {
+    useGiftStore.setState({
+      giftBoxes: Array(6).fill({
+        name: "",
+        filled: false,
+        reason: "",
+        tagIndex: 0,
+        purchase_url: "",
+        tag: "",
+        imgUrls: [],
+        id: null,
+      }),
+    });
+
+    sessionStorage.removeItem("giftBagId"); //세션스토리지에서 보따리 id 삭제
+  };
+
+  const { data: fillGiftData } = useFillGift(parseInt(giftBagId));
+
+  const fetchSavedGift = () => {
+    if (!fillGiftData || !fillGiftData.gifts) return;
+
+    fillGiftData.gifts.forEach(
+      (
+        gift: {
+          name: string;
+          message: string;
+          purchaseUrl: string;
+          imageUrls: string[];
+        },
+        index: number,
+      ) => {
+        const updatedGiftBox = {
+          name: gift.name,
+          reason: gift.message,
+          purchase_url: gift.purchaseUrl,
+          tagIndex: 0,
+          filled: true,
+          imgUrls: gift.imageUrls,
+        };
+
+        updateGiftBox(index, updatedGiftBox);
+      },
+    );
+  };
+
+  const handleFillGiftBag = () => {
+    resetStore(); // 기존 임시 저장 데이터 초기화
+    if (giftBagId) sessionStorage.setItem("giftBagId", giftBagId); 
+    fetchSavedGift();
+    router.push("/giftbag/add");
+  };
 
   return (
     <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
@@ -90,7 +159,7 @@ const Page = () => {
         ) : null}
 
         <div className="flex flex-col justify-center items-center gap-[20px] mt-[26px] mb-[40px]">
-          {giftbagId && memoizedImage}
+          {giftBagId && memoizedImage}
           {name && <MyGiftBagNameChip name={name} />}
         </div>
 
@@ -152,7 +221,9 @@ const Page = () => {
                 </DrawerContent>
               )}
 
-              <Button size="lg">마저 채우기</Button>
+              <Button size="lg" onClick={handleFillGiftBag}>
+                마저 채우기
+              </Button>
             </div>
           ) : status === "PUBLISHED" ? (
             <Button size="lg" disabled={true}>
@@ -161,7 +232,7 @@ const Page = () => {
           ) : (
             <Button
               size="lg"
-              onClick={() => router.push(`/giftbag/list/${giftbagId}/answer`)}
+              onClick={() => router.push(`/giftbag/list/${giftBagId}/answer`)}
             >
               답변 확인하기
             </Button>
