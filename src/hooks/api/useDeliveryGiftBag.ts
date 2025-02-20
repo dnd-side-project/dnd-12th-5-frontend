@@ -6,10 +6,14 @@ export interface PutDeliveryPayload {
   deliveryCharacterType: DeliveryCharacterAPIType;
 }
 
+export interface PutDeliveryResponse {
+  link: string;
+}
+
 const putDelivery = async ({
   giftBagId,
   deliveryCharacterType,
-}: PutDeliveryPayload): Promise<unknown> => {
+}: PutDeliveryPayload): Promise<PutDeliveryResponse> => {
   const accessToken = localStorage.getItem("accessToken");
 
   const response = await fetch(`/api/v1/bundles/${giftBagId}/delivery`, {
@@ -32,7 +36,7 @@ const putDelivery = async ({
 export const useDeliveryGiftBag = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<unknown, Error, PutDeliveryPayload>({
+  return useMutation<PutDeliveryResponse, Error, PutDeliveryPayload>({
     mutationFn: (payload: PutDeliveryPayload) => putDelivery(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["delivery-giftbag"] });
