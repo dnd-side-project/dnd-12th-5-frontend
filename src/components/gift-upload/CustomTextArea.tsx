@@ -5,6 +5,7 @@ interface CustomTextAreaProps {
   maxLength: number;
   text: string;
   onTextChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  disable: boolean;
 }
 
 const CustomTextArea = ({
@@ -12,6 +13,7 @@ const CustomTextArea = ({
   maxLength,
   text,
   onTextChange,
+  disable,
 }: CustomTextAreaProps) => {
   return (
     <div className="relative">
@@ -21,6 +23,7 @@ const CustomTextArea = ({
         value={text}
         maxLength={maxLength}
         onChange={(e) => onTextChange(e)}
+        disabled={disable}
       />
       <span className="absolute bottom-2 right-2 text-gray-400 text-[10px]">
         {text.length} / {maxLength}
