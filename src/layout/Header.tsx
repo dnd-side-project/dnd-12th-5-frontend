@@ -154,7 +154,12 @@ const Header = () => {
 
   const handleTempSave = async () => {
     if (giftBagId) {
-      updateGiftBag(giftBoxes);
+      const res = await updateGiftBag(giftBoxes);
+      if (res?.gifts?.length) {
+        res.gifts.forEach((gift: GiftBox, index: number) => {
+          useGiftStore.getState().updateGiftBox(index, { id: gift.id });
+        });
+      }
     } else {
       try {
         const res = await createGiftBag({

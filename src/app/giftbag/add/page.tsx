@@ -54,7 +54,13 @@ const Page = () => {
   const handleClickButton = async () => {
     try {
       if (giftBagId) {
-        await updateGiftBag(giftBoxes);
+        const res = await updateGiftBag(giftBoxes);
+
+        if (res?.gifts?.length) {
+          res.gifts.forEach((gift: GiftBox, index: number) => {
+            useGiftStore.getState().updateGiftBox(index, { id: gift.id });
+          });
+        }
       } else {
         await mutation.mutateAsync();
       }
