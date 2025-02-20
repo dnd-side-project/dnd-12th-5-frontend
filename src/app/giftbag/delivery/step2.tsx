@@ -40,10 +40,11 @@ const Step2 = ({ onNextStep }: Step2Props) => {
     setSelectedBagIndex(0);
     setGiftBagName("");
 
-    sessionStorage.removeItem("giftBagId");
+    sessionStorage.removeItem("giftBagId"); //세션스토리지에서 보따리 id 삭제
   };
 
   const handleClickButton = () => {
+    //배달부 선택하기 api를 여기에 두신 후에 resetStore가 실행되면 될 것 같아요!
     resetStore();
     onNextStep(character || "포리");
   };
