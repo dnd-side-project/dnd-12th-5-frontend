@@ -13,25 +13,31 @@ import {
 import LinkButton from "@/components/common/LinkButton";
 import Loading from "@/components/common/Loading";
 
-import { filledGiftList } from "@/data/giftbagData";
 import { useGiftNameStore } from "@/stores/giftbag/useStore";
 import { useGiftDetail } from "@/hooks/api/useGiftDetail";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 const Page = () => {
-  const { giftId, giftbagId } = useParams() as {
+  const { giftId, giftBagId } = useParams() as {
     giftId: string;
-    giftbagId: string;
+    giftBagId: string;
   };
 
-  const { data } = useGiftDetail(parseInt(giftId), parseInt(giftbagId));
+  const { data } = useGiftDetail(parseInt(giftId), parseInt(giftBagId));
 
-  const { name, message, purchaseUrl, imageUrls } = data || {
+  const { name, message, purchaseUrl, thumbnail, imageUrls } = data || {
     name: "",
     message: "",
     purchaseUrl: "",
-    imageUrls: [],
+    thumbnail: "",
+    combinedImages: [],
   };
+
+  // 하나의 이미지 배열로 관리
+  const combinedImages = [
+    thumbnail,
+    ...(Array.isArray(imageUrls) ? imageUrls : []),
+  ];
 
   const { setGiftName } = useGiftNameStore();
 
@@ -41,15 +47,9 @@ const Page = () => {
 
   const [currentImageIndexes, setCurrentImageIndexes] = useState<{
     [key: number]: number;
-  }>(
-    filledGiftList.reduce(
-      (acc, _, index) => {
-        acc[index] = 0;
-        return acc;
-      },
-      {} as { [key: number]: number },
-    ),
-  );
+  }>({
+    [parseInt(giftId)]: 0,
+  });
 
   const [innerCarouselApi, setInnerCarouselApi] = useState<CarouselApi | null>(
     null,
@@ -61,7 +61,7 @@ const Page = () => {
         const newIndex = innerCarouselApi.selectedScrollSnap();
         setCurrentImageIndexes((prev) => ({
           ...prev,
-          [giftId]: newIndex,
+          [parseInt(giftId)]: newIndex,
         }));
       };
 
@@ -92,7 +92,7 @@ const Page = () => {
         className="h-[375px] w-full overflow-hidden"
       >
         <CarouselContent className="flex flex-nowrap">
-          {imageUrls.map(
+          {combinedImages.map(
             (url: string | StaticImport, index: Key | null | undefined) => (
               <CarouselItem
                 key={index}
@@ -112,7 +112,10 @@ const Page = () => {
 
         <div className="absolute bottom-[12px] right-[12px] h-[23px] rounded-[40px] px-[10px] py-1 bg-white/70 text-center">
           <p className="text-[10px] text-gray-600 tracking-[2px]">
-            {currentImageIndexes[parseInt(giftId)] + 1}/{imageUrls.length}
+            {currentImageIndexes[parseInt(giftId)] !== undefined
+              ? currentImageIndexes[parseInt(giftId)] + 1
+              : 0}
+            /{combinedImages.length}
           </p>
         </div>
       </Carousel>

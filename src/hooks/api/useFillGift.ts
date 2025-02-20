@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
-const fetchGiftDetail = async (giftId: number, giftBagId: number) => {
+const fetchFillGift = async (giftBagId: number) => {
   const accessToken = localStorage.getItem("accessToken");
 
-  const response = await fetch(`/api/v1/bundles/${giftBagId}/gifts/${giftId}`, {
+  const response = await fetch(`/api/v1/bundles/${giftBagId}/gifts`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -18,9 +18,9 @@ const fetchGiftDetail = async (giftId: number, giftBagId: number) => {
   return response.json();
 };
 
-export const useGiftDetail = (giftId: number, giftBagId: number) => {
+export const useFillGift = (giftBagId: number) => {
   return useQuery({
-    queryKey: ["giftDetail"],
-    queryFn: () => fetchGiftDetail(giftId, giftBagId),
+    queryKey: ["fillGift"],
+    queryFn: () => fetchFillGift(giftBagId),
   });
 };

@@ -28,7 +28,9 @@ const MyGiftBagStatusChip = ({
       className={`rounded-[6px] ${bgColor} py-[3px] px-[8px] inline-flex gap-1`}
     >
       <p className="text-[10px] font-medium">{text}</p>
-      {!isRead && <Image src={IndicatorIcon} alt="IndicatorIcon" />}
+      {!isRead && status === "COMPLETED" && (
+        <Image src={IndicatorIcon} alt="IndicatorIcon" />
+      )}
     </span>
   );
 };
