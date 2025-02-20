@@ -18,8 +18,9 @@ const page = () => {
       <div className="text-[15px] py-[18px]  border-b-[1px] border-[#f4f4f4]">
         <Link href={"/setting/notice"}>공지사항</Link>
       </div>
-      <div className="text-[15px] py-[18px] border-b-[1px] border-[#f4f4f4]">
-        <Link href={"/setting/version"}>버전 정보</Link>
+      <div className="text-[15px] py-[18px] border-b-[1px] border-[#f4f4f4] flex justify-between items-center">
+        <p>버전 정보</p>
+        <p className="text-gray-300">1.0.0 v</p>
       </div>
       <div className="text-[15px] py-[18px] border-b-[1px] border-[#f4f4f4] text-symantic-negative">
         <p>로그아웃</p>
