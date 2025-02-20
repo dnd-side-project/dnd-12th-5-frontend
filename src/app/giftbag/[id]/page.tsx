@@ -26,10 +26,13 @@ const Page = () => {
 
   if (isPending)
     return (
-      <div className="flex justify-content">
-        <Loading />
+      <div className="relative w-full h-full">
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <Loading />
+        </div>
       </div>
     );
+
   if (isError || !giftBag)
     return (
       <div className="h-full flex flex-col items-center justify-center ">
