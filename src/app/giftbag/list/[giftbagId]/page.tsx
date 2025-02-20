@@ -39,7 +39,7 @@ const Page = () => {
   const handleCopyLink = () => {
     if (link !== null) {
       navigator.clipboard
-        .writeText(link)
+        .writeText(`http://localhost:3000/giftbag/${link}?step=1`)
         .then(() => {
           alert("링크가 복사되었습니다.");
         })
