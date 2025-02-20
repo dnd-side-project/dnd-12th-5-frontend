@@ -90,7 +90,7 @@ const Header = () => {
         setDynamicTitle(title);
       }
       // 동적 경로 처리
-      if (pathname?.match(/^\/giftbag\/detail\/[^/]+\/answer$/)) {
+      if (pathname?.match(/^\/giftbag\/list\/[^/]+\/answer$/)) {
         setDynamicTitle("보따리 결과");
       } else {
         // 정적 매핑 확인
