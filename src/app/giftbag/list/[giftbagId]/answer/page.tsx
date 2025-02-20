@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
@@ -16,6 +16,7 @@ import { GIFT_ANSWER_MAP } from "@/constants/constants";
 
 const Page = () => {
   const { giftbagId } = useParams() as { giftbagId: string };
+  const router = useRouter();
 
   const {
     data: giftData,
@@ -116,6 +117,9 @@ const Page = () => {
                   <Button
                     variant="ghost"
                     className="absolute left-44 top-1/2 transform -translate-y-1/2"
+                    onClick={() =>
+                      router.push(`/giftbag/list/${giftbagId}/${gift.id}`)
+                    }
                   >
                     <Image src={ArrowIcon} alt="arrowIcon" />
                   </Button>
