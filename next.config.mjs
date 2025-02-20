@@ -12,8 +12,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname:
-          "dnd-picktory-gift-bundles-bucket.s3.ap-northeast-2.amazonaws.com",
+        hostname: "d3g97bmizbzop5.cloudfront.net",
       },
     ],
   },
