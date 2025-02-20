@@ -1,48 +1,44 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import Step1 from "./step1";
 import Step2 from "./step2";
 import Step3 from "./step3";
-import { ReceiveGiftBag } from "@/types/giftbag/types";
+import { fetchResponseBundle } from "@/api/giftbag/api";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "@/components/common/Loading";
 
 const Page = () => {
   const searchParams = useSearchParams();
-  const step = searchParams ? searchParams.get("step") : null;
+  const params = useParams();
+  const step = searchParams?.get("step");
+  const link = params?.id as string;
 
-  const giftBag: ReceiveGiftBag = {
-    delivery_character_type: "CHARACTER_4",
-    design_type: "YELLOW",
-    status: "PUBLISHED",
-    gifts: [
-      {
-        id: 1234,
-        name: "신발",
-        message: null,
-        imageUrls: [
-          "/img/gift_3_1.jpg",
-          "/img/gift_3_2.jpg",
-          "/img/gift_3_3.jpg",
-        ],
-        thumbnail: "/img/gift_3_1.jpg",
-      },
-      {
-        id: 12345,
-        name: "텀블러",
-        message: "안녕~~~",
-        imageUrls: ["/img/gift_2.jpg"],
-        thumbnail: "/img/gift_2.jpg",
-      },
-      {
-        id: 123,
-        name: "휴대폰 케이스",
-        message: "안녕~~~ 이건 짱예쁜 휴대폰 케이스임",
-        imageUrls: ["/img/gift_1.jpg"],
-        thumbnail: "/img/gift_1.jpg",
-      },
-    ],
-    total_gifts: 3,
-  };
+  const {
+    data: giftBag,
+    isPending,
+    isError,
+  } = useQuery({
+    queryKey: ["reiceiveGiftBag", link],
+    queryFn: () => fetchResponseBundle(link),
+    enabled: !!link,
+  });
+
+  if (isPending)
+    return (
+      <div className="flex justify-content">
+        <Loading />
+      </div>
+    );
+  if (isError || !giftBag)
+    return (
+      <div className="h-full flex flex-col items-center justify-center ">
+        <h1 className="text-4xl font-bold text-gray-800">ERROR</h1>
+        <p className="text-lg text-gray-600 mt-2">
+          보따리를 불러오는 중에 오류가 발생했어요!
+        </p>
+      </div>
+    );
 
   return (
     <div className={`h-full relative ${step === "2" && "bg-pink-50 "}`}>

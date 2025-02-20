@@ -1,5 +1,5 @@
 import { GIFTBAG_COLORS } from "@/constants/constants";
-import { GiftBox } from "@/types/giftbag/types";
+import { GiftBox, ReceiveGiftBag } from "@/types/giftbag/types";
 
 {
   /** 보따리 생성 api */
@@ -85,4 +85,28 @@ export const updateGiftBag = async (giftBoxes: GiftBox[]) => {
   }
 
   return await response.json();
+};
+
+{
+  /** 보따리 풀어보기 api */
+}
+export const fetchResponseBundle = async (link: string) => {
+  try {
+    const response = await fetch(`/api/v1/responses/bundles/${link}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const jsonData = await response.json();
+    return jsonData.result.bundle as ReceiveGiftBag;
+  } catch (error) {
+    console.error(`보따리 불러오기 실패 ${error}`);
+    return null;
+  }
 };
