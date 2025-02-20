@@ -21,35 +21,31 @@ export const CHARACTER_EN_MAP: Record<string, string> = {
 
 export const deliveryCharacterData: Record<
   string,
-  {
-    description: string;
-    imageSrc: string;
-    bubbleText: string;
-  }
+  { title: string; description: string; imageSrc: string }
 > = {
   포리: {
+    title: "똑똑 서프라이즈~! \n 보따리가 도착했어요!",
     description:
       "밝고 긍정적인 에너지를 가득 담아 선물을 전해요.\n포리의 재빠른 발걸음으로 기쁨이 두 배!",
     imageSrc: "/img/delivery_1.svg",
-    bubbleText: "와우! 선물 배달 출발~ 신나게 달려볼게요!",
   },
   하티: {
+    title: "두근두근!\n사랑이 담긴 보따리를 열어볼까요?",
     description:
       "사랑이 넘치는 배달, 하티가 책임질게요!\n보따리에 설렘을 한 스푼 더해 전달해요.",
     imageSrc: "/img/delivery_4.svg",
-    bubbleText: "사랑이 필요할 땐, 하티가 도와줄게요!",
   },
   맥스: {
+    title: "어.. 오다 주웠다!\n궁금하면 한번 열어보던가!",
     description:
       "츤츤거리는 매력이 특징인 맥스!\n무심하지만 때로는 다정하게 선물을 전달해요.",
     imageSrc: "/img/delivery_3.svg",
-    bubbleText: "어... 오다가 주웠어. 그냥 한 번 봐봐.",
   },
   치치: {
+    title: "정성이 가득 담긴\n선물 보따리를 가져왔어요..",
     description:
       "선물을 준비하던 정성 가득한 순간,\n누구보다 세심한 치치가 소중하게 전달할거에요!",
     imageSrc: "/img/delivery_2.svg",
-    bubbleText: "소중하게 골라주신 선물, 안전하게 배달할게요!",
   },
 };
 
