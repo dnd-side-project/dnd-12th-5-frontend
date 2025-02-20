@@ -34,6 +34,7 @@ const pageTitles: { [key: string]: string } = {
   "/giftbag": "선물 보따리 만들기",
   "/gift-upload": "선물 박스 채우기",
   "/setting/account": "연결된 계정",
+  "/setting/notice": "공지사항",
   "/setting": "설정",
 };
 
