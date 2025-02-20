@@ -1,11 +1,11 @@
+import { useRouter } from "next/navigation";
+
 import DeliveryCard from "@/components/common/DeliveryCard";
 import { deliveryCharacterData } from "@/data/deliveryCharacterData";
 
-interface Step1Props {
-  onNextStep: (selectedCharacter: string) => void;
-}
+const Step1 = () => {
+  const router = useRouter();
 
-const Step1 = ({ onNextStep }: Step1Props) => {
   return (
     <div className="h-full flex flex-col items-center justify-center gap-[22px]">
       <div>
@@ -22,7 +22,9 @@ const Step1 = ({ onNextStep }: Step1Props) => {
             key={key}
             imageSrc={deliveryCharacterData[key].imageSrc}
             characterTitle={key}
-            onClick={() => onNextStep(key)}
+            onClick={() =>
+              router.push(`/giftbag/delivery?step=2&character=${key}`)
+            }
           />
         ))}
       </section>
