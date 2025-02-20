@@ -154,10 +154,35 @@ const Header = () => {
 
   const handleTempSave = async () => {
     if (giftBagId) {
-      const res = await updateGiftBag(giftBoxes);
-      if (res?.gifts?.length) {
-        res.gifts.forEach((gift: GiftBox, index: number) => {
-          useGiftStore.getState().updateGiftBox(index, { id: gift.id });
+      try {
+        const res = await updateGiftBag(giftBoxes);
+
+        if (res?.gifts?.length) {
+          res.gifts.forEach((gift: GiftBox, index: number) => {
+            useGiftStore.getState().updateGiftBox(index, { id: gift.id });
+          });
+        }
+
+        toast({
+          title: "임시저장 성공",
+          description: "보따리가 임시저장되었습니다.",
+          style: {
+            position: "fixed",
+            bottom: "16px",
+            right: "12px",
+            width: "400px",
+          },
+        });
+      } catch (error) {
+        toast({
+          title: "임시저장 실패",
+          description: `보따리 임시저장에 실패했습니다. ${error}`,
+          style: {
+            position: "fixed",
+            bottom: "16px",
+            right: "12px",
+            width: "400px",
+          },
         });
       }
     } else {
