@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 import { deliveryCharacterData } from "@/data/deliveryCharacterData";
+import { toast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
 import KakaoShareButtonIcon from "/public/icons/kakao_share_button.svg";
 import LinkCopyButtonIcon from "/public/icons/link_copy_button.svg";
@@ -12,6 +14,26 @@ import LinkCopyButtonIcon from "/public/icons/link_copy_button.svg";
 const Step3 = () => {
   const searchParams = useSearchParams();
   const character = searchParams ? searchParams.get("character") : null;
+  const link = searchParams ? searchParams.get("link") : null;
+
+  const handleCopyLink = () => {
+    if (link !== null) {
+      navigator.clipboard
+        .writeText(`http://localhost:3000/giftbag/${link}`) // 추후 수정 필요
+        .then(() => {
+          toast({
+            description: "링크를 복사하였습니다.",
+          });
+        })
+        .catch(() =>
+          toast({
+            variant: "destructive",
+            description: "링크 복사에 실패하였습니다.",
+            action: <ToastAction altText="Try again">다시 시도</ToastAction>,
+          }),
+        );
+    }
+  };
 
   return (
     <div className="h-full flex flex-col items-center justify-center gap-7">
@@ -38,7 +60,10 @@ const Step3 = () => {
           <Image src={KakaoShareButtonIcon} alt="kakaoShare" />
           <p className="text-gray-300 text-xs">카카오톡</p>
         </button>
-        <button className="flex flex-col items-center gap-1">
+        <button
+          className="flex flex-col items-center gap-1"
+          onClick={handleCopyLink}
+        >
           <Image src={LinkCopyButtonIcon} alt="linkCopy" />
           <p className="text-gray-300 text-xs">링크 복사</p>
         </button>
