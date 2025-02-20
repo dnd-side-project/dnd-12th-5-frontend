@@ -97,7 +97,7 @@ const Page = () => {
                         >
                           <Button
                             variant="link"
-                            className="text-xs text-gray-400"
+                            className="text-xs text-gray-600"
                           >
                             링크 바로가기
                           </Button>
@@ -107,7 +107,7 @@ const Page = () => {
                           <Button
                             variant="link"
                             disabled
-                            className="text-xs text-gray-200"
+                            className="text-xs text-gray-300"
                           >
                             링크 바로가기
                           </Button>
