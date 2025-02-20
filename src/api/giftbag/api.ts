@@ -1,9 +1,8 @@
 import { GIFTBAG_COLORS } from "@/constants/constants";
 import { GiftBox, ReceiveGiftBag } from "@/types/giftbag/types";
 
-{
-  /** 보따리 생성 api */
-}
+/** 보따리 생성 api */
+
 export const createGiftBag = async ({
   giftBagName,
   selectedBagIndex,
@@ -40,9 +39,8 @@ export const createGiftBag = async ({
   return response.json();
 };
 
-{
-  /* 보따리 업데이트 api */
-}
+/** 보따리 업데이트 api */
+
 export const updateGiftBag = async (giftBoxes: GiftBox[]) => {
   const bundleIdStr = sessionStorage.getItem("giftBagId");
 
@@ -87,9 +85,7 @@ export const updateGiftBag = async (giftBoxes: GiftBox[]) => {
   return await response.json();
 };
 
-{
-  /** 보따리 풀어보기 api */
-}
+/** 보따리 풀어보기 api */
 export const fetchResponseBundle = async (link: string) => {
   try {
     const response = await fetch(`/api/v1/responses/bundles/${link}`, {
@@ -115,4 +111,31 @@ export const fetchResponseBundle = async (link: string) => {
     console.error(`보따리 불러오기 실패 ${error}`);
     return null;
   }
+};
+
+/**보따리 결과 확인하기 api */
+export interface GiftData {
+  id: number;
+  name: string;
+  link: string;
+  thumbnail: string;
+  purchaseUrl: string;
+  responseTag: string;
+}
+
+export const fetchGiftResults = async (id: string): Promise<GiftData[]> => {
+  const response = await fetch(`/api/v1/bundles/${id}/result`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("보따리 결과 확인하기에 실패하셨습니다.");
+  }
+
+  const jsonData = await response.json();
+  return jsonData.result.gifts;
 };
