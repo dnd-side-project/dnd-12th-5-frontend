@@ -27,8 +27,6 @@ const Step2 = ({ gifts }: { gifts: ReceiveGiftBox[] }) => {
   };
 
   const handleOnclick = () => {
-    // TODO: API 통신 추가
-
     router.push(`/giftbag/${id}?step=3`);
     setIsUploadedAnswer(true);
   };
