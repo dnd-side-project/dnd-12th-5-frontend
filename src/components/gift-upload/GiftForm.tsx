@@ -106,8 +106,7 @@ const GiftForm = () => {
   });
 
   const handleSubmit = () => {
-    const remainingImages = combinedImages.length;
-    if (remainingImages === 0) {
+    if (combinedImages.length === 0 || giftName.length === 0) {
       setIsSubmitted(true);
       return;
     }
