@@ -19,7 +19,7 @@ const Step3 = () => {
   const handleCopyLink = () => {
     if (link !== null) {
       navigator.clipboard
-        .writeText(`http://localhost:3000/giftbag/${link}`) // 추후 수정 필요
+        .writeText(`http://localhost:3000/giftbag/${link}?step=1`) // 추후 수정 필요
         .then(() => {
           toast({
             description: "링크를 복사하였습니다.",
