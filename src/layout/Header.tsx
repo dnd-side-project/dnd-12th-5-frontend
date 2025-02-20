@@ -9,11 +9,12 @@ import {
   useParams,
 } from "next/navigation";
 
-import { useEditBoxStore } from "@/stores/gift-upload/useStore";
+import { useEditBoxStore, useGiftStore } from "@/stores/gift-upload/useStore";
 import {
   useGiftBagStore,
   useGiftNameStore,
   useIsOpenDetailGiftBoxStore,
+  useSelectedBagStore,
 } from "@/stores/giftbag/useStore";
 
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,9 @@ import { Button } from "@/components/ui/button";
 import LogoIcon from "../../public/icons/logo.svg";
 import SettingIcon from "../../public/icons/setting_large.svg";
 import ArrowLeftIcon from "../../public/icons/arrow_left_large.svg";
+import { createGiftBag, updateGiftBag } from "@/api/giftbag/api";
+import { toast } from "@/hooks/use-toast";
+import { GiftBox } from "@/types/giftbag/types";
 
 // 정적 title 관리
 const pageTitles: { [key: string]: string } = {
@@ -126,6 +130,104 @@ const Header = () => {
     !pathname.includes("name") &&
     !pathname.includes("select");
 
+  {
+    /** 보따리 임시저장 관련 코드 */
+  }
+  const { giftBoxes } = useGiftStore();
+  const { selectedBagIndex } = useSelectedBagStore();
+  const [showTempSave, setShowTempSave] = useState(false);
+
+  useEffect(() => {
+    const filledCount = giftBoxes.filter((box) => box.filled).length;
+    setShowTempSave(filledCount >= 2);
+  }, [giftBoxes]);
+
+  const [giftBagId, setGiftBagId] = useState<string | null>(
+    () => sessionStorage.getItem("giftBagId") || null,
+  );
+
+  useEffect(() => {
+    if (giftBagId) {
+      sessionStorage.setItem("giftBagId", giftBagId);
+    }
+  }, [giftBagId]);
+
+  const handleTempSave = async () => {
+    if (giftBagId) {
+      try {
+        const res = await updateGiftBag(giftBoxes);
+
+        if (res?.gifts?.length) {
+          res.gifts.forEach((gift: GiftBox, index: number) => {
+            useGiftStore.getState().updateGiftBox(index, { id: gift.id });
+          });
+        }
+
+        toast({
+          title: "임시저장 성공",
+          description: "보따리가 임시저장되었습니다.",
+          style: {
+            position: "fixed",
+            bottom: "16px",
+            right: "12px",
+            width: "400px",
+          },
+        });
+      } catch (error) {
+        toast({
+          title: "임시저장 실패",
+          description: `보따리 임시저장에 실패했습니다. ${error}`,
+          style: {
+            position: "fixed",
+            bottom: "16px",
+            right: "12px",
+            width: "400px",
+          },
+        });
+      }
+    } else {
+      try {
+        const res = await createGiftBag({
+          giftBagName,
+          selectedBagIndex,
+          giftBoxes,
+        });
+
+        if (res?.id) {
+          setGiftBagId(res.id);
+        }
+
+        if (res?.gifts?.length) {
+          res.gifts.forEach((gift: GiftBox, index: number) => {
+            useGiftStore.getState().updateGiftBox(index, { id: gift.id });
+          });
+        }
+
+        toast({
+          title: "임시저장 성공",
+          description: "보따리가 임시저장되었습니다.",
+          style: {
+            position: "fixed",
+            bottom: "16px",
+            right: "12px",
+            width: "400px",
+          },
+        });
+      } catch (error) {
+        toast({
+          title: "임시저장 실패",
+          description: `보따리 임시저장에 실패했습니다. ${error}`,
+          style: {
+            position: "fixed",
+            bottom: "16px",
+            right: "12px",
+            width: "400px",
+          },
+        });
+      }
+    }
+  };
+
   if (isGiftbagDetailStepTwo && isOpenDetailGiftBox) {
     return (
       <div className="h-[56px] bg-pink-50 flex items-center justify-end px-4 sticky top-0 z-10">
@@ -196,9 +298,10 @@ const Header = () => {
       <h1 className="text-center text-lg font-medium w-[185px] overflow-hidden whitespace-nowrap text-ellipsis absolute left-1/2 -translate-x-1/2">
         {dynamicTitle}
       </h1>
-      {isGiftbagAddPage && (
+      {showTempSave && isGiftbagAddPage && (
         <Button
           variant="ghost"
+          onClick={handleTempSave}
           className="text-[15px] text-gray-200 flex justify-end"
         >
           임시저장

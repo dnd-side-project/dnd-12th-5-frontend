@@ -15,9 +15,12 @@ import {
   DrawerClose,
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
-import { useGiftBags } from "@/hooks/api/useMyGiftBags";
-import { MyGiftBag } from "@/types/giftbag/types";
 import Loading from "@/components/common/Loading";
+
+import { useGiftBags } from "@/hooks/api/useMyGiftBags";
+import { useDeleteGiftBag } from "@/hooks/api/useDeleteMyGiftBag";
+
+import { MyGiftBag } from "@/types/giftbag/types";
 
 const Page = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -36,11 +39,15 @@ const Page = () => {
       (giftBag: { status: string }) => !isChecked || giftBag.status === "DRAFT",
     ) || [];
 
-  const handleDelete = useCallback((id: number) => {
-    // DELETE /api/v1/bundles/{id}
-    alert(id);
-    setIsDrawerOpen(false);
-  }, []);
+  const { mutate: deleteGiftBag } = useDeleteGiftBag();
+
+  const handleDelete = useCallback(
+    (id: number) => {
+      deleteGiftBag(id);
+      setIsDrawerOpen(false);
+    },
+    [deleteGiftBag],
+  );
 
   if (isLoading) {
     return (

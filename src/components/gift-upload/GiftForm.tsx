@@ -17,6 +17,7 @@ import {
 } from "@/stores/gift-upload/useStore";
 import { motion } from "framer-motion";
 import { uploadGiftImages } from "@/api/gift-upload/api";
+import { ImageItem } from "@/types/gift-upload/types";
 
 const GiftForm = () => {
   const router = useRouter();
@@ -39,8 +40,10 @@ const GiftForm = () => {
     [giftBoxes, index],
   );
 
-  const [imageFiles, setImageFiles] = useState<File[]>([]);
-  const [removedImages, setRemovedImages] = useState<string[]>([]);
+  const [combinedImages, setCombinedImages] = useState<ImageItem[]>(() =>
+    existingGift.imgUrls.map((url) => ({ type: "existing", url })),
+  );
+
   const [giftName, setGiftName] = useState(existingGift.name);
   const [giftReason, setGiftReason] = useState(existingGift.reason || "");
   const [giftLink, setGiftLink] = useState(existingGift.purchase_url || "");
@@ -59,9 +62,11 @@ const GiftForm = () => {
       setGiftReason(existingGift.reason || "");
       setGiftLink(existingGift.purchase_url || "");
       setGiftTag(existingGift.tag || "");
-
       setIsGiftNameFilled(!!existingGift.name);
       setIsReasonFilled(!!existingGift.reason);
+      setCombinedImages(
+        existingGift.imgUrls.map((url) => ({ type: "existing", url })),
+      );
     }
   }, [isBoxEditing, existingGift]);
 
@@ -92,34 +97,25 @@ const GiftForm = () => {
   const uploadMutation = useMutation<string[], Error, FormData>({
     mutationFn: uploadGiftImages,
     onSuccess: (uploadedUrls: string[]) => {
-      if (isBoxEditing) {
-        updateGiftBox(index, {
-          imgUrls: [
-            ...existingGift.imgUrls.filter(
-              (url) => !removedImages.includes(url),
-            ),
-            ...uploadedUrls,
-          ],
-        });
-      } else {
-        updateGiftBox(index, {
-          imgUrls: uploadedUrls,
-        });
-      }
+      const existingUrls = combinedImages
+        .filter((item) => item.type === "existing")
+        .map((item) => item.url);
+      const merged = [...existingUrls, ...uploadedUrls];
+      updateGiftBox(index, { ...existingGift, imgUrls: merged });
     },
   });
 
   const handleSubmit = () => {
-    const remainingImages = isBoxEditing
-      ? (existingGift.imgUrls ?? []).filter(
-          (url) => !removedImages.includes(url),
-        ).length + imageFiles.length
-      : imageFiles.length;
-
+    const remainingImages = combinedImages.length;
     if (remainingImages === 0) {
       setIsSubmitted(true);
       return;
     }
+
+    const existingItems = combinedImages
+      .filter((item) => item.type === "existing")
+      .map((item) => item.url);
+    const newItems = combinedImages.filter((item) => item.type === "new");
 
     const updatedGiftBox = {
       name: giftName,
@@ -128,29 +124,24 @@ const GiftForm = () => {
       tag: giftTag,
       tagIndex: selectedTagIndex,
       filled: true,
-      imgUrls: isBoxEditing
-        ? [
-            ...(existingGift.imgUrls ?? []).filter(
-              (url) => !removedImages.includes(url),
-            ),
-          ]
-        : [],
+      imgUrls: isBoxEditing ? existingItems : [],
     };
 
     updateGiftBox(index, updatedGiftBox);
 
-    if (imageFiles.length > 0) {
+    if (newItems.length > 0) {
       const formData = new FormData();
-      imageFiles.forEach((file) => formData.append("files", file));
-
+      newItems.forEach((item) => {
+        if (item.file) {
+          formData.append("files", item.file);
+        }
+      });
       uploadMutation.mutate(formData, {
         onSuccess: (uploadedUrls: string[]) => {
-          updateGiftBox(index, {
-            ...updatedGiftBox,
-            imgUrls: isBoxEditing
-              ? [...updatedGiftBox.imgUrls, ...uploadedUrls]
-              : uploadedUrls,
-          });
+          const mergedImages = isBoxEditing
+            ? [...existingItems, ...uploadedUrls]
+            : uploadedUrls;
+          updateGiftBox(index, { ...updatedGiftBox, imgUrls: mergedImages });
         },
       });
     }
@@ -168,17 +159,13 @@ const GiftForm = () => {
             style={{ scrollbarWidth: "none" }}
           >
             <UploadImageList
-              onFilesChange={setImageFiles}
-              existingImages={existingGift.imgUrls}
-              onRemoveImage={(url) =>
-                setRemovedImages((prev) => [...prev, url])
-              }
+              combinedImages={combinedImages}
+              setCombinedImages={setCombinedImages}
+              maxImages={5}
             />
-            {isSubmitted &&
-              existingGift.imgUrls.filter((url) => !removedImages.includes(url))
-                .length +
-                imageFiles.length ===
-                0 && <ErrorMessage message="필수 입력 정보입니다." />}
+            {isSubmitted && combinedImages.length === 0 && (
+              <ErrorMessage message="필수 입력 정보입니다." />
+            )}
           </div>
           <div className="flex flex-col px-1">
             <CharacterCountInput

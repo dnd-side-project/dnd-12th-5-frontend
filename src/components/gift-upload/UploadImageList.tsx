@@ -1,45 +1,27 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import ImageCard from "./ImageCard";
 import ImageIcon from "../../../public/icons/image_medium.svg";
 import Image from "next/image";
-import { useEditBoxStore } from "@/stores/gift-upload/useStore";
+import { ImageItem } from "@/types/gift-upload/types";
 
 interface UploadImageListProps {
-  onFilesChange: (files: File[]) => void;
-  existingImages?: string[];
-  onRemoveImage?: (url: string) => void;
+  combinedImages: ImageItem[];
+  setCombinedImages: (items: ImageItem[]) => void;
+  maxImages?: number;
 }
 
 const allowedExtensions = ["jpg", "jpeg", "png", "webp", "heic", "heif"];
 
 const UploadImageList = ({
-  onFilesChange,
-  existingImages = [],
-  onRemoveImage,
+  combinedImages,
+  setCombinedImages,
+  maxImages = 5,
 }: UploadImageListProps) => {
-  const [previewImages, setPreviewImages] = useState<string[]>(existingImages);
-  const [imageFiles, setImageFiles] = useState<File[]>([]);
-  const { isBoxEditing } = useEditBoxStore();
-
-  useEffect(() => {
-    if (isBoxEditing) {
-      setPreviewImages((prev) => {
-        return JSON.stringify(prev) === JSON.stringify(existingImages)
-          ? prev
-          : existingImages;
-      });
-    }
-  }, [existingImages, isBoxEditing]);
-
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
-
     const files = Array.from(event.target.files);
-    const validFiles: File[] = [];
-    const filePreviews: string[] = [];
-
+    const newItems: ImageItem[] = [];
     files.forEach((file) => {
       const fileExtension = file.name.split(".").pop()?.toLowerCase();
       if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
@@ -48,56 +30,51 @@ const UploadImageList = ({
         );
         return;
       }
-      validFiles.push(file);
-      filePreviews.push(URL.createObjectURL(file));
+      newItems.push({
+        type: "new",
+        url: URL.createObjectURL(file),
+        file,
+      });
     });
-
-    setImageFiles((prev) => [...prev, ...validFiles]);
-    setPreviewImages((prev) => [...prev, ...filePreviews]);
-    onFilesChange([...imageFiles, ...validFiles]);
-
+    if (combinedImages.length + newItems.length > maxImages) {
+      alert(`최대 ${maxImages}개까지 업로드 가능합니다.`);
+      return;
+    }
+    setCombinedImages([...combinedImages, ...newItems]);
     event.target.value = "";
   };
 
   const handleDelete = (index: number) => {
-    const removedImage = previewImages[index];
-
-    const newFiles = imageFiles.filter((_, i) => i !== index);
-    const newPreviews = previewImages.filter((_, i) => i !== index);
-
-    setImageFiles(newFiles);
-    setPreviewImages(newPreviews);
-    onFilesChange(newFiles);
-
-    if (existingImages.includes(removedImage) && onRemoveImage) {
-      onRemoveImage(removedImage);
-    }
+    const newItems = combinedImages.filter((_, i) => i !== index);
+    setCombinedImages(newItems);
   };
 
   return (
     <div className="flex gap-2 whitespace-nowrap">
       <label
         className={`flex flex-shrink-0 flex-col items-center justify-center rounded-[10px] h-[88px] w-[88px] bg-gray-50 border-[1.4px] border-gray-100 ${
-          previewImages.length === 5 ? "cursor-not-allowed" : "cursor-pointer"
+          combinedImages.length >= maxImages
+            ? "cursor-not-allowed"
+            : "cursor-pointer"
         }`}
       >
         <Image src={ImageIcon} alt="image" width={14} height={14} />
         <span className="text-[10px] text-gray-300 mt-1">
-          {previewImages.length}/5
+          {combinedImages.length}/{maxImages}
         </span>
         <input
           type="file"
           accept={allowedExtensions.map((ext) => `.${ext}`).join(", ")}
           className="hidden"
           onChange={handleUpload}
-          disabled={previewImages.length >= 5}
+          disabled={combinedImages.length >= maxImages}
           multiple
         />
       </label>
-      {previewImages.map((image, index) => (
+      {combinedImages.map((item, index) => (
         <ImageCard
           key={index}
-          src={image}
+          src={item.url}
           isPrimary={index === 0}
           onDelete={() => handleDelete(index)}
         />

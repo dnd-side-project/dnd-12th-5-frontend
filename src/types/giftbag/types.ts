@@ -6,6 +6,7 @@ export interface GiftBox {
   tagIndex: number;
   filled: boolean;
   imgUrls: string[];
+  id?: number | null;
 }
 
 {
