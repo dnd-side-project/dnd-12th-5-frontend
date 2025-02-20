@@ -83,6 +83,7 @@ const Page = () => {
                       type="image"
                       noHoverStyle={true}
                       noActiveStyle={true}
+                      noCursorPointerStyle={true}
                     />
                     <div className="flex justify-center flex-col items-start">
                       <div className="text-[15px] font-medium max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap">
