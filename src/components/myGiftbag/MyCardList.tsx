@@ -17,12 +17,11 @@ interface MyCardListProps {
 
 const MyCardList = ({ type, data, size }: MyCardListProps) => {
   const router = useRouter();
-  const params = useParams();
-  const giftbagId = params?.giftbagId as string;
+  const { giftBagId } = useParams() as { giftBagId: string };
 
   const handleCardClick = (clickedIndex: number) => {
     if (type === "image") {
-      router.push(`/giftbag/list/${giftbagId}/${clickedIndex}`);
+      router.push(`/giftbag/list/${giftBagId}/${clickedIndex}`);
     } else {
       router.push(`/giftbag/list/${clickedIndex}`);
     }
