@@ -15,7 +15,6 @@ import Loading from "@/components/common/Loading";
 
 import { useGiftNameStore } from "@/stores/giftbag/useStore";
 import { useGiftDetail } from "@/hooks/api/useGiftDetail";
-import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 const Page = () => {
   const { giftId, giftBagId } = useParams() as {
@@ -92,22 +91,17 @@ const Page = () => {
         className="h-[375px] w-full overflow-hidden"
       >
         <CarouselContent className="flex flex-nowrap">
-          {combinedImages.map(
-            (url: string | StaticImport, index: Key | null | undefined) => (
-              <CarouselItem
-                key={index}
-                className="relative min-w-full h-[375px]"
-              >
-                <Image
-                  src={url}
-                  alt={`image_${index}`}
-                  layout="fill"
-                  objectFit="cover"
-                  className="pointer-events-none"
-                />
-              </CarouselItem>
-            ),
-          )}
+          {combinedImages.map((url: string, index: Key | null | undefined) => (
+            <CarouselItem key={index} className="relative min-w-full h-[375px]">
+              <Image
+                src={url || ""}
+                alt={`image_${index}`}
+                layout="fill"
+                style={{ objectFit: "cover" }}
+                className="pointer-events-none"
+              />
+            </CarouselItem>
+          ))}
         </CarouselContent>
 
         <div className="absolute bottom-[12px] right-[12px] h-[23px] rounded-[40px] px-[10px] py-1 bg-white/70 text-center">
