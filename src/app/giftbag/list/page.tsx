@@ -91,35 +91,39 @@ const Page = () => {
             className="w-full grid grid-cols-2 auto-rows gap-[13px] overflow-y-auto pb-4"
             style={{ scrollbarWidth: "none" }}
           >
-            {filteredBottariData.map((bottari: MyGiftBag) =>
+            {filteredBottariData.map((giftBag: MyGiftBag) =>
               isEdit ? (
                 <MyGiftBagCard
-                  key={bottari.id}
+                  key={giftBag.id}
                   isEdit={isEdit}
-                  design_type={bottari.designType}
-                  is_read={bottari.isRead}
-                  status={bottari.status}
-                  name={bottari.name}
-                  updatedAt={bottari.updatedAt}
+                  design_type={giftBag.designType}
+                  is_read={giftBag.isRead}
+                  status={giftBag.status}
+                  name={giftBag.name}
+                  updatedAt={giftBag.updatedAt}
                   onDelete={() => {
                     setSelectedGiftBagInfo({
-                      id: bottari.id,
-                      name: bottari.name,
+                      id: giftBag.id,
+                      name: giftBag.name,
                     });
                     setIsDrawerOpen(true);
                   }}
                 />
               ) : (
-                <Link key={bottari.id} href={`/giftbag/list/${bottari.id}`}>
-                  <MyGiftBagCard
-                    isEdit={isEdit}
-                    design_type={bottari.designType}
-                    is_read={bottari.isRead}
-                    status={bottari.status}
-                    name={bottari.name}
-                    updatedAt={bottari.updatedAt}
-                  />
-                </Link>
+                <>
+                  {giftBag.id && (
+                    <Link key={giftBag.id} href={`/giftbag/list/${giftBag.id}`}>
+                      <MyGiftBagCard
+                        isEdit={isEdit}
+                        design_type={giftBag.designType}
+                        is_read={giftBag.isRead}
+                        status={giftBag.status}
+                        name={giftBag.name}
+                        updatedAt={giftBag.updatedAt}
+                      />
+                    </Link>
+                  )}
+                </>
               ),
             )}
           </section>
