@@ -8,7 +8,6 @@ import { Button } from "../ui/button";
 import InputLink from "./InputLink";
 import InputReason from "./InputReason";
 import UploadImageList from "./UploadImageList";
-import ErrorMessage from "../common/ErrorMessage";
 import { GIFT_NAME_MAX_LENGTH } from "@/constants/constants";
 import {
   useTagIndexStore,
@@ -48,10 +47,10 @@ const GiftForm = () => {
   const [giftReason, setGiftReason] = useState(existingGift.reason || "");
   const [giftLink, setGiftLink] = useState(existingGift.purchase_url || "");
   const [giftTag, setGiftTag] = useState(existingGift.tag || "");
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [isGiftNameFilled, setIsGiftNameFilled] = useState(!!giftName);
   const [isReasonFilled, setIsReasonFilled] = useState(!!giftReason);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const reasonRef = useRef<HTMLDivElement>(null);
   const linkRef = useRef<HTMLDivElement>(null);
@@ -94,6 +93,10 @@ const GiftForm = () => {
     }
   }, [giftReason]);
 
+  useEffect(() => {
+    setIsFormValid(giftName.trim().length > 0 && combinedImages.length > 0);
+  }, [giftName, combinedImages]);
+
   const uploadMutation = useMutation<string[], Error, FormData>({
     mutationFn: uploadGiftImages,
     onSuccess: (uploadedUrls: string[]) => {
@@ -106,11 +109,6 @@ const GiftForm = () => {
   });
 
   const handleSubmit = () => {
-    if (combinedImages.length === 0 || giftName.length === 0) {
-      setIsSubmitted(true);
-      return;
-    }
-
     const existingItems = combinedImages
       .filter((item) => item.type === "existing")
       .map((item) => item.url);
@@ -162,9 +160,6 @@ const GiftForm = () => {
               setCombinedImages={setCombinedImages}
               maxImages={5}
             />
-            {isSubmitted && combinedImages.length === 0 && (
-              <ErrorMessage message="필수 입력 정보입니다." />
-            )}
           </div>
           <div className="flex flex-col gap-2">
             <CharacterCountInput
@@ -173,9 +168,6 @@ const GiftForm = () => {
               placeholder="선물명을 적어주세요"
               onChange={(text) => setGiftName(text)}
             />
-            {isSubmitted && giftName.length === 0 && (
-              <ErrorMessage message="필수 입력 정보입니다." />
-            )}
           </div>
         </div>
         {isGiftNameFilled && (
@@ -205,7 +197,7 @@ const GiftForm = () => {
         )}
       </div>
       <div className="sticky bottom-4 w-full left-0">
-        <Button size="lg" onClick={handleSubmit}>
+        <Button size="lg" onClick={handleSubmit} disabled={!isFormValid}>
           {isBoxEditing ? "수정 완료" : "채우기 완료"}
         </Button>
       </div>
