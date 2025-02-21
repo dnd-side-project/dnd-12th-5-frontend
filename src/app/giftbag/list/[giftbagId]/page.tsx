@@ -110,7 +110,7 @@ const Page = () => {
   };
 
   const getTagIndex = (message: string): number => {
-    if (typeof message !== "string") return;
+    if (typeof message !== "string") return 0;
 
     if (message.includes("당신의 취향을 저격할 수 있는 선물일 것 같아요")) {
       return 1;
