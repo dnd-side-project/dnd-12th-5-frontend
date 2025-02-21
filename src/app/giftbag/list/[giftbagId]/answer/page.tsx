@@ -117,7 +117,7 @@ const Page = () => {
                   </div>
                   <Button
                     variant="ghost"
-                    className="absolute left-44 top-1/2 transform -translate-y-1/2"
+                    className="absolute left-44 top-1/2 transform -translate-y-1/2 hover:opacity-70"
                     onClick={() =>
                       router.push(`/giftbag/list/${giftBagId}/${gift.id}`)
                     }
