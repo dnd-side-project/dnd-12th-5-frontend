@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 const fetchFillGift = async (giftBagId: number) => {
   const accessToken = localStorage.getItem("accessToken");
 
+  if (!giftBagId) return;
+
   const response = await fetch(`/api/v1/bundles/${giftBagId}/gifts`, {
     method: "GET",
     headers: {

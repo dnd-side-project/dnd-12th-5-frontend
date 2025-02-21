@@ -29,6 +29,7 @@ const Page = () => {
   const router = useRouter();
   const { giftBagId } = useParams() as { giftBagId: string };
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
   const { updateGiftBox } = useGiftStore();
 
   const { data } = useMyGiftBagDetail(parseInt(giftBagId));
@@ -59,9 +60,6 @@ const Page = () => {
     }
   };
 
-  {
-  }
-
   const { mutate: deleteGiftBag } = useDeleteGiftBag();
   const handleDelete = () => {
     if (!giftBagId) return;
@@ -81,17 +79,17 @@ const Page = () => {
   };
 
   const memoizedImage = useMemo(() => {
-    if (!giftBagId) return null;
+    const imageSrc = DESIGN_TYPE_MAP[designType];
 
     return (
       <Image
-        src={DESIGN_TYPE_MAP[designType]}
+        src={imageSrc}
         alt={`giftBag_design_${designType}`}
         width={187}
         height={187}
       />
     );
-  }, [giftBagId, designType]);
+  }, [designType]);
 
   // 재사용 분리 필요
   const resetStore = () => {
@@ -112,6 +110,8 @@ const Page = () => {
   };
 
   const getTagIndex = (message: string): number => {
+    if (typeof message !== "string") return;
+
     if (message.includes("당신의 취향을 저격할 수 있는 선물일 것 같아요")) {
       return 1;
     } else if (message.includes("매일 쓰면서 저를 떠올려 주세요")) {
@@ -126,41 +126,55 @@ const Page = () => {
   };
 
   const { data: fillGiftData } = useFillGift(parseInt(giftBagId));
+  const fetchSavedGift = async () => {
+    if (!giftBagId) return;
+    if (!fillGiftData) return;
 
-  const fetchSavedGift = () => {
-    if (!fillGiftData || !fillGiftData.gifts) return;
+    const gifts = fillGiftData.gifts;
 
-    fillGiftData.gifts.forEach(
-      (
-        gift: {
-          name: string;
-          message: string;
-          purchaseUrl: string;
-          imageUrls: string[];
+    try {
+      const updatePromises = gifts.map(
+        async (
+          gift: {
+            name: string;
+            message: string;
+            purchaseUrl: string;
+            imageUrls: string[];
+          },
+          index: number,
+        ) => {
+          const tagIndex = getTagIndex(gift.message);
+
+          const updatedGiftBox = {
+            name: gift.name,
+            reason: gift.message,
+            purchase_url: gift.purchaseUrl,
+            tagIndex: tagIndex,
+            filled: true,
+            imgUrls: gift.imageUrls,
+          };
+
+          return updateGiftBox(index, updatedGiftBox);
         },
-        index: number,
-      ) => {
-        const tagIndex = getTagIndex(gift.message);
+      );
 
-        const updatedGiftBox = {
-          name: gift.name,
-          reason: gift.message,
-          purchase_url: gift.purchaseUrl,
-          tagIndex: tagIndex,
-          filled: true,
-          imgUrls: gift.imageUrls,
-        };
+      await Promise.all(updatePromises);
 
-        updateGiftBox(index, updatedGiftBox);
-      },
-    );
+      router.push("/giftbag/add");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const handleFillGiftBag = () => {
+  const handleFillGiftBag = async () => {
     resetStore(); // 기존 임시 저장 데이터 초기화
     if (giftBagId) sessionStorage.setItem("giftBagId", giftBagId);
-    fetchSavedGift();
-    router.push("/giftbag/add");
+
+    try {
+      await fetchSavedGift();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
