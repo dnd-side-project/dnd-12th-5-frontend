@@ -49,24 +49,27 @@ const GiftList = ({ value }: GiftListProps) => {
     setSelectedIndex(null);
   };
 
-  const oneOrMoreFilledBox = giftBoxes.filter((box) => box.filled).length;
+  const oneOrMoreFilledBox = giftBoxes.filter(
+    (box) => box && box.filled,
+  ).length;
 
   return (
     <>
       <TooltipProvider>
         <div className="grid grid-cols-2 h-[396px] grid-rows-[repeat(6,_1fr)]">
           {value.map((box, index) => {
-            const hasReason = box.reason.trim().length > 0;
+            const hasReason = box?.reason && box?.reason.trim().length > 0;
             const imageSet = hasReason
               ? FILLED_IMAGES.withLetter
               : FILLED_IMAGES.noLetter;
-            const imageSrc = box.filled
-              ? imageSet[index % 2]
-              : DEFAULT_IMAGES[index % 2];
+            const imageSrc =
+              box?.filled && box.filled
+                ? imageSet[index % 2]
+                : DEFAULT_IMAGES[index % 2];
 
             return (
               <Drawer key={index}>
-                {box.filled ? (
+                {box?.filled && box.filled ? (
                   <>
                     <DrawerTrigger
                       onClick={() => {

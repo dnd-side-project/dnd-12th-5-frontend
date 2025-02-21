@@ -139,7 +139,7 @@ const Header = () => {
   const [showTempSave, setShowTempSave] = useState(false);
 
   useEffect(() => {
-    const filledCount = giftBoxes.filter((box) => box.filled).length;
+    const filledCount = giftBoxes.filter((box) => box && box.filled).length;
     setShowTempSave(filledCount >= 2);
   }, [giftBoxes]);
 

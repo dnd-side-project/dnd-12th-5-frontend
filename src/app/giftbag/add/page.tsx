@@ -16,7 +16,10 @@ import { GiftBox } from "@/types/giftbag/types";
 
 const Page = () => {
   const { giftBoxes } = useGiftStore();
-  const filledGiftCount = giftBoxes.filter((gift) => gift.filled).length;
+  const filledGiftCount = giftBoxes.filter(
+    (gift) => gift && gift.filled === true,
+  ).length;
+
   const router = useRouter();
   const { selectedBagIndex } = useSelectedBagStore();
   const { giftBagName } = useGiftBagStore();
