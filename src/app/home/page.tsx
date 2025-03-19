@@ -49,6 +49,7 @@ const Page = () => {
 
   useEffect(() => {
     resetStore();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

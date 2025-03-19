@@ -79,7 +79,7 @@ const GiftForm = () => {
         });
       }, 100);
     }
-  }, [giftName]);
+  }, [giftName, isBoxEditing, isGiftNameFilled]);
 
   useEffect(() => {
     if (!isReasonFilled && giftReason.length > 0 && !isBoxEditing) {
@@ -91,7 +91,7 @@ const GiftForm = () => {
         });
       }, 100);
     }
-  }, [giftReason]);
+  }, [giftReason, isBoxEditing, isReasonFilled]);
 
   useEffect(() => {
     setIsFormValid(giftName.trim().length > 0 && combinedImages.length > 0);

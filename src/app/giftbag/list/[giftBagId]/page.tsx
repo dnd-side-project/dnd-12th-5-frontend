@@ -46,7 +46,7 @@ const Page = () => {
 
   useEffect(() => {
     setIsClickedUpdateFilledButton(false);
-  }, []);
+  }, [setIsClickedUpdateFilledButton]);
 
   const handleCopyLink = () => {
     if (link !== null) {
