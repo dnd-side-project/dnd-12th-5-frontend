@@ -4,9 +4,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
 import { useMutation } from "@tanstack/react-query";
-import { setCookie } from "cookies-next";
 import Loading from "@/components/common/Loading";
 import { toast } from "@/hooks/use-toast";
+import { setToken } from "@/utils/utils";
 
 const Page = () => {
   const searchParams = useSearchParams();
@@ -40,9 +40,7 @@ const Page = () => {
       const accessToken = data.result.accessToken;
       const refreshToken = data.result.refreshToken;
 
-      // 쿠키에 토큰 저장
-      setCookie("accessToken", accessToken);
-      setCookie("refreshToken", refreshToken);
+      setToken(accessToken, refreshToken);
 
       toast({
         title: "로그인 성공",
@@ -61,7 +59,6 @@ const Page = () => {
       mutate(code);
     }
   }, [code, mutate]);
-
 
   return (
     <div className="h-full w-full flex items-center justify-center">
