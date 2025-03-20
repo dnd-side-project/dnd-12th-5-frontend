@@ -2,17 +2,11 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import {
-  useRouter,
-  usePathname,
-  useSearchParams,
-  useParams,
-} from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 import { useEditBoxStore, useGiftStore } from "@/stores/gift-upload/useStore";
 import {
   useGiftBagStore,
-  useGiftNameStore,
   useIsClickedUpdateFilledButton,
   useIsOpenDetailGiftBoxStore,
   useSelectedBagStore,
@@ -21,11 +15,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { createGiftBag, updateGiftBag } from "@/api/giftbag/api";
 import { toast } from "@/hooks/use-toast";
+import useDynamicTitle from "@/hooks/useDynamicTitle";
+import { GiftBox } from "@/types/giftbag/types";
 
 import LogoIcon from "/public/icons/logo.svg";
 import SettingIcon from "/public/icons/setting_large.svg";
 import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
-import { GiftBox } from "@/types/giftbag/types";
 
 // 정적 title 관리
 const pageTitles: { [key: string]: string } = {
@@ -44,11 +39,9 @@ const Header = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const step = searchParams?.get("step");
-  const { giftId } = useParams() as { giftId?: string };
 
-  const [dynamicTitle, setDynamicTitle] = useState<string>(
-    pageTitles[pathname ?? ""],
-  );
+  const dynamicTitle = useDynamicTitle(); // 타이틀 동적 업데이트
+
   const [isStepThree, setIsStepThree] = useState(false);
   const { setIsBoxEditing } = useEditBoxStore();
 
@@ -65,7 +58,6 @@ const Header = () => {
   const isGiftbagAddPage = pathname === "/giftbag/add";
 
   const { giftBagName } = useGiftBagStore();
-  const { giftName } = useGiftNameStore();
 
   const bgColor = isAuthPage ? "bg-pink-50" : "bg-white";
 
@@ -76,37 +68,6 @@ const Header = () => {
   useEffect(() => {
     setIsStepThree(false);
   }, [pathname]);
-
-  useEffect(() => {
-    if (giftName && giftId) {
-      return setDynamicTitle(giftName);
-    }
-
-    if (giftBagName && pathname === "/giftbag/add") {
-      setDynamicTitle(giftBagName);
-    } else {
-      const title = searchParams?.get("title");
-
-      if (title) {
-        setDynamicTitle(title);
-      }
-      // 동적 경로 처리
-      if (pathname?.match(/^\/giftbag\/list\/[^/]+\/answer$/)) {
-        setDynamicTitle("보따리 결과");
-      } else {
-        // 정적 매핑 확인
-        const matchedTitle = Object.keys(pageTitles).find(
-          (key) => pathname && pathname.includes(key),
-        );
-
-        if (matchedTitle) {
-          setDynamicTitle(pageTitles[matchedTitle]);
-        } else {
-          setDynamicTitle("PICKTORY"); // 기본 제목 설정
-        }
-      }
-    }
-  }, [giftBagName, giftId, giftName, pathname, searchParams]);
 
   const isGiftbagDetailStepTwo =
     pathname?.startsWith("/giftbag/") && searchParams?.get("step") === "2";
