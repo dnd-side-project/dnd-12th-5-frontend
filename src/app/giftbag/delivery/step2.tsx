@@ -4,15 +4,13 @@ import { Fragment } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import {
-  API_CHARACTER_MAP,
-  deliveryCharacterData,
-} from "@/data/deliveryCharacterData";
+import { deliveryCharacterData } from "@/data/deliveryCharacterData";
 import { Button } from "@/components/ui/button";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { useGiftBagStore } from "@/stores/giftbag/useStore";
 import { useDeliveryGiftBag } from "@/hooks/api/useDeliveryGiftBag";
 import { DeliveryCharacterAPIType } from "@/types/giftbag/types";
+import { API_CHARACTER_MAP } from "@/constants/constants";
 
 const Step2 = () => {
   const router = useRouter();

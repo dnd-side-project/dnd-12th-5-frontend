@@ -51,3 +51,24 @@ export const GIFT_ANSWER_MAP: Record<string, string> = {
   NOT_SURE: "잘 모르겠어요",
   NOT_MY_STYLE: "제 취향이 아니에요",
 };
+
+export const CHARACTER_MAP: Record<string, string> = {
+  CHARACTER_1: "포리",
+  CHARACTER_2: "치치",
+  CHARACTER_3: "맥스",
+  CHARACTER_4: "하티",
+};
+
+export const API_CHARACTER_MAP: Record<string, string> = {
+  포리: "CHARACTER_1",
+  치치: "CHARACTER_2",
+  맥스: "CHARACTER_3",
+  하티: "CHARACTER_4",
+};
+
+export const CHARACTER_EN_MAP: Record<string, string> = {
+  포리: "pori",
+  치치: "chichi",
+  맥스: "max",
+  하티: "hearty",
+};

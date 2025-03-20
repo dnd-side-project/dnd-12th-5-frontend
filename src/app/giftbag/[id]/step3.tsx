@@ -5,9 +5,9 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   ANSWER_MESSAGE_MAP,
-  CHARACTER_MAP,
   deliveryCharacterData,
 } from "@/data/deliveryCharacterData";
+import { CHARACTER_MAP } from "@/constants/constants";
 
 interface Step3Props {
   delivery: string;

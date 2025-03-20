@@ -1,13 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  CHARACTER_EN_MAP,
-  CHARACTER_MAP,
-  DELIVERY_RECEIVE_TEXT_MAP,
-} from "@/data/deliveryCharacterData";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
+
+import { Button } from "@/components/ui/button";
+import { CHARACTER_EN_MAP, CHARACTER_MAP } from "@/constants/constants";
+import { DELIVERY_RECEIVE_TEXT_MAP } from "@/data/deliveryCharacterData";
+
 
 interface Step1Props {
   delivery: string;
