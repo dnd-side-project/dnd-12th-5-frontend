@@ -3,13 +3,13 @@
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
-import { CHARACTER_EN_MAP } from "@/data/deliveryCharacterData";
 import { toast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
+import { useSelectedBagStore } from "@/stores/giftbag/useStore";
+import { CHARACTER_EN_MAP } from "@/constants/constants";
 
 import KakaoShareButtonIcon from "/public/icons/kakao_share_button.svg";
 import LinkCopyButtonIcon from "/public/icons/link_copy_button.svg";
-import { useSelectedBagStore } from "@/stores/giftbag/useStore";
 
 const Step3 = () => {
   const searchParams = useSearchParams();
