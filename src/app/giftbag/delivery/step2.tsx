@@ -6,11 +6,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { deliveryCharacterData } from "@/data/deliveryCharacterData";
 import { Button } from "@/components/ui/button";
-import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { useGiftBagStore } from "@/stores/giftbag/useStore";
 import { useDeliveryGiftBag } from "@/hooks/api/useDeliveryGiftBag";
 import { DeliveryCharacterAPIType } from "@/types/giftbag/types";
 import { API_CHARACTER_MAP } from "@/constants/constants";
+import { resetGiftBoxes } from "@/utils/utils";
 
 const Step2 = () => {
   const router = useRouter();
@@ -19,18 +19,7 @@ const Step2 = () => {
   const { setGiftBagName } = useGiftBagStore();
 
   const resetStore = () => {
-    useGiftStore.setState({
-      giftBoxes: Array(6).fill({
-        name: "",
-        filled: false,
-        reason: "",
-        tagIndex: 0,
-        purchase_url: "",
-        tag: "",
-        imgUrls: [],
-        id: null,
-      }),
-    });
+    resetGiftBoxes();
     setGiftBagName("");
 
     sessionStorage.removeItem("giftBagId"); //세션스토리지에서 보따리 id 삭제

@@ -23,9 +23,10 @@ import { toast } from "@/hooks/use-toast";
 import { useFillGift } from "@/hooks/api/useFillGift";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
-
-import { DESIGN_TYPE_MAP } from "@/constants/constants";
 import { useIsClickedUpdateFilledButton } from "@/stores/giftbag/useStore";
+import { DESIGN_TYPE_MAP } from "@/constants/constants";
+import { resetGiftBoxes } from "@/utils/utils";
+
 const Page = () => {
   const router = useRouter();
   const { giftBagId } = useParams() as { giftBagId: string };
@@ -98,20 +99,8 @@ const Page = () => {
     );
   }, [designType]);
 
-  // 재사용 분리 필요
   const resetStore = () => {
-    useGiftStore.setState({
-      giftBoxes: Array(6).fill({
-        name: "",
-        filled: false,
-        reason: "",
-        tagIndex: 0,
-        purchase_url: "",
-        tag: "",
-        imgUrls: [],
-        id: null,
-      }),
-    });
+    resetGiftBoxes();
 
     sessionStorage.removeItem("giftBagId"); //세션스토리지에서 보따리 id 삭제
   };

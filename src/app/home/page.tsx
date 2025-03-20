@@ -1,22 +1,21 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 import MyCardList from "@/components/myGiftbag/MyCardList";
 import Loading from "@/components/common/Loading";
-
-import MainGraphic from "/public/img/main_graphic.svg";
-import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
-
 import { useGiftBagPreview } from "@/hooks/api/useMyGiftBagPreview";
-import { useGiftStore } from "@/stores/gift-upload/useStore";
 import {
   useSelectedBagStore,
   useGiftBagStore,
   useIsClickedUpdateFilledButton,
 } from "@/stores/giftbag/useStore";
-import { useEffect } from "react";
+import { resetGiftBoxes } from "@/utils/utils";
+
+import MainGraphic from "/public/img/main_graphic.svg";
+import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
 
 const Page = () => {
   const { data, isLoading } = useGiftBagPreview();
@@ -27,19 +26,7 @@ const Page = () => {
   const { setIsClickedUpdateFilledButton } = useIsClickedUpdateFilledButton();
 
   const resetStore = () => {
-    //추후 util로 빼야함
-    useGiftStore.setState({
-      giftBoxes: Array(6).fill({
-        name: "",
-        filled: false,
-        reason: "",
-        tagIndex: 0,
-        purchase_url: "",
-        tag: "",
-        imgUrls: [],
-        id: null,
-      }),
-    });
+    resetGiftBoxes();
 
     setSelectedBagIndex(0);
     setGiftBagName("");
