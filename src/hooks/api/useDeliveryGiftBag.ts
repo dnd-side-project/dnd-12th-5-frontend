@@ -1,6 +1,6 @@
 import { DeliveryCharacterAPIType } from "@/types/giftbag/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { getCookie } from 'cookies-next';
+import { getCookie } from "cookies-next";
 
 export interface PutDeliveryPayload {
   giftBagId: string;
