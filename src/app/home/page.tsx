@@ -1,42 +1,21 @@
 "use client";
 
-import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 import MyCardList from "@/components/myGiftbag/MyCardList";
 import Loading from "@/components/common/Loading";
 import { useGiftBagPreview } from "@/hooks/api/useMyGiftBagPreview";
-import {
-  useSelectedBagStore,
-  useGiftBagStore,
-  useIsClickedUpdateFilledButton,
-} from "@/stores/giftbag/useStore";
-import { resetGiftBoxes } from "@/utils/utils";
+import useResetStore from "@/hooks/useResetStore";
 
 import MainGraphic from "/public/img/main_graphic.svg";
 import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
 
 const Page = () => {
+  useResetStore();
+
   const { data, isLoading } = useGiftBagPreview();
   const hasGiftBag = data?.result?.length;
-
-  const { setSelectedBagIndex } = useSelectedBagStore();
-  const { setGiftBagName } = useGiftBagStore();
-  const { setIsClickedUpdateFilledButton } = useIsClickedUpdateFilledButton();
-
-  const resetStore = () => {
-    resetGiftBoxes();
-
-    setSelectedBagIndex(0);
-    setGiftBagName("");
-    sessionStorage.removeItem("giftBagId");
-    setIsClickedUpdateFilledButton(false);
-  };
-
-  useEffect(() => {
-    resetStore();
-  }, []);
 
   return (
     <main className="flex flex-col gap-10 items-center justify-center pt-3 px-4">
