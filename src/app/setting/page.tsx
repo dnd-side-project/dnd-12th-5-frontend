@@ -33,7 +33,7 @@ const Page = () => {
       </div>
       <div className="text-[15px] py-[18px] border-b-[1px] border-[#f4f4f4] flex justify-between items-center">
         <p>버전 정보</p>
-        <p className="text-gray-300">1.0.0 v</p>
+        <p className="text-gray-300">v1.0.0</p>
       </div>
       <div
         className="text-[15px] py-[18px] border-b-[1px] border-[#f4f4f4] text-symantic-negative cursor-pointer"
