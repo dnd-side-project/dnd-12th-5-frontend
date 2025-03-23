@@ -1,6 +1,5 @@
-import Image from "next/image";
-
 import LogoKakaoIcon from "/public/icons/logo_kakao.svg";
+import { Icon } from "./common/Icon";
 
 const KakaoLoginButton = ({ link }: { link: string }) => {
   return (
@@ -8,7 +7,7 @@ const KakaoLoginButton = ({ link }: { link: string }) => {
       href={link}
       className="bg-[#FEE500] flex py-[17px] justify-center rounded-sm px-4 hover:opacity-90"
     >
-      <Image src={LogoKakaoIcon} alt="logo" className="absolute left-[34px]" />
+      <Icon src={LogoKakaoIcon} alt="logo" className="absolute left-[34px]" />
       <p className="text-sm font-medium">카카오톡으로 시작하기</p>
     </a>
   );
