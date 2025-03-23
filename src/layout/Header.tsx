@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 import { useEditBoxStore, useGiftStore } from "@/stores/gift-upload/useStore";
@@ -21,6 +20,7 @@ import { GiftBox } from "@/types/giftbag/types";
 import LogoIcon from "/public/icons/logo.svg";
 import SettingIcon from "/public/icons/setting_large.svg";
 import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
+import { Icon } from "@/components/common/Icon";
 
 // 정적 title 관리
 const pageTitles: { [key: string]: string } = {
@@ -137,7 +137,7 @@ const Header = () => {
     return (
       <div className="h-[56px] bg-pink-50 flex items-center justify-end px-4 sticky top-0 z-10">
         <button onClick={() => setIsOpenDetailGiftBox(false)}>
-          <Image src="/icons/close.svg" alt="close" width={24} height={24} />
+          <Icon src="/icons/close.svg" alt="close" size="large" />
         </button>
       </div>
     );
@@ -148,7 +148,7 @@ const Header = () => {
       <div
         className={`h-[56px] flex items-center justify-center ${step === "2" ? "bg-pink-50" : "bg-white"}`}
       >
-        <Image src={LogoIcon} alt="logo" />
+        <Icon src={LogoIcon} alt="logo" />
       </div>
     );
   }
@@ -159,10 +159,10 @@ const Header = () => {
       <div className="h-[56px] flex bg-white">
         <div className="flex items-center justify-between px-4 w-full">
           <button onClick={() => router.push("/")}>
-            <Image src={LogoIcon} alt="logo" />
+            <Icon src={LogoIcon} alt="logo" />
           </button>
           <button onClick={() => router.push("/setting")}>
-            <Image src={SettingIcon} alt="setting" />
+            <Icon src={SettingIcon} alt="setting" size="large" />
           </button>
         </div>
       </div>
@@ -173,7 +173,7 @@ const Header = () => {
   if (isAuthPage || isNotFoundPage) {
     return (
       <div className={`${bgColor} h-[56px] flex items-center justify-center`}>
-        <Image src={LogoIcon} alt="logo" />
+        <Icon src={LogoIcon} alt="logo" />
       </div>
     );
   }
@@ -201,7 +201,7 @@ const Header = () => {
           variant="ghost"
           className="flex justify-start"
         >
-          <Image src={ArrowLeftIcon} alt="back" width={24} height={24} />
+          <Icon src={ArrowLeftIcon} alt="back" size="large" />
         </Button>
       )}
       <h1 className="text-center text-lg font-medium w-[185px] overflow-hidden whitespace-nowrap text-ellipsis absolute left-1/2 -translate-x-1/2">
