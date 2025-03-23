@@ -2,7 +2,6 @@
 
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 
 import Card from "@/components/common/Card";
@@ -13,6 +12,7 @@ import ArrowIcon from "/public/icons/arrow_right_medium.svg";
 import { fetchGiftResults, GiftData } from "@/api/giftbag/api";
 import Loading from "@/components/common/Loading";
 import { GIFT_ANSWER_MAP } from "@/constants/constants";
+import { Icon } from "@/components/common/Icon";
 
 const Page = () => {
   const { giftBagId } = useParams() as { giftBagId: string };
@@ -122,7 +122,7 @@ const Page = () => {
                       router.push(`/giftbag/list/${giftBagId}/${gift.id}`)
                     }
                   >
-                    <Image src={ArrowIcon} alt="arrowIcon" />
+                    <Icon src={ArrowIcon} alt="arrowIcon" />
                   </Button>
                 </div>
               ))}
