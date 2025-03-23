@@ -21,11 +21,11 @@ const sizeMap: Record<IconSize, number> = {
 export const Icon = ({
   src,
   alt = "",
-  size = "medium",
+  size,
   className,
   loading = undefined,
 }: IconProps) => {
-  const pixelSize = sizeMap[size];
+  const pixelSize = size ? sizeMap[size] : undefined;
 
   return (
     <Image
