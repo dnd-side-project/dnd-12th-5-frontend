@@ -10,6 +10,7 @@ import useResetStore from "@/hooks/useResetStore";
 
 import MainGraphic from "/public/img/main_graphic.svg";
 import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
+import { Icon } from "@/components/common/Icon";
 
 const Page = () => {
   useResetStore();
@@ -37,11 +38,10 @@ const Page = () => {
             className="flex justify-center items-center"
           >
             <p className="text-gray-600 text-sm">더보기</p>
-            <Image
+            <Icon
               src={ArrowRightIcon}
               alt="more"
-              width={14}
-              height={14}
+              size="small"
               loading="eager"
             />
           </Link>
