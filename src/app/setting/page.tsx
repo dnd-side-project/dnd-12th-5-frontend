@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 
 import ArrowIcon from "/public/icons/arrow_right_small.svg";
 import { deleteToken } from "@/utils/utils";
 import { useRouter } from "next/navigation";
 import { toast } from "@/hooks/use-toast";
+import { Icon } from "@/components/common/Icon";
 
 const Page = () => {
   const router = useRouter();
@@ -24,7 +24,7 @@ const Page = () => {
         <Link href={"/setting/account"}>
           <div className="flex justify-center items-center cursor-pointer">
             <p>카카오</p>
-            <Image src={ArrowIcon} alt="arrow" width={14} height={14} />
+            <Icon src={ArrowIcon} alt="arrow" size="small" />
           </div>
         </Link>
       </div>
