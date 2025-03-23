@@ -55,6 +55,12 @@ const GiftForm = () => {
   const reasonRef = useRef<HTMLDivElement>(null);
   const linkRef = useRef<HTMLDivElement>(null);
 
+  const animatedSectionProps = {
+    initial: { opacity: 0, y: -20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5, ease: "easeOut" },
+  };
+
   useEffect(() => {
     if (isBoxEditing) {
       setGiftName(existingGift.name);
@@ -171,12 +177,7 @@ const GiftForm = () => {
           </div>
         </div>
         {isGiftNameFilled && (
-          <motion.div
-            ref={reasonRef}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
+          <motion.div ref={reasonRef} {...animatedSectionProps}>
             <InputReason
               value={giftReason}
               onReasonChange={setGiftReason}
@@ -186,12 +187,7 @@ const GiftForm = () => {
           </motion.div>
         )}
         {(isReasonFilled || isBoxEditing) && (
-          <motion.div
-            ref={linkRef}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
+          <motion.div ref={linkRef} {...animatedSectionProps}>
             <InputLink value={giftLink} onChange={setGiftLink} />
           </motion.div>
         )}
