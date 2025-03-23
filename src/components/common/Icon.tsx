@@ -30,7 +30,7 @@ export const Icon = ({
 
   return (
     <Image
-      src={`/icons/${src}`}
+      src={src}
       alt={alt}
       width={pixelSize}
       height={pixelSize}

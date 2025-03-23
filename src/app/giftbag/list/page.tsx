@@ -6,6 +6,7 @@ import Link from "next/link";
 import MyGiftBagCard from "@/components/myGiftbag/MyGiftBagCard";
 
 import CheckIcon from "/public/icons/check.svg";
+import CloseIcon from "/public/icons/close.svg";
 import {
   Drawer,
   DrawerContent,
@@ -135,7 +136,7 @@ const Page = () => {
                   {selectedGiftBagInfo ? selectedGiftBagInfo.name : ""}
                 </DrawerTitle>
                 <DrawerClose className="absolute top-2 right-[14px]">
-                  <Icon src="/icons/close.svg" alt="close" size="large" />
+                  <Icon src={CloseIcon} alt="close" size="large" />
                 </DrawerClose>
               </DrawerHeader>
 

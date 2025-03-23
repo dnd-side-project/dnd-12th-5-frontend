@@ -21,6 +21,7 @@ import LogoIcon from "/public/icons/logo.svg";
 import SettingIcon from "/public/icons/setting_large.svg";
 import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
 import { Icon } from "@/components/common/Icon";
+import CloseIcon from "/public/icons/close.svg";
 
 // 정적 title 관리
 const pageTitles: { [key: string]: string } = {
@@ -137,7 +138,7 @@ const Header = () => {
     return (
       <div className="h-[56px] bg-pink-50 flex items-center justify-end px-4 sticky top-0 z-10">
         <button onClick={() => setIsOpenDetailGiftBox(false)}>
-          <Icon src="/icons/close.svg" alt="close" size="large" />
+          <Icon src={CloseIcon} alt="close" size="large" />
         </button>
       </div>
     );

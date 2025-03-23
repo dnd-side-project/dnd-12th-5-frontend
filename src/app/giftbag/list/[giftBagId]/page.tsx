@@ -27,6 +27,7 @@ import { useIsClickedUpdateFilledButton } from "@/stores/giftbag/useStore";
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
 import { resetGiftBoxes } from "@/utils/utils";
 import { Icon } from "@/components/common/Icon";
+import CloseIcon from "/public/icons/close.svg";
 
 const Page = () => {
   const router = useRouter();
@@ -216,7 +217,7 @@ const Page = () => {
                   <DrawerHeader className="relative flex justify-center py-3">
                     <DrawerTitle>보따리 삭제</DrawerTitle>
                     <DrawerClose className="absolute top-2 right-[14px]">
-                      <Icon src="/icons/close.svg" alt="close" size="large" />
+                      <Icon src={CloseIcon} alt="close" size="large" />
                     </DrawerClose>
                   </DrawerHeader>
 

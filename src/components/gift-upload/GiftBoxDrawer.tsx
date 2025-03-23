@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 import { GiftBox } from "@/types/giftbag/types";
 import { Icon } from "../common/Icon";
+import CloseIcon from "/public/icons/close.svg";
 
 interface GiftBoxDrawerProps {
   handleEmptyButton: () => void;
@@ -41,7 +42,7 @@ const GiftBoxDrawer = ({
           <DrawerTitle className="relative text-base font-medium text-center">
             채워진 선물 정보
             <DrawerClose className="absolute top-0 right-4">
-              <Icon src="/icons/close.svg" alt="close" size="large" />
+              <Icon src={CloseIcon} alt="close" size="large" />
             </DrawerClose>
           </DrawerTitle>
         </>
