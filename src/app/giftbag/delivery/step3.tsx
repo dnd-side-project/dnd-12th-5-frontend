@@ -10,6 +10,7 @@ import { CHARACTER_EN_MAP } from "@/constants/constants";
 
 import KakaoShareButtonIcon from "/public/icons/kakao_share_button.svg";
 import LinkCopyButtonIcon from "/public/icons/link_copy_button.svg";
+import { Icon } from "@/components/common/Icon";
 
 const Step3 = () => {
   const searchParams = useSearchParams();
@@ -71,14 +72,14 @@ const Step3 = () => {
       {/* Button Section */}
       <section className="flex gap-3">
         <button className="flex flex-col items-center gap-1">
-          <Image src={KakaoShareButtonIcon} alt="kakaoShare" />
+          <Icon src={KakaoShareButtonIcon} alt="kakaoShare" />
           <p className="text-gray-600 text-xs">카카오톡</p>
         </button>
         <button
           className="flex flex-col items-center gap-1"
           onClick={handleCopyLink}
         >
-          <Image src={LinkCopyButtonIcon} alt="linkCopy" />
+          <Icon src={LinkCopyButtonIcon} alt="linkCopy" />
           <p className="text-gray-600 text-xs">링크 복사</p>
         </button>
       </section>
