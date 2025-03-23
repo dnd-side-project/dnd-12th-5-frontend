@@ -21,28 +21,28 @@ const Page = () => {
     setIsOnboardingComplete(true);
   };
 
+  const getMotionProps = (direction: "left" | "right") => {
+    const isLeft = direction === "left";
+    return {
+      initial: { opacity: 0, x: isLeft ? -20 : 20 },
+      animate: { opacity: 1, x: 0 },
+      exit: { opacity: 0, x: isLeft ? 20 : -20 },
+      transition: { duration: 0.5 },
+    };
+  };
+
   return (
     <AnimatePresence mode="wait">
       {!isOnboardingComplete ? (
         <motion.div
           key="/auth/login"
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 20 }}
-          transition={{ duration: 0.5 }}
+          {...getMotionProps("left")}
           className="h-full"
         >
           <Onboarding onComplete={handleOnboardingComplete} />
         </motion.div>
       ) : (
-        <motion.div
-          key="login"
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.5 }}
-          className="h-full"
-        >
+        <motion.div key="login" {...getMotionProps("right")} className="h-full">
           <div className="w-full h-full bg-pink-50">
             <p className="text-lg text-center font-bold tracking-[-0.03em] font-nanum pt-[42px] flex justify-center items-center h-full pb-[487px]">
               선물 보따리를 안전하게 보관하기 위해 <br />
