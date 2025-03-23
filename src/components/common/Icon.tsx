@@ -1,6 +1,40 @@
 /**아이콘  컴포넌트 */
-const Icon = () => {
-  return <div></div>;
+import Image from "next/image";
+
+//추후 type 정리 시 정리 필요
+type IconSize = "small" | "medium" | "large";
+
+interface IconProps {
+  src: string;
+  alt?: string;
+  size?: IconSize;
+  className?: string;
+  loading?: "eager" | "lazy" | undefined;
+}
+
+const sizeMap: Record<IconSize, number> = {
+  small: 14,
+  medium: 18,
+  large: 24,
 };
 
-export default Icon;
+export const Icon = ({
+  src,
+  alt = "",
+  size = "medium",
+  className,
+  loading = undefined,
+}: IconProps) => {
+  const pixelSize = sizeMap[size];
+
+  return (
+    <Image
+      src={`/icons/${src}`}
+      alt={alt}
+      width={pixelSize}
+      height={pixelSize}
+      className={className}
+      loading={loading}
+    />
+  );
+};
