@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 import {
@@ -14,6 +13,7 @@ import Card from "../common/Card";
 import { Button } from "@/components/ui/button";
 import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 import { GiftBox } from "@/types/giftbag/types";
+import { Icon } from "../common/Icon";
 
 interface GiftBoxDrawerProps {
   handleEmptyButton: () => void;
@@ -41,12 +41,7 @@ const GiftBoxDrawer = ({
           <DrawerTitle className="relative text-base font-medium text-center">
             채워진 선물 정보
             <DrawerClose className="absolute top-0 right-4">
-              <Image
-                src="/icons/close.svg"
-                alt="close"
-                width={24}
-                height={24}
-              />
+              <Icon src="/icons/close.svg" alt="close" size="large" />
             </DrawerClose>
           </DrawerTitle>
         </>
