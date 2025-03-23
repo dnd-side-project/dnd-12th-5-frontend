@@ -22,6 +22,7 @@ import {
   useSelectedGiftBoxStore,
 } from "@/stores/giftbag/useStore";
 import { ReceiveGiftBox } from "@/types/giftbag/types";
+import { Icon } from "../common/Icon";
 
 interface DetailGiftBoxProps {
   giftList: ReceiveGiftBox[];
@@ -133,7 +134,7 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                         disabled={currentImageIndexes[giftIndex] === 0}
                         variant="ghost"
                       >
-                        <Image src={LeftIcon} alt="leftArrow" width="15" />
+                        <Icon src={LeftIcon} alt="leftArrow" size="small" />
                       </Button>
                     )}
                     {currentImageIndexes[giftIndex] !==
@@ -147,7 +148,7 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                         }
                         variant="ghost"
                       >
-                        <Image src={RightIcon} alt="RightArrow" width="15" />
+                        <Icon src={RightIcon} alt="RightArrow" size="small" />
                       </Button>
                     )}
                     <div className="absolute bottom-2 right-2 w-10 h-[23px] rounded-[40px] px-[10px] py-1 bg-white/70 text-center">
