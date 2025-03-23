@@ -6,6 +6,7 @@ import DeleteIcon from "/public/icons/btn_erase.svg";
 import MyGiftBagStatusChip from "./MyGiftBagStatusChip";
 import { DrawerTrigger } from "../ui/drawer";
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
+import { Icon } from "../common/Icon";
 
 interface MyGiftBagCardProps {
   isEdit: boolean;
@@ -63,7 +64,7 @@ const MyGiftBagCard = ({
             onClick={handleDelete}
             className="absolute right-[6px] top-[6px]"
           >
-            <Image src={DeleteIcon} alt="delete-btn" />
+            <Icon src={DeleteIcon} alt="delete-btn" />
           </button>
         </DrawerTrigger>
       )}
