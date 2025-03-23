@@ -1,6 +1,5 @@
-import Image from "next/image";
-
 import IndicatorIcon from "/public/icons/indicator.svg";
+import { Icon } from "../common/Icon";
 
 const MyGiftBagStatusChip = ({
   status,
@@ -29,7 +28,7 @@ const MyGiftBagStatusChip = ({
     >
       <p className="text-[10px] font-medium">{text}</p>
       {!isRead && status === "COMPLETED" && (
-        <Image src={IndicatorIcon} alt="IndicatorIcon" />
+        <Icon src={IndicatorIcon} alt="IndicatorIcon" />
       )}
     </span>
   );
