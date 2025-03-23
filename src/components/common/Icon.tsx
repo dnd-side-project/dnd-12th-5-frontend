@@ -2,7 +2,7 @@
 import Image from "next/image";
 
 //추후 type 정리 시 정리 필요
-type IconSize = "small" | "medium" | "large";
+type IconSize = "xsmall" | "small" | "medium" | "large";
 
 interface IconProps {
   src: string;
@@ -13,6 +13,7 @@ interface IconProps {
 }
 
 const sizeMap: Record<IconSize, number> = {
+  xsmall: 12,
   small: 14,
   medium: 18,
   large: 24,
