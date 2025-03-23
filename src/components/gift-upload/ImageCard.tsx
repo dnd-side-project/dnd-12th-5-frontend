@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import EraseIcon from "../../../public/icons/btn_erase.svg";
+import { Icon } from "../common/Icon";
 
 interface ImageCardProps {
   src: string;
@@ -15,7 +16,7 @@ const ImageCard = ({ src, isPrimary, onDelete }: ImageCardProps) => {
         className="absolute top-[-8px] right-[-8px] z-10"
         onClick={onDelete}
       >
-        <Image src={EraseIcon} alt="delete" width={24} height={24} />
+        <Icon src={EraseIcon} alt="delete" size="large" />
       </button>
       <div className="relative rounded-[10px] h-[88px] w-[88px] bg-gray-50 border-[1.4px] border-gray-100 overflow-hidden">
         <Image
