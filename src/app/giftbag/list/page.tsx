@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 import MyGiftBagCard from "@/components/myGiftbag/MyGiftBagCard";
@@ -21,6 +20,7 @@ import { useGiftBags } from "@/hooks/api/useMyGiftBags";
 import { useDeleteGiftBag } from "@/hooks/api/useDeleteMyGiftBag";
 
 import { MyGiftBag } from "@/types/giftbag/types";
+import { Icon } from "@/components/common/Icon";
 
 const Page = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -72,7 +72,7 @@ const Page = () => {
             >
               {isChecked && (
                 <div className="w-full h-full bg-pink-500 rounded-sm flex items-center justify-center">
-                  <Image src={CheckIcon} alt="CheckIcon" />
+                  <Icon src={CheckIcon} alt="CheckIcon" />
                 </div>
               )}
             </div>
@@ -135,12 +135,7 @@ const Page = () => {
                   {selectedGiftBagInfo ? selectedGiftBagInfo.name : ""}
                 </DrawerTitle>
                 <DrawerClose className="absolute top-2 right-[14px]">
-                  <Image
-                    src="/icons/close.svg"
-                    alt="close"
-                    width={24}
-                    height={24}
-                  />
+                  <Icon src="/icons/close.svg" alt="close" size="large" />
                 </DrawerClose>
               </DrawerHeader>
 
