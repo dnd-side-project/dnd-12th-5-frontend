@@ -6,12 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { CHARACTER_EN_MAP, CHARACTER_MAP } from "@/constants/constants";
 import { DELIVERY_RECEIVE_TEXT_MAP } from "@/data/deliveryCharacterData";
-
-interface Step1Props {
-  delivery: string;
-  color: string;
-  isCompleted: boolean;
-}
+import { Step1Props } from "@/types/giftbag/types";
 
 const Step1 = ({ delivery, color, isCompleted }: Step1Props) => {
   const router = useRouter();

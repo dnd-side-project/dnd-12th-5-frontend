@@ -13,14 +13,8 @@ import {
   useIsOpenDetailGiftBoxStore,
   useIsUploadAnswerStore,
 } from "@/stores/giftbag/useStore";
-import { ReceiveGiftBox, ResultGiftBox } from "@/types/giftbag/types";
+import { Step2Props } from "@/types/giftbag/types";
 import { RESPONSE_TAGS } from "@/constants/constants";
-
-interface Step2Props {
-  gifts: ReceiveGiftBox[];
-  giftResultData?: ResultGiftBox[];
-  isCompleted?: boolean;
-}
 
 const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
   const router = useRouter();

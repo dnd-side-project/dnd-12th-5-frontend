@@ -93,3 +93,20 @@ export interface ResultGiftBox {
   thumbnail: string;
   responseTag: string;
 }
+
+/** [id] props */
+export interface Step1Props {
+  delivery: string;
+  color: string;
+  isCompleted: boolean;
+}
+
+export interface Step2Props {
+  gifts: ReceiveGiftBox[];
+  giftResultData?: ResultGiftBox[];
+  isCompleted?: boolean;
+}
+
+export interface Step3Props {
+  delivery: string;
+}

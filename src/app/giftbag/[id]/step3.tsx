@@ -8,10 +8,7 @@ import {
   deliveryCharacterData,
 } from "@/data/deliveryCharacterData";
 import { CHARACTER_MAP } from "@/constants/constants";
-
-interface Step3Props {
-  delivery: string;
-}
+import { Step3Props } from "@/types/giftbag/types";
 
 const Step3 = ({ delivery }: Step3Props) => {
   const router = useRouter();
