@@ -8,9 +8,8 @@ import {
   deliveryCharacterData,
 } from "@/data/deliveryCharacterData";
 import { CHARACTER_MAP } from "@/constants/constants";
-import { Step3Props } from "@/types/giftbag/types";
 
-const Step3 = ({ delivery }: Step3Props) => {
+const Step3 = ({ delivery }: { delivery: string }) => {
   const router = useRouter();
   const params = useParams();
   const id = params?.id;

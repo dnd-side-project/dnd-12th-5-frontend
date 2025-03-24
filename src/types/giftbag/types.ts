@@ -106,7 +106,3 @@ export interface Step2Props {
   giftResultData?: ResultGiftBox[];
   isCompleted?: boolean;
 }
-
-export interface Step3Props {
-  delivery: string;
-}
