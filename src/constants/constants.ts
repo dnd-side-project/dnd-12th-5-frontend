@@ -1,4 +1,5 @@
 import { IconSize } from "@/types/components/types";
+import { CharacterInfo, CharacterKey } from "@/types/constants/types";
 
 export const GIFTBAG_NAME_MAX_LENGTH = 20;
 export const GIFT_NAME_MAX_LENGTH = 20;
@@ -12,6 +13,7 @@ export const REASON_CHIP_TEXTES = [
   "특별한 의미",
   "트렌드",
 ];
+
 export const REASON_CHIP_MESSAGES = [
   "",
   "당신의 취향을 저격할 수 있는 선물일 것 같아요!",
@@ -62,25 +64,11 @@ export const GIFT_ANSWER_MAP: Record<string, string> = {
   NOT_MY_STYLE: "제 취향이 아니에요",
 };
 
-export const CHARACTER_MAP: Record<string, string> = {
-  CHARACTER_1: "포리",
-  CHARACTER_2: "치치",
-  CHARACTER_3: "맥스",
-  CHARACTER_4: "하티",
-};
-
-export const API_CHARACTER_MAP: Record<string, string> = {
-  포리: "CHARACTER_1",
-  치치: "CHARACTER_2",
-  맥스: "CHARACTER_3",
-  하티: "CHARACTER_4",
-};
-
-export const CHARACTER_EN_MAP: Record<string, string> = {
-  포리: "pori",
-  치치: "chichi",
-  맥스: "max",
-  하티: "hearty",
+export const CHARACTERS: Record<CharacterKey, CharacterInfo> = {
+  CHARACTER_1: { ko: "포리", en: "pori" },
+  CHARACTER_2: { ko: "치치", en: "chichi" },
+  CHARACTER_3: { ko: "맥스", en: "max" },
+  CHARACTER_4: { ko: "하티", en: "hearty" },
 };
 
 export const ICON_SIZE_MAP: Record<IconSize, number> = {

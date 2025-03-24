@@ -4,24 +4,26 @@ import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import { CHARACTER_EN_MAP, CHARACTER_MAP } from "@/constants/constants";
+import { CHARACTERS } from "@/constants/constants";
 import { DELIVERY_RECEIVE_TEXT_MAP } from "@/data/deliveryCharacterData";
 import { Step1Props } from "@/types/giftbag/types";
+import { CharacterKey } from "@/types/constants/types";
 
 const Step1 = ({ delivery, color, isCompleted }: Step1Props) => {
   const router = useRouter();
   const { id } = useParams() as { id: string };
 
-  const character = CHARACTER_MAP[delivery] || "포리";
-  const displayText =
-    DELIVERY_RECEIVE_TEXT_MAP[character] || DELIVERY_RECEIVE_TEXT_MAP["포리"];
+  const characterInfo =
+    CHARACTERS[delivery as CharacterKey] || CHARACTERS.CHARACTER_1;
+  const characterKo = characterInfo.ko;
+  const characterEn = characterInfo.en;
 
-  // 한글 -> 영어로 변환 후 이미지 경로 설정
-  const characterEn = CHARACTER_EN_MAP[character] || "pori";
+  const displayText =
+    DELIVERY_RECEIVE_TEXT_MAP[characterKo] || DELIVERY_RECEIVE_TEXT_MAP["포리"];
+
   const imageSrc = `/img/${characterEn}_${color}.svg`;
 
   const handleOnClick = () => {
-    // api 추가
     router.push(`/giftbag/${id}?step=2`);
   };
 
@@ -51,7 +53,7 @@ const Step1 = ({ delivery, color, isCompleted }: Step1Props) => {
           <div className="flex justify-center items-center">
             <Image
               src={imageSrc}
-              alt={`${character} delivery`}
+              alt={`${characterKo} delivery`}
               width={230}
               height={230}
             />

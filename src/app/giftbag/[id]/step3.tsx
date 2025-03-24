@@ -7,14 +7,18 @@ import {
   ANSWER_MESSAGE_MAP,
   deliveryCharacterData,
 } from "@/data/deliveryCharacterData";
-import { CHARACTER_MAP } from "@/constants/constants";
+import { CHARACTERS } from "@/constants/constants";
+import { CharacterKey } from "@/types/constants/types";
 
 const Step3 = ({ delivery }: { delivery: string }) => {
   const router = useRouter();
   const params = useParams();
   const id = params?.id;
 
-  const characterName = CHARACTER_MAP[delivery] || "포리";
+  const characterInfo =
+    CHARACTERS[delivery as CharacterKey] || CHARACTERS.CHARACTER_1;
+
+  const characterName = characterInfo.ko;
 
   const characterData = deliveryCharacterData[characterName];
   const messageData = ANSWER_MESSAGE_MAP[characterName];

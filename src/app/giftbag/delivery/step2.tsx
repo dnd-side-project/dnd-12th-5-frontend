@@ -8,21 +8,28 @@ import { deliveryCharacterData } from "@/data/deliveryCharacterData";
 import { Button } from "@/components/ui/button";
 import { useGiftBagStore } from "@/stores/giftbag/useStore";
 import { useDeliveryGiftBag } from "@/hooks/api/useDeliveryGiftBag";
-import { API_CHARACTER_MAP } from "@/constants/constants";
+import { CHARACTERS } from "@/constants/constants";
 import { resetGiftBoxes } from "@/utils/utils";
 import { CharacterKey } from "@/types/constants/types";
 
 const Step2 = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const character = searchParams ? searchParams.get("character") : null;
+  const characterKo = searchParams?.get("character") ?? "포리";
+
+  const characterEntry = Object.entries(CHARACTERS).find(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    ([_, value]) => value.ko === characterKo,
+  );
+
+  const characterKey = (characterEntry?.[0] ?? "CHARACTER_1") as CharacterKey;
+
   const { setGiftBagName } = useGiftBagStore();
 
   const resetStore = () => {
     resetGiftBoxes();
     setGiftBagName("");
-
-    sessionStorage.removeItem("giftBagId"); //세션스토리지에서 보따리 id 삭제
+    sessionStorage.removeItem("giftBagId");
   };
 
   const { mutate } = useDeliveryGiftBag();
@@ -33,15 +40,12 @@ const Step2 = () => {
       mutate(
         {
           giftBagId,
-          deliveryCharacterType: API_CHARACTER_MAP[
-            character || "포리"
-          ] as CharacterKey,
+          deliveryCharacterType: characterKey,
         },
         {
           onSuccess: (data) => {
-            console.log("API 응답 데이터:", data);
             router.push(
-              `/giftbag/delivery?step=3&character=${character}&link=${data.link}`,
+              `/giftbag/delivery?step=3&character=${characterKo}&link=${data.link}`,
             );
           },
           onError: (error) => {
@@ -57,26 +61,26 @@ const Step2 = () => {
     resetStore();
   };
 
+  const characterData = deliveryCharacterData[characterKo];
+
   return (
     <div className="h-full bg-[url('/img/background_union.svg')] bg-cover bg-center">
-      {character && (
+      {characterData && (
         <div className="h-[calc(100%-52px)] w-full flex flex-col items-center justify-center gap-7">
           <section className="flex flex-col items-center ">
             <div className="flex flex-col items-center ">
               <div className="mb-[3px] ">
                 <p className="font-nanum text-lg font-bold text-center tracking-[-0.03em]">
-                  {deliveryCharacterData[character].title
-                    .split("\n")
-                    .map((line, index) => (
-                      <p key={index}>
-                        {line}
-                        <br />
-                      </p>
-                    ))}
+                  {characterData.title.split("\n").map((line, index) => (
+                    <p key={index}>
+                      {line}
+                      <br />
+                    </p>
+                  ))}
                 </p>
               </div>
               <Image
-                src={deliveryCharacterData[character].imageSrc}
+                src={characterData.imageSrc}
                 alt="delivery"
                 width={200}
                 height={200}
@@ -85,19 +89,17 @@ const Step2 = () => {
               />
               <div className="mb-[17px] px-[30px] py-[1px] bg-white rounded-[30px]">
                 <h1 className="text-gray-800 text-center text-lg font-bold font-nanum mt-1 tracking-[-3%]">
-                  {character || "포리"}
+                  {characterKo}
                 </h1>
               </div>
               <div>
                 <p className="text-[15px] text-gray-700 font-medium text-center">
-                  {deliveryCharacterData[character].description
-                    .split("\n")
-                    .map((line, index) => (
-                      <Fragment key={index}>
-                        {line}
-                        <br />
-                      </Fragment>
-                    ))}
+                  {characterData.description.split("\n").map((line, index) => (
+                    <Fragment key={index}>
+                      {line}
+                      <br />
+                    </Fragment>
+                  ))}
                 </p>
               </div>
             </div>
