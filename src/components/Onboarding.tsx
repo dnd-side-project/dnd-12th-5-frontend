@@ -3,11 +3,7 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import MainGraphic from "/public/img/onboarding_graphic.svg";
 
-interface OnboardingProps {
-  onComplete: () => void;
-}
-
-const Onboarding = ({ onComplete }: OnboardingProps) => {
+const Onboarding = ({ onComplete }: { onComplete: () => void }) => {
   return (
     <div className="w-full h-full flex flex-col justify-center items-center gap-[37px] bg-pink-50">
       <div className="flex flex-col gap-4">
