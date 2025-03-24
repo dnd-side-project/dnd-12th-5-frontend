@@ -1,3 +1,5 @@
+import { IconSize } from "@/types/components/types";
+
 export const GIFTBAG_NAME_MAX_LENGTH = 20;
 export const GIFT_NAME_MAX_LENGTH = 20;
 
@@ -36,6 +38,14 @@ export const DESIGN_TYPE_MAP: Record<string, string> = {
   YELLOW: "/img/giftBag_yellow.svg",
 };
 
+export const GIFTBAG_IMAGE_PATHS = [
+  "/img/giftBag_red.svg",
+  "/img/giftBag_pink.svg",
+  "/img/giftBag_blue.svg",
+  "/img/giftBag_yellow.svg",
+  "/img/giftBag_green.svg",
+];
+
 export const RESPONSE_TAGS = [
   "GREAT",
   "GOOD",
@@ -72,3 +82,12 @@ export const CHARACTER_EN_MAP: Record<string, string> = {
   맥스: "max",
   하티: "hearty",
 };
+
+export const ICON_SIZE_MAP: Record<IconSize, number> = {
+  xsmall: 12,
+  small: 14,
+  medium: 18,
+  large: 24,
+};
+
+export const IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "webp", "heic", "heif"];

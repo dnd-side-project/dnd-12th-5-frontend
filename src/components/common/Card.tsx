@@ -3,18 +3,7 @@
 import Image from "next/image";
 
 import IndicatorIcon from "/public/icons/indicator.svg";
-
-interface CardProps {
-  img: string;
-  size: "small" | "medium";
-  type?: "design" | "image";
-  isRead?: boolean;
-  isActive?: boolean;
-  onClick?: () => void;
-  noHoverStyle?: boolean;
-  noActiveStyle?: boolean;
-  noCursorPointerStyle?: boolean;
-}
+import { CardProps } from "@/types/components/types";
 
 const Card = ({
   img,

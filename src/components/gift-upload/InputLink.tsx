@@ -1,11 +1,7 @@
 "use client";
 
+import { InputLinkProps } from "@/types/components/types";
 import { Input } from "../ui/input";
-
-interface InputLinkProps {
-  value?: string;
-  onChange?: (value: string) => void;
-}
 
 const InputLink = ({ value = "", onChange }: InputLinkProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

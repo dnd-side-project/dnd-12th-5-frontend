@@ -1,10 +1,5 @@
+import { ChipListProps } from "@/types/components/types";
 import Chip from "../common/Chip";
-
-interface ChipListProps {
-  chipText: string[];
-  selectedChipIndex: number;
-  onChipClick: (index: number) => void;
-}
 
 const ChipList = ({
   chipText,

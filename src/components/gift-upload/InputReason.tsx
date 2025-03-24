@@ -15,13 +15,7 @@ import {
   useGiftStore,
   useTagIndexStore,
 } from "@/stores/gift-upload/useStore";
-
-interface InputReasonProps {
-  value: string;
-  onReasonChange: (text: string) => void;
-  onTagChange: (tag: string) => void;
-  giftBoxIndex: number;
-}
+import { InputReasonProps } from "@/types/components/types";
 
 const InputReason = ({
   value,

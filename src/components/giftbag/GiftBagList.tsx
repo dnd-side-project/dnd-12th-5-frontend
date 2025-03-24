@@ -2,12 +2,7 @@
 
 import Card from "@/components/common/Card";
 import { useSelectedBagStore } from "@/stores/giftbag/useStore";
-
-interface GiftBagListProps {
-  numberOfCards: number;
-  size: "small" | "medium";
-  imgPaths: string[];
-}
+import { GiftBagListProps } from "@/types/components/types";
 
 const GiftBagList = ({ numberOfCards, size, imgPaths }: GiftBagListProps) => {
   const { selectedBagIndex, setSelectedBagIndex } = useSelectedBagStore();

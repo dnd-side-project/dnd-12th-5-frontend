@@ -3,11 +3,7 @@ import { Button } from "../ui/button";
 import CopyLinkIcon from "../../../public/icons/copy_link.svg";
 import { Icon } from "./Icon";
 
-interface LinkButtonProps {
-  linkUrl: string;
-}
-
-const LinkButton = ({ linkUrl }: LinkButtonProps) => {
+const LinkButton = ({ linkUrl }: { linkUrl: string }) => {
   const handleLinkButtonClick = () => {
     if (linkUrl) {
       window.open(linkUrl, "_blank");

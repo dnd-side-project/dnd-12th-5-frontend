@@ -7,16 +7,7 @@ import MyGiftBagStatusChip from "./MyGiftBagStatusChip";
 import { DrawerTrigger } from "../ui/drawer";
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
 import { Icon } from "../common/Icon";
-
-interface MyGiftBagCardProps {
-  isEdit: boolean;
-  design_type: string;
-  is_read: boolean;
-  status: string;
-  name: string;
-  updatedAt: Date;
-  onDelete?: () => void;
-}
+import { MyGiftBagCardProps } from "@/types/components/types";
 
 const MyGiftBagCard = ({
   isEdit,

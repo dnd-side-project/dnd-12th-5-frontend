@@ -1,10 +1,5 @@
+import { DeliveryCardProps } from "@/types/components/types";
 import Image from "next/image";
-
-interface DeliveryCardProps {
-  onClick?: () => void;
-  imageSrc: string;
-  characterTitle: string;
-}
 
 const DeliveryCard = ({
   onClick,

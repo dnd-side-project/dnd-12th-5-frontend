@@ -1,12 +1,5 @@
+import { CustomTextAreaProps } from "@/types/components/types";
 import { Textarea } from "../ui/textarea";
-
-interface CustomTextAreaProps {
-  placeholder: string;
-  maxLength: number;
-  text: string;
-  onTextChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  disable: boolean;
-}
 
 const CustomTextArea = ({
   placeholder,

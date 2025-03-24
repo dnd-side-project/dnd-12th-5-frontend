@@ -21,13 +21,8 @@ import {
   useIsUploadAnswerStore,
   useSelectedGiftBoxStore,
 } from "@/stores/giftbag/useStore";
-import { ReceiveGiftBox } from "@/types/giftbag/types";
 import { Icon } from "../common/Icon";
-
-interface DetailGiftBoxProps {
-  giftList: ReceiveGiftBox[];
-  mappedAnswers: Record<number, number>;
-}
+import { DetailGiftBoxProps } from "@/types/components/types";
 
 const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
   const { setAnswer } = useGiftAnswerStore();

@@ -6,12 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import Card from "@/components/common/Card";
 import { FilledGiftListPreview, MyGiftBagPreview } from "@/types/giftbag/types";
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
-
-interface MyCardListProps {
-  type?: "design" | "image";
-  data: MyGiftBagPreview[] | FilledGiftListPreview[];
-  size: "small" | "medium";
-}
+import { MyCardListProps } from "@/types/components/types";
 
 const MyCardList = ({ type, data, size }: MyCardListProps) => {
   const router = useRouter();

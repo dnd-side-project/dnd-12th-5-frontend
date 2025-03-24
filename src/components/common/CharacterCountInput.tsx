@@ -2,13 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
-
-interface CharacterCountInputProps {
-  placeholder: string;
-  maxLength: number;
-  value?: string;
-  onChange?: (value: string) => void;
-}
+import { CharacterCountInputProps } from "@/types/components/types";
 
 const CharacterCountInput = ({
   placeholder,

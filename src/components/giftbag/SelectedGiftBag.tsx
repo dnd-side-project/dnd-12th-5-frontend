@@ -4,18 +4,11 @@ import { useSelectedBagStore } from "@/stores/giftbag/useStore";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Loading from "../common/Loading";
+import { GIFTBAG_IMAGE_PATHS } from "@/constants/constants";
 
 const SelectedGiftBag = () => {
   const { selectedBagIndex } = useSelectedBagStore();
   const [hydrated, setHydrated] = useState(false);
-
-  const imagePaths = [
-    "/img/giftBag_red.svg",
-    "/img/giftBag_pink.svg",
-    "/img/giftBag_blue.svg",
-    "/img/giftBag_yellow.svg",
-    "/img/giftBag_green.svg",
-  ];
 
   useEffect(() => {
     setHydrated(true);
@@ -27,7 +20,9 @@ const SelectedGiftBag = () => {
         <Loading />
       ) : (
         <Image
-          src={imagePaths[selectedBagIndex % imagePaths.length]}
+          src={
+            GIFTBAG_IMAGE_PATHS[selectedBagIndex % GIFTBAG_IMAGE_PATHS.length]
+          }
           alt={`Gift Bag ${selectedBagIndex}`}
           className="w-full h-full"
           width="200"

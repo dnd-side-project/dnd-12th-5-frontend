@@ -4,14 +4,8 @@ import ImageCard from "./ImageCard";
 import ImageIcon from "../../../public/icons/image_medium.svg";
 import Image from "next/image";
 import { ImageItem } from "@/types/gift-upload/types";
-
-interface UploadImageListProps {
-  combinedImages: ImageItem[];
-  setCombinedImages: (items: ImageItem[]) => void;
-  maxImages?: number;
-}
-
-const allowedExtensions = ["jpg", "jpeg", "png", "webp", "heic", "heif"];
+import { UploadImageListProps } from "@/types/components/types";
+import { IMAGE_EXTENSIONS } from "@/constants/constants";
 
 const UploadImageList = ({
   combinedImages,
@@ -24,7 +18,7 @@ const UploadImageList = ({
     const newItems: ImageItem[] = [];
     files.forEach((file) => {
       const fileExtension = file.name.split(".").pop()?.toLowerCase();
-      if (!fileExtension || !allowedExtensions.includes(fileExtension)) {
+      if (!fileExtension || !IMAGE_EXTENSIONS.includes(fileExtension)) {
         alert(
           "지원되지 않는 파일 형식입니다. (jpg, jpeg, png, webp, heic, heif 만 가능)",
         );
@@ -64,7 +58,7 @@ const UploadImageList = ({
         </span>
         <input
           type="file"
-          accept={allowedExtensions.map((ext) => `.${ext}`).join(", ")}
+          accept={IMAGE_EXTENSIONS.map((ext) => `.${ext}`).join(", ")}
           className="hidden"
           onChange={handleUpload}
           disabled={combinedImages.length >= maxImages}

@@ -1,23 +1,7 @@
 /**아이콘  컴포넌트 */
+import { ICON_SIZE_MAP } from "@/constants/constants";
+import { IconProps } from "@/types/components/types";
 import Image from "next/image";
-
-//추후 type 정리 시 정리 필요
-type IconSize = "xsmall" | "small" | "medium" | "large";
-
-interface IconProps {
-  src: string;
-  alt?: string;
-  size?: IconSize;
-  className?: string;
-  loading?: "eager" | "lazy" | undefined;
-}
-
-const sizeMap: Record<IconSize, number> = {
-  xsmall: 12,
-  small: 14,
-  medium: 18,
-  large: 24,
-};
 
 export const Icon = ({
   src,
@@ -26,7 +10,7 @@ export const Icon = ({
   className,
   loading = undefined,
 }: IconProps) => {
-  const pixelSize = size ? sizeMap[size] : undefined;
+  const pixelSize = size ? ICON_SIZE_MAP[size] : undefined;
 
   return (
     <Image

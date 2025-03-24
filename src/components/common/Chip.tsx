@@ -1,9 +1,4 @@
-interface ChipProps {
-  text: string;
-  isActive: boolean;
-  onClick: () => void;
-  disabled?: boolean;
-}
+import { ChipProps } from "@/types/components/types";
 
 const Chip = ({ text, isActive, onClick, disabled }: ChipProps) => {
   return (

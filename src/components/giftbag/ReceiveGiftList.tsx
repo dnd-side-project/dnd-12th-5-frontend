@@ -3,13 +3,8 @@ import {
   useIsUploadAnswerStore,
   useSelectedGiftBoxStore,
 } from "@/stores/giftbag/useStore";
-import { ReceiveGiftBox } from "@/types/giftbag/types";
+import { ReciveGiftListProps } from "@/types/components/types";
 import Image from "next/image";
-
-interface ReciveGiftListProps {
-  giftList: ReceiveGiftBox[];
-  onClick: () => void;
-}
 
 const ReceiveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
   const answers = useGiftAnswerStore((state) => state.answers);

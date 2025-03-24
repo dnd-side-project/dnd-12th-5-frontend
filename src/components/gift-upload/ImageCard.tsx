@@ -2,12 +2,7 @@ import React from "react";
 import Image from "next/image";
 import EraseIcon from "../../../public/icons/btn_erase.svg";
 import { Icon } from "../common/Icon";
-
-interface ImageCardProps {
-  src: string;
-  isPrimary?: boolean;
-  onDelete: () => void;
-}
+import { ImageCardProps } from "@/types/components/types";
 
 const ImageCard = ({ src, isPrimary, onDelete }: ImageCardProps) => {
   return (

@@ -22,11 +22,7 @@ const FILLED_IMAGES = {
   withLetter: ["/img/gift_letter_square.svg", "/img/gift_letter_round.svg"],
 };
 
-interface GiftListProps {
-  value: GiftBox[];
-}
-
-const GiftList = ({ value }: GiftListProps) => {
+const GiftList = ({ value }: { value: GiftBox[] }) => {
   const router = useRouter();
   const [selectedBox, setSelectedBox] = useState<GiftBox | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);

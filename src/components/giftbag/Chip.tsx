@@ -1,9 +1,6 @@
-interface ChipProps {
-  text: string;
-  width: string;
-}
+import { GiftBagChipProps } from "@/types/components/types";
 
-const Chip = ({ text, width }: ChipProps) => {
+const Chip = ({ text, width }: GiftBagChipProps) => {
   return (
     <div
       className={`rounded-[48px] bg-white px-[14px] py-[7px] text-xs w-[${width}] h-8 flex items-center justify-center font-medium`}
