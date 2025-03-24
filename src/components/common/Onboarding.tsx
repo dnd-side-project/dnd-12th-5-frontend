@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import MainGraphic from "/public/img/onboarding_graphic.svg";
 
 const Onboarding = ({ onComplete }: { onComplete: () => void }) => {

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
-import Onboarding from "@/components/Onboarding";
+import Onboarding from "@/components/common/Onboarding";
 import KakaoLoginButton from "@/components/common/KakaoLoginButton";
 
 import MainGraphic from "/public/img/login_graphic.svg";
