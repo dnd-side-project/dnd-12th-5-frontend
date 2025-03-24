@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { toast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { useSelectedBagStore } from "@/stores/giftbag/useStore";
-import { CHARACTER_EN_MAP } from "@/constants/constants";
+import { CHARACTER_EN_MAP, GIFTBAG_COLORS } from "@/constants/constants";
 
 import KakaoShareButtonIcon from "/public/icons/kakao_share_button.svg";
 import LinkCopyButtonIcon from "/public/icons/link_copy_button.svg";
@@ -37,9 +37,7 @@ const Step3 = () => {
   };
 
   const { selectedBagIndex } = useSelectedBagStore();
-
-  const COLORS = ["red", "pink", "blue", "yellow", "green"];
-  const color = COLORS[selectedBagIndex].trim();
+  const color = GIFTBAG_COLORS[selectedBagIndex].toLowerCase().trim();
 
   return (
     <div className="h-full bg-[url('/img/background_union.svg')] bg-cover bg-center flex flex-col items-center justify-center gap-7">
