@@ -5,9 +5,9 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import {
   ANSWER_MESSAGE_MAP,
-  deliveryCharacterData,
-} from "@/data/deliveryCharacterData";
-import { CHARACTERS } from "@/constants/constants";
+  CHARACTERS,
+  DELIVERY_CHARACTER_DATA,
+} from "@/constants/constants";
 import { CharacterKey } from "@/types/constants/types";
 
 const Step3 = ({ delivery }: { delivery: string }) => {
@@ -20,7 +20,7 @@ const Step3 = ({ delivery }: { delivery: string }) => {
 
   const characterName = characterInfo.ko;
 
-  const characterData = deliveryCharacterData[characterName];
+  const characterData = DELIVERY_CHARACTER_DATA[characterName];
   const messageData = ANSWER_MESSAGE_MAP[characterName];
 
   const handleGoBack = () => {

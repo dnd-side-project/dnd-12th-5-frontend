@@ -4,8 +4,7 @@ import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
-import { CHARACTERS } from "@/constants/constants";
-import { DELIVERY_RECEIVE_TEXT_MAP } from "@/data/deliveryCharacterData";
+import { CHARACTERS, DELIVERY_RECEIVE_TEXT_MAP } from "@/constants/constants";
 import { Step1Props } from "@/types/giftbag/types";
 import { CharacterKey } from "@/types/constants/types";
 

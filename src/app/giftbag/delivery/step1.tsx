@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 
 import DeliveryCard from "@/components/common/DeliveryCard";
-import { deliveryCharacterData } from "@/data/deliveryCharacterData";
+import { DELIVERY_CHARACTER_DATA } from "@/constants/constants";
 
 const Step1 = () => {
   const router = useRouter();
@@ -17,10 +17,10 @@ const Step1 = () => {
         </p>
       </div>
       <section className="grid grid-cols-2 grid-rows-2 gap-2">
-        {Object.keys(deliveryCharacterData).map((key) => (
+        {Object.keys(DELIVERY_CHARACTER_DATA).map((key) => (
           <DeliveryCard
             key={key}
-            imageSrc={deliveryCharacterData[key].imageSrc}
+            imageSrc={DELIVERY_CHARACTER_DATA[key].imageSrc}
             characterTitle={key}
             onClick={() =>
               router.push(`/giftbag/delivery?step=2&character=${key}`)

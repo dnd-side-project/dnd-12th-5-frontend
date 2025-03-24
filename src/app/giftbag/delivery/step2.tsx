@@ -4,11 +4,10 @@ import { Fragment } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { deliveryCharacterData } from "@/data/deliveryCharacterData";
 import { Button } from "@/components/ui/button";
 import { useGiftBagStore } from "@/stores/giftbag/useStore";
 import { useDeliveryGiftBag } from "@/hooks/api/useDeliveryGiftBag";
-import { CHARACTERS } from "@/constants/constants";
+import { CHARACTERS, DELIVERY_CHARACTER_DATA } from "@/constants/constants";
 import { resetGiftBoxes } from "@/utils/utils";
 import { CharacterKey } from "@/types/constants/types";
 
@@ -61,7 +60,7 @@ const Step2 = () => {
     resetStore();
   };
 
-  const characterData = deliveryCharacterData[characterKo];
+  const characterData = DELIVERY_CHARACTER_DATA[characterKo];
 
   return (
     <div className="h-full bg-[url('/img/background_union.svg')] bg-cover bg-center">
