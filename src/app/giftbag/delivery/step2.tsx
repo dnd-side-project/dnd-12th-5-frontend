@@ -8,9 +8,9 @@ import { deliveryCharacterData } from "@/data/deliveryCharacterData";
 import { Button } from "@/components/ui/button";
 import { useGiftBagStore } from "@/stores/giftbag/useStore";
 import { useDeliveryGiftBag } from "@/hooks/api/useDeliveryGiftBag";
-import { DeliveryCharacterAPIType } from "@/types/giftbag/types";
 import { API_CHARACTER_MAP } from "@/constants/constants";
 import { resetGiftBoxes } from "@/utils/utils";
+import { CharacterKey } from "@/types/constants/types";
 
 const Step2 = () => {
   const router = useRouter();
@@ -35,7 +35,7 @@ const Step2 = () => {
           giftBagId,
           deliveryCharacterType: API_CHARACTER_MAP[
             character || "포리"
-          ] as DeliveryCharacterAPIType,
+          ] as CharacterKey,
         },
         {
           onSuccess: (data) => {

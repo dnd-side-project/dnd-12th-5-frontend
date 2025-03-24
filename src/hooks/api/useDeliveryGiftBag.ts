@@ -1,10 +1,10 @@
-import { DeliveryCharacterAPIType } from "@/types/giftbag/types";
+import { CharacterKey } from "@/types/constants/types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
 
 export interface PutDeliveryPayload {
   giftBagId: string;
-  deliveryCharacterType: DeliveryCharacterAPIType;
+  deliveryCharacterType: CharacterKey;
 }
 
 export interface PutDeliveryResponse {
