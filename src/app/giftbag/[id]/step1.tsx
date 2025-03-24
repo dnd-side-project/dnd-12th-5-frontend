@@ -30,32 +30,6 @@ const Step1 = ({ delivery, color, isCompleted }: Step1Props) => {
     router.push(`/giftbag/${id}?step=2`);
   };
 
-  if (isCompleted) {
-    return (
-      <div className="relative w-full overflow-hidden h-full">
-        <div
-          className="absolute top-0 left-0 w-full h-full bg-cover bg-center mt-[56px]"
-          style={{ backgroundImage: "url('/img/background_union.svg')" }}
-        />
-        <div className="h-full flex flex-col gap-[90px] justify-center items-center relative">
-          <div className="flex flex-col justify-center items-center gap-8">
-            <p className="text-lg font-bold font-nanum text-center">
-              답변이 완료된 보따리에요. <br /> 어떤 선물을 받게될지 기대하세요!
-            </p>
-            <div className="flex justify-center items-center">
-              <Image
-                src={imageSrc}
-                alt={`${character} delivery`}
-                width={230}
-                height={230}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="relative w-full overflow-hidden h-full">
       <div
@@ -64,13 +38,20 @@ const Step1 = ({ delivery, color, isCompleted }: Step1Props) => {
       />
       <div className="h-full flex flex-col gap-[90px] justify-center items-center relative">
         <div className="flex flex-col justify-center items-center gap-8">
-          <p className="tracking-[-0.03em] text-lg font-bold font-nanum text-center">
-            {displayText.split("\n").map((line, index) => (
-              <span key={index}>
-                {line}
-                {index !== displayText.split("\n").length - 1 && <br />}
-              </span>
-            ))}
+          <p className="text-lg font-bold font-nanum text-center tracking-[-0.03em]">
+            {isCompleted ? (
+              <>
+                답변이 완료된 보따리에요. <br /> 어떤 선물을 받게될지
+                기대하세요!
+              </>
+            ) : (
+              displayText.split("\n").map((line, index) => (
+                <span key={index}>
+                  {line}
+                  {index !== displayText.split("\n").length - 1 && <br />}
+                </span>
+              ))
+            )}
           </p>
           <div className="flex justify-center items-center">
             <Image
@@ -80,16 +61,20 @@ const Step1 = ({ delivery, color, isCompleted }: Step1Props) => {
               height={230}
             />
           </div>
-          <p className="text-center text-sm tracking-[-2%] font-nanum text-gray-700 pt-[2px]">
-            정성껏 고른 선물 후보들이 담긴 보따리예요. <br /> 마음에 드는 선물을
-            배달부에게 살짝 알려주세요!
-          </p>
+          {!isCompleted && (
+            <p className="text-center text-sm tracking-[-2%] font-nanum text-gray-700 pt-[2px]">
+              정성껏 고른 선물 후보들이 담긴 보따리예요. <br /> 마음에 드는
+              선물을 배달부에게 살짝 알려주세요!
+            </p>
+          )}
         </div>
-        <div className="absolute bottom-4 px-4 w-full">
-          <Button size="lg" onClick={handleOnClick}>
-            선물 보따리 풀어보기
-          </Button>
-        </div>
+        {!isCompleted && (
+          <div className="absolute bottom-4 px-4 w-full">
+            <Button size="lg" onClick={handleOnClick}>
+              선물 보따리 풀어보기
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
