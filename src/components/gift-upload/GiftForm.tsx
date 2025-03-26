@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo, useRef } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import CharacterCountInput from "../common/CharacterCountInput";
@@ -14,7 +14,7 @@ import {
   useGiftStore,
   useEditBoxStore,
 } from "@/stores/gift-upload/useStore";
-import { motion } from "framer-motion";
+
 import { uploadGiftImages } from "@/api/gift-upload/api";
 import { ImageItem } from "@/types/gift-upload/types";
 
@@ -47,19 +47,7 @@ const GiftForm = () => {
   const [giftReason, setGiftReason] = useState(existingGift.reason || "");
   const [giftLink, setGiftLink] = useState(existingGift.purchase_url || "");
   const [giftTag, setGiftTag] = useState(existingGift.tag || "");
-
-  const [isGiftNameFilled, setIsGiftNameFilled] = useState(!!giftName);
-  const [isReasonFilled, setIsReasonFilled] = useState(!!giftReason);
   const [isFormValid, setIsFormValid] = useState(false);
-
-  const reasonRef = useRef<HTMLDivElement>(null);
-  const linkRef = useRef<HTMLDivElement>(null);
-
-  const animatedSectionProps = {
-    initial: { opacity: 0, y: -20 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, ease: "easeOut" },
-  };
 
   useEffect(() => {
     if (isBoxEditing) {
@@ -67,37 +55,11 @@ const GiftForm = () => {
       setGiftReason(existingGift.reason || "");
       setGiftLink(existingGift.purchase_url || "");
       setGiftTag(existingGift.tag || "");
-      setIsGiftNameFilled(!!existingGift.name);
-      setIsReasonFilled(!!existingGift.reason);
       setCombinedImages(
         existingGift.imgUrls.map((url) => ({ type: "existing", url })),
       );
     }
   }, [isBoxEditing, existingGift]);
-
-  useEffect(() => {
-    if (!isGiftNameFilled && giftName.length > 0 && !isBoxEditing) {
-      setIsGiftNameFilled(true);
-      setTimeout(() => {
-        reasonRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }, 100);
-    }
-  }, [giftName, isBoxEditing, isGiftNameFilled]);
-
-  useEffect(() => {
-    if (!isReasonFilled && giftReason.length > 0 && !isBoxEditing) {
-      setIsReasonFilled(true);
-      setTimeout(() => {
-        linkRef.current?.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }, 100);
-    }
-  }, [giftReason, isBoxEditing, isReasonFilled]);
 
   useEffect(() => {
     setIsFormValid(giftName.trim().length > 0 && combinedImages.length > 0);
@@ -154,8 +116,8 @@ const GiftForm = () => {
   };
 
   return (
-    <div className="px-4 flex flex-col h-full overflow-y-auto">
-      <div className="flex flex-col flex-grow gap-[50px] mt-[18px] pb-[70px]">
+    <div className="px-4 flex flex-col">
+      <div className="flex flex-col gap-[50px] mt-[18px] pb-[7px]">
         <div className="flex flex-col gap-[22px]">
           <div
             className="w-full overflow-x-auto min-w-full flex flex-col gap-2"
@@ -176,26 +138,18 @@ const GiftForm = () => {
             />
           </div>
         </div>
-        {isGiftNameFilled && (
-          <motion.div ref={reasonRef} {...animatedSectionProps}>
-            <InputReason
-              value={giftReason}
-              onReasonChange={setGiftReason}
-              onTagChange={setGiftTag}
-              giftBoxIndex={index}
-            />
-          </motion.div>
-        )}
-        {(isReasonFilled || isBoxEditing) && (
-          <motion.div ref={linkRef} {...animatedSectionProps}>
-            <InputLink value={giftLink} onChange={setGiftLink} />
-          </motion.div>
-        )}
-      </div>
-      <div className="sticky bottom-4 w-full left-0">
-        <Button size="lg" onClick={handleSubmit} disabled={!isFormValid}>
-          {isBoxEditing ? "수정 완료" : "채우기 완료"}
-        </Button>
+        <InputReason
+          value={giftReason}
+          onReasonChange={setGiftReason}
+          onTagChange={setGiftTag}
+          giftBoxIndex={index}
+        />
+        <div className="flex flex-col gap-8">
+          <InputLink value={giftLink} onChange={setGiftLink} />
+          <Button size="lg" onClick={handleSubmit} disabled={!isFormValid}>
+            {isBoxEditing ? "수정 완료" : "채우기 완료"}
+          </Button>
+        </div>
       </div>
     </div>
   );
