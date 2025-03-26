@@ -15,6 +15,7 @@ import {
 } from "@/stores/giftbag/useStore";
 import { Step2Props } from "@/types/giftbag/types";
 import { RESPONSE_TAGS } from "@/constants/constants";
+import { toast } from "@/hooks/use-toast";
 
 const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
   const router = useRouter();
@@ -54,6 +55,15 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
   useEffect(() => {
     if (answeredCount === gifts.length) setIsAnswered(true);
   }, [answeredCount, mappedAnswers, gifts.length]);
+
+  useEffect(() => {
+    if (isAnswered) {
+      toast({
+        title: "모든 선물에 답변이 완료되었습니다!",
+        description: "이제 답변을 전송할 수 있어요 🎁",
+      });
+    }
+  }, [isAnswered]);
 
   const submitGiftResponses = async () => {
     const requestBody = {
