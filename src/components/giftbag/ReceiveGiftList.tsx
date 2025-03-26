@@ -1,3 +1,4 @@
+import { GIFTBOX_SHAPE_SEQUENCE } from "@/constants/constants";
 import {
   useGiftAnswerStore,
   useIsUploadAnswerStore,
@@ -15,7 +16,8 @@ const ReceiveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
     <div className="grid grid-cols-2 grid-rows-[repeat(auto-fill, minmax(130px, 1fr))] max-h-[390px] gap-[3px]">
       {giftList.map((gift, index) => {
         const isMessageEmpty = !gift.message;
-        const shape = index % 2 === 0 ? "square" : "round";
+        const shape =
+          GIFTBOX_SHAPE_SEQUENCE[index % GIFTBOX_SHAPE_SEQUENCE.length];
         const letterType = isMessageEmpty ? "no_letter" : "letter";
 
         const isAnswered = answers[index] !== undefined;
