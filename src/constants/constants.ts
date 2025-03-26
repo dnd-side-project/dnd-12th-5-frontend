@@ -56,6 +56,25 @@ export const RESPONSE_TAGS = [
   "NOT_MY_STYLE",
 ];
 
+export const GIFTBOX_DEFAULT_IMAGES = [
+  "/img/gift_blank_square.svg",
+  "/img/gift_blank_round.svg",
+];
+
+export const GIFTBOX_FILLED_IMAGES = {
+  noLetter: ["/img/gift_no_letter_square.svg", "/img/gift_no_letter_round.svg"],
+  withLetter: ["/img/gift_letter_square.svg", "/img/gift_letter_round.svg"],
+};
+
+export const GIFTBOX_SHAPE_SEQUENCE = [
+  "square",
+  "round",
+  "round",
+  "square",
+  "square",
+  "round",
+];
+
 export const GIFT_ANSWER_MAP: Record<string, string> = {
   GREAT: "갖고 싶던 선물이에요!",
   GOOD: "마음에 들어요!",
@@ -71,7 +90,7 @@ export const CHARACTERS: Record<CharacterKey, CharacterInfo> = {
   CHARACTER_4: { ko: "하티", en: "hearty" },
 };
 
-export const DELIVERY_CHARACTER_DATA: Record<
+export const DELIVERY_CHARACTER_MAP: Record<
   string,
   { title: string; description: string; imageSrc: string }
 > = {
