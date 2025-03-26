@@ -11,16 +11,10 @@ import { GiftBox } from "@/types/giftbag/types";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 import GiftBoxDrawer from "../gift-upload/GiftBoxDrawer";
 import { Drawer, DrawerTrigger } from "../ui/drawer";
-
-const DEFAULT_IMAGES = [
-  "/img/gift_blank_square.svg",
-  "/img/gift_blank_round.svg",
-];
-
-const FILLED_IMAGES = {
-  noLetter: ["/img/gift_no_letter_square.svg", "/img/gift_no_letter_round.svg"],
-  withLetter: ["/img/gift_letter_square.svg", "/img/gift_letter_round.svg"],
-};
+import {
+  GIFTBOX_DEFAULT_IMAGES,
+  GIFTBOX_FILLED_IMAGES,
+} from "@/constants/constants";
 
 const GiftList = ({ value }: { value: GiftBox[] }) => {
   const router = useRouter();
@@ -56,12 +50,12 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
           {value.map((box, index) => {
             const hasReason = box?.reason && box?.reason.trim().length > 0;
             const imageSet = hasReason
-              ? FILLED_IMAGES.withLetter
-              : FILLED_IMAGES.noLetter;
+              ? GIFTBOX_FILLED_IMAGES.withLetter
+              : GIFTBOX_FILLED_IMAGES.noLetter;
             const imageSrc =
               box?.filled && box.filled
                 ? imageSet[index % 2]
-                : DEFAULT_IMAGES[index % 2];
+                : GIFTBOX_DEFAULT_IMAGES[index % 2];
 
             return (
               <Drawer key={index}>
@@ -100,7 +94,7 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                       <Tooltip>
                         <TooltipTrigger asChild>
                           <Image
-                            src={DEFAULT_IMAGES[index % 2]}
+                            src={GIFTBOX_DEFAULT_IMAGES[index % 2]}
                             alt={`gift-item-${index}`}
                             className="w-full h-full object-contain hover:opacity-[75%]"
                             width="130"
