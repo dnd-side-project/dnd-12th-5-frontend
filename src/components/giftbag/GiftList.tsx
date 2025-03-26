@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
@@ -45,9 +45,13 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
     setSelectedIndex(null);
   };
 
-  const oneOrMoreFilledBox = giftBoxes.filter(
-    (box) => box && box.filled,
-  ).length;
+  const [showTooltip, setShowTooltip] = useState(false);
+
+  useEffect(() => {
+    setShowTooltip(true);
+    const timer = setTimeout(() => setShowTooltip(false), 3000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
@@ -96,8 +100,8 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                       router.push(`/gift-upload?index=${index}`);
                     }}
                   >
-                    {index === 0 && !oneOrMoreFilledBox ? (
-                      <Tooltip>
+                    {index === 0 ? (
+                      <Tooltip open={showTooltip}>
                         <TooltipTrigger asChild>
                           <Image
                             src={DEFAULT_IMAGES[index % 2]}
