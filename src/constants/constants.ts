@@ -66,6 +66,15 @@ export const GIFTBOX_FILLED_IMAGES = {
   withLetter: ["/img/gift_letter_square.svg", "/img/gift_letter_round.svg"],
 };
 
+export const GIFTBOX_SHAPE_SEQUENCE = [
+  "square",
+  "round",
+  "round",
+  "square",
+  "square",
+  "round",
+];
+
 export const GIFT_ANSWER_MAP: Record<string, string> = {
   GREAT: "갖고 싶던 선물이에요!",
   GOOD: "마음에 들어요!",
