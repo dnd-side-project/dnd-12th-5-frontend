@@ -16,7 +16,12 @@ const InputLink = ({ value = "", onChange }: InputLinkProps) => {
           선물 링크는 상대방에게 공개되지 않습니다.
         </p>
       </div>
-      <Input placeholder="링크 추가" value={value} onChange={handleChange} />
+      <Input
+        placeholder="링크 추가"
+        value={value}
+        onChange={handleChange}
+        className="border-[#F3F4F8]"
+      />
     </div>
   );
 };
