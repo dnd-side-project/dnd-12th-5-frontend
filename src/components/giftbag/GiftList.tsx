@@ -14,6 +14,7 @@ import { Drawer, DrawerTrigger } from "../ui/drawer";
 import {
   GIFTBOX_DEFAULT_IMAGES,
   GIFTBOX_FILLED_IMAGES,
+  GIFTBOX_SHAPE_SEQUENCE,
 } from "@/constants/constants";
 
 const GiftList = ({ value }: { value: GiftBox[] }) => {
@@ -49,13 +50,21 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
         <div className="grid grid-cols-2 h-[396px] grid-rows-[repeat(6,_1fr)]">
           {value.map((box, index) => {
             const hasReason = box?.reason && box?.reason.trim().length > 0;
+
+            const shape =
+              GIFTBOX_SHAPE_SEQUENCE[index % GIFTBOX_SHAPE_SEQUENCE.length];
             const imageSet = hasReason
               ? GIFTBOX_FILLED_IMAGES.withLetter
               : GIFTBOX_FILLED_IMAGES.noLetter;
+
             const imageSrc =
               box?.filled && box.filled
-                ? imageSet[index % 2]
-                : GIFTBOX_DEFAULT_IMAGES[index % 2];
+                ? shape === "square"
+                  ? imageSet[0]
+                  : imageSet[1]
+                : shape === "square"
+                  ? GIFTBOX_DEFAULT_IMAGES[0]
+                  : GIFTBOX_DEFAULT_IMAGES[1];
 
             return (
               <Drawer key={index}>
