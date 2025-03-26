@@ -81,7 +81,7 @@ export const CHARACTERS: Record<CharacterKey, CharacterInfo> = {
   CHARACTER_4: { ko: "하티", en: "hearty" },
 };
 
-export const DELIVERY_CHARACTER_DATA: Record<
+export const DELIVERY_CHARACTER_MAP: Record<
   string,
   { title: string; description: string; imageSrc: string }
 > = {

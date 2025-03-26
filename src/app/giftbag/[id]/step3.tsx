@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import {
   ANSWER_MESSAGE_MAP,
   CHARACTERS,
-  DELIVERY_CHARACTER_DATA,
+  DELIVERY_CHARACTER_MAP,
 } from "@/constants/constants";
 import { CharacterKey } from "@/types/constants/types";
 
@@ -20,7 +20,7 @@ const Step3 = ({ delivery }: { delivery: string }) => {
 
   const characterName = characterInfo.ko;
 
-  const characterData = DELIVERY_CHARACTER_DATA[characterName];
+  const characterData = DELIVERY_CHARACTER_MAP[characterName];
   const messageData = ANSWER_MESSAGE_MAP[characterName];
 
   const handleGoBack = () => {

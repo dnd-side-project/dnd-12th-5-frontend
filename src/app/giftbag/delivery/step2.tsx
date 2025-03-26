@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useGiftBagStore } from "@/stores/giftbag/useStore";
 import { useDeliveryGiftBag } from "@/hooks/api/useDeliveryGiftBag";
-import { CHARACTERS, DELIVERY_CHARACTER_DATA } from "@/constants/constants";
+import { CHARACTERS, DELIVERY_CHARACTER_MAP } from "@/constants/constants";
 import { resetGiftBoxes } from "@/utils/utils";
 import { CharacterKey } from "@/types/constants/types";
 
@@ -60,7 +60,7 @@ const Step2 = () => {
     resetStore();
   };
 
-  const characterData = DELIVERY_CHARACTER_DATA[characterKo];
+  const characterData = DELIVERY_CHARACTER_MAP[characterKo];
 
   return (
     <div className="h-full bg-[url('/img/background_union.svg')] bg-cover bg-center">
