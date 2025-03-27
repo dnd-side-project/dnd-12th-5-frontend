@@ -20,7 +20,7 @@ const InputLink = ({ value = "", onChange }: InputLinkProps) => {
         placeholder="링크 추가"
         value={value}
         onChange={handleChange}
-        className="border-[#F3F4F8] shadow-none"
+        className="shadow-none"
       />
     </div>
   );

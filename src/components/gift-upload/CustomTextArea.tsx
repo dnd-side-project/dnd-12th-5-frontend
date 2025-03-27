@@ -12,7 +12,7 @@ const CustomTextArea = ({
     <div className="relative">
       <Textarea
         placeholder={placeholder}
-        className="min-h-[135px] h-[135px] resize-none bg-white placeholder:text-gray-300 text-sm border-[#F3F4F8]"
+        className="min-h-[135px] h-[135px] resize-none bg-white placeholder:text-gray-300 text-sm"
         value={text}
         maxLength={maxLength}
         onChange={(e) => onTextChange(e)}

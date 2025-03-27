@@ -46,7 +46,7 @@ const UploadImageList = ({
   return (
     <div className="flex gap-2 whitespace-nowrap">
       <label
-        className={`flex flex-shrink-0 flex-col items-center justify-center rounded-[10px] h-[88px] w-[88px] bg-gray-50 border-[1.4px] border-gray-100 ${
+        className={`flex flex-shrink-0 flex-col items-center justify-center rounded-[10px] h-[88px] w-[88px] bg-gray-50 border-[1.4px] border-input ${
           combinedImages.length >= maxImages
             ? "cursor-not-allowed"
             : "cursor-pointer"
