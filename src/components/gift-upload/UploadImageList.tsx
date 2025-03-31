@@ -90,13 +90,15 @@ const UploadImageList = ({
         >
           {combinedImages.map((item, index) => (
             <SortableImageWrapper key={item.url} id={item.url}>
-              <ImageCard
-                key={index}
-                src={item.url}
-                isPrimary={index === 0}
-                onDelete={() => handleDelete(index)}
-                cursorPointer={true}
-              />
+              {({ dragHandleProps }) => (
+                <ImageCard
+                  src={item.url}
+                  isPrimary={index === 0}
+                  onDelete={() => handleDelete(index)}
+                  cursorPointer={true}
+                  dragHandleProps={dragHandleProps}
+                />
+              )}
             </SortableImageWrapper>
           ))}
         </SortableContext>

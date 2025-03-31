@@ -1,24 +1,25 @@
 "use client";
 
+import { SortableImageWrapperProps } from "@/types/components/types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
-const SortableImageWrapper = ({
-  id,
-  children,
-}: {
-  id: string;
-  children: React.ReactNode;
-}) => {
+const SortableImageWrapper = ({ id, children }: SortableImageWrapperProps) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id });
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
+
+  const dragHandleProps = { ...attributes, ...listeners };
+
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      {children}
+    <div ref={setNodeRef} style={style}>
+      {typeof children === "function"
+        ? children({ dragHandleProps })
+        : children}
     </div>
   );
 };

@@ -9,6 +9,7 @@ const ImageCard = ({
   isPrimary,
   onDelete,
   cursorPointer,
+  dragHandleProps,
 }: ImageCardProps) => {
   const isCursorPointer = cursorPointer ? "cursor-pointer" : "cursor-none";
 
@@ -28,6 +29,7 @@ const ImageCard = ({
           height={88}
           className="w-full h-full object-cover"
           priority
+          {...dragHandleProps}
         />
         {isPrimary && (
           <div className="absolute bottom-0 w-[88px] bg-[#0F0F10] opacity-70 text-gray-300 text-xs pt-0.5 text-center rounded-bl-[10px] rounded-br-[10px] h-5">
