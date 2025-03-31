@@ -15,6 +15,7 @@ import {
 } from "@/stores/giftbag/useStore";
 import { Step2Props } from "@/types/giftbag/types";
 import { RESPONSE_TAGS } from "@/constants/constants";
+import { toast } from "@/hooks/use-toast";
 
 const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
   const router = useRouter();
@@ -77,13 +78,20 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
       );
 
       if (!response.ok) {
-        throw new Error("답변 제출에 실패했습니다.");
+        toast({
+          variant: "destructive",
+          description: "답변 전송에 실패했습니다.",
+        });
+        throw new Error("답변 전송에 실패했습니다.");
       }
       setIsUploadedAnswer(true);
       router.push(`/giftbag/${link}?step=3`);
     } catch (error) {
-      console.error("Error submitting responses:", error);
-      alert("오류가 발생했습니다. 다시 시도해주세요.");
+      console.error(error);
+      toast({
+        variant: "destructive",
+        description: "답변 전송에 실패했습니다.",
+      });
     }
   };
 
