@@ -8,13 +8,10 @@ const ImageCard = ({
   src,
   isPrimary,
   onDelete,
-  cursorPointer,
   dragHandleProps,
 }: ImageCardProps) => {
-  const isCursorPointer = cursorPointer ? "cursor-pointer" : "cursor-none";
-
   return (
-    <div className={`relative ${isCursorPointer}`}>
+    <div className="relative">
       <button
         className="absolute top-[-8px] right-[-8px] z-10"
         onClick={onDelete}

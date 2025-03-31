@@ -95,7 +95,6 @@ const UploadImageList = ({
                   src={item.url}
                   isPrimary={index === 0}
                   onDelete={() => handleDelete(index)}
-                  cursorPointer={true}
                   dragHandleProps={dragHandleProps}
                 />
               )}

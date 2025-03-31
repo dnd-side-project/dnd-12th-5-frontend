@@ -75,7 +75,6 @@ export interface ImageCardProps {
   src: string;
   isPrimary?: boolean;
   onDelete: () => void;
-  cursorPointer?: boolean;
   dragHandleProps?: React.HTMLAttributes<HTMLElement>;
 }
 
