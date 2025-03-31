@@ -24,6 +24,10 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
 
   const { giftBoxes, updateGiftBox } = useGiftStore();
 
+  const filledGiftCount = giftBoxes.filter(
+    (gift) => gift && gift.filled === true,
+  ).length;
+
   const emptyGiftBox = () => {
     if (selectedIndex !== null) {
       updateGiftBox(selectedIndex, {
@@ -43,9 +47,12 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   useEffect(() => {
-    setShowTooltip(true);
-    const timer = setTimeout(() => setShowTooltip(false), 3000);
-    return () => clearTimeout(timer);
+    if (filledGiftCount === 0) {
+      setShowTooltip(true);
+      const timer = setTimeout(() => setShowTooltip(false), 3000);
+      return () => clearTimeout(timer);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
