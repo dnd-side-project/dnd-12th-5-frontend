@@ -6,6 +6,13 @@ import Image from "next/image";
 import { ImageItem } from "@/types/gift-upload/types";
 import { UploadImageListProps } from "@/types/components/types";
 import { IMAGE_EXTENSIONS } from "@/constants/constants";
+import { closestCenter, DndContext, DragEndEvent } from "@dnd-kit/core";
+import {
+  arrayMove,
+  horizontalListSortingStrategy,
+  SortableContext,
+} from "@dnd-kit/sortable";
+import SortableImageWrapper from "./SortableImageWrapper";
 
 const UploadImageList = ({
   combinedImages,
@@ -43,6 +50,17 @@ const UploadImageList = ({
     setCombinedImages(newItems);
   };
 
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    const oldIdx = combinedImages.findIndex((item) => item.url === active.id);
+    const newIdx = combinedImages.findIndex((item) => item.url === over.id);
+
+    const newList = arrayMove(combinedImages, oldIdx, newIdx);
+    setCombinedImages(newList);
+  };
+
   return (
     <div className="flex gap-2 whitespace-nowrap">
       <label
@@ -65,15 +83,24 @@ const UploadImageList = ({
           multiple
         />
       </label>
-      {combinedImages.map((item, index) => (
-        <ImageCard
-          key={index}
-          src={item.url}
-          isPrimary={index === 0}
-          onDelete={() => handleDelete(index)}
-          cursorPointer={true}
-        />
-      ))}
+      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext
+          items={combinedImages.map((item) => item.url)}
+          strategy={horizontalListSortingStrategy}
+        >
+          {combinedImages.map((item, index) => (
+            <SortableImageWrapper key={item.url} id={item.url}>
+              <ImageCard
+                key={index}
+                src={item.url}
+                isPrimary={index === 0}
+                onDelete={() => handleDelete(index)}
+                cursorPointer={true}
+              />
+            </SortableImageWrapper>
+          ))}
+        </SortableContext>
+      </DndContext>
     </div>
   );
 };
