@@ -74,6 +74,7 @@ export interface ImageCardProps {
   src: string;
   isPrimary?: boolean;
   onDelete: () => void;
+  cursorPointer?: boolean;
 }
 
 export interface InputLinkProps {

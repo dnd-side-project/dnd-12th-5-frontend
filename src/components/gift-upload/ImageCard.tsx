@@ -4,9 +4,16 @@ import EraseIcon from "../../../public/icons/btn_erase.svg";
 import { Icon } from "../common/Icon";
 import { ImageCardProps } from "@/types/components/types";
 
-const ImageCard = ({ src, isPrimary, onDelete }: ImageCardProps) => {
+const ImageCard = ({
+  src,
+  isPrimary,
+  onDelete,
+  cursorPointer,
+}: ImageCardProps) => {
+  const isCursorPointer = cursorPointer ? "cursor-pointer" : "cursor-none";
+
   return (
-    <div className="relative">
+    <div className={`relative ${isCursorPointer}`}>
       <button
         className="absolute top-[-8px] right-[-8px] z-10"
         onClick={onDelete}
