@@ -48,16 +48,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${pretendard.variable} ${nanumSquareRound.variable} antialiased `}
+        className={`${pretendard.variable} ${nanumSquareRound.variable} antialiased`}
       >
-        <div className="max-w-[430px] min-w-[375px] mx-auto min-h-screen flex flex-col relative">
+        <div className="max-w-[430px] min-w-[375px] mx-auto flex flex-col relative">
           <Suspense>
             <PageTransition>
               <Header />
               <Providers>
                 <div
                   className={`flex-grow ${bgColor}`}
-                  style={{ height: "calc(100vh - 56px)" }}
+                  style={{ height: "calc(100svh - 56px)" }}
                 >
                   {children}
                 </div>
