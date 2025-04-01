@@ -12,15 +12,15 @@ import {
 } from "@/stores/giftbag/useStore";
 
 import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/common/Icon";
+import { GiftBox } from "@/types/giftbag/types";
 import { createGiftBag, updateGiftBag } from "@/api/giftbag/api";
 import { toast } from "@/hooks/use-toast";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
-import { GiftBox } from "@/types/giftbag/types";
 
 import LogoIcon from "/public/icons/logo.svg";
 import SettingIcon from "/public/icons/setting_large.svg";
 import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
-import { Icon } from "@/components/common/Icon";
 import CloseIcon from "/public/icons/close.svg";
 
 // 정적 title 관리
@@ -170,7 +170,7 @@ const Header = () => {
     );
   }
 
-  // 온보딩 / 로그인 페이지 / 404 페이지: 로고만 중앙 정렬
+  // auth 페이지, 404 페이지: 로고만 중앙 정렬
   if (isAuthPage || isNotFoundPage) {
     return (
       <div className={`${bgColor} h-[56px] flex items-center justify-center`}>
@@ -179,36 +179,42 @@ const Header = () => {
     );
   }
 
-  // 나머지 페이지: 뒤로가기 버튼 + 페이지 타이틀
-  return (
-    <div
-      className={`${isGiftbagAddPage ? "bg-pink-50" : "bg-white"} h-[56px] flex justify-between items-center px-4 sticky top-0 z-10`}
-    >
-      {/* step이 3일 때만 뒤로가기 버튼 숨기기 */}
-      {!(isStepThree && isGiftbagDeliveryPage) && (
-        <Button
-          onClick={() => {
-            if (isGiftUploadPage) {
-              setIsBoxEditing(false);
-            }
-            if (
-              giftBagId &&
-              pathname === "/giftbag/add" &&
-              !isClickedUpdateFilledButton
-            )
-              router.push("/home");
-            else router.back();
-          }}
-          variant="ghost"
-          className="flex justify-start"
-        >
-          <Icon src={ArrowLeftIcon} alt="back" size="large" />
-        </Button>
-      )}
-      <h1 className="text-center text-lg font-medium w-[185px] overflow-hidden whitespace-nowrap text-ellipsis absolute left-1/2 -translate-x-1/2">
-        {dynamicTitle}
-      </h1>
-      {showTempSave && isGiftbagAddPage && (
+  const BackButton = () => {
+    if (isStepThree && isGiftbagDeliveryPage) return null;
+
+    const handleBack = () => {
+      if (isGiftUploadPage) setIsBoxEditing(false);
+      if (
+        giftBagId &&
+        pathname === "/giftbag/add" &&
+        !isClickedUpdateFilledButton
+      ) {
+        router.push("/home");
+      } else {
+        router.back();
+      }
+    };
+
+    return (
+      <Button
+        onClick={handleBack}
+        variant="ghost"
+        className="flex justify-start"
+      >
+        <Icon src={ArrowLeftIcon} alt="back" size="large" />
+      </Button>
+    );
+  };
+
+  const Title = () => (
+    <h1 className="text-center text-lg font-medium w-[185px] overflow-hidden whitespace-nowrap text-ellipsis absolute left-1/2 -translate-x-1/2">
+      {dynamicTitle}
+    </h1>
+  );
+
+  const RightButton = () => {
+    if (showTempSave && isGiftbagAddPage) {
+      return (
         <Button
           variant="ghost"
           onClick={handleTempSave}
@@ -216,7 +222,31 @@ const Header = () => {
         >
           임시 저장
         </Button>
-      )}
+      );
+    }
+
+    if (isGiftbagDeliveryPage && isStepThree) {
+      return (
+        <Button
+          onClick={() => router.push("/home")}
+          variant="ghost"
+          className="flex justify-end"
+        >
+          <Icon src={CloseIcon} alt="close" size="large" />
+        </Button>
+      );
+    }
+
+    return null;
+  };
+
+  return (
+    <div
+      className={`${isGiftbagAddPage ? "bg-pink-50" : "bg-white"} h-[56px] flex justify-between items-center px-4 sticky top-0 z-10`}
+    >
+      <BackButton />
+      <Title />
+      <RightButton />
     </div>
   );
 };
