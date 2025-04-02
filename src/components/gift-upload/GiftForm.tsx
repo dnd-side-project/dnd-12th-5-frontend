@@ -129,7 +129,7 @@ const GiftForm = () => {
               maxImages={5}
             />
             {combinedImages.length <= 0 ? (
-              <p className="text-xs text-symantic-negative">
+              <p className="text-xs text-coral-400 font-medium">
                 * 사진은 1장 이상 첨부해 주세요.
               </p>
             ) : (
