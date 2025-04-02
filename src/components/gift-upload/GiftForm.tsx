@@ -120,7 +120,7 @@ const GiftForm = () => {
       <div className="flex flex-col gap-8 mt-[18px] pb-[7px]">
         <div className="flex flex-col gap-[22px]">
           <div
-            className="w-full overflow-x-auto min-w-full flex flex-col gap-1"
+            className="w-full overflow-x-auto min-w-full flex flex-col gap-2"
             style={{ scrollbarWidth: "none" }}
           >
             <UploadImageList
