@@ -22,6 +22,7 @@ import LogoIcon from "/public/icons/logo.svg";
 import SettingIcon from "/public/icons/setting_large.svg";
 import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
 import CloseIcon from "/public/icons/close.svg";
+import GoToHomeDrawer from "./GoToHomeDrawer";
 
 // 정적 title 관리
 const pageTitles: { [key: string]: string } = {
@@ -44,6 +45,8 @@ const Header = () => {
   const dynamicTitle = useDynamicTitle(); // 타이틀 동적 업데이트
 
   const [isStepThree, setIsStepThree] = useState(false);
+  const [showGoToHomeDrawer, setShowGoToHomeDrawer] = useState(false);
+
   const { setIsBoxEditing } = useEditBoxStore();
 
   const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
@@ -184,15 +187,24 @@ const Header = () => {
 
     const handleBack = () => {
       if (isGiftUploadPage) setIsBoxEditing(false);
-      if (
-        giftBagId &&
-        pathname === "/giftbag/add" &&
-        !isClickedUpdateFilledButton
-      ) {
-        router.push("/home");
-      } else {
-        router.back();
+      if (pathname === "/giftbag/add") {
+        if (giftBagId) {
+          if (!isClickedUpdateFilledButton) {
+            router.push("/home");
+          } else {
+            router.back();
+          }
+        } else {
+          const hasFilledBox = giftBoxes.some((box) => box?.filled);
+          if (hasFilledBox) {
+            setShowGoToHomeDrawer(true);
+          } else {
+            router.push("/home");
+          }
+        }
+        return;
       }
+      router.back();
     };
 
     return (
@@ -241,13 +253,23 @@ const Header = () => {
   };
 
   return (
-    <div
-      className={`${isGiftbagAddPage ? "bg-pink-50" : "bg-white"} h-[56px] flex justify-between items-center px-4 sticky top-0 z-10`}
-    >
-      <BackButton />
-      <Title />
-      <RightButton />
-    </div>
+    <>
+      <div
+        className={`${isGiftbagAddPage ? "bg-pink-50" : "bg-white"} h-[56px] flex justify-between items-center px-4 sticky top-0 z-10`}
+      >
+        <BackButton />
+        <Title />
+        <RightButton />
+      </div>
+      <GoToHomeDrawer
+        open={showGoToHomeDrawer}
+        onClose={() => setShowGoToHomeDrawer(false)}
+        onConfirm={() => {
+          setShowGoToHomeDrawer(false);
+          router.push("/home");
+        }}
+      />
+    </>
   );
 };
 
