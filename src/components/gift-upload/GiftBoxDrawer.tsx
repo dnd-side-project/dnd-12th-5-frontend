@@ -34,7 +34,7 @@ const GiftBoxDrawer = ({
     <DrawerContent>
       <DrawerHeader>
         <>
-          <DrawerTitle className="relative text-base font-medium text-center">
+          <DrawerTitle className="relative text-base font-medium text-center mt-3">
             채워진 선물 정보
             <DrawerClose className="absolute top-0 right-4">
               <Icon src={CloseIcon} alt="close" size="large" />
