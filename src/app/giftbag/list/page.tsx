@@ -131,7 +131,7 @@ const Page = () => {
 
           {isDrawerOpen && (
             <DrawerContent>
-              <DrawerHeader className="relative flex justify-center py-3">
+              <DrawerHeader className="relative flex justify-center py-3 mt-3">
                 <DrawerTitle>
                   {selectedGiftBagInfo ? selectedGiftBagInfo.name : ""}
                 </DrawerTitle>

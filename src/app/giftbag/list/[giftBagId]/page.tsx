@@ -214,7 +214,7 @@ const Page = () => {
 
               {isDrawerOpen && (
                 <DrawerContent>
-                  <DrawerHeader className="relative flex justify-center py-3">
+                  <DrawerHeader className="relative flex justify-center py-3 mt-3">
                     <DrawerTitle>보따리 삭제</DrawerTitle>
                     <DrawerClose className="absolute top-2 right-[14px]">
                       <Icon src={CloseIcon} alt="close" size="large" />
