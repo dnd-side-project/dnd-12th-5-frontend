@@ -111,7 +111,7 @@ const GiftForm = () => {
       });
     }
 
-    router.push("/giftbag/add");
+    router.push("/bundle/add");
     setIsBoxEditing(false);
   };
 

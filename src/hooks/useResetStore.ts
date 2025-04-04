@@ -1,23 +1,23 @@
 import { useEffect } from "react";
 import {
   useSelectedBagStore,
-  useGiftBagStore,
+  useBundleStore,
   useIsClickedUpdateFilledButton,
-} from "@/stores/giftbag/useStore";
+} from "@/stores/bundle/useStore";
 import { resetGiftBoxes } from "@/utils/utils";
 
 const useResetStore = () => {
   const { setSelectedBagIndex } = useSelectedBagStore();
-  const { setGiftBagName } = useGiftBagStore();
+  const { setBundleName } = useBundleStore();
   const { setIsClickedUpdateFilledButton } = useIsClickedUpdateFilledButton();
 
   useEffect(() => {
     resetGiftBoxes();
     setSelectedBagIndex(0);
-    setGiftBagName("");
-    sessionStorage.removeItem("giftBagId");
+    setBundleName("");
+    sessionStorage.removeItem("bundleId");
     setIsClickedUpdateFilledButton(false);
-  }, [setSelectedBagIndex, setGiftBagName, setIsClickedUpdateFilledButton]);
+  }, [setSelectedBagIndex, setBundleName, setIsClickedUpdateFilledButton]);
 };
 
 export default useResetStore;

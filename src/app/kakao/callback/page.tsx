@@ -7,15 +7,17 @@ import { useMutation } from "@tanstack/react-query";
 import Loading from "@/components/common/Loading";
 import { toast } from "@/hooks/use-toast";
 import { setToken } from "@/utils/utils";
+import { PICKTORY_API } from "@/api/api-url";
 
 const Page = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const code = searchParams?.get("code");
 
+  /** 카카오 로그인 api */
   const { mutate } = useMutation({
     mutationFn: async (code: string) => {
-      const response = await fetch("/api/v1/oauth/login", {
+      const response = await fetch(PICKTORY_API.login, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

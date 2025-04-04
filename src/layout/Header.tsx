@@ -5,16 +5,16 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 import { useEditBoxStore, useGiftStore } from "@/stores/gift-upload/useStore";
 import {
-  useGiftBagStore,
+  useBundleStore,
   useIsClickedUpdateFilledButton,
   useIsOpenDetailGiftBoxStore,
   useSelectedBagStore,
-} from "@/stores/giftbag/useStore";
+} from "@/stores/bundle/useStore";
 
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/common/Icon";
-import { GiftBox } from "@/types/giftbag/types";
-import { createGiftBag, updateGiftBag } from "@/api/giftbag/api";
+import { GiftBox } from "@/types/bundle/types";
+import { createBundle, updateBundle } from "@/api/bundle/api";
 import { toast } from "@/hooks/use-toast";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
 
@@ -26,10 +26,10 @@ import GoToHomeDrawer from "./GoToHomeDrawer";
 
 // 정적 title 관리
 const pageTitles: { [key: string]: string } = {
-  "/giftbag/detail": "내가 만든 보따리",
-  "/giftbag/list": "내가 만든 보따리",
-  "/giftbag/delivery": "선물 보따리 배달하기",
-  "/giftbag": "선물 보따리 만들기",
+  "/bundle/detail": "내가 만든 보따리",
+  "/bundle/list": "내가 만든 보따리",
+  "/bundle/delivery": "선물 보따리 배달하기",
+  "/bundle": "선물 보따리 만들기",
   "/gift-upload": "선물 박스 채우기",
   "/setting/account": "연결된 계정",
   "/setting/notice": "공지사항",
@@ -57,11 +57,11 @@ const Header = () => {
   const isNotFoundPage = !Object.keys(pageTitles).some((key) =>
     pathname?.startsWith(key),
   );
-  const isGiftbagDeliveryPage = pathname === "/giftbag/delivery";
+  const isBundleDeliveryPage = pathname === "/bundle/delivery";
   const isGiftUploadPage = pathname === "/gift-upload";
-  const isGiftbagAddPage = pathname === "/giftbag/add";
+  const isBundleAddPage = pathname === "/bundle/add";
 
-  const { giftBagName } = useGiftBagStore();
+  const { bundleName } = useBundleStore();
 
   const bgColor = isAuthPage ? "bg-pink-50" : "bg-white";
 
@@ -73,12 +73,12 @@ const Header = () => {
     setIsStepThree(false);
   }, [pathname]);
 
-  const isGiftbagDetailStepTwo =
-    pathname?.startsWith("/giftbag/") && searchParams?.get("step") === "2";
+  const isBundleDetailStepTwo =
+    pathname?.startsWith("/bundle/") && searchParams?.get("step") === "2";
 
-  // 상대방이 받아보는 페이지 (giftbag/[id])
-  const isReceiveGiftbagPage =
-    pathname?.startsWith("/giftbag/") &&
+  // 상대방이 받아보는 페이지 (bundle/[id])
+  const isReceiveBundlePage =
+    pathname?.startsWith("/bundle/") &&
     !pathname.includes("list") &&
     !pathname.includes("detail") &&
     !pathname.includes("add") &&
@@ -93,7 +93,7 @@ const Header = () => {
   const { selectedBagIndex } = useSelectedBagStore();
   const [showTempSave, setShowTempSave] = useState(false);
 
-  const giftBagId = sessionStorage.getItem("giftBagId");
+  const bundleId = sessionStorage.getItem("bundleId");
   const { isClickedUpdateFilledButton } = useIsClickedUpdateFilledButton();
 
   useEffect(() => {
@@ -103,20 +103,20 @@ const Header = () => {
 
   const handleTempSave = async () => {
     try {
-      const giftBagId = sessionStorage.getItem("giftBagId");
+      const bundleId = sessionStorage.getItem("bundleId");
 
-      if (!giftBagId) {
-        const res = await createGiftBag({
-          giftBagName,
+      if (!bundleId) {
+        const res = await createBundle({
+          bundleName,
           selectedBagIndex,
           giftBoxes,
         });
 
         if (res?.id) {
-          sessionStorage.setItem("giftBagId", res.id);
+          sessionStorage.setItem("bundleId", res.id);
         }
       } else {
-        const res = await updateGiftBag(giftBoxes);
+        const res = await updateBundle(giftBoxes);
 
         if (res?.result?.gifts) {
           res.result.gifts.forEach((gift: GiftBox, index: number) => {
@@ -137,7 +137,7 @@ const Header = () => {
     }
   };
 
-  if (isGiftbagDetailStepTwo && isOpenDetailGiftBox) {
+  if (isBundleDetailStepTwo && isOpenDetailGiftBox) {
     return (
       <div className="h-[56px] bg-pink-50 flex items-center justify-end px-4 sticky top-0 z-10">
         <button onClick={() => setIsOpenDetailGiftBox(false)}>
@@ -147,7 +147,7 @@ const Header = () => {
     );
   }
 
-  if (isReceiveGiftbagPage) {
+  if (isReceiveBundlePage) {
     return (
       <div
         className={`h-[56px] flex items-center justify-center ${step === "2" ? "bg-pink-50" : "bg-white"}`}
@@ -183,12 +183,12 @@ const Header = () => {
   }
 
   const BackButton = () => {
-    if (isStepThree && isGiftbagDeliveryPage) return null;
+    if (isStepThree && isBundleDeliveryPage) return null;
 
     const handleBack = () => {
       if (isGiftUploadPage) setIsBoxEditing(false);
-      if (pathname === "/giftbag/add") {
-        if (giftBagId) {
+      if (pathname === "/bundle/add") {
+        if (bundleId) {
           if (!isClickedUpdateFilledButton) {
             router.push("/home");
           } else {
@@ -225,7 +225,7 @@ const Header = () => {
   );
 
   const RightButton = () => {
-    if (showTempSave && isGiftbagAddPage) {
+    if (showTempSave && isBundleAddPage) {
       return (
         <Button
           variant="ghost"
@@ -237,7 +237,7 @@ const Header = () => {
       );
     }
 
-    if (isGiftbagDeliveryPage && isStepThree) {
+    if (isBundleDeliveryPage && isStepThree) {
       return (
         <Button
           onClick={() => router.push("/home")}
@@ -255,7 +255,7 @@ const Header = () => {
   return (
     <>
       <div
-        className={`${isGiftbagAddPage ? "bg-pink-50" : "bg-white"} h-[56px] flex justify-between items-center px-4 sticky top-0 z-10`}
+        className={`${isBundleAddPage ? "bg-pink-50" : "bg-white"} h-[56px] flex justify-between items-center px-4 sticky top-0 z-10`}
       >
         <BackButton />
         <Title />

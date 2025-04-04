@@ -3,9 +3,9 @@ import { ImageItem } from "../gift-upload/types";
 import {
   FilledGiftListPreview,
   GiftBox,
-  MyGiftBagPreview,
+  MyBundlePreview,
   ReceiveGiftBox,
-} from "../giftbag/types";
+} from "../bundle/types";
 
 /** common */
 export interface CardProps {
@@ -105,8 +105,8 @@ export interface UploadImageListProps {
   maxImages?: number;
 }
 
-/** giftbag */
-export interface GiftBagChipProps {
+/** bundle */
+export interface BundleChipProps {
   text: string;
   width: string;
 }
@@ -116,7 +116,7 @@ export interface DetailGiftBoxProps {
   mappedAnswers: Record<number, number>;
 }
 
-export interface GiftBagListProps {
+export interface BundleListProps {
   numberOfCards: number;
   size: "small" | "medium";
   imgPaths: string[];
@@ -127,14 +127,14 @@ export interface ReciveGiftListProps {
   onClick: () => void;
 }
 
-/** myGiftBag */
+/** myBundle */
 export interface MyCardListProps {
   type?: "design" | "image";
-  data: MyGiftBagPreview[] | FilledGiftListPreview[];
+  data: MyBundlePreview[] | FilledGiftListPreview[];
   size: "small" | "medium";
 }
 
-export interface MyGiftBagCardProps {
+export interface MyBundleCardProps {
   isEdit: boolean;
   design_type: string;
   is_read: boolean;
