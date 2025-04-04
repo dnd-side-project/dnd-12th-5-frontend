@@ -33,19 +33,19 @@ export const GIFT_ANSWER_CHIP_TEXTES = [
 export const BUNDLE_COLORS = ["RED", "PINK", "BLUE", "YELLOW", "GREEN"];
 
 export const DESIGN_TYPE_MAP: Record<string, string> = {
-  GREEN: "/img/giftBag_green.svg",
-  RED: "/img/giftBag_red.svg",
-  BLUE: "/img/giftBag_blue.svg",
-  PINK: "/img/giftBag_pink.svg",
-  YELLOW: "/img/giftBag_yellow.svg",
+  GREEN: "/img/bundle_green.svg",
+  RED: "/img/bundle_red.svg",
+  BLUE: "/img/bundle_blue.svg",
+  PINK: "/img/bundle_pink.svg",
+  YELLOW: "/img/bundle_yellow.svg",
 };
 
 export const BUNDLE_IMAGE_PATHS = [
-  "/img/giftBag_red.svg",
-  "/img/giftBag_pink.svg",
-  "/img/giftBag_blue.svg",
-  "/img/giftBag_yellow.svg",
-  "/img/giftBag_green.svg",
+  "/img/bundle_red.svg",
+  "/img/bundle_pink.svg",
+  "/img/bundle_blue.svg",
+  "/img/bundle_yellow.svg",
+  "/img/bundle_green.svg",
 ];
 
 export const RESPONSE_TAGS = [
