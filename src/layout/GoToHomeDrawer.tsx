@@ -29,8 +29,8 @@ const GoToHomeDrawer = ({ open, onClose, onConfirm }: Props) => {
               <Icon src={CloseIcon} alt="close" size="large" />
             </DrawerClose>
           </DrawerTitle>
-          <p className="text-sm text-gray-500 mt-1">
-            지금까지 채운 내용이 모두 사라져요. 그래도 홈으로 이동할까요?
+          <p className="text-sm text-gray-500 text-center">
+            지금까지 채운 내용이 모두 사라져요. <br /> 그래도 홈으로 이동할까요?
           </p>
         </DrawerHeader>
         <DrawerFooter className="flex flex-row gap-2 mt-2">
