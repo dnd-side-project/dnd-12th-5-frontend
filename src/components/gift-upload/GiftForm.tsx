@@ -117,7 +117,7 @@ const GiftForm = () => {
 
   return (
     <div className="px-4 flex flex-col">
-      <div className="flex flex-col gap-[50px] mt-[18px] pb-[7px]">
+      <div className="flex flex-col gap-8 mt-[18px] pb-[7px]">
         <div className="flex flex-col gap-[22px]">
           <div
             className="w-full overflow-x-auto min-w-full flex flex-col gap-2"
@@ -128,6 +128,13 @@ const GiftForm = () => {
               setCombinedImages={setCombinedImages}
               maxImages={5}
             />
+            {combinedImages.length <= 0 ? (
+              <p className="text-xs text-coral-400 font-medium">
+                * 사진은 1장 이상 첨부해 주세요.
+              </p>
+            ) : (
+              <div className="h-4" />
+            )}
           </div>
           <div className="flex flex-col gap-2">
             <CharacterCountInput
