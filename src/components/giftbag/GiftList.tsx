@@ -16,6 +16,7 @@ import {
   GIFTBOX_FILLED_IMAGES,
   GIFTBOX_SHAPE_SEQUENCE,
 } from "@/constants/constants";
+import DeleteGiftBoxDrawer from "../gift-upload/DeleteGiftBoxDrawer";
 
 const GiftList = ({ value }: { value: GiftBox[] }) => {
   const router = useRouter();
@@ -27,6 +28,8 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
   const filledGiftCount = giftBoxes.filter(
     (gift) => gift && gift.filled === true,
   ).length;
+
+  const [deleteBox, setDeleteBox] = useState(false);
 
   const emptyGiftBox = () => {
     if (selectedIndex !== null) {
@@ -42,6 +45,7 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
     }
     setSelectedBox(null);
     setSelectedIndex(null);
+    setDeleteBox(false);
   };
 
   const [showTooltip, setShowTooltip] = useState(false);
@@ -78,7 +82,12 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                   : GIFTBOX_DEFAULT_IMAGES[1];
 
             return (
-              <Drawer key={index}>
+              <Drawer
+                key={index}
+                onOpenChange={(open) => {
+                  if (!open) setDeleteBox(false);
+                }}
+              >
                 {box?.filled && box.filled ? (
                   <>
                     <DrawerTrigger
@@ -97,11 +106,18 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                         />
                       </div>
                     </DrawerTrigger>
-                    <GiftBoxDrawer
-                      handleEmptyButton={emptyGiftBox}
-                      box={selectedBox}
-                      index={selectedIndex}
-                    />
+                    {deleteBox ? (
+                      <DeleteGiftBoxDrawer
+                        handleDeleteButton={emptyGiftBox}
+                        setClickedDeleteBoxButton={setDeleteBox}
+                      />
+                    ) : (
+                      <GiftBoxDrawer
+                        box={selectedBox}
+                        index={selectedIndex}
+                        setClickedDeleteBoxButton={setDeleteBox}
+                      />
+                    )}
                   </>
                 ) : (
                   <div

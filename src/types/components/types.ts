@@ -66,7 +66,7 @@ export interface CustomTextAreaProps {
 }
 
 export interface GiftBoxDrawerProps {
-  handleEmptyButton: () => void;
+  setClickedDeleteBoxButton: (arg: boolean) => void;
   box: GiftBox | null;
   index: number | null;
 }
