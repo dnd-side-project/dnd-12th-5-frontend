@@ -115,42 +115,41 @@ const GiftForm = () => {
   };
 
   return (
-    <div className="h-[calc(100%-52px)] relative w-full px-4 flex flex-col gap-[22px] pt-[18px]">
-      <UploadImageList
-        combinedImages={combinedImages}
-        setCombinedImages={setCombinedImages}
-        maxImages={5}
-      />
-      {combinedImages.length <= 0 ? (
-        <p className="text-xs text-coral-400 font-medium">
-          * 사진은 1장 이상 첨부해 주세요.
-        </p>
-      ) : (
-        <div className="h-4" />
-      )}
-      <div className="flex flex-col gap-[50px]">
-        <CharacterCountInput
-          maxLength={GIFT_NAME_MAX_LENGTH}
-          value={giftName}
-          placeholder="선물명을 적어주세요"
-          onChange={(text) => setGiftName(text)}
+    <div className="h-fit w-full px-4 flex flex-col py-5">
+      <div className="flex-1 flex flex-col gap-[22px]">
+        <UploadImageList
+          combinedImages={combinedImages}
+          setCombinedImages={setCombinedImages}
+          maxImages={5}
         />
-        <InputReason
-          value={giftReason}
-          onReasonChange={setGiftReason}
-          onTagChange={setGiftTag}
-          giftBoxIndex={index}
-        />
-        <InputLink value={giftLink} onChange={setGiftLink} />
+        {combinedImages.length <= 0 ? (
+          <p className="text-xs text-coral-400 font-medium">
+            * 사진은 1장 이상 첨부해 주세요.
+          </p>
+        ) : (
+          <div className="h-4" />
+        )}
+        <div className="flex flex-col gap-[50px]">
+          <CharacterCountInput
+            maxLength={GIFT_NAME_MAX_LENGTH}
+            value={giftName}
+            placeholder="선물명을 적어주세요"
+            onChange={(text) => setGiftName(text)}
+          />
+          <InputReason
+            value={giftReason}
+            onReasonChange={setGiftReason}
+            onTagChange={setGiftTag}
+            giftBoxIndex={index}
+          />
+          <InputLink value={giftLink} onChange={setGiftLink} />
+        </div>
       </div>
-      <Button
-        size="lg"
-        onClick={handleSubmit}
-        disabled={!isFormValid}
-        className="mb-4 mt-[30px]"
-      >
-        {isBoxEditing ? "수정 완료" : "채우기 완료"}
-      </Button>
+      <div className="mt-10">
+        <Button size="lg" onClick={handleSubmit} disabled={!isFormValid}>
+          {isBoxEditing ? "수정 완료" : "채우기 완료"}
+        </Button>
+      </div>
     </div>
   );
 };
