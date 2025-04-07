@@ -8,7 +8,7 @@ import {
 import CloseIcon from "/public/icons/close.svg";
 import { Icon } from "../common/Icon";
 
-const DeleteGiftBoxDrawer = ({
+const DeleteBundleDrawer = ({
   handleDeleteButton,
   setClickedDeleteBoxButton,
 }: {
@@ -50,4 +50,4 @@ const DeleteGiftBoxDrawer = ({
   );
 };
 
-export default DeleteGiftBoxDrawer;
+export default DeleteBundleDrawer;

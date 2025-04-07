@@ -14,13 +14,13 @@ import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 
 import { Icon } from "../common/Icon";
 import CloseIcon from "/public/icons/close.svg";
-import { GiftBoxDrawerProps } from "@/types/components/types";
+import { BundleDrawerProps } from "@/types/components/types";
 
-const GiftBoxDrawer = ({
+const BundleDrawer = ({
   box,
   index,
   setClickedDeleteBoxButton,
-}: GiftBoxDrawerProps) => {
+}: BundleDrawerProps) => {
   const { setIsBoxEditing } = useEditBoxStore();
 
   return (
@@ -92,4 +92,4 @@ const GiftBoxDrawer = ({
   );
 };
 
-export default GiftBoxDrawer;
+export default BundleDrawer;

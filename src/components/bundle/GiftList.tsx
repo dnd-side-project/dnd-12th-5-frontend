@@ -9,14 +9,14 @@ import {
 } from "@/components/ui/tooltip";
 import { GiftBox } from "@/types/bundle/types";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
-import GiftBoxDrawer from "../gift-upload/GiftBoxDrawer";
+import BundleDrawer from "../gift-upload/BundleDrawer";
 import { Drawer, DrawerTrigger } from "../ui/drawer";
 import {
   GIFTBOX_DEFAULT_IMAGES,
   GIFTBOX_FILLED_IMAGES,
   GIFTBOX_SHAPE_SEQUENCE,
 } from "@/constants/constants";
-import DeleteGiftBoxDrawer from "../gift-upload/DeleteGiftBoxDrawer";
+import DeleteBundleDrawer from "../gift-upload/DeleteBundleDrawer";
 
 const GiftList = ({ value }: { value: GiftBox[] }) => {
   const router = useRouter();
@@ -107,12 +107,12 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                       </div>
                     </DrawerTrigger>
                     {deleteBox ? (
-                      <DeleteGiftBoxDrawer
+                      <DeleteBundleDrawer
                         handleDeleteButton={emptyGiftBox}
                         setClickedDeleteBoxButton={setDeleteBox}
                       />
                     ) : (
-                      <GiftBoxDrawer
+                      <BundleDrawer
                         box={selectedBox}
                         index={selectedIndex}
                         setClickedDeleteBoxButton={setDeleteBox}
