@@ -65,8 +65,8 @@ export interface CustomTextAreaProps {
   disable: boolean;
 }
 
-export interface GiftBoxDrawerProps {
-  handleEmptyButton: () => void;
+export interface BundleDrawerProps {
+  setClickedDeleteBoxButton: (arg: boolean) => void;
   box: GiftBox | null;
   index: number | null;
 }

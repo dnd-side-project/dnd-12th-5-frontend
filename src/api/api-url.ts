@@ -16,7 +16,7 @@ export const PICKTORY_API = {
     `${API_BASE_PATH}/bundles/${bundleId}`,
   putBundleDelivery: (id: number) => `${API_BASE_PATH}/bundles/${id}/delivery`,
   postGiftImageUpload: `${API_BASE_PATH}/gifts/images/upload`,
-  openBundle: (link: string) => `${API_BASE_PATH}/response/bundles/${link}`,
+  openBundle: (link: string) => `${API_BASE_PATH}/responses/bundles/${link}`,
   postBundleAnswer: (link: string) =>
-    `${API_BASE_PATH}/response/bundles/${link}/answers`,
+    `${API_BASE_PATH}/responses/bundles/${link}/answers`,
 };

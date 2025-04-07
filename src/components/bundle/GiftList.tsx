@@ -9,13 +9,14 @@ import {
 } from "@/components/ui/tooltip";
 import { GiftBox } from "@/types/bundle/types";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
-import GiftBoxDrawer from "../gift-upload/GiftBoxDrawer";
+import BundleDrawer from "../gift-upload/BundleDrawer";
 import { Drawer, DrawerTrigger } from "../ui/drawer";
 import {
   GIFTBOX_DEFAULT_IMAGES,
   GIFTBOX_FILLED_IMAGES,
   GIFTBOX_SHAPE_SEQUENCE,
 } from "@/constants/constants";
+import DeleteBundleDrawer from "../gift-upload/DeleteBundleDrawer";
 
 const GiftList = ({ value }: { value: GiftBox[] }) => {
   const router = useRouter();
@@ -27,6 +28,8 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
   const filledGiftCount = giftBoxes.filter(
     (gift) => gift && gift.filled === true,
   ).length;
+
+  const [deleteBox, setDeleteBox] = useState(false);
 
   const emptyGiftBox = () => {
     if (selectedIndex !== null) {
@@ -42,6 +45,7 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
     }
     setSelectedBox(null);
     setSelectedIndex(null);
+    setDeleteBox(false);
   };
 
   const [showTooltip, setShowTooltip] = useState(false);
@@ -78,7 +82,12 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                   : GIFTBOX_DEFAULT_IMAGES[1];
 
             return (
-              <Drawer key={index}>
+              <Drawer
+                key={index}
+                onOpenChange={(open) => {
+                  if (!open) setDeleteBox(false);
+                }}
+              >
                 {box?.filled && box.filled ? (
                   <>
                     <DrawerTrigger
@@ -97,11 +106,18 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                         />
                       </div>
                     </DrawerTrigger>
-                    <GiftBoxDrawer
-                      handleEmptyButton={emptyGiftBox}
-                      box={selectedBox}
-                      index={selectedIndex}
-                    />
+                    {deleteBox ? (
+                      <DeleteBundleDrawer
+                        handleDeleteButton={emptyGiftBox}
+                        setClickedDeleteBoxButton={setDeleteBox}
+                      />
+                    ) : (
+                      <BundleDrawer
+                        box={selectedBox}
+                        index={selectedIndex}
+                        setClickedDeleteBoxButton={setDeleteBox}
+                      />
+                    )}
                   </>
                 ) : (
                   <div
