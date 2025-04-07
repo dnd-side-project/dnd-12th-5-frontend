@@ -1,16 +1,22 @@
+import { PICKTORY_API } from "@/api/api-url";
 import { useQuery } from "@tanstack/react-query";
 import { getCookie } from "cookies-next";
 
-const fetchGiftDetail = async (giftId: number, giftBagId: number) => {
+/** 보따리 개별 선물 조회 api */
+
+const fetchGiftDetail = async (giftId: number, bundleId: number) => {
   const accessToken = getCookie("accessToken");
 
-  const response = await fetch(`/api/v1/bundles/${giftBagId}/gifts/${giftId}`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      Accept: "application/json",
+  const response = await fetch(
+    PICKTORY_API.getBundleResultDetail(bundleId, giftId),
+    {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: "application/json",
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     throw new Error("데이터를 불러오는 데 실패했습니다.");
@@ -19,9 +25,9 @@ const fetchGiftDetail = async (giftId: number, giftBagId: number) => {
   return response.json();
 };
 
-export const useGiftDetail = (giftId: number, giftBagId: number) => {
+export const useGiftDetail = (giftId: number, bundleId: number) => {
   return useQuery({
     queryKey: ["giftDetail"],
-    queryFn: () => fetchGiftDetail(giftId, giftBagId),
+    queryFn: () => fetchGiftDetail(giftId, bundleId),
   });
 };
