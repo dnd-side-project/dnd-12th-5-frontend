@@ -1,6 +1,6 @@
 "use client";
 
-import { useGiftStore } from "@/stores/gift-upload/useStore";
+import { useEditBoxStore, useGiftStore } from "@/stores/gift-upload/useStore";
 import Chip from "@/components/bundle/Chip";
 import GiftList from "@/components/bundle/GiftList";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,7 @@ import { createBundle, updateBundle } from "@/api/bundle/api";
 import { useSelectedBagStore, useBundleStore } from "@/stores/bundle/useStore";
 import { useMutation } from "@tanstack/react-query";
 import { GiftBox } from "@/types/bundle/types";
+import { useEffect } from "react";
 
 const Page = () => {
   const { giftBoxes } = useGiftStore();
@@ -19,6 +20,11 @@ const Page = () => {
   const router = useRouter();
   const { selectedBagIndex } = useSelectedBagStore();
   const { bundleName } = useBundleStore();
+  const { setIsBoxEditing } = useEditBoxStore();
+
+  useEffect(() => {
+    setIsBoxEditing(false);
+  }, [setIsBoxEditing]);
 
   const createMutation = useMutation({
     mutationFn: () =>
