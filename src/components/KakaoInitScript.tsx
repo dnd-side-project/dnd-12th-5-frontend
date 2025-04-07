@@ -6,7 +6,7 @@ const KakaoInitScript = () => {
   return (
     <Script
       src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.5/kakao.min.js"
-      integrity="sha384-dok87au0gKqJdxs7msEdBPNnKSRT+/mhTVzq+qOhcL464zXwvcrpjeWvyj1kCdq6"
+      integrity={process.env.NEXT_PUBLIC_SDK_INTEGRITY}
       crossOrigin="anonymous"
       strategy="afterInteractive"
       onLoad={() => {
