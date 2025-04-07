@@ -25,7 +25,7 @@ const GiftForm = () => {
 
   const { giftBoxes, updateGiftBox } = useGiftStore();
   const { selectedTagIndex } = useTagIndexStore();
-  const { isBoxEditing, setIsBoxEditing } = useEditBoxStore();
+  const { isBoxEditing } = useEditBoxStore();
 
   const existingGift = useMemo(
     () =>
@@ -112,7 +112,6 @@ const GiftForm = () => {
     }
 
     router.push("/bundle/add");
-    setIsBoxEditing(false);
   };
 
   return (
