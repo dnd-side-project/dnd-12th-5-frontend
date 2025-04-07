@@ -7,6 +7,8 @@ import "./globals.css";
 
 import Header from "@/layout/Header";
 import { Toaster } from "@/components/ui/toaster";
+import KakaoInitScript from "@/components/KakaoInitScript";
+
 import PageTransition from "@/app/PageTransition";
 import { Providers } from "./providers";
 
@@ -66,6 +68,7 @@ export default function RootLayout({
             </PageTransition>
           </Suspense>
         </div>
+        <KakaoInitScript />
       </body>
     </html>
   );
