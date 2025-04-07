@@ -24,7 +24,7 @@ const Page = () => {
 
   useEffect(() => {
     setIsBoxEditing(false);
-  }, []);
+  }, [setIsBoxEditing]);
 
   const createMutation = useMutation({
     mutationFn: () =>
