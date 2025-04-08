@@ -25,7 +25,7 @@ const Step3 = () => {
   const handleCopyLink = () => {
     if (link !== null) {
       navigator.clipboard
-        .writeText(`https://www.picktory.net/bundle/${link}?step=1`)
+        .writeText(`${process.env.NEXT_PUBLIC_BASE_URL}/bundle/${link}?step=1`)
         .then(() => {
           toast({
             description: "링크를 복사하였습니다.",
@@ -38,6 +38,40 @@ const Step3 = () => {
             action: <ToastAction altText="Try again">다시 시도</ToastAction>,
           }),
         );
+    }
+  };
+
+  const shareKakao = () => {
+    const Kakao = window.Kakao;
+
+    try {
+      Kakao.Share.sendDefault({
+        objectType: "feed",
+        content: {
+          title: "Picktory",
+          description: "선물 보따리가 도착했어요. 🎁",
+          imageUrl: "https://i.imgur.com/4dHZTvt.png",
+          link: {
+            mobileWebUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/bundle/${link}?step=1`,
+            webUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/bundle/${link}?step=1`,
+          },
+        },
+        buttons: [
+          {
+            title: "서비스 이용하러 가기",
+            link: {
+              mobileWebUrl: process.env.NEXT_PUBLIC_BASE_URL,
+            },
+          },
+        ],
+      });
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        description: "카카오톡 공유에 실패하였습니다.",
+        action: <ToastAction altText="Try again">다시 시도</ToastAction>,
+      });
     }
   };
 
@@ -74,7 +108,10 @@ const Step3 = () => {
 
       {/* Button Section */}
       <section className="flex gap-3">
-        <button className="flex flex-col items-center gap-1">
+        <button
+          className="flex flex-col items-center gap-1"
+          onClick={shareKakao}
+        >
           <Icon src={KakaoShareButtonIcon} alt="kakaoShare" />
           <p className="text-gray-600 text-xs">카카오톡</p>
         </button>

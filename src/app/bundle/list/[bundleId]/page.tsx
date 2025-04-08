@@ -54,7 +54,7 @@ const Page = () => {
   const handleCopyLink = () => {
     if (link !== null) {
       navigator.clipboard
-        .writeText(`https://www.picktory.net/bundle/${link}?step=1`)
+        .writeText(`${process.env.NEXT_PUBLIC_BASE_URL}/bundle/${link}?step=1`)
         .then(() => {
           toast({
             description: "링크를 복사하였습니다.",
