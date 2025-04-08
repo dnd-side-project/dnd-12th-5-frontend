@@ -76,7 +76,7 @@ const Page = () => {
 
   if (giftId === null)
     return (
-      <div className="h-full w-full flex justify-center items-center">
+      <div className="flex h-full w-full items-center justify-center">
         <Loading />
       </div>
     );
@@ -92,7 +92,7 @@ const Page = () => {
       >
         <CarouselContent className="flex flex-nowrap">
           {combinedImages.map((url: string, index: Key | null | undefined) => (
-            <CarouselItem key={index} className="relative min-w-full h-[375px]">
+            <CarouselItem key={index} className="relative h-[375px] min-w-full">
               <Image
                 src={url || ""}
                 alt={`image_${index}`}
@@ -104,8 +104,8 @@ const Page = () => {
           ))}
         </CarouselContent>
 
-        <div className="absolute bottom-[12px] right-[12px] h-[23px] rounded-[40px] px-[10px] py-1 bg-white/70 text-center">
-          <p className="text-[10px] text-gray-600 tracking-[2px]">
+        <div className="absolute bottom-[12px] right-[12px] h-[23px] rounded-[40px] bg-white/70 px-[10px] py-1 text-center">
+          <p className="text-[10px] tracking-[2px] text-gray-600">
             {currentImageIndexes[parseInt(giftId)] !== undefined
               ? currentImageIndexes[parseInt(giftId)] + 1
               : 0}
@@ -114,7 +114,7 @@ const Page = () => {
         </div>
       </Carousel>
 
-      <div className="flex flex-col gap-4 my-[18px] px-4">
+      <div className="my-[18px] flex flex-col gap-4 px-4">
         <div className="flex flex-col gap-[2px]">
           <p className="text-xs text-gray-600">선물을 고른 이유</p>
           <p className={`text-[15px] ${!hasMessage ? "text-gray-300" : ""}`}>

@@ -13,23 +13,23 @@ const ImageCard = ({
   return (
     <div className="relative">
       <button
-        className="absolute top-[-8px] right-[-8px] z-10"
+        className="absolute right-[-8px] top-[-8px] z-10"
         onClick={onDelete}
       >
         <Icon src={EraseIcon} alt="delete" size="large" />
       </button>
-      <div className="relative rounded-[10px] h-[88px] w-[88px] bg-gray-50 border-[1.4px] border-gray-100 overflow-hidden">
+      <div className="relative h-[88px] w-[88px] overflow-hidden rounded-[10px] border-[1.4px] border-gray-100 bg-gray-50">
         <Image
           src={src}
           alt="Uploaded"
           width={88}
           height={88}
-          className="w-full h-full object-cover"
+          className="h-full w-full object-cover"
           priority
           {...dragHandleProps}
         />
         {isPrimary && (
-          <div className="absolute bottom-0 w-[88px] bg-[#0F0F10] opacity-70 text-gray-300 text-xs pt-0.5 text-center rounded-bl-[10px] rounded-br-[10px] h-5">
+          <div className="absolute bottom-0 h-5 w-[88px] rounded-bl-[10px] rounded-br-[10px] bg-[#0F0F10] pt-0.5 text-center text-xs text-gray-300 opacity-70">
             <p className="text-[10px]">대표 사진</p>
           </div>
         )}

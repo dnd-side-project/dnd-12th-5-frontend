@@ -139,7 +139,7 @@ const Header = () => {
 
   if (isBundleDetailStepTwo && isOpenDetailGiftBox) {
     return (
-      <div className="h-[56px] bg-pink-50 flex items-center justify-end px-4 sticky top-0 z-10">
+      <div className="sticky top-0 z-10 flex h-[56px] items-center justify-end bg-pink-50 px-4">
         <button onClick={() => setIsOpenDetailGiftBox(false)}>
           <Icon src={CloseIcon} alt="close" size="large" />
         </button>
@@ -150,7 +150,7 @@ const Header = () => {
   if (isReceiveBundlePage) {
     return (
       <div
-        className={`h-[56px] flex items-center justify-center ${step === "2" ? "bg-pink-50" : "bg-white"}`}
+        className={`flex h-[56px] items-center justify-center ${step === "2" ? "bg-pink-50" : "bg-white"}`}
       >
         <Icon src={LogoIcon} alt="logo" />
       </div>
@@ -160,8 +160,8 @@ const Header = () => {
   // 메인 페이지: 로고 + 설정 아이콘
   if (isHomePage) {
     return (
-      <div className="h-[56px] flex bg-white">
-        <div className="flex items-center justify-between px-4 w-full">
+      <div className="flex h-[56px] bg-white">
+        <div className="flex w-full items-center justify-between px-4">
           <button onClick={() => router.push("/")}>
             <Icon src={LogoIcon} alt="logo" />
           </button>
@@ -176,7 +176,7 @@ const Header = () => {
   // auth 페이지, 404 페이지: 로고만 중앙 정렬
   if (isAuthPage || isNotFoundPage) {
     return (
-      <div className={`${bgColor} h-[56px] flex items-center justify-center`}>
+      <div className={`${bgColor} flex h-[56px] items-center justify-center`}>
         <Icon src={LogoIcon} alt="logo" />
       </div>
     );
@@ -219,7 +219,7 @@ const Header = () => {
   };
 
   const Title = () => (
-    <h1 className="text-center text-lg font-medium w-[185px] overflow-hidden whitespace-nowrap text-ellipsis absolute left-1/2 -translate-x-1/2">
+    <h1 className="absolute left-1/2 w-[185px] -translate-x-1/2 overflow-hidden text-ellipsis whitespace-nowrap text-center text-lg font-medium">
       {dynamicTitle}
     </h1>
   );
@@ -230,7 +230,7 @@ const Header = () => {
         <Button
           variant="ghost"
           onClick={handleTempSave}
-          className="text-[15px] text-gray-200 flex justify-end"
+          className="flex justify-end text-[15px] text-gray-200"
         >
           임시 저장
         </Button>
@@ -255,7 +255,7 @@ const Header = () => {
   return (
     <>
       <div
-        className={`${isBundleAddPage ? "bg-pink-50" : "bg-white"} h-[56px] flex justify-between items-center px-4 sticky top-0 z-10`}
+        className={`${isBundleAddPage ? "bg-pink-50" : "bg-white"} sticky top-0 z-10 flex h-[56px] items-center justify-between px-4`}
       >
         <BackButton />
         <Title />

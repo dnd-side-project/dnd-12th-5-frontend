@@ -10,14 +10,14 @@ const BundleForm = () => {
   const { bundleName, setBundleName } = useBundleStore();
 
   return (
-    <div className="w-full flex flex-col items-center gap-[57px]">
+    <div className="flex w-full flex-col items-center gap-[57px]">
       <CharacterCountInput
         maxLength={BUNDLE_NAME_MAX_LENGTH}
         placeholder="픽토리의 생일 선물 보따리"
         value={bundleName}
         onChange={setBundleName}
       />
-      <Link href="/bundle/add" className="w-full px-4 absolute bottom-4">
+      <Link href="/bundle/add" className="absolute bottom-4 w-full px-4">
         <Button size="lg" disabled={bundleName.length === 0}>
           선물 채우러 가기
         </Button>

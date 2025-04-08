@@ -65,11 +65,11 @@ const Step2 = () => {
   return (
     <div className="h-full bg-[url('/img/background_union.svg')] bg-cover bg-center">
       {characterData && (
-        <div className="h-[calc(100%-52px)] w-full flex flex-col items-center justify-center gap-7">
-          <section className="flex flex-col items-center ">
-            <div className="flex flex-col items-center ">
-              <div className="mb-[3px] ">
-                <p className="font-nanum text-lg font-bold text-center tracking-[-0.03em]">
+        <div className="flex h-[calc(100%-52px)] w-full flex-col items-center justify-center gap-7">
+          <section className="flex flex-col items-center">
+            <div className="flex flex-col items-center">
+              <div className="mb-[3px]">
+                <p className="text-center font-nanum text-lg font-bold tracking-[-0.03em]">
                   {characterData.title.split("\n").map((line, index) => (
                     <p key={index}>
                       {line}
@@ -86,13 +86,13 @@ const Step2 = () => {
                 style={{ width: "200px", height: "200px" }}
                 className="mb-[26px] mt-[35px]"
               />
-              <div className="mb-[17px] px-[30px] py-[1px] bg-white rounded-[30px]">
-                <h1 className="text-gray-800 text-center text-lg font-bold font-nanum mt-1 tracking-[-3%]">
+              <div className="mb-[17px] rounded-[30px] bg-white px-[30px] py-[1px]">
+                <h1 className="mt-1 text-center font-nanum text-lg font-bold tracking-[-3%] text-gray-800">
                   {characterKo}
                 </h1>
               </div>
               <div>
-                <p className="text-[15px] text-gray-700 font-medium text-center">
+                <p className="text-center text-[15px] font-medium text-gray-700">
                   {characterData.description.split("\n").map((line, index) => (
                     <Fragment key={index}>
                       {line}
@@ -103,7 +103,7 @@ const Step2 = () => {
               </div>
             </div>
           </section>
-          <div className="w-full px-4 absolute bottom-4">
+          <div className="absolute bottom-4 w-full px-4">
             <Button onClick={handleClickButton} size="lg">
               선물 보따리 배달하기
             </Button>

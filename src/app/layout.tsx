@@ -52,7 +52,7 @@ export default function RootLayout({
       <body
         className={`${pretendard.variable} ${nanumSquareRound.variable} antialiased`}
       >
-        <div className="max-w-[430px] min-w-[375px] mx-auto flex flex-col relative">
+        <div className="relative mx-auto flex min-w-[375px] max-w-[430px] flex-col">
           <Suspense>
             <PageTransition>
               <Header />

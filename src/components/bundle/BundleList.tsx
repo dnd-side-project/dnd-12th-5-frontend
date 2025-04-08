@@ -12,7 +12,7 @@ const BundleList = ({ numberOfCards, size, imgPaths }: BundleListProps) => {
   };
 
   return (
-    <div className="flex gap-4 h-[70px] whitespace-nowrap">
+    <div className="flex h-[70px] gap-4 whitespace-nowrap">
       {Array.from({ length: numberOfCards }, (_, index) => (
         <Card
           key={index}

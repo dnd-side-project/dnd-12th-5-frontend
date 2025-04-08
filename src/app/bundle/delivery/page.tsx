@@ -11,7 +11,7 @@ const Page = () => {
   const step = searchParams ? searchParams.get("step") : null;
 
   return (
-    <div className="h-full relative">
+    <div className="relative h-full">
       {step === "1" && <Step1 />}
       {step === "2" && <Step2 />}
       {step === "3" && <Step3 />}

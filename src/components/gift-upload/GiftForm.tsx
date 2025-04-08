@@ -115,15 +115,15 @@ const GiftForm = () => {
   };
 
   return (
-    <div className="h-fit w-full px-4 flex flex-col py-5">
-      <div className="flex-1 flex flex-col gap-[22px]">
+    <div className="flex h-fit w-full flex-col px-4 py-5">
+      <div className="flex flex-1 flex-col gap-[22px]">
         <UploadImageList
           combinedImages={combinedImages}
           setCombinedImages={setCombinedImages}
           maxImages={5}
         />
         {combinedImages.length <= 0 ? (
-          <p className="text-xs text-coral-400 font-medium">
+          <p className="text-xs font-medium text-coral-400">
             * 사진은 1장 이상 첨부해 주세요.
           </p>
         ) : (

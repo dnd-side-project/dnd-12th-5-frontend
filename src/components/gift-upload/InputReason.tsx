@@ -72,15 +72,15 @@ const InputReason = ({
         이 선물을 고른 이유를 적어 함께 전달해볼까요?
       </p>
       <div
-        className="h-[208px] rounded-[10px] bg-gray-50 border-[1.4px] px-[14px] py-[15px] flex flex-col gap-3 cursor-pointer"
+        className="flex h-[208px] cursor-pointer flex-col gap-3 rounded-[10px] border-[1.4px] bg-gray-50 px-[14px] py-[15px]"
         onClick={() => setIsClicked(true)}
       >
         {!isClicked ? (
           <div className="m-auto">
-            <div className="flex justify-center items-center">
+            <div className="flex items-center justify-center">
               <Image src={GiftIcon} alt="giftIcon" width={48} height={48} />
             </div>
-            <p className="text-center text-sm text-gray-300 mt-2">
+            <p className="mt-2 text-center text-sm text-gray-300">
               클릭 후, 선물을 고른 이유를 적어주세요
               <br />
               선물박스에 쪽지가 추가됩니다.
@@ -89,7 +89,7 @@ const InputReason = ({
         ) : (
           <>
             <div
-              className="w-full overflow-x-auto flex items-center"
+              className="flex w-full items-center overflow-x-auto"
               style={{ scrollbarWidth: "none" }}
             >
               <div className="min-w-max">

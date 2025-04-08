@@ -95,11 +95,11 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
   };
 
   return (
-    <div className="relative bg-pink-50 overflow-hidden h-full">
+    <div className="relative h-full overflow-hidden bg-pink-50">
       {isOpenDetailGiftBox ? (
         <DetailGiftBox giftList={gifts} mappedAnswers={mappedAnswers} />
       ) : (
-        <div className="h-[calc(100%-113px)] flex flex-col justify-center items-center mt-[45px]">
+        <div className="mt-[45px] flex h-[calc(100%-113px)] flex-col items-center justify-center">
           <div className="absolute top-4">
             <Chip text={chipText} width="176px" />
           </div>

@@ -34,7 +34,7 @@ const MyBundleCard = ({
         alt="Bundle"
         width={89}
         height={94}
-        className="mt-[8px] mb-[14px]"
+        className="mb-[14px] mt-[8px]"
       />
     ),
     [imageSrc],
@@ -42,11 +42,11 @@ const MyBundleCard = ({
 
   return (
     <div
-      className={`bg-white border-[1px] box-border border-gray-200 px-2 pb-[22px] pt-[8px] rounded-[12px] cursor-pointer flex flex-col justify-center items-center relative ${
+      className={`relative box-border flex cursor-pointer flex-col items-center justify-center rounded-[12px] border-[1px] border-gray-200 bg-white px-2 pb-[22px] pt-[8px] ${
         !isEdit && "hover:bg-gray-100"
       }`}
     >
-      <div className="w-full flex flex-start">
+      <div className="flex-start flex w-full">
         <MyBundleStatusChip status={status} isRead={is_read} />
       </div>
       {isEdit && (
@@ -61,8 +61,8 @@ const MyBundleCard = ({
       )}
       {memoizedImage}
       <div>
-        <p className="text-[15px] font-medium text-center">{name}</p>
-        <p className="text-gray-400 text-xs font-medium text-center">
+        <p className="text-center text-[15px] font-medium">{name}</p>
+        <p className="text-center text-xs font-medium text-gray-400">
           {new Date(updatedAt).toISOString().split("T")[0]}
         </p>
       </div>

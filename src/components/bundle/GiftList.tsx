@@ -62,7 +62,7 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
   return (
     <>
       <TooltipProvider>
-        <div className="grid grid-cols-2 h-[396px] grid-rows-[repeat(6,_1fr)]">
+        <div className="grid h-[396px] grid-cols-2 grid-rows-[repeat(6,_1fr)]">
           {value.map((box, index) => {
             const hasReason = box?.reason && box?.reason.trim().length > 0;
 
@@ -96,11 +96,11 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                         setSelectedIndex(index);
                       }}
                     >
-                      <div className="w-[130px] h-[130px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out">
+                      <div className="flex h-[130px] w-[130px] cursor-pointer items-center justify-center transition-opacity duration-500 ease-in-out">
                         <Image
                           src={imageSrc}
                           alt={`gift-item-${index}`}
-                          className="w-full h-full object-contain hover:opacity-[75%]"
+                          className="h-full w-full object-contain hover:opacity-[75%]"
                           width="130"
                           height="130"
                         />
@@ -121,7 +121,7 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                   </>
                 ) : (
                   <div
-                    className="w-[130px] h-[130px] flex justify-center items-center cursor-pointer transition-opacity duration-500 ease-in-out"
+                    className="flex h-[130px] w-[130px] cursor-pointer items-center justify-center transition-opacity duration-500 ease-in-out"
                     onClick={() => {
                       router.push(`/gift-upload?index=${index}`);
                     }}
@@ -132,7 +132,7 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                           <Image
                             src={GIFTBOX_DEFAULT_IMAGES[index % 2]}
                             alt={`gift-item-${index}`}
-                            className="w-full h-full object-contain hover:opacity-[75%]"
+                            className="h-full w-full object-contain hover:opacity-[75%]"
                             width="130"
                             height="130"
                           />
@@ -140,7 +140,7 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                         <TooltipContent
                           side="bottom"
                           align="center"
-                          className="bg-white text-black font-nanum -mt-1 py-2 px-4 text-[13px] font-bold border-[1px] border-gray-800"
+                          className="-mt-1 border-[1px] border-gray-800 bg-white px-4 py-2 font-nanum text-[13px] font-bold text-black"
                         >
                           사진으로 간단하게 <br /> 선물박스를 채워볼까요?
                         </TooltipContent>
@@ -149,7 +149,7 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                       <Image
                         src={imageSrc}
                         alt={`gift-item-${index}`}
-                        className="w-full h-full object-contain hover:opacity-[75%]"
+                        className="h-full w-full object-contain hover:opacity-[75%]"
                         width="130"
                         height="130"
                       />

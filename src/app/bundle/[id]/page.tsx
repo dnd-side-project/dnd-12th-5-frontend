@@ -32,8 +32,8 @@ const Page = () => {
 
   if (isPending)
     return (
-      <div className="relative w-full h-full">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <div className="relative h-full w-full">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
           <Loading />
         </div>
       </div>
@@ -41,16 +41,16 @@ const Page = () => {
 
   if (isError || !bundle || isGiftResultDataError)
     return (
-      <div className="h-full flex flex-col items-center justify-center ">
+      <div className="flex h-full flex-col items-center justify-center">
         <h1 className="text-4xl font-bold text-gray-800">ERROR</h1>
-        <p className="text-lg text-gray-600 mt-2">
+        <p className="mt-2 text-lg text-gray-600">
           보따리를 불러오는 중에 오류가 발생했어요!
         </p>
       </div>
     );
 
   return (
-    <div className={`h-full relative ${step === "2" && "bg-pink-50"}`}>
+    <div className={`relative h-full ${step === "2" && "bg-pink-50"}`}>
       {step === "1" && (
         <Step1
           delivery={bundle.delivery_character_type}

@@ -64,14 +64,14 @@ const UploadImageList = ({
   return (
     <div className="flex gap-2 whitespace-nowrap">
       <label
-        className={`flex flex-shrink-0 flex-col items-center justify-center rounded-[10px] h-[88px] w-[88px] bg-gray-50 border-[1.4px] border-input ${
+        className={`flex h-[88px] w-[88px] flex-shrink-0 flex-col items-center justify-center rounded-[10px] border-[1.4px] border-input bg-gray-50 ${
           combinedImages.length >= maxImages
             ? "cursor-not-allowed"
             : "cursor-pointer"
         }`}
       >
         <Image src={ImageIcon} alt="image" width={14} height={14} />
-        <span className="text-[10px] text-gray-300 mt-1">
+        <span className="mt-1 text-[10px] text-gray-300">
           {combinedImages.length}/{maxImages}
         </span>
         <input

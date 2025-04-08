@@ -178,21 +178,21 @@ const Page = () => {
 
   return (
     <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-      <div className="h-[calc(100%-52px)] px-4 flex flex-col justify-center items-center">
+      <div className="flex h-[calc(100%-52px)] flex-col items-center justify-center px-4">
         {status === "DRAFT" ? (
-          <span className="py-[6px] px-[10px] rounded-[4px] bg-gray-100 text-[12px] font-medium">
+          <span className="rounded-[4px] bg-gray-100 px-[10px] py-[6px] text-[12px] font-medium">
             임시 저장 중
           </span>
         ) : status === "PUBLISHED" ? (
           <CopyLinkButton onClick={handleCopyLink} />
         ) : null}
 
-        <div className="flex flex-col justify-center items-center gap-[20px] mt-[26px] mb-[40px]">
+        <div className="mb-[40px] mt-[26px] flex flex-col items-center justify-center gap-[20px]">
           {bundleId && memoizedImage}
           {name && <MyBundleNameChip name={name} />}
         </div>
 
-        <div className="flex flex-col gap-[14px] w-full">
+        <div className="flex w-full flex-col gap-[14px]">
           <p className="text-[15px] font-medium">내가 담았던 선물</p>
           <div
             className="overflow-x-auto overflow-y-hidden"
@@ -214,14 +214,14 @@ const Page = () => {
 
               {isDrawerOpen && (
                 <DrawerContent>
-                  <DrawerHeader className="relative flex justify-center py-3 mt-3">
+                  <DrawerHeader className="relative mt-3 flex justify-center py-3">
                     <DrawerTitle>보따리 삭제</DrawerTitle>
-                    <DrawerClose className="absolute top-2 right-[14px]">
+                    <DrawerClose className="absolute right-[14px] top-2">
                       <Icon src={CloseIcon} alt="close" size="large" />
                     </DrawerClose>
                   </DrawerHeader>
 
-                  <div className="w-full flex flex-col justify-center items-center gap-[22px] mb-5 mt-[26px]">
+                  <div className="mb-5 mt-[26px] flex w-full flex-col items-center justify-center gap-[22px]">
                     <div>
                       <p className="text-[15px] font-medium">
                         선물 보따리를 정말 삭제할까요?
@@ -230,7 +230,7 @@ const Page = () => {
                         삭제된 보따리는 되돌릴 수 없어요.
                       </p>
                     </div>
-                    <div className="w-full flex gap-[5px] px-[18px]">
+                    <div className="flex w-full gap-[5px] px-[18px]">
                       <DrawerClose asChild>
                         <Button size="lg" variant={"secondary"}>
                           돌아가기

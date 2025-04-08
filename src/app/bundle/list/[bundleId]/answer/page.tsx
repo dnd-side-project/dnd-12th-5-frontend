@@ -30,17 +30,17 @@ const Page = () => {
 
   if (isPending)
     return (
-      <div className="relative w-full h-full">
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+      <div className="relative h-full w-full">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
           <Loading />
         </div>
       </div>
     );
   if (isError || !giftData)
     return (
-      <div className="h-full flex flex-col items-center justify-center ">
+      <div className="flex h-full flex-col items-center justify-center">
         <h1 className="text-4xl font-bold text-gray-800">ERROR</h1>
-        <p className="text-lg text-gray-600 mt-2">
+        <p className="mt-2 text-lg text-gray-600">
           보따리를 불러오는 중에 오류가 발생했어요!
         </p>
       </div>
@@ -58,14 +58,14 @@ const Page = () => {
   return (
     <div className="h-full overflow-hidden">
       <div
-        className="overflow-y-auto h-[calc(100%-26px)] px-4 pb-4 overflow-x-hidden"
+        className="h-[calc(100%-26px)] overflow-y-auto overflow-x-hidden px-4 pb-4"
         style={{ scrollbarWidth: "none" }}
       >
         {Object.entries(groupedGifts).map(([responseTag, gifts], idx) => (
           <div key={responseTag} className="flex flex-col gap-4">
             <div className="mt-1">
               {idx !== 0 && (
-                <hr className="border-gray-100 border-[1px] my-[26px]" />
+                <hr className="my-[26px] border-[1px] border-gray-100" />
               )}
               {idx === 0 && <div className="mt-[26px]" />}
               <AnswerChip text={GIFT_ANSWER_MAP[responseTag] || "기타"} />
@@ -73,10 +73,10 @@ const Page = () => {
             <div className="flex flex-col gap-[14px]">
               {gifts.map((gift, index) => (
                 <div
-                  className="flex items-center h-[70px] justify-between relative"
+                  className="relative flex h-[70px] items-center justify-between"
                   key={index}
                 >
-                  <div className="flex gap-3 w-full">
+                  <div className="flex w-full gap-3">
                     <Card
                       img={gift.thumbnail}
                       size="small"
@@ -85,8 +85,8 @@ const Page = () => {
                       noActiveStyle={true}
                       noCursorPointerStyle={true}
                     />
-                    <div className="flex justify-center flex-col items-start">
-                      <div className="text-[15px] font-medium max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap">
+                    <div className="flex flex-col items-start justify-center">
+                      <div className="max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap text-[15px] font-medium">
                         {gift.name}
                       </div>
                       {gift.purchaseUrl ? (
@@ -117,7 +117,7 @@ const Page = () => {
                   </div>
                   <Button
                     variant="ghost"
-                    className="absolute left-44 top-1/2 transform -translate-y-1/2 hover:opacity-70"
+                    className="absolute left-44 top-1/2 -translate-y-1/2 transform hover:opacity-70"
                     onClick={() =>
                       router.push(`/bundle/list/${bundleId}/${gift.id}`)
                     }

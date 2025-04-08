@@ -27,14 +27,14 @@ const Step1 = ({ delivery, color, isCompleted }: Step1Props) => {
   };
 
   return (
-    <div className="relative w-full overflow-hidden h-full">
+    <div className="relative h-full w-full overflow-hidden">
       <div
-        className="absolute top-0 left-0 w-full h-full bg-cover bg-center mt-[56px]"
+        className="absolute left-0 top-0 mt-[56px] h-full w-full bg-cover bg-center"
         style={{ backgroundImage: "url('/img/background_union.svg')" }}
       />
-      <div className="h-full flex flex-col gap-[90px] justify-center items-center relative">
-        <div className="flex flex-col justify-center items-center gap-8">
-          <p className="text-lg font-bold font-nanum text-center tracking-[-0.03em]">
+      <div className="relative flex h-full flex-col items-center justify-center gap-[90px]">
+        <div className="flex flex-col items-center justify-center gap-8">
+          <p className="text-center font-nanum text-lg font-bold tracking-[-0.03em]">
             {isCompleted ? (
               <>
                 답변이 완료된 보따리에요. <br /> 어떤 선물을 받게될지
@@ -49,7 +49,7 @@ const Step1 = ({ delivery, color, isCompleted }: Step1Props) => {
               ))
             )}
           </p>
-          <div className="flex justify-center items-center">
+          <div className="flex items-center justify-center">
             <Image
               src={imageSrc}
               alt={`${characterKo} delivery`}
@@ -58,14 +58,14 @@ const Step1 = ({ delivery, color, isCompleted }: Step1Props) => {
             />
           </div>
           {!isCompleted && (
-            <p className="text-center text-sm tracking-[-2%] font-nanum text-gray-700 pt-[2px]">
+            <p className="pt-[2px] text-center font-nanum text-sm tracking-[-2%] text-gray-700">
               정성껏 고른 선물 후보들이 담긴 보따리예요. <br /> 마음에 드는
               선물을 배달부에게 살짝 알려주세요!
             </p>
           )}
         </div>
         {!isCompleted && (
-          <div className="absolute bottom-4 px-4 w-full">
+          <div className="absolute bottom-4 w-full px-4">
             <Button size="lg" onClick={handleOnClick}>
               선물 보따리 풀어보기
             </Button>

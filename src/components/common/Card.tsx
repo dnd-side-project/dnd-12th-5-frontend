@@ -34,7 +34,7 @@ const Card = ({
 
   return (
     <div
-      className={`relative flex justify-center border-[1.4px] items-center ${borderColorClasses} ${sizeClasses} rounded-xl box-border bg-gray-50 ${cursorClass} ${paddingSize} ${activeClass} ${hoverClass} `}
+      className={`relative flex items-center justify-center border-[1.4px] ${borderColorClasses} ${sizeClasses} box-border rounded-xl bg-gray-50 ${cursorClass} ${paddingSize} ${activeClass} ${hoverClass} `}
       onClick={onClick}
     >
       <Image
@@ -42,9 +42,9 @@ const Card = ({
         alt="card"
         width={imageSize}
         height={imageSize}
-        className={`rounded-xl object-cover ${type && type === "image" ? "w-full h-full" : ""}`}
+        className={`rounded-xl object-cover ${type && type === "image" ? "h-full w-full" : ""}`}
       />
-      <div className="absolute top-2 right-2">
+      <div className="absolute right-2 top-2">
         {isRead === false && <Image src={IndicatorIcon} alt="IndicatorIcon" />}
       </div>
     </div>

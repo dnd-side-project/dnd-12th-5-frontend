@@ -30,13 +30,13 @@ const Step3 = ({ delivery }: { delivery: string }) => {
   };
 
   return (
-    <div className="relative w-full overflow-hidden h-full">
+    <div className="relative h-full w-full overflow-hidden">
       <div
-        className="absolute top-0 left-0 w-full h-full bg-cover bg-center mt-[56px]"
+        className="absolute left-0 top-0 mt-[56px] h-full w-full bg-cover bg-center"
         style={{ backgroundImage: "url('/img/background_union.svg')" }}
       />
-      <div className="relative z-10 flex flex-col gap-[38px] justify-center items-center min-h-screen">
-        <div className="w-[230px] h-[230px] flex justify-center items-center">
+      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center gap-[38px]">
+        <div className="flex h-[230px] w-[230px] items-center justify-center">
           <Image
             src={characterData.imageSrc}
             alt={`${characterName} delivery`}
@@ -45,10 +45,10 @@ const Step3 = ({ delivery }: { delivery: string }) => {
           />
         </div>
         <div className="flex flex-col gap-[13px] text-center">
-          <p className="text-lg font-bold font-nanum tracking-[-0.03em]">
+          <p className="font-nanum text-lg font-bold tracking-[-0.03em]">
             {messageData.title}
           </p>
-          <p className="text-sm font-nanum text-gray-700 pt-[2px] tracking-[-0.02em]">
+          <p className="pt-[2px] font-nanum text-sm tracking-[-0.02em] text-gray-700">
             {messageData.description.split("\n").map((line, index) => (
               <span key={index}>
                 {line}
@@ -61,7 +61,7 @@ const Step3 = ({ delivery }: { delivery: string }) => {
         </div>
         <Button
           variant="secondary"
-          className="text-xs text-gray-400 w-[212px] rounded-[60px] bg-white"
+          className="w-[212px] rounded-[60px] bg-white text-xs text-gray-400"
           onClick={handleGoBack}
         >
           내가 받은 선물 다시보러 가기

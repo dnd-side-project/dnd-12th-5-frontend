@@ -7,12 +7,12 @@ const Step1 = () => {
   const router = useRouter();
 
   return (
-    <div className="h-full flex flex-col items-center justify-center gap-[22px]">
+    <div className="flex h-full flex-col items-center justify-center gap-[22px]">
       <div>
-        <p className="font-bold text-lg font-nanum text-center tracking-[-0.03em]">
+        <p className="text-center font-nanum text-lg font-bold tracking-[-0.03em]">
           선물 보따리를 다 채우셨군요!
         </p>
-        <p className="text-gray-500 text-sm font-nanum text-center tracking-[-0.02em]">
+        <p className="text-center font-nanum text-sm tracking-[-0.02em] text-gray-500">
           당신의 마음을 전할 배달부를 골라주세요.
         </p>
       </div>

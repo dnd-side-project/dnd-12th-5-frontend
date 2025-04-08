@@ -12,13 +12,13 @@ const CustomTextArea = ({
     <div className="relative">
       <Textarea
         placeholder={placeholder}
-        className="min-h-[135px] h-[135px] resize-none bg-white placeholder:text-gray-300 text-sm"
+        className="h-[135px] min-h-[135px] resize-none bg-white text-sm placeholder:text-gray-300"
         value={text}
         maxLength={maxLength}
         onChange={(e) => onTextChange(e)}
         disabled={disable}
       />
-      <span className="absolute bottom-2 right-3 text-gray-400 text-[10px]">
+      <span className="absolute bottom-2 right-3 text-[10px] text-gray-400">
         {text.length} / {maxLength}
       </span>
     </div>

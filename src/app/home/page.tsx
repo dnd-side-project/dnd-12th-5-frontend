@@ -20,7 +20,7 @@ const Page = () => {
   const hasBundle = data?.result?.length;
 
   return (
-    <main className="flex flex-col gap-10 items-center justify-center pt-3 px-4">
+    <main className="flex flex-col items-center justify-center gap-10 px-4 pt-3">
       <div className="relative">
         <Image
           src={MainGraphic}
@@ -31,19 +31,19 @@ const Page = () => {
         />
         <Link
           href="/bundle/select"
-          className="absolute bottom-3 left-1/2 -translate-x-1/2 w-[calc(100%-24px)] max-w-[370px]"
+          className="absolute bottom-3 left-1/2 w-[calc(100%-24px)] max-w-[370px] -translate-x-1/2"
         >
           <Button size="lg">보따리 만들러 가기</Button>
         </Link>
       </div>
-      <section className="flex flex-col gap-[14px] w-full">
-        <div className="flex justify-between items-center">
+      <section className="flex w-full flex-col gap-[14px]">
+        <div className="flex items-center justify-between">
           <p className="font-medium text-gray-900">내가 만든 보따리</p>
           <Link
             href="/bundle/list"
-            className="flex justify-center items-center"
+            className="flex items-center justify-center"
           >
-            <p className="text-gray-600 text-sm">더보기</p>
+            <p className="text-sm text-gray-600">더보기</p>
             <Icon
               src={ArrowRightIcon}
               alt="more"
@@ -57,13 +57,13 @@ const Page = () => {
           style={{ scrollbarWidth: "none" }}
         >
           {isLoading ? (
-            <div className="w-full flex justify-center items-center">
+            <div className="flex w-full items-center justify-center">
               <Loading />
             </div>
           ) : hasBundle ? (
             <MyCardList data={data.result} type="design" size="medium" />
           ) : (
-            <p className="h-[88px] flex justify-center items-center text-gray-200">
+            <p className="flex h-[88px] items-center justify-center text-gray-200">
               아직 만들어진 보따리가 없습니다.
             </p>
           )}

@@ -15,14 +15,14 @@ const SelectedBundle = () => {
   }, []);
 
   return (
-    <div className="w-[206px] h-[224px] flex justify-center items-center">
+    <div className="flex h-[224px] w-[206px] items-center justify-center">
       {!hydrated ? (
         <Loading />
       ) : (
         <Image
           src={BUNDLE_IMAGE_PATHS[selectedBagIndex % BUNDLE_IMAGE_PATHS.length]}
           alt={`Gift Bag ${selectedBagIndex}`}
-          className="w-full h-full"
+          className="h-full w-full"
           width="200"
           height="200"
         />

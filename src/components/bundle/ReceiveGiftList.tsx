@@ -13,7 +13,7 @@ const ReceiveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
   const { isUploadedAnswer } = useIsUploadAnswerStore();
 
   return (
-    <div className="grid grid-cols-2 grid-rows-[repeat(auto-fill, minmax(130px, 1fr))] max-h-[390px] gap-[3px]">
+    <div className="grid-rows-[repeat(auto-fill, minmax(130px, 1fr))] grid max-h-[390px] grid-cols-2 gap-[3px]">
       {giftList.map((gift, index) => {
         const isMessageEmpty = !gift.message;
         const shape =
@@ -29,7 +29,7 @@ const ReceiveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
         return (
           <div
             key={index}
-            className="relative flex justify-center items-center hover:opacity-[75%] cursor-pointer w-[130px] h-[130px]"
+            className="relative flex h-[130px] w-[130px] cursor-pointer items-center justify-center hover:opacity-[75%]"
             onClick={() => {
               onClick();
               setSelectedGiftIndex(index);
@@ -48,9 +48,7 @@ const ReceiveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
             />
             {(isAnswered || isUploadedAnswer) && giftImageUrl && (
               <div
-                className={`absolute top-1/2 left-1/2 w-[90px] h-[90px] flex justify-center items-center overflow-hidden 
-                transform -translate-x-1/2 -translate-y-1/2
-                ${shape === "square" ? "rounded-2xl" : "rounded-full"}`}
+                className={`absolute left-1/2 top-1/2 flex h-[90px] w-[90px] -translate-x-1/2 -translate-y-1/2 transform items-center justify-center overflow-hidden ${shape === "square" ? "rounded-2xl" : "rounded-full"}`}
               >
                 <Image
                   src={giftImageUrl}

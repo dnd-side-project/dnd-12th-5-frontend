@@ -24,7 +24,7 @@ const MyBundleStatusChip = ({
 
   return (
     <span
-      className={`rounded-[6px] ${bgColor} py-[3px] px-[8px] inline-flex gap-1`}
+      className={`rounded-[6px] ${bgColor} inline-flex gap-1 px-[8px] py-[3px]`}
     >
       <p className="text-[10px] font-medium">{text}</p>
       {!isRead && status === "COMPLETED" && (

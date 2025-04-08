@@ -85,14 +85,14 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
   };
 
   return (
-    <div className="h-full flex flex-col justify-center items-center">
+    <div className="flex h-full flex-col items-center justify-center">
       <Carousel className="w-[304px]" setApi={setCarouselApi}>
         <CarouselContent className="gap-[14px] pb-0">
           {giftList.map((gift, giftIndex) => {
             return (
               <CarouselItem
                 key={giftIndex}
-                className="bg-white h-[540px] w-[304px] rounded-[18px] flex flex-col overflow-hidden"
+                className="flex h-[540px] w-[304px] flex-col overflow-hidden rounded-[18px] bg-white"
               >
                 <div className="-mx-4">
                   <Carousel
@@ -109,14 +109,14 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                         return (
                           <CarouselItem
                             key={index}
-                            className="h-[220px] relative"
+                            className="relative h-[220px]"
                           >
                             <Image
                               src={url}
                               alt={`image_${index}`}
                               layout="fill"
                               objectFit="cover"
-                              className="rounded-t-[18px] pointer-events-none"
+                              className="pointer-events-none rounded-t-[18px]"
                             />
                           </CarouselItem>
                         );
@@ -124,7 +124,7 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                     </CarouselContent>
                     {currentImageIndexes[giftIndex] !== 0 && (
                       <Button
-                        className="absolute left-2 top-1/2 transform -translate-y-1/2 w-7 h-7 bg-gray-100 opacity-30 rounded-full hover:opacity-60"
+                        className="absolute left-2 top-1/2 h-7 w-7 -translate-y-1/2 transform rounded-full bg-gray-100 opacity-30 hover:opacity-60"
                         onClick={() => handlePrevImage(giftIndex)}
                         disabled={currentImageIndexes[giftIndex] === 0}
                         variant="ghost"
@@ -135,7 +135,7 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                     {currentImageIndexes[giftIndex] !==
                       gift.imageUrls.length - 1 && (
                       <Button
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 w-7 h-7 opacity-30 rounded-full bg-gray-100 hover:opacity-60"
+                        className="absolute right-2 top-1/2 h-7 w-7 -translate-y-1/2 transform rounded-full bg-gray-100 opacity-30 hover:opacity-60"
                         onClick={() => handleNextImage(giftIndex)}
                         disabled={
                           currentImageIndexes[giftIndex] ===
@@ -146,15 +146,15 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                         <Icon src={RightIcon} alt="RightArrow" size="small" />
                       </Button>
                     )}
-                    <div className="absolute bottom-2 right-2 w-10 h-[23px] rounded-[40px] px-[10px] py-1 bg-white/70 text-center">
-                      <p className="text-[10px] text-gray-600 tracking-[2px]">
+                    <div className="absolute bottom-2 right-2 h-[23px] w-10 rounded-[40px] bg-white/70 px-[10px] py-1 text-center">
+                      <p className="text-[10px] tracking-[2px] text-gray-600">
                         {currentImageIndexes[giftIndex] + 1}/
                         {gift.imageUrls.length}
                       </p>
                     </div>
                   </Carousel>
                 </div>
-                <div className="flex flex-col gap-[22px] my-[18px]">
+                <div className="my-[18px] flex flex-col gap-[22px]">
                   <div className="flex flex-col gap-[10px]">
                     <p className="text-xs text-gray-600">{gift.name}</p>
                     <p className="text-[15px]">{gift.message}</p>
@@ -163,7 +163,7 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                     <p className="text-xs text-gray-500">
                       선물에 대한 답변을 선택해주세요
                     </p>
-                    <div className="flex gap-2 flex-wrap w-[272px]">
+                    <div className="flex w-[272px] flex-wrap gap-2">
                       {GIFT_ANSWER_CHIP_TEXTES.map((answer, index) => (
                         <Chip
                           key={index}
@@ -181,11 +181,11 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
           })}
         </CarouselContent>
       </Carousel>
-      <div className="flex gap-2 mt-[17px]">
+      <div className="mt-[17px] flex gap-2">
         {giftList.map((_, index) => {
           return (
             <p
-              className={`w-[6px] h-[6px] rounded-full ${
+              className={`h-[6px] w-[6px] rounded-full ${
                 currentCarousel === index + 1 ? "bg-pink-500" : "bg-gray-300"
               }`}
               key={index}

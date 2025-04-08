@@ -43,8 +43,8 @@ const Page = () => {
         </motion.div>
       ) : (
         <motion.div key="login" {...getMotionProps("right")} className="h-full">
-          <div className="w-full h-full bg-pink-50">
-            <p className="text-lg text-center font-bold tracking-[-0.03em] font-nanum pt-[42px] flex justify-center items-center h-full pb-[487px]">
+          <div className="h-full w-full bg-pink-50">
+            <p className="flex h-full items-center justify-center pb-[487px] pt-[42px] text-center font-nanum text-lg font-bold tracking-[-0.03em]">
               선물 보따리를 안전하게 보관하기 위해 <br />
               로그인이 필요해요!
             </p>
@@ -57,7 +57,7 @@ const Page = () => {
               className="absolute bottom-0"
             />
           </div>
-          <div className="w-full absolute bottom-4 px-4">
+          <div className="absolute bottom-4 w-full px-4">
             <KakaoLoginButton link={KAKAO_AUTH_URL} />
           </div>
         </motion.div>

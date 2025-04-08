@@ -25,7 +25,7 @@ const CharacterCountInput = ({
   };
 
   return (
-    <div className="flex flex-col gap-1 w-full">
+    <div className="flex w-full flex-col gap-1">
       <div className="flex justify-end text-xs text-gray-400">
         {text.length} / {maxLength}
       </div>

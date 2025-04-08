@@ -54,7 +54,7 @@ const Page = () => {
     return (
       <>
         {isLoading && (
-          <div className="w-full h-full flex justify-center items-center">
+          <div className="flex h-full w-full items-center justify-center">
             <Loading />
           </div>
         )}
@@ -65,31 +65,31 @@ const Page = () => {
   return (
     <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
       {hasBundle ? (
-        <main className="h-full flex flex-col items-center px-4">
-          <div className="w-full flex items-center gap-2 mt-[10px] mb-6 cursor-pointer">
+        <main className="flex h-full flex-col items-center px-4">
+          <div className="mb-6 mt-[10px] flex w-full cursor-pointer items-center gap-2">
             <div
               onClick={() => setIsChecked(!isChecked)}
-              className="w-5 h-5 flex items-center justify-center rounded-[4px] bg-slate-100"
+              className="flex h-5 w-5 items-center justify-center rounded-[4px] bg-slate-100"
             >
               {isChecked && (
-                <div className="w-full h-full bg-pink-500 rounded-sm flex items-center justify-center">
+                <div className="flex h-full w-full items-center justify-center rounded-sm bg-pink-500">
                   <Icon src={CheckIcon} alt="CheckIcon" />
                 </div>
               )}
             </div>
-            <p className="text-gray-500 text-sm font-medium">
+            <p className="text-sm font-medium text-gray-500">
               임시저장된 보따리만 보기
             </p>
           </div>
           <button
             onClick={() => setIsEdit(!isEdit)}
-            className="absolute right-6 top-4 text-gray-500 text-[15px] font-medium z-50"
+            className="absolute right-6 top-4 z-50 text-[15px] font-medium text-gray-500"
           >
             {isEdit ? "완료" : "편집"}
           </button>
 
           <section
-            className="w-full grid grid-cols-2 auto-rows gap-[13px] overflow-y-auto pb-4"
+            className="auto-rows grid w-full grid-cols-2 gap-[13px] overflow-y-auto pb-4"
             style={{ scrollbarWidth: "none" }}
           >
             {filteredBottariData.map((bundle: MyBundle) =>
@@ -131,16 +131,16 @@ const Page = () => {
 
           {isDrawerOpen && (
             <DrawerContent>
-              <DrawerHeader className="relative flex justify-center py-3 mt-3">
+              <DrawerHeader className="relative mt-3 flex justify-center py-3">
                 <DrawerTitle>
                   {selectedBundleInfo ? selectedBundleInfo.name : ""}
                 </DrawerTitle>
-                <DrawerClose className="absolute top-2 right-[14px]">
+                <DrawerClose className="absolute right-[14px] top-2">
                   <Icon src={CloseIcon} alt="close" size="large" />
                 </DrawerClose>
               </DrawerHeader>
 
-              <div className="w-full flex flex-col justify-center items-center gap-[22px] mb-5 mt-[26px]">
+              <div className="mb-5 mt-[26px] flex w-full flex-col items-center justify-center gap-[22px]">
                 <div>
                   <p className="text-[15px] font-medium">
                     선물 보따리를 정말 삭제할까요?
@@ -149,7 +149,7 @@ const Page = () => {
                     삭제된 보따리는 되돌릴 수 없어요.
                   </p>
                 </div>
-                <div className="w-full flex gap-[5px] px-[18px]">
+                <div className="flex w-full gap-[5px] px-[18px]">
                   <DrawerClose asChild>
                     <Button size="lg" variant={"secondary"}>
                       돌아가기
@@ -171,11 +171,11 @@ const Page = () => {
         </main>
       ) : (
         <>
-          <div className="h-full flex justify-center items-center">
-            <div className="flex flex-col justify-center items-center gap-4">
+          <div className="flex h-full items-center justify-center">
+            <div className="flex flex-col items-center justify-center gap-4">
               <p>아직 만들어진 보따리가 없어요</p>
               <Link href={"/bundle/select"}>
-                <Button className="py-[11px] px-[21px] rounded-[500px] text-[12px] font-medium w-[130px]">
+                <Button className="w-[130px] rounded-[500px] px-[21px] py-[11px] text-[12px] font-medium">
                   보따리 만들러 가기
                 </Button>
               </Link>

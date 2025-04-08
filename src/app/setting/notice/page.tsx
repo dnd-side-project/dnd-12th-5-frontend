@@ -15,7 +15,7 @@ const Page = () => {
   return (
     <div className="px-4">
       <div
-        className="text-[15px] py-5 border-b border-[#f4f4f4] flex justify-between items-center cursor-pointer hover:opacity-70"
+        className="flex cursor-pointer items-center justify-between border-b border-[#f4f4f4] py-5 text-[15px] hover:opacity-70"
         onClick={() => setOpen(true)}
       >
         <p>Picktory가 출시되었어요!</p>
@@ -28,9 +28,9 @@ const Page = () => {
             <DialogTitle className="text-lg font-semibold">
               Picktory가 출시되었어요!
             </DialogTitle>
-            <p className="text-gray-300 text-sm mt-2">2025/02/22</p>
+            <p className="mt-2 text-sm text-gray-300">2025/02/22</p>
           </DialogHeader>
-          <DialogDescription className="text-gray-500 flex flex-col text-left">
+          <DialogDescription className="flex flex-col text-left text-gray-500">
             <p className="break-keep">
               안녕하세요! Picktory가 출시되었어요. 🎉
               <br />
