@@ -4,5 +4,6 @@
   "trailingComma": "all",
   "tabWidth": 2,
   "printWidth": 80,
-  "endOfLine": "lf"
+  "endOfLine": "lf",
+  "plugins": ["prettier-plugin-tailwindcss"]
 }
