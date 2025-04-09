@@ -5,7 +5,7 @@ import ImageIcon from "../../../public/icons/image_medium.svg";
 import Image from "next/image";
 import { ImageItem } from "@/types/gift-upload/types";
 import { UploadImageListProps } from "@/types/components/types";
-import { IMAGE_EXTENSIONS } from "@/constants/constants";
+import { IMAGE_EXTENSIONS, IMAGE_MAX_SIZE_MB } from "@/constants/constants";
 import { closestCenter, DndContext, DragEndEvent } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -37,10 +37,22 @@ const UploadImageList = ({
         file,
       });
     });
+
+    const oversizedFiles = files.filter(
+      (file) => file.size > IMAGE_MAX_SIZE_MB * 1024 * 1024,
+    );
+
+    if (oversizedFiles.length > 0) {
+      alert("10MB 이하 크기의 이미지만 업로드할 수 있어요!");
+      event.target.value = "";
+      return;
+    }
+
     if (combinedImages.length + newItems.length > maxImages) {
       alert(`최대 ${maxImages}개까지 업로드 가능합니다.`);
       return;
     }
+
     setCombinedImages([...combinedImages, ...newItems]);
     event.target.value = "";
   };
@@ -81,6 +93,7 @@ const UploadImageList = ({
           onChange={handleUpload}
           disabled={combinedImages.length >= maxImages}
           multiple
+          size={10}
         />
       </label>
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
