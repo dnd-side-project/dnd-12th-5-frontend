@@ -10,6 +10,7 @@ import { useSelectedBagStore, useBundleStore } from "@/stores/bundle/useStore";
 import { useMutation } from "@tanstack/react-query";
 import { GiftBox } from "@/types/bundle/types";
 import { useEffect } from "react";
+import { MIN_GIFTBOX_AMOUNT } from "@/constants/constants";
 
 const Page = () => {
   const { giftBoxes } = useGiftStore();
@@ -82,7 +83,7 @@ const Page = () => {
         </div>
         <div className="absolute bottom-4 w-full px-4">
           <Button
-            disabled={filledGiftCount <= 1}
+            disabled={filledGiftCount < MIN_GIFTBOX_AMOUNT}
             size="lg"
             onClick={handleClickButton}
           >

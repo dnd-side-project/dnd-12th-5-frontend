@@ -23,6 +23,7 @@ import SettingIcon from "/public/icons/setting_large.svg";
 import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
 import CloseIcon from "/public/icons/close.svg";
 import GoToHomeDrawer from "./GoToHomeDrawer";
+import { MIN_GIFTBOX_AMOUNT } from "@/constants/constants";
 
 // 정적 title 관리
 const pageTitles: { [key: string]: string } = {
@@ -98,7 +99,7 @@ const Header = () => {
 
   useEffect(() => {
     const filledCount = giftBoxes.filter((box) => box && box.filled).length;
-    setShowTempSave(filledCount >= 2);
+    setShowTempSave(filledCount >= MIN_GIFTBOX_AMOUNT);
   }, [giftBoxes]);
 
   const handleTempSave = async () => {
