@@ -96,25 +96,35 @@ const UploadImageList = ({
           size={10}
         />
       </label>
-      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <SortableContext
-          items={combinedImages.map((item) => item.url)}
-          strategy={horizontalListSortingStrategy}
+      <div
+        className="flex-1 overflow-x-auto"
+        style={{ scrollbarWidth: "none" }}
+      >
+        <DndContext
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
         >
-          {combinedImages.map((item, index) => (
-            <SortableImageWrapper key={item.url} id={item.url}>
-              {({ dragHandleProps }) => (
-                <ImageCard
-                  src={item.url}
-                  isPrimary={index === 0}
-                  onDelete={() => handleDelete(index)}
-                  dragHandleProps={dragHandleProps}
-                />
-              )}
-            </SortableImageWrapper>
-          ))}
-        </SortableContext>
-      </DndContext>
+          <SortableContext
+            items={combinedImages.map((item) => item.url)}
+            strategy={horizontalListSortingStrategy}
+          >
+            <div className="flex w-max flex-nowrap gap-2">
+              {combinedImages.map((item, index) => (
+                <SortableImageWrapper key={item.url} id={item.url}>
+                  {({ dragHandleProps }) => (
+                    <ImageCard
+                      src={item.url}
+                      isPrimary={index === 0}
+                      onDelete={() => handleDelete(index)}
+                      dragHandleProps={dragHandleProps}
+                    />
+                  )}
+                </SortableImageWrapper>
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
+      </div>
     </div>
   );
 };

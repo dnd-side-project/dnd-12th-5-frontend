@@ -11,6 +11,7 @@ const SortableImageWrapper = ({ id, children }: SortableImageWrapperProps) => {
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    display: "inline-block",
   };
 
   const dragHandleProps = { ...attributes, ...listeners };
