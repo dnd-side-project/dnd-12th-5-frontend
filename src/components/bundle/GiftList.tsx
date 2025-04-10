@@ -17,6 +17,7 @@ import {
   GIFTBOX_SHAPE_SEQUENCE,
 } from "@/constants/constants";
 import DeleteBundleDrawer from "../gift-upload/DeleteBundleDrawer";
+import { toast } from "@/hooks/use-toast";
 
 const GiftList = ({ value }: { value: GiftBox[] }) => {
   const router = useRouter();
@@ -46,6 +47,10 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
     setSelectedBox(null);
     setSelectedIndex(null);
     setDeleteBox(false);
+
+    toast({
+      title: "선물박스를 성공적으로 비웠어요!",
+    });
   };
 
   const [showTooltip, setShowTooltip] = useState(false);
