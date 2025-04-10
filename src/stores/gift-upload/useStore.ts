@@ -56,3 +56,13 @@ export const useEditBoxStore = create<EditBoxStore>()(
     { name: "edit-storage" },
   ),
 );
+
+interface EditToastStore {
+  showEditToast: boolean;
+  setShowEditToast: (val: boolean) => void;
+}
+
+export const useToastStore = create<EditToastStore>((set) => ({
+  showEditToast: false,
+  setShowEditToast: (val) => set({ showEditToast: val }),
+}));

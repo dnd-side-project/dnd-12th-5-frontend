@@ -1,6 +1,10 @@
 "use client";
 
-import { useEditBoxStore, useGiftStore } from "@/stores/gift-upload/useStore";
+import {
+  useEditBoxStore,
+  useGiftStore,
+  useToastStore,
+} from "@/stores/gift-upload/useStore";
 import Chip from "@/components/bundle/Chip";
 import GiftList from "@/components/bundle/GiftList";
 import { Button } from "@/components/ui/button";
@@ -11,6 +15,7 @@ import { useMutation } from "@tanstack/react-query";
 import { GiftBox } from "@/types/bundle/types";
 import { useEffect } from "react";
 import { MIN_GIFTBOX_AMOUNT } from "@/constants/constants";
+import { toast } from "@/hooks/use-toast";
 
 const Page = () => {
   const { giftBoxes } = useGiftStore();
@@ -26,6 +31,17 @@ const Page = () => {
   useEffect(() => {
     setIsBoxEditing(false);
   }, [setIsBoxEditing]);
+
+  const { showEditToast, setShowEditToast } = useToastStore();
+
+  useEffect(() => {
+    if (showEditToast) {
+      setTimeout(() => {
+        toast({ title: "선물박스 수정이 완료되었어요!" });
+        setShowEditToast(false);
+      }, 200);
+    }
+  }, [setShowEditToast, showEditToast]);
 
   const createMutation = useMutation({
     mutationFn: () =>

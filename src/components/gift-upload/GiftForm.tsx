@@ -13,6 +13,7 @@ import {
   useTagIndexStore,
   useGiftStore,
   useEditBoxStore,
+  useToastStore,
 } from "@/stores/gift-upload/useStore";
 
 import { uploadGiftImages } from "@/api/gift-upload/api";
@@ -111,6 +112,9 @@ const GiftForm = () => {
       });
     }
 
+    if (isBoxEditing) {
+      useToastStore.getState().setShowEditToast(true);
+    }
     router.push("/bundle/add");
   };
 
