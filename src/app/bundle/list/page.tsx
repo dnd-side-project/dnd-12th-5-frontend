@@ -17,8 +17,8 @@ import {
 import { Button } from "@/components/ui/button";
 import Loading from "@/components/common/Loading";
 
-import { useBundles } from "@/queries/useMyBundles";
-import { useDeleteBundle } from "@/queries/useDeleteMyBundle";
+import { useMyBundlesQuery } from "@/queries/useMyBundlesQuery";
+import { useDeleteMyBundleMutation } from "@/queries/useDeleteMyBundleMutation";
 
 import { MyBundle } from "@/types/bundle/types";
 import { Icon } from "@/components/common/Icon";
@@ -32,7 +32,7 @@ const Page = () => {
     name: string;
   } | null>(null);
 
-  const { data, isLoading } = useBundles();
+  const { data, isLoading } = useMyBundlesQuery();
   const hasBundle = data?.result?.length;
 
   const filteredBottariData =
@@ -40,7 +40,7 @@ const Page = () => {
       (bundle: { status: string }) => !isChecked || bundle.status === "DRAFT",
     ) || [];
 
-  const { mutate: deleteBundle } = useDeleteBundle();
+  const { mutate: deleteBundle } = useDeleteMyBundleMutation();
 
   const handleDelete = useCallback(
     (id: number) => {

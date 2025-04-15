@@ -96,12 +96,12 @@ export const updateBundle = async (giftBoxes: GiftBox[]) => {
 };
 
 /** 보따리 마저 채우기 api */
-export const fetchFillGift = async (bundleId: number) => {
+export const getDraftBundleGifts = async (bundleId: number) => {
   const accessToken = getCookie("accessToken");
 
   if (!bundleId) return;
 
-  const response = await fetch(PICKTORY_API.getDraftBundles(bundleId), {
+  const response = await fetch(PICKTORY_API.getDraftBundleGifts(bundleId), {
     method: "GET",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -117,13 +117,13 @@ export const fetchFillGift = async (bundleId: number) => {
 };
 
 /** 배달부 설정 api */
-export const putDelivery = async ({
+export const putDeliveryCharacter = async ({
   bundleId,
   deliveryCharacterType,
 }: PutCharacterPayload): Promise<PutCharacterResponse> => {
   const accessToken = getCookie("accessToken");
 
-  const response = await fetch(PICKTORY_API.putBundleDelivery(bundleId), {
+  const response = await fetch(PICKTORY_API.putDeliveryCharacter(bundleId), {
     method: "PUT",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -141,7 +141,7 @@ export const putDelivery = async ({
 };
 
 /** 메인화면 보따리 조회 api */
-export const fetchBundlePreview = async () => {
+export const getBundlesPreview = async () => {
   const accessToken = getCookie("accessToken");
 
   const response = await fetch(PICKTORY_API.getBundlesPreview, {
@@ -161,10 +161,10 @@ export const fetchBundlePreview = async () => {
 };
 
 /** 보따리 목록 조회 api */
-export const fetchBundles = async () => {
+export const getMyBundles = async () => {
   const accessToken = getCookie("accessToken");
 
-  const response = await fetch(PICKTORY_API.getBundles, {
+  const response = await fetch(PICKTORY_API.getMyBundles, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -179,10 +179,10 @@ export const fetchBundles = async () => {
 };
 
 /** 보따리 간이 조회 api */
-export const fetchMyBundleDetail = async (id: number) => {
+export const getMyBundleDetail = async (id: number) => {
   const accessToken = getCookie("accessToken");
 
-  const response = await fetch(PICKTORY_API.getBundleDetail(id), {
+  const response = await fetch(PICKTORY_API.getMyBundleDetail(id), {
     method: "GET",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -194,10 +194,10 @@ export const fetchMyBundleDetail = async (id: number) => {
 };
 
 /** 보따리 삭제 */
-export const deleteBundle = async (bundleId: number) => {
+export const deleteMyBundle = async (bundleId: number) => {
   const accessToken = getCookie("accessToken");
 
-  const response = await fetch(PICKTORY_API.deleteBundle(bundleId), {
+  const response = await fetch(PICKTORY_API.deleteMyBundle(bundleId), {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -239,9 +239,7 @@ export const fetchResponseBundle = async (link: string) => {
 };
 
 /** 보따리 결과 조회 */
-export const fetchGiftResults = async (
-  id: number,
-): Promise<ResultGiftBox[]> => {
+export const getBundleResult = async (id: number): Promise<ResultGiftBox[]> => {
   const accessToken = getCookie("accessToken");
 
   const response = await fetch(PICKTORY_API.getBundleResult(id), {
@@ -261,20 +259,17 @@ export const fetchGiftResults = async (
   return jsonData.result.gifts;
 };
 
-/** 보따리 개별 선물 조회 api */
-export const fetchGiftDetail = async (giftId: number, bundleId: number) => {
+/** 보따리 선물 상세 조회 api */
+export const getGiftDetail = async (giftId: number, bundleId: number) => {
   const accessToken = getCookie("accessToken");
 
-  const response = await fetch(
-    PICKTORY_API.getBundleResultDetail(bundleId, giftId),
-    {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: "application/json",
-      },
+  const response = await fetch(PICKTORY_API.getGiftDetail(bundleId, giftId), {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      Accept: "application/json",
     },
-  );
+  });
 
   if (!response.ok) {
     throw new Error("데이터를 불러오는 데 실패했습니다.");

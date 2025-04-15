@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteBundle } from "@/api/bundle/api";
+import { deleteMyBundle } from "@/api/bundle/api";
 
-export const useDeleteBundle = () => {
+export const useDeleteMyBundleMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: deleteBundle,
+    mutationFn: deleteMyBundle,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["Bundles"] }); // 삭제 후 목록 업데이트
     },

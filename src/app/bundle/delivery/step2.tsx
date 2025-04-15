@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { useBundleStore } from "@/stores/bundle/useStore";
-import { useDeliveryBundle } from "@/queries/useDeliveryBundle";
+import { useDeliveryCharacterMutation } from "@/queries/useDeliveryCharacterMutation";
 import { CHARACTERS, DELIVERY_CHARACTER_MAP } from "@/constants/constants";
 import { resetGiftBoxes } from "@/utils/utils";
 import { CharacterKey } from "@/types/constants/types";
@@ -31,7 +31,7 @@ const Step2 = () => {
     sessionStorage.removeItem("bundleId");
   };
 
-  const { mutate } = useDeliveryBundle();
+  const { mutate } = useDeliveryCharacterMutation();
   const bundleId = Number(sessionStorage.getItem("bundleId"));
 
   const handleApiPost = () => {

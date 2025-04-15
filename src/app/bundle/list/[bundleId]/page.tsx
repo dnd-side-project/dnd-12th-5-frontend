@@ -17,10 +17,10 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 
-import { useMyBundleDetail } from "@/queries/useMyBundleDetail";
-import { useDeleteBundle } from "@/queries/useDeleteMyBundle";
+import { useMyBundleDetailQuery } from "@/queries/useMyBundleDetailQuery";
+import { useDeleteMyBundleMutation } from "@/queries/useDeleteMyBundleMutation";
 import { toast } from "@/hooks/use-toast";
-import { useFillGift } from "@/queries/useFillGift";
+import { useDraftBundleGiftsQuery } from "@/queries/useDraftBundleGiftsQuery";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { useIsClickedUpdateFilledButton } from "@/stores/bundle/useStore";
@@ -36,7 +36,7 @@ const Page = () => {
 
   const { updateGiftBox } = useGiftStore();
 
-  const { data } = useMyBundleDetail(parseInt(bundleId));
+  const { data } = useMyBundleDetailQuery(parseInt(bundleId));
   const { name, designType, link, status, gifts } = data?.result || {
     name: "",
     designType: "",
@@ -70,7 +70,7 @@ const Page = () => {
     }
   };
 
-  const { mutate: deleteBundle } = useDeleteBundle();
+  const { mutate: deleteBundle } = useDeleteMyBundleMutation();
   const handleDelete = () => {
     if (!bundleId) return;
 
@@ -123,7 +123,7 @@ const Page = () => {
     return 0; // 기본값 0
   };
 
-  const { data: fillGiftData } = useFillGift(parseInt(bundleId));
+  const { data: fillGiftData } = useDraftBundleGiftsQuery(parseInt(bundleId));
   const fetchSavedGift = async () => {
     if (!bundleId) return;
     if (!fillGiftData) return;

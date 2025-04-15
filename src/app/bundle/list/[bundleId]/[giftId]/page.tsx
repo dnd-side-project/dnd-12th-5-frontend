@@ -14,7 +14,7 @@ import LinkButton from "@/components/common/LinkButton";
 import Loading from "@/components/common/Loading";
 
 import { useGiftNameStore } from "@/stores/bundle/useStore";
-import { useGiftDetail } from "@/queries/useGiftDetail";
+import { useGiftDetailQuery } from "@/queries/useGiftDetailQuery";
 
 const Page = () => {
   const { giftId, bundleId } = useParams() as {
@@ -22,7 +22,7 @@ const Page = () => {
     bundleId: string;
   };
 
-  const { data } = useGiftDetail(parseInt(giftId), parseInt(bundleId));
+  const { data } = useGiftDetailQuery(parseInt(giftId), parseInt(bundleId));
 
   const { name, message, purchaseUrl, thumbnail, imageUrls } = data || {
     name: "",
