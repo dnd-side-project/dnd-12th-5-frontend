@@ -99,3 +99,9 @@ export interface Step2Props {
   giftResultData?: ResultGiftBox[];
   isCompleted?: boolean;
 }
+
+export interface GoToHomeDrawerProps {
+  open: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+}

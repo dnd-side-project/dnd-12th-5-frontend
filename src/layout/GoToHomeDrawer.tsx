@@ -12,15 +12,9 @@ import { Icon } from "@/components/common/Icon";
 import { useBundleStore, useSelectedBagStore } from "@/stores/bundle/useStore";
 import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 import { useRouter } from "next/navigation";
+import { GoToHomeDrawerProps } from "@/types/bundle/types";
 
-interface Props {
-  //types로 분리해야함
-  open: boolean;
-  onClose: () => void;
-  onConfirm: () => void;
-}
-
-const GoToHomeDrawer = ({ open, onClose, onConfirm }: Props) => {
+const GoToHomeDrawer = ({ open, onClose, onConfirm }: GoToHomeDrawerProps) => {
   const { bundleName } = useBundleStore();
   const { selectedBagIndex } = useSelectedBagStore();
 
