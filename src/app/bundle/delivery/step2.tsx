@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { useBundleStore } from "@/stores/bundle/useStore";
-import { useDeliveryBundle } from "@/hooks/api/useDeliveryBundle";
+import { useDeliveryBundle } from "@/queries/useDeliveryBundle";
 import { CHARACTERS, DELIVERY_CHARACTER_MAP } from "@/constants/constants";
 import { resetGiftBoxes } from "@/utils/utils";
 import { CharacterKey } from "@/types/constants/types";

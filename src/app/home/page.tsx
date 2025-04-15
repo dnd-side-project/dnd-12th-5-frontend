@@ -7,7 +7,7 @@ import MyCardList from "@/components/myBundle/MyCardList";
 import Loading from "@/components/common/Loading";
 import { Icon } from "@/components/common/Icon";
 import { Button } from "@/components/ui/button";
-import { useBundlePreview } from "@/hooks/api/useMyBundlesPreview";
+import { useBundlePreview } from "@/queries/useMyBundlesPreview";
 import useResetStore from "@/hooks/useResetStore";
 
 import MainGraphic from "/public/img/main_graphic.svg";

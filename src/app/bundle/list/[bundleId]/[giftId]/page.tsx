@@ -14,7 +14,7 @@ import LinkButton from "@/components/common/LinkButton";
 import Loading from "@/components/common/Loading";
 
 import { useGiftNameStore } from "@/stores/bundle/useStore";
-import { useGiftDetail } from "@/hooks/api/useGiftDetail";
+import { useGiftDetail } from "@/queries/useGiftDetail";
 
 const Page = () => {
   const { giftId, bundleId } = useParams() as {

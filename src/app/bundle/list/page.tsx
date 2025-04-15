@@ -17,8 +17,8 @@ import {
 import { Button } from "@/components/ui/button";
 import Loading from "@/components/common/Loading";
 
-import { useBundles } from "@/hooks/api/useMyBundles";
-import { useDeleteBundle } from "@/hooks/api/useDeleteMyBundle";
+import { useBundles } from "@/queries/useMyBundles";
+import { useDeleteBundle } from "@/queries/useDeleteMyBundle";
 
 import { MyBundle } from "@/types/bundle/types";
 import { Icon } from "@/components/common/Icon";
