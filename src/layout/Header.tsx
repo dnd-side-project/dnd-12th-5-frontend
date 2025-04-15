@@ -140,7 +140,7 @@ const Header = () => {
 
   if (isBundleDetailStepTwo && isOpenDetailGiftBox) {
     return (
-      <div className="sticky top-0 z-10 flex h-[56px] items-center justify-end bg-pink-50 px-4">
+      <div className="sticky top-0 z-20 flex h-[56px] items-center justify-end bg-pink-50 px-4">
         <button onClick={() => setIsOpenDetailGiftBox(false)}>
           <Icon src={CloseIcon} alt="close" size="large" />
         </button>
@@ -151,7 +151,7 @@ const Header = () => {
   if (isReceiveBundlePage) {
     return (
       <div
-        className={`flex h-[56px] items-center justify-center ${step === "2" ? "bg-pink-50" : "bg-white"}`}
+        className={`z-20 flex h-[56px] items-center justify-center ${step === "2" ? "bg-pink-50" : "bg-white"}`}
       >
         <Icon src={LogoIcon} alt="logo" />
       </div>
@@ -161,7 +161,7 @@ const Header = () => {
   // 메인 페이지: 로고 + 설정 아이콘
   if (isHomePage) {
     return (
-      <div className="flex h-[56px] bg-white">
+      <div className="z-20 flex h-[56px] bg-white">
         <div className="flex w-full items-center justify-between px-4">
           <button onClick={() => router.push("/")}>
             <Icon src={LogoIcon} alt="logo" />
@@ -177,7 +177,9 @@ const Header = () => {
   // auth 페이지, 404 페이지: 로고만 중앙 정렬
   if (isAuthPage || isNotFoundPage) {
     return (
-      <div className={`${bgColor} flex h-[56px] items-center justify-center`}>
+      <div
+        className={`${bgColor} z-20 flex h-[56px] items-center justify-center`}
+      >
         <Icon src={LogoIcon} alt="logo" />
       </div>
     );
@@ -220,7 +222,7 @@ const Header = () => {
   };
 
   const Title = () => (
-    <h1 className="absolute left-1/2 w-[185px] -translate-x-1/2 overflow-hidden text-ellipsis whitespace-nowrap text-center text-lg font-medium">
+    <h1 className="absolute left-1/2 z-20 w-[185px] -translate-x-1/2 overflow-hidden text-ellipsis whitespace-nowrap text-center text-lg font-medium">
       {dynamicTitle}
     </h1>
   );
@@ -256,7 +258,7 @@ const Header = () => {
   return (
     <>
       <div
-        className={`${isBundleAddPage ? "bg-pink-50" : "bg-white"} sticky top-0 z-10 flex h-[56px] items-center justify-between px-4`}
+        className={`${isBundleAddPage ? "bg-pink-50" : "bg-white"} sticky top-0 z-20 flex h-[56px] items-center justify-between px-4`}
       >
         <BackButton />
         <Title />
