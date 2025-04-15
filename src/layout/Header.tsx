@@ -13,9 +13,6 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/common/Icon";
-import { GiftBox } from "@/types/bundle/types";
-import { createBundle, updateBundle } from "@/api/bundle/api";
-import { toast } from "@/hooks/use-toast";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
 
 import LogoIcon from "/public/icons/logo.svg";
@@ -24,6 +21,7 @@ import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
 import CloseIcon from "/public/icons/close.svg";
 import GoToHomeDrawer from "./GoToHomeDrawer";
 import { MIN_GIFTBOX_AMOUNT } from "@/constants/constants";
+import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 
 // 정적 title 관리
 const pageTitles: { [key: string]: string } = {
@@ -102,41 +100,7 @@ const Header = () => {
     setShowTempSave(filledCount >= MIN_GIFTBOX_AMOUNT);
   }, [giftBoxes]);
 
-  const handleTempSave = async () => {
-    try {
-      const bundleId = sessionStorage.getItem("bundleId");
-
-      if (!bundleId) {
-        const res = await createBundle({
-          bundleName,
-          selectedBagIndex,
-          giftBoxes,
-        });
-
-        if (res?.id) {
-          sessionStorage.setItem("bundleId", res.id);
-        }
-      } else {
-        const res = await updateBundle(giftBoxes);
-
-        if (res?.result?.gifts) {
-          res.result.gifts.forEach((gift: GiftBox, index: number) => {
-            useGiftStore.getState().updateGiftBox(index, { id: gift.id });
-          });
-        }
-      }
-
-      toast({
-        title: "임시저장 성공",
-        description: "보따리가 임시저장되었습니다.",
-      });
-    } catch (error) {
-      toast({
-        title: "임시저장 실패",
-        description: `보따리 임시저장에 실패했습니다. ${error}`,
-      });
-    }
-  };
+  const { handleTempSave } = useTempSaveBundle();
 
   if (isBundleDetailStepTwo && isOpenDetailGiftBox) {
     return (
@@ -230,7 +194,7 @@ const Header = () => {
       return (
         <Button
           variant="ghost"
-          onClick={handleTempSave}
+          onClick={() => handleTempSave({ bundleName, selectedBagIndex })}
           className="flex justify-end text-[15px] text-gray-200"
         >
           임시 저장

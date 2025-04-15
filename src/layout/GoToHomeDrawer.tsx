@@ -9,14 +9,25 @@ import {
 } from "@/components/ui/drawer";
 import CloseIcon from "/public/icons/close.svg";
 import { Icon } from "@/components/common/Icon";
+import { useBundleStore, useSelectedBagStore } from "@/stores/bundle/useStore";
+import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
+import { useRouter } from "next/navigation";
 
 interface Props {
+  //types로 분리해야함
   open: boolean;
   onClose: () => void;
   onConfirm: () => void;
 }
 
 const GoToHomeDrawer = ({ open, onClose, onConfirm }: Props) => {
+  const { bundleName } = useBundleStore();
+  const { selectedBagIndex } = useSelectedBagStore();
+
+  const { handleTempSave } = useTempSaveBundle();
+
+  const router = useRouter();
+
   return (
     <Drawer open={open} onOpenChange={onClose}>
       <DrawerContent className="px-2 pb-4">
@@ -34,11 +45,17 @@ const GoToHomeDrawer = ({ open, onClose, onConfirm }: Props) => {
           </p>
         </DrawerHeader>
         <DrawerFooter className="mt-2 flex flex-row gap-2">
-          <Button variant="secondary" className="h-[52px]" onClick={onClose}>
-            계속 채우기
-          </Button>
-          <Button className="h-[52px]" onClick={onConfirm}>
+          <Button variant="secondary" className="h-[52px]" onClick={onConfirm}>
             홈으로 이동하기
+          </Button>
+          <Button
+            className="h-[52px]"
+            onClick={() => {
+              handleTempSave({ bundleName, selectedBagIndex });
+              router.push("/home"); //성공하면 이동하는걸로 바꿔야함
+            }}
+          >
+            저장하고 이동하기
           </Button>
         </DrawerFooter>
       </DrawerContent>
