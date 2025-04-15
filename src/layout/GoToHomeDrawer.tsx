@@ -22,6 +22,13 @@ const GoToHomeDrawer = ({ open, onClose, onConfirm }: GoToHomeDrawerProps) => {
 
   const router = useRouter();
 
+  const handleTempSaveButton = async () => {
+    const success = await handleTempSave({ bundleName, selectedBagIndex });
+    if (success) {
+      router.push("/home");
+    }
+  };
+
   return (
     <Drawer open={open} onOpenChange={onClose}>
       <DrawerContent className="px-2 pb-4">
@@ -42,13 +49,7 @@ const GoToHomeDrawer = ({ open, onClose, onConfirm }: GoToHomeDrawerProps) => {
           <Button variant="secondary" className="h-[52px]" onClick={onConfirm}>
             홈으로 이동하기
           </Button>
-          <Button
-            className="h-[52px]"
-            onClick={() => {
-              handleTempSave({ bundleName, selectedBagIndex });
-              router.push("/home"); //성공하면 이동하는걸로 바꿔야함
-            }}
-          >
+          <Button className="h-[52px]" onClick={handleTempSaveButton}>
             저장하고 이동하기
           </Button>
         </DrawerFooter>

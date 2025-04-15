@@ -24,6 +24,8 @@ export const useTempSaveBundle = () => {
         });
         if (res?.id) {
           sessionStorage.setItem("bundleId", res.id);
+        } else {
+          throw new Error("id가 존재하지 않습니다.");
         }
       } else {
         const res = await updateBundle(giftBoxes);
@@ -31,6 +33,8 @@ export const useTempSaveBundle = () => {
           res.result.gifts.forEach((gift: GiftBox, index: number) => {
             updateGiftBox(index, { id: gift.id });
           });
+        } else {
+          throw new Error("gifts가 존재하지 않습니다.");
         }
       }
 
@@ -38,11 +42,13 @@ export const useTempSaveBundle = () => {
         title: "임시저장 성공",
         description: "보따리가 임시저장되었습니다.",
       });
+      return true;
     } catch (error) {
       toast({
         title: "임시저장 실패",
         description: `보따리 임시저장에 실패했습니다. ${error}`,
       });
+      return false;
     }
   };
 
