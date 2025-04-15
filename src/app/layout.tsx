@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
+
 import localFont from "next/font/local";
 import { headers } from "next/headers";
+import { Suspense } from "react";
 
 import "./globals.css";
 
-import Header from "@/layout/Header";
-import { Toaster } from "@/components/ui/toaster";
-import KakaoInitScript from "@/components/KakaoInitScript";
-
 import PageTransition from "@/app/PageTransition";
+import KakaoInitScript from "@/components/KakaoInitScript";
+import { Toaster } from "@/components/ui/toaster";
+import Header from "@/layout/Header";
+
 import { Providers } from "./providers";
 
 const pretendard = localFont({

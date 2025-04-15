@@ -1,4 +1,5 @@
 import LogoKakaoIcon from "/public/icons/logo_kakao.svg";
+
 import { Icon } from "./Icon";
 
 const KakaoLoginButton = ({ link }: { link: string }) => {

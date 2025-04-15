@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
 import { useParams, useRouter } from "next/navigation";
+import React from "react";
 
 import Card from "@/components/common/Card";
-import { FilledGiftListPreview, MyBundlePreview } from "@/types/bundle/types";
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
+import { FilledGiftListPreview, MyBundlePreview } from "@/types/bundle/types";
 import { MyCardListProps } from "@/types/components/types";
 
 const MyCardList = ({ type, data, size }: MyCardListProps) => {

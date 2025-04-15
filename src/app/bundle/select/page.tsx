@@ -1,7 +1,8 @@
+import Link from "next/link";
+
 import BundleList from "@/components/bundle/BundleList";
 import SelectedBundle from "@/components/bundle/SelectedBundle";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 const page = () => {
   const imagePaths = [

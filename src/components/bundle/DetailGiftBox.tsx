@@ -3,14 +3,15 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
+import Chip from "../common/Chip";
+import { Icon } from "../common/Icon";
+import { Button } from "../ui/button";
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
 } from "../ui/carousel";
-import { Button } from "../ui/button";
-import Chip from "../common/Chip";
 
 import LeftIcon from "/public/icons/arrow_left_large.svg";
 import RightIcon from "/public/icons/arrow_right_large.svg";
@@ -21,7 +22,6 @@ import {
   useIsUploadAnswerStore,
   useSelectedGiftBoxStore,
 } from "@/stores/bundle/useStore";
-import { Icon } from "../common/Icon";
 import { DetailGiftBoxProps } from "@/types/components/types";
 
 const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {

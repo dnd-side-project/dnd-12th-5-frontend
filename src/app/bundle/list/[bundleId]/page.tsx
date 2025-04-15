@@ -16,17 +16,19 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-
 import { useMyBundleDetailQuery } from "@/queries/useMyBundleDetailQuery";
 import { useDeleteMyBundleMutation } from "@/queries/useDeleteMyBundleMutation";
 import { toast } from "@/hooks/use-toast";
 import { useDraftBundleGiftsQuery } from "@/queries/useDraftBundleGiftsQuery";
+
 import { ToastAction } from "@radix-ui/react-toast";
+
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { useIsClickedUpdateFilledButton } from "@/stores/bundle/useStore";
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
 import { resetGiftBoxes } from "@/utils/utils";
 import { Icon } from "@/components/common/Icon";
+
 import CloseIcon from "/public/icons/close.svg";
 
 const Page = () => {

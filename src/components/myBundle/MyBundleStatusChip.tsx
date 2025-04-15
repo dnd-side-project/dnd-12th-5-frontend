@@ -1,4 +1,5 @@
 import IndicatorIcon from "/public/icons/indicator.svg";
+
 import { Icon } from "../common/Icon";
 
 const MyBundleStatusChip = ({

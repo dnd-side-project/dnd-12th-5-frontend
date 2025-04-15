@@ -1,3 +1,6 @@
+import { getCookie } from "cookies-next";
+
+import { PICKTORY_API } from "../api-url";
 import { BUNDLE_COLORS } from "@/constants/constants";
 import {
   GiftBox,
@@ -6,8 +9,6 @@ import {
   ReceiveBundle,
   ResultGiftBox,
 } from "@/types/bundle/types";
-import { getCookie } from "cookies-next";
-import { PICKTORY_API } from "../api-url";
 
 /** 보따리 생성 api */
 export const createBundle = async ({

@@ -1,21 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
-import ChipList from "./ChipList";
-import CustomTextArea from "./CustomTextArea";
+import { useState, useEffect } from "react";
+
+import GiftIcon from "../../../public/img/gift_letter_square.svg";
 import {
   GIFT_SELECT_REASON_MAX_LENGTH,
   REASON_CHIP_MESSAGES,
   REASON_CHIP_TEXTES,
 } from "@/constants/constants";
-import GiftIcon from "../../../public/img/gift_letter_square.svg";
 import {
   useEditBoxStore,
   useGiftStore,
   useTagIndexStore,
 } from "@/stores/gift-upload/useStore";
 import { InputReasonProps } from "@/types/components/types";
+
+import ChipList from "./ChipList";
+import CustomTextArea from "./CustomTextArea";
 
 const InputReason = ({
   value,

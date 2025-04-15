@@ -3,6 +3,7 @@
 import Image from "next/image";
 
 import IndicatorIcon from "/public/icons/indicator.svg";
+
 import { CardProps } from "@/types/components/types";
 
 const Card = ({

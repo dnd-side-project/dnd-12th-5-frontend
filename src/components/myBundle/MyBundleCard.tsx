@@ -1,13 +1,14 @@
-import React, { useMemo } from "react";
 import Image from "next/image";
+import React, { useMemo } from "react";
 
 import DeleteIcon from "/public/icons/btn_erase.svg";
 
-import MyBundleStatusChip from "./MyBundleStatusChip";
+import { Icon } from "../common/Icon";
 import { DrawerTrigger } from "../ui/drawer";
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
-import { Icon } from "../common/Icon";
 import { MyBundleCardProps } from "@/types/components/types";
+
+import MyBundleStatusChip from "./MyBundleStatusChip";
 
 const MyBundleCard = ({
   isEdit,

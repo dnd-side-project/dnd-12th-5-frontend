@@ -1,6 +1,7 @@
-import { GiftBox } from "@/types/bundle/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+
+import { GiftBox } from "@/types/bundle/types";
 
 interface TagIndexStore {
   selectedTagIndex: number;

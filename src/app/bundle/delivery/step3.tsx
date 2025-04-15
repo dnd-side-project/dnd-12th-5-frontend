@@ -3,14 +3,14 @@
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
-import { toast } from "@/hooks/use-toast";
+import { Icon } from "@/components/common/Icon";
 import { ToastAction } from "@/components/ui/toast";
+import { toast } from "@/hooks/use-toast";
 import { useSelectedBagStore } from "@/stores/bundle/useStore";
 import { CHARACTERS, BUNDLE_COLORS } from "@/constants/constants";
 
 import KakaoShareButtonIcon from "/public/icons/kakao_share_button.svg";
 import LinkCopyButtonIcon from "/public/icons/link_copy_button.svg";
-import { Icon } from "@/components/common/Icon";
 
 const Step3 = () => {
   const searchParams = useSearchParams();

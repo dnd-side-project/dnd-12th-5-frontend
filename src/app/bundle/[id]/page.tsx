@@ -1,12 +1,14 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "next/navigation";
+
+import { getBundleResult, fetchResponseBundle } from "@/api/bundle/api";
+import Loading from "@/components/common/Loading";
+
 import Step1 from "./step1";
 import Step2 from "./step2";
 import Step3 from "./step3";
-import { getBundleResult, fetchResponseBundle } from "@/api/bundle/api";
-import { useQuery } from "@tanstack/react-query";
-import Loading from "@/components/common/Loading";
 
 const Page = () => {
   const searchParams = useSearchParams();

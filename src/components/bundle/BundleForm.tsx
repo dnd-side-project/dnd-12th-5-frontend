@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
+
 import CharacterCountInput from "@/components/common/CharacterCountInput";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { BUNDLE_NAME_MAX_LENGTH } from "@/constants/constants";
 import { useBundleStore } from "@/stores/bundle/useStore";
 

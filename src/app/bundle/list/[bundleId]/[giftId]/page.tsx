@@ -1,20 +1,19 @@
 "use client";
 
-import { useState, useEffect, Key } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import { useState, useEffect, Key } from "react";
 
+import LinkButton from "@/components/common/LinkButton";
+import Loading from "@/components/common/Loading";
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import LinkButton from "@/components/common/LinkButton";
-import Loading from "@/components/common/Loading";
-
-import { useGiftNameStore } from "@/stores/bundle/useStore";
 import { useGiftDetailQuery } from "@/queries/useGiftDetailQuery";
+import { useGiftNameStore } from "@/stores/bundle/useStore";
 
 const Page = () => {
   const { giftId, bundleId } = useParams() as {

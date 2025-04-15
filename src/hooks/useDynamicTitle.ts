@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
 import { useSearchParams, useParams, usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+
 import { useBundleStore, useGiftNameStore } from "@/stores/bundle/useStore";
 
 const useDynamicTitle = () => {

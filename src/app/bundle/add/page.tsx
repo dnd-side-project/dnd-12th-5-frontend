@@ -1,21 +1,22 @@
 "use client";
 
+import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+import { createBundle, updateBundle } from "@/api/bundle/api";
+import Chip from "@/components/bundle/Chip";
+import GiftList from "@/components/bundle/GiftList";
+import { Button } from "@/components/ui/button";
+import { MIN_GIFTBOX_AMOUNT } from "@/constants/constants";
+import { toast } from "@/hooks/use-toast";
+import { useSelectedBagStore, useBundleStore } from "@/stores/bundle/useStore";
 import {
   useEditBoxStore,
   useGiftStore,
   useToastStore,
 } from "@/stores/gift-upload/useStore";
-import Chip from "@/components/bundle/Chip";
-import GiftList from "@/components/bundle/GiftList";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { createBundle, updateBundle } from "@/api/bundle/api";
-import { useSelectedBagStore, useBundleStore } from "@/stores/bundle/useStore";
-import { useMutation } from "@tanstack/react-query";
 import { GiftBox } from "@/types/bundle/types";
-import { useEffect } from "react";
-import { MIN_GIFTBOX_AMOUNT } from "@/constants/constants";
-import { toast } from "@/hooks/use-toast";
 
 const Page = () => {
   const { giftBoxes } = useGiftStore();

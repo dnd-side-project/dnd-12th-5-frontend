@@ -1,4 +1,5 @@
 import KakaoLogoIcon from "/public/icons/kakao_circle_logo.svg";
+
 import { Icon } from "@/components/common/Icon";
 
 const page = () => {

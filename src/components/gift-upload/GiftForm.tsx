@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useEffect, useState, useMemo } from "react";
+
 import CharacterCountInput from "../common/CharacterCountInput";
 import { Button } from "../ui/button";
-import InputLink from "./InputLink";
-import InputReason from "./InputReason";
-import UploadImageList from "./UploadImageList";
+import { uploadGiftImages } from "@/api/gift-upload/api";
 import { GIFT_NAME_MAX_LENGTH } from "@/constants/constants";
 import {
   useTagIndexStore,
@@ -15,9 +14,11 @@ import {
   useEditBoxStore,
   useToastStore,
 } from "@/stores/gift-upload/useStore";
-
-import { uploadGiftImages } from "@/api/gift-upload/api";
 import { ImageItem } from "@/types/gift-upload/types";
+
+import InputLink from "./InputLink";
+import InputReason from "./InputReason";
+import UploadImageList from "./UploadImageList";
 
 const GiftForm = () => {
   const router = useRouter();

@@ -1,18 +1,19 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
 
-import Card from "@/components/common/Card";
 import AnswerChip from "@/components/bundle/AnswerChip";
+import Card from "@/components/common/Card";
+import { Icon } from "@/components/common/Icon";
+import Loading from "@/components/common/Loading";
 import { Button } from "@/components/ui/button";
 
 import ArrowIcon from "/public/icons/arrow_right_medium.svg";
-import Loading from "@/components/common/Loading";
-import { Icon } from "@/components/common/Icon";
+
 import { GIFT_ANSWER_MAP } from "@/constants/constants";
-import { GiftData } from "@/types/bundle/types";
 import { useBundleResultQuery } from "@/queries/useBundleResultQuery";
+import { GiftData } from "@/types/bundle/types";
 
 const Page = () => {
   const { bundleId } = useParams() as { bundleId: string };

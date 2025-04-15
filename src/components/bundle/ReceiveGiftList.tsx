@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { GIFTBOX_SHAPE_SEQUENCE } from "@/constants/constants";
 import {
   useGiftAnswerStore,
@@ -5,7 +7,6 @@ import {
   useSelectedGiftBoxStore,
 } from "@/stores/bundle/useStore";
 import { ReciveGiftListProps } from "@/types/components/types";
-import Image from "next/image";
 
 const ReceiveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
   const answers = useGiftAnswerStore((state) => state.answers);

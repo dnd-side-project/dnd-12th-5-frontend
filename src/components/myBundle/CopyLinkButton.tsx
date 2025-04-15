@@ -1,4 +1,5 @@
 import CopyLinkIcon from "/public/icons/copy_link.svg";
+
 import { Icon } from "../common/Icon";
 
 const CopyLinkButton = ({ onClick }: { onClick: () => void }) => {

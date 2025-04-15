@@ -3,10 +3,12 @@
 import Link from "next/link";
 
 import ArrowIcon from "/public/icons/arrow_right_small.svg";
-import { deleteToken } from "@/utils/utils";
+
 import { useRouter } from "next/navigation";
-import { toast } from "@/hooks/use-toast";
+
 import { Icon } from "@/components/common/Icon";
+import { toast } from "@/hooks/use-toast";
+import { deleteToken } from "@/utils/utils";
 
 const Page = () => {
   const router = useRouter();
