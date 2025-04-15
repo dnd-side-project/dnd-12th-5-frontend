@@ -1,3 +1,5 @@
+import { CharacterKey } from "../constants/types";
+
 export interface GiftBox {
   name: string;
   reason: string;
@@ -9,9 +11,6 @@ export interface GiftBox {
   id?: number | null;
 }
 
-{
-  /* 퍼블리싱을 위한 임시 타입 지정 (추후 api 연결 시 수정 요함) */
-}
 export interface ReceiveBundle {
   id: number;
   status: string;
@@ -29,7 +28,7 @@ export interface ReceiveGiftBox {
   thumbnail: string;
 }
 
-/** 내가 만든 보따리 관련 임시 타입 */
+/** 내가 만든 보따리 */
 
 export interface MyBundle {
   id: number;
@@ -66,26 +65,17 @@ export interface FilledGift {
 // 선물 리스트 프리뷰
 export type FilledGiftListPreview = Pick<FilledGift, "id" | "thumbnail">;
 
-// 개별 선물 상세
-export type FilledGiftDetail = Omit<FilledGift, "thumbnail" | "responseTag">;
-
-// 개별 선물 응답
-export type GiftResponse = Omit<FilledGift, "message" | "imageUrls">;
-
-// 보따리 응답 결과 조회
-export interface BundleResponse {
-  id: number;
-  gifts: GiftResponse[];
-}
-
-//보따리 결과 선물 박스 타입
+// 보따리 결과 선물 박스 타입
 export interface ResultGiftBox {
   id: number;
   name: string;
+  link: string;
   purchaseUrl: string;
   thumbnail: string;
   responseTag: string;
 }
+
+/** 보따리 풀어보기 */
 
 /** [id] props */
 export interface Step1Props {
@@ -104,4 +94,23 @@ export interface GoToHomeDrawerProps {
   open: boolean;
   onClose: () => void;
   onConfirm: () => void;
+}
+
+export interface GiftData {
+  id: number;
+  name: string;
+  link: string;
+  thumbnail: string;
+  purchaseUrl: string;
+  responseTag: string;
+}
+
+/** 배달부 설정 */
+export interface PutCharacterPayload {
+  bundleId: number;
+  deliveryCharacterType: CharacterKey;
+}
+
+export interface PutCharacterResponse {
+  link: string;
 }

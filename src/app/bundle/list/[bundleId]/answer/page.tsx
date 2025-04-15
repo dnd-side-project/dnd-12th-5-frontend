@@ -9,10 +9,11 @@ import AnswerChip from "@/components/bundle/AnswerChip";
 import { Button } from "@/components/ui/button";
 
 import ArrowIcon from "/public/icons/arrow_right_medium.svg";
-import { fetchGiftResults, GiftData } from "@/api/bundle/api";
+import { fetchGiftResults } from "@/api/bundle/api";
 import Loading from "@/components/common/Loading";
-import { GIFT_ANSWER_MAP } from "@/constants/constants";
 import { Icon } from "@/components/common/Icon";
+import { GIFT_ANSWER_MAP } from "@/constants/constants";
+import { GiftData } from "@/types/bundle/types";
 
 const Page = () => {
   const { bundleId } = useParams() as { bundleId: string };
