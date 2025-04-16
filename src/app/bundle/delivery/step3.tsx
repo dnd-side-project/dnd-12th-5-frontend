@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
 import { toast } from "@/hooks/use-toast";
-import { ToastAction } from "@/components/ui/toast";
 import { useSelectedBagStore } from "@/stores/bundle/useStore";
 import { CHARACTERS, BUNDLE_COLORS } from "@/constants/constants";
 
@@ -34,7 +33,6 @@ const Step3 = () => {
         .catch(() =>
           toast({
             title: "링크 복사에 실패하였습니다.",
-            action: <ToastAction altText="Try again">다시 시도</ToastAction>,
           }),
         );
     }
@@ -68,7 +66,6 @@ const Step3 = () => {
     } catch (error) {
       toast({
         title: "카카오톡 공유에 실패하였습니다.",
-        action: <ToastAction altText="Try again">다시 시도</ToastAction>,
       });
     }
   };

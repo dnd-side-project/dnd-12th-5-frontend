@@ -21,7 +21,6 @@ import { useMyBundleDetail } from "@/queries/useMyBundleDetail";
 import { useDeleteBundle } from "@/queries/useDeleteMyBundle";
 import { toast } from "@/hooks/use-toast";
 import { useFillGift } from "@/queries/useFillGift";
-import { ToastAction } from "@radix-ui/react-toast";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { useIsClickedUpdateFilledButton } from "@/stores/bundle/useStore";
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
@@ -63,7 +62,6 @@ const Page = () => {
         .catch(() =>
           toast({
             title: "링크 복사에 실패하였습니다.",
-            action: <ToastAction altText="Try again">다시 시도</ToastAction>,
           }),
         );
     }
@@ -80,7 +78,6 @@ const Page = () => {
       onError: () => {
         toast({
           title: "삭제에 실패하였습니다.",
-          action: <ToastAction altText="Try again">다시 시도</ToastAction>,
         });
       },
     });
