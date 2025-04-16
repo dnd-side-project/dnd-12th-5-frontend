@@ -45,8 +45,7 @@ const Page = () => {
       setToken(accessToken, refreshToken);
 
       toast({
-        title: "로그인 성공",
-        description: "로그인 되었습니다.",
+        title: "로그인 성공!",
       });
 
       router.push("/home"); // 로그인 후 홈으로

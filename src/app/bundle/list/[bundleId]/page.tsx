@@ -57,12 +57,12 @@ const Page = () => {
         .writeText(`${process.env.NEXT_PUBLIC_BASE_URL}/bundle/${link}?step=1`)
         .then(() => {
           toast({
-            description: "링크를 복사하였습니다.",
+            title: "링크를 복사하였습니다.",
           });
         })
         .catch(() =>
           toast({
-            description: "링크 복사에 실패하였습니다.",
+            title: "링크 복사에 실패하였습니다.",
             action: <ToastAction altText="Try again">다시 시도</ToastAction>,
           }),
         );
@@ -79,7 +79,7 @@ const Page = () => {
       },
       onError: () => {
         toast({
-          description: "삭제에 실패하였습니다.",
+          title: "삭제에 실패하였습니다.",
           action: <ToastAction altText="Try again">다시 시도</ToastAction>,
         });
       },
