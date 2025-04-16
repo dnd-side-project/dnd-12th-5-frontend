@@ -33,7 +33,6 @@ const Step3 = () => {
         })
         .catch(() =>
           toast({
-            variant: "destructive",
             description: "링크 복사에 실패하였습니다.",
             action: <ToastAction altText="Try again">다시 시도</ToastAction>,
           }),
@@ -68,7 +67,6 @@ const Step3 = () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast({
-        variant: "destructive",
         description: "카카오톡 공유에 실패하였습니다.",
         action: <ToastAction altText="Try again">다시 시도</ToastAction>,
       });

@@ -62,7 +62,6 @@ const Page = () => {
         })
         .catch(() =>
           toast({
-            variant: "destructive",
             description: "링크 복사에 실패하였습니다.",
             action: <ToastAction altText="Try again">다시 시도</ToastAction>,
           }),
@@ -80,7 +79,6 @@ const Page = () => {
       },
       onError: () => {
         toast({
-          variant: "destructive",
           description: "삭제에 실패하였습니다.",
           action: <ToastAction altText="Try again">다시 시도</ToastAction>,
         });
