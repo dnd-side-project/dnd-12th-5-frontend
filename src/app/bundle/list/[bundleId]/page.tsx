@@ -56,12 +56,12 @@ const Page = () => {
         .writeText(`${process.env.NEXT_PUBLIC_BASE_URL}/bundle/${link}?step=1`)
         .then(() => {
           toast({
-            title: "링크를 복사하였습니다.",
+            title: "링크를 복사했어요!",
           });
         })
         .catch(() =>
           toast({
-            title: "링크 복사에 실패하였습니다.",
+            title: "링크 복사에 실패했어요.",
           }),
         );
     }
@@ -77,7 +77,7 @@ const Page = () => {
       },
       onError: () => {
         toast({
-          title: "삭제에 실패하였습니다.",
+          title: "보따리 삭제에 실패했어요.",
         });
       },
     });

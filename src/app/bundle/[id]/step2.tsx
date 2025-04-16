@@ -78,7 +78,7 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
 
       if (!response.ok) {
         toast({
-          title: "답변 전송에 실패했습니다.",
+          title: "답변 전송에 실패했어요.",
         });
         throw new Error("답변 전송에 실패했습니다.");
       }
@@ -87,7 +87,7 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
     } catch (error) {
       console.error(error);
       toast({
-        title: "답변 전송에 실패했습니다.",
+        title: "답변 전송에 실패했어요.",
       });
     }
   };
