@@ -2,10 +2,33 @@
   "extends": [
     "next/core-web-vitals",
     "next/typescript",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:import/typescript"
   ],
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "eslint-plugin-import"],
   "rules": {
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "import/order": [
+      "warn",
+      {
+        "groups": [
+          "builtin", // Node.js 기본 모듈
+          "external", // 외부 라이브러리
+          "internal", // 내부 모듈
+          "parent", // 부모 파일
+          "sibling", // 형제 파일
+          "index",
+          "object",
+          "type"
+        ],
+        "pathGroups": [{ "pattern": "@/**", "group": "parent" }],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "alphabetize": {
+          "order": "asc", // 알파벳 순서로 정렬
+          "caseInsensitive": true // 대소문자 구분 없음
+        },
+        "newlines-between": "always" // 그룹 사이에 빈 줄 추가
+      }
+    ]
   }
 }

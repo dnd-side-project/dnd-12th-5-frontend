@@ -1,15 +1,15 @@
 "use client";
 
-import { Fragment } from "react";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Fragment } from "react";
 
 import { Button } from "@/components/ui/button";
-import { useBundleStore } from "@/stores/bundle/useStore";
-import { useDeliveryBundle } from "@/queries/useDeliveryBundle";
 import { CHARACTERS, DELIVERY_CHARACTER_MAP } from "@/constants/constants";
-import { resetGiftBoxes } from "@/utils/utils";
+import { useDeliveryCharacterMutation } from "@/queries/useDeliveryCharacterMutation";
+import { useBundleStore } from "@/stores/bundle/useStore";
 import { CharacterKey } from "@/types/constants/types";
+import { resetGiftBoxes } from "@/utils/utils";
 
 const Step2 = () => {
   const router = useRouter();
@@ -31,7 +31,7 @@ const Step2 = () => {
     sessionStorage.removeItem("bundleId");
   };
 
-  const { mutate } = useDeliveryBundle();
+  const { mutate } = useDeliveryCharacterMutation();
   const bundleId = Number(sessionStorage.getItem("bundleId"));
 
   const handleApiPost = () => {

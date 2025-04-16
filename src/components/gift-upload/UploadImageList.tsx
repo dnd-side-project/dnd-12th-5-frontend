@@ -1,17 +1,19 @@
 "use client";
 
-import ImageCard from "./ImageCard";
-import ImageIcon from "../../../public/icons/image_medium.svg";
-import Image from "next/image";
-import { ImageItem } from "@/types/gift-upload/types";
-import { UploadImageListProps } from "@/types/components/types";
-import { IMAGE_EXTENSIONS, IMAGE_MAX_SIZE_MB } from "@/constants/constants";
 import { closestCenter, DndContext, DragEndEvent } from "@dnd-kit/core";
 import {
   arrayMove,
   horizontalListSortingStrategy,
   SortableContext,
 } from "@dnd-kit/sortable";
+import Image from "next/image";
+
+import ImageIcon from "../../../public/icons/image_medium.svg";
+import { IMAGE_EXTENSIONS, IMAGE_MAX_SIZE_MB } from "@/constants/constants";
+import { UploadImageListProps } from "@/types/components/types";
+import { ImageItem } from "@/types/gift-upload/types";
+
+import ImageCard from "./ImageCard";
 import SortableImageWrapper from "./SortableImageWrapper";
 
 const UploadImageList = ({

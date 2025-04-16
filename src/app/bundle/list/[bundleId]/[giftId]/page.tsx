@@ -1,20 +1,19 @@
 "use client";
 
-import { useState, useEffect, Key } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import { useState, useEffect, Key } from "react";
 
+import LinkButton from "@/components/common/LinkButton";
+import Loading from "@/components/common/Loading";
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import LinkButton from "@/components/common/LinkButton";
-import Loading from "@/components/common/Loading";
-
+import { useGiftDetailQuery } from "@/queries/useGiftDetailQuery";
 import { useGiftNameStore } from "@/stores/bundle/useStore";
-import { useGiftDetail } from "@/queries/useGiftDetail";
 
 const Page = () => {
   const { giftId, bundleId } = useParams() as {
@@ -22,7 +21,7 @@ const Page = () => {
     bundleId: string;
   };
 
-  const { data } = useGiftDetail(parseInt(giftId), parseInt(bundleId));
+  const { data } = useGiftDetailQuery(parseInt(giftId), parseInt(bundleId));
 
   const { name, message, purchaseUrl, thumbnail, imageUrls } = data || {
     name: "",

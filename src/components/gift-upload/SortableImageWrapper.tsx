@@ -1,8 +1,9 @@
 "use client";
 
-import { SortableImageWrapperProps } from "@/types/components/types";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+
+import { SortableImageWrapperProps } from "@/types/components/types";
 
 const SortableImageWrapper = ({ id, children }: SortableImageWrapperProps) => {
   const { attributes, listeners, setNodeRef, transform, transition } =

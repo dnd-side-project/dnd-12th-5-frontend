@@ -1,11 +1,12 @@
 import { HTMLAttributes, ReactNode } from "react";
-import { ImageItem } from "../gift-upload/types";
+
 import {
   FilledGiftListPreview,
   GiftBox,
   MyBundlePreview,
   ReceiveGiftBox,
 } from "../bundle/types";
+import { ImageItem } from "../gift-upload/types";
 
 /** common */
 export interface CardProps {

@@ -1,12 +1,16 @@
 "use client";
 
-import { useCallback, useState } from "react";
 import Link from "next/link";
+import { useCallback, useState } from "react";
 
+import { Icon } from "@/components/common/Icon";
+import Loading from "@/components/common/Loading";
 import MyBundleCard from "@/components/myBundle/MyBundleCard";
 
 import CheckIcon from "/public/icons/check.svg";
 import CloseIcon from "/public/icons/close.svg";
+
+import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerContent,
@@ -14,14 +18,9 @@ import {
   DrawerTitle,
   DrawerClose,
 } from "@/components/ui/drawer";
-import { Button } from "@/components/ui/button";
-import Loading from "@/components/common/Loading";
-
-import { useBundles } from "@/queries/useMyBundles";
-import { useDeleteBundle } from "@/queries/useDeleteMyBundle";
-
+import { useDeleteMyBundleMutation } from "@/queries/useDeleteMyBundleMutation";
+import { useMyBundlesQuery } from "@/queries/useMyBundlesQuery";
 import { MyBundle } from "@/types/bundle/types";
-import { Icon } from "@/components/common/Icon";
 
 const Page = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -32,7 +31,7 @@ const Page = () => {
     name: string;
   } | null>(null);
 
-  const { data, isLoading } = useBundles();
+  const { data, isLoading } = useMyBundlesQuery();
   const hasBundle = data?.result?.length;
 
   const filteredBottariData =
@@ -40,7 +39,7 @@ const Page = () => {
       (bundle: { status: string }) => !isChecked || bundle.status === "DRAFT",
     ) || [];
 
-  const { mutate: deleteBundle } = useDeleteBundle();
+  const { mutate: deleteBundle } = useDeleteMyBundleMutation();
 
   const handleDelete = useCallback(
     (id: number) => {

@@ -1,32 +1,25 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
+import { useParams, useRouter } from "next/navigation";
 
-import Card from "@/components/common/Card";
 import AnswerChip from "@/components/bundle/AnswerChip";
+import Card from "@/components/common/Card";
+import { Icon } from "@/components/common/Icon";
+import Loading from "@/components/common/Loading";
 import { Button } from "@/components/ui/button";
 
 import ArrowIcon from "/public/icons/arrow_right_medium.svg";
-import { fetchGiftResults, GiftData } from "@/api/bundle/api";
-import Loading from "@/components/common/Loading";
+
 import { GIFT_ANSWER_MAP } from "@/constants/constants";
-import { Icon } from "@/components/common/Icon";
+import { useBundleResultQuery } from "@/queries/useBundleResultQuery";
+import { GiftData } from "@/types/bundle/types";
 
 const Page = () => {
   const { bundleId } = useParams() as { bundleId: string };
   const router = useRouter();
 
-  const {
-    data: giftData,
-    isPending,
-    isError,
-  } = useQuery({
-    queryKey: ["giftResults", bundleId],
-    queryFn: () => fetchGiftResults(Number(bundleId)),
-    enabled: !!bundleId,
-  });
+  const { data: giftData, isPending, isError } = useBundleResultQuery(bundleId);
 
   if (isPending)
     return (

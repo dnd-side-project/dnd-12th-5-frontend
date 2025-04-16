@@ -7,7 +7,7 @@ import MyCardList from "@/components/myBundle/MyCardList";
 import Loading from "@/components/common/Loading";
 import { Icon } from "@/components/common/Icon";
 import { Button } from "@/components/ui/button";
-import { useBundlePreview } from "@/queries/useMyBundlesPreview";
+import { useBundlesPreviewQuery } from "@/queries/useBundlesPreviewQuery";
 import useResetStore from "@/hooks/useResetStore";
 
 import MainGraphic from "/public/img/main_graphic.svg";
@@ -16,7 +16,7 @@ import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
 const Page = () => {
   useResetStore();
 
-  const { data, isLoading } = useBundlePreview();
+  const { data, isLoading } = useBundlesPreviewQuery();
   const hasBundle = data?.result?.length;
 
   return (

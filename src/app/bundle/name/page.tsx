@@ -1,5 +1,5 @@
-import SelectedBundle from "@/components/bundle/SelectedBundle";
 import BundleForm from "@/components/bundle/BundleForm";
+import SelectedBundle from "@/components/bundle/SelectedBundle";
 
 const page = () => {
   return (

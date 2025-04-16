@@ -3,20 +3,19 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { PICKTORY_API } from "@/api/api-url";
 import Chip from "@/components/bundle/Chip";
 import DetailGiftBox from "@/components/bundle/DetailGiftBox";
 import ReceiveGiftList from "@/components/bundle/ReceiveGiftList";
 import { Button } from "@/components/ui/button";
-
+import { RESPONSE_TAGS } from "@/constants/constants";
+import { toast } from "@/hooks/use-toast";
 import {
   useGiftAnswerStore,
   useIsOpenDetailGiftBoxStore,
   useIsUploadAnswerStore,
 } from "@/stores/bundle/useStore";
 import { Step2Props } from "@/types/bundle/types";
-import { RESPONSE_TAGS } from "@/constants/constants";
-import { toast } from "@/hooks/use-toast";
-import { PICKTORY_API } from "@/api/api-url";
 
 const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
   const router = useRouter();

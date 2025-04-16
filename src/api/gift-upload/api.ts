@@ -1,4 +1,5 @@
 import { getCookie } from "cookies-next";
+
 import { PICKTORY_API } from "../api-url";
 
 export const uploadGiftImages = async (

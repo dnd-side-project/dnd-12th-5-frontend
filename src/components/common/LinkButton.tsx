@@ -1,6 +1,8 @@
 import React from "react";
-import { Button } from "../ui/button";
+
 import CopyLinkIcon from "../../../public/icons/copy_link.svg";
+import { Button } from "../ui/button";
+
 import { Icon } from "./Icon";
 
 const LinkButton = ({ linkUrl }: { linkUrl: string }) => {

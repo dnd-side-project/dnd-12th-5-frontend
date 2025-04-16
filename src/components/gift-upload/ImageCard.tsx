@@ -1,5 +1,6 @@
-import React from "react";
 import Image from "next/image";
+import React from "react";
+
 import EraseIcon from "../../../public/icons/btn_erase.svg";
 import { Icon } from "../common/Icon";
 import { ImageCardProps } from "@/types/components/types";

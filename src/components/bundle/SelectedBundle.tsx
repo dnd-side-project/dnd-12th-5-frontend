@@ -1,10 +1,11 @@
 "use client";
 
-import { useSelectedBagStore } from "@/stores/bundle/useStore";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+
 import Loading from "../common/Loading";
 import { BUNDLE_IMAGE_PATHS } from "@/constants/constants";
+import { useSelectedBagStore } from "@/stores/bundle/useStore";
 
 const SelectedBundle = () => {
   const { selectedBagIndex } = useSelectedBagStore();

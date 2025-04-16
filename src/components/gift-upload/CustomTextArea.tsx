@@ -1,5 +1,5 @@
-import { CustomTextAreaProps } from "@/types/components/types";
 import { Textarea } from "../ui/textarea";
+import { CustomTextAreaProps } from "@/types/components/types";
 
 const CustomTextArea = ({
   placeholder,

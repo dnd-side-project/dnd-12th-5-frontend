@@ -1,3 +1,4 @@
+import { Icon } from "../common/Icon";
 import { Button } from "../ui/button";
 import {
   DrawerContent,
@@ -5,8 +6,8 @@ import {
   DrawerTitle,
   DrawerClose,
 } from "../ui/drawer";
+
 import CloseIcon from "/public/icons/close.svg";
-import { Icon } from "../common/Icon";
 
 const DeleteBundleDrawer = ({
   handleDeleteButton,

@@ -1,27 +1,28 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import { useEditBoxStore, useGiftStore } from "@/stores/gift-upload/useStore";
+import { Icon } from "@/components/common/Icon";
+import { Button } from "@/components/ui/button";
+
+import LogoIcon from "/public/icons/logo.svg";
+import SettingIcon from "/public/icons/setting_large.svg";
+import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
+import CloseIcon from "/public/icons/close.svg";
+
+import { MIN_GIFTBOX_AMOUNT } from "@/constants/constants";
+import useDynamicTitle from "@/hooks/useDynamicTitle";
+import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 import {
   useBundleStore,
   useIsClickedUpdateFilledButton,
   useIsOpenDetailGiftBoxStore,
   useSelectedBagStore,
 } from "@/stores/bundle/useStore";
+import { useEditBoxStore, useGiftStore } from "@/stores/gift-upload/useStore";
 
-import { Button } from "@/components/ui/button";
-import { Icon } from "@/components/common/Icon";
-import useDynamicTitle from "@/hooks/useDynamicTitle";
-
-import LogoIcon from "/public/icons/logo.svg";
-import SettingIcon from "/public/icons/setting_large.svg";
-import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
-import CloseIcon from "/public/icons/close.svg";
 import GoToHomeDrawer from "./GoToHomeDrawer";
-import { MIN_GIFTBOX_AMOUNT } from "@/constants/constants";
-import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 
 // 정적 title 관리
 const pageTitles: { [key: string]: string } = {

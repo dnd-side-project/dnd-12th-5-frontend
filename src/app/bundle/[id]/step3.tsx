@@ -1,7 +1,8 @@
 "use client";
 
-import { useRouter, useParams } from "next/navigation";
 import Image from "next/image";
+import { useRouter, useParams } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
 import {
   ANSWER_MESSAGE_MAP,

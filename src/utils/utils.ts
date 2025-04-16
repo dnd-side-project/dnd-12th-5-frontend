@@ -1,5 +1,6 @@
-import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { deleteCookie, setCookie } from "cookies-next";
+
+import { useGiftStore } from "@/stores/gift-upload/useStore";
 
 /** accessToken, refreshToken 삭제 */
 export const deleteToken = () => {
