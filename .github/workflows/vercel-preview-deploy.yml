@@ -26,4 +26,4 @@ jobs:
       - name: Assign beta domain
         run: |
           vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} > domain.txt
-          vercel alias set `cat domain.txt` staging-logomakershop-biz.vercel.app --token=${{ secrets.VERCEL_TOKEN }}
+          vercel alias set `cat domain.txt` staging-logomakershop-biz.vercel.app --scope ${{ secrets.VERCEL_ORG_ID }} --token=${{ secrets.VERCEL_TOKEN }}
