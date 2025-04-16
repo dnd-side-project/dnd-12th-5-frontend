@@ -17,13 +17,36 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - name: Clean previous .vercel config (if any)
+        run: rm -rf .vercel
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
+
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
       - name: Build Project Artifacts
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
-      - name: Assign beta domain
+
+      - name: Deploy to Vercel and wait until ready
         run: |
+          # Deploy the prebuilt output
           vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} > domain.txt
-          vercel alias set `cat domain.txt` staging-logomakershop-biz.vercel.app --scope ${{ secrets.VERCEL_ORG_ID }} --token=${{ secrets.VERCEL_TOKEN }}
+
+          # Read deployed URL
+          URL=$(cat domain.txt)
+          echo "Deployment started: $URL"
+          echo "Waiting for deployment to be ready..."
+
+          # Wait for the deployed URL to return a valid response
+          until curl --head --silent --fail "$URL"; do
+            echo "Still waiting..."
+            sleep 5
+          done
+
+          echo "✅ Deployment is ready at $URL"
+
+          # Assign the custom alias to the preview URL
+          vercel alias set "$URL" staging-logomakershop-biz.vercel.app --token=${{ secrets.VERCEL_TOKEN }}
