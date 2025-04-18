@@ -1,7 +1,9 @@
 import { CarouselApi } from "../ui/carousel";
 import { GIFT_ANSWER_CHIP_TEXTES } from "@/constants/constants";
+import { toast } from "@/hooks/use-toast";
 import {
   useGiftAnswerStore,
+  useIsOpenDetailGiftBoxStore,
   useIsUploadAnswerStore,
 } from "@/stores/bundle/useStore";
 
@@ -20,13 +22,30 @@ const ReceiveAnswerChipList = ({
 }) => {
   const { isUploadedAnswer } = useIsUploadAnswerStore();
   const { setAnswer } = useGiftAnswerStore();
+  const { setIsOpenDetailGiftBox } = useIsOpenDetailGiftBoxStore();
 
   const handleSelectAnswer = (giftIndex: number, answerIndex: number) => {
     setAnswer(giftIndex, answerIndex);
+
+    const updatedAnswers = {
+      ...mappedAnswers,
+      [giftIndex]: answerIndex,
+    };
+    const allAnswered = Object.keys(updatedAnswers).length === giftListLength;
+
     if (carouselApi && giftIndex < giftListLength - 1) {
       setTimeout(() => {
         carouselApi.scrollTo(giftIndex + 1);
       }, 400);
+    }
+
+    if (allAnswered) {
+      setTimeout(() => {
+        setIsOpenDetailGiftBox(false);
+        toast({
+          title: "답변이 저장되었어요!",
+        });
+      }, 500);
     }
   };
 
