@@ -105,7 +105,7 @@ const Header = () => {
 
   if (isBundleDetailStepTwo && isOpenDetailGiftBox) {
     return (
-      <div className="sticky top-0 z-20 flex h-[56px] items-center justify-end bg-pink-50 px-4">
+      <div className="sticky top-0 z-20 flex h-[56px] items-center justify-end bg-gray-100 px-4">
         <button onClick={() => setIsOpenDetailGiftBox(false)}>
           <Icon src={CloseIcon} alt="close" size="large" />
         </button>

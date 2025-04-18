@@ -3,7 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { PICKTORY_API } from "@/api/api-url";
+import { postGiftAnswers } from "@/api/bundle/api";
 import Chip from "@/components/bundle/Chip";
 import DetailGiftBox from "@/components/bundle/DetailGiftBox";
 import ReceiveGiftList from "@/components/bundle/ReceiveGiftList";
@@ -57,30 +57,16 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
   }, [answeredCount, mappedAnswers, gifts.length]);
 
   const submitGiftResponses = async () => {
-    const requestBody = {
-      bundleId: sessionStorage.getItem("receiveBundleId"),
-      gifts: gifts.map((gift, index) => ({
-        giftId: gift.id,
-        responseTag: RESPONSE_TAGS[mappedAnswers[index] ?? 0],
-      })),
-    };
+    const bundleId = sessionStorage.getItem("receiveBundleId");
+    if (!bundleId) return;
 
-    /** 보따리 풀어보기 api */
+    const requestBody = gifts.map((gift, index) => ({
+      giftId: gift.id,
+      responseTag: RESPONSE_TAGS[mappedAnswers[index] ?? 0],
+    }));
+
     try {
-      const response = await fetch(PICKTORY_API.openBundle(link), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        toast({
-          title: "답변 전송에 실패했어요.",
-        });
-        throw new Error("답변 전송에 실패했습니다.");
-      }
+      await postGiftAnswers(link, requestBody);
       setIsUploadedAnswer(true);
       router.push(`/bundle/${link}?step=3`);
     } catch (error) {
@@ -91,8 +77,10 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
     }
   };
 
+  const bgColor = isOpenDetailGiftBox ? "bg-gray-100" : "bg-pink-50";
+
   return (
-    <div className="relative h-full overflow-hidden bg-pink-50">
+    <div className={`relative h-full overflow-hidden ${bgColor}`}>
       {isOpenDetailGiftBox ? (
         <DetailGiftBox giftList={gifts} mappedAnswers={mappedAnswers} />
       ) : (

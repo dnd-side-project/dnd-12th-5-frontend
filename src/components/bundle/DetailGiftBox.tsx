@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-import Chip from "../common/Chip";
 import { Icon } from "../common/Icon";
 import { Button } from "../ui/button";
 import {
@@ -16,17 +15,12 @@ import {
 import LeftIcon from "/public/icons/arrow_left_large.svg";
 import RightIcon from "/public/icons/arrow_right_large.svg";
 
-import { GIFT_ANSWER_CHIP_TEXTES } from "@/constants/constants";
-import {
-  useGiftAnswerStore,
-  useIsUploadAnswerStore,
-  useSelectedGiftBoxStore,
-} from "@/stores/bundle/useStore";
+import { useSelectedGiftBoxStore } from "@/stores/bundle/useStore";
 import { DetailGiftBoxProps } from "@/types/components/types";
 
+import ReceiveAnswerChipList from "./ReceiveAnswerChipList";
+
 const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
-  const { setAnswer } = useGiftAnswerStore();
-  const { isUploadedAnswer } = useIsUploadAnswerStore();
   const { selectedGiftIndex } = useSelectedGiftBoxStore();
 
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
@@ -75,24 +69,27 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
     }
   };
 
-  const handleSelectAnswer = (giftIndex: number, answerIndex: number) => {
-    setAnswer(giftIndex, answerIndex);
-    if (carouselApi && giftIndex < giftList.length - 1) {
-      setTimeout(() => {
-        carouselApi.scrollTo(giftIndex + 1);
-      }, 400);
-    }
-  };
-
   return (
-    <div className="flex h-full flex-col items-center justify-center">
+    <div className="flex h-full flex-col items-center justify-center gap-6">
+      <div className="mt-[17px] flex gap-2">
+        {giftList.map((_, index) => {
+          return (
+            <p
+              className={`h-[6px] w-[6px] rounded-full ${
+                currentCarousel === index + 1 ? "bg-pink-500" : "bg-gray-300"
+              }`}
+              key={index}
+            ></p>
+          );
+        })}
+      </div>
       <Carousel className="w-[304px]" setApi={setCarouselApi}>
-        <CarouselContent className="gap-[14px] pb-0">
+        <CarouselContent className="gap-4 pb-0">
           {giftList.map((gift, giftIndex) => {
             return (
               <CarouselItem
                 key={giftIndex}
-                className="flex h-[540px] w-[304px] flex-col overflow-hidden rounded-[18px] bg-white"
+                className="flex h-[379px] w-[287px] flex-col overflow-hidden rounded-[22px] bg-white"
               >
                 <div className="-mx-4">
                   <Carousel
@@ -109,14 +106,14 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                         return (
                           <CarouselItem
                             key={index}
-                            className="relative h-[220px]"
+                            className="relative h-[236px]"
                           >
                             <Image
                               src={url}
                               alt={`image_${index}`}
                               layout="fill"
                               objectFit="cover"
-                              className="pointer-events-none rounded-t-[18px]"
+                              className="pointer-events-none rounded-t-[22px]"
                             />
                           </CarouselItem>
                         );
@@ -154,45 +151,27 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                     </div>
                   </Carousel>
                 </div>
-                <div className="my-[18px] flex flex-col gap-[22px]">
-                  <div className="flex flex-col gap-[10px]">
-                    <p className="text-xs text-gray-600">{gift.name}</p>
-                    <p className="text-[15px]">{gift.message}</p>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <p className="text-xs text-gray-500">
-                      선물에 대한 답변을 선택해주세요
-                    </p>
-                    <div className="flex w-[272px] flex-wrap gap-2">
-                      {GIFT_ANSWER_CHIP_TEXTES.map((answer, index) => (
-                        <Chip
-                          key={index}
-                          text={answer}
-                          isActive={mappedAnswers[giftIndex] === index}
-                          onClick={() => handleSelectAnswer(giftIndex, index)}
-                          disabled={isUploadedAnswer}
-                        />
-                      ))}
-                    </div>
-                  </div>
+                <div className="mt-[9px] flex flex-col gap-[10px]">
+                  <p className="text-base font-bold text-gray-500">
+                    {gift.name}
+                  </p>
+                  <p className="text-[13px] tracking-[-0.13px]">
+                    {gift.message}
+                  </p>
                 </div>
               </CarouselItem>
             );
           })}
         </CarouselContent>
       </Carousel>
-      <div className="mt-[17px] flex gap-2">
-        {giftList.map((_, index) => {
-          return (
-            <p
-              className={`h-[6px] w-[6px] rounded-full ${
-                currentCarousel === index + 1 ? "bg-pink-500" : "bg-gray-300"
-              }`}
-              key={index}
-            ></p>
-          );
-        })}
-      </div>
+      {giftList.length > 0 && currentCarousel > 0 && (
+        <ReceiveAnswerChipList
+          mappedAnswers={mappedAnswers}
+          giftIndex={currentCarousel - 1}
+          carouselApi={carouselApi}
+          giftListLength={giftList.length}
+        />
+      )}
     </div>
   );
 };
