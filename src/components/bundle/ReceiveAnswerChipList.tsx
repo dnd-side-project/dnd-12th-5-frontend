@@ -34,7 +34,7 @@ const ReceiveAnswerChipList = ({
       }, 400);
     }
 
-    if (allAnswered) {
+    if (allAnswered && giftIndex === giftListLength - 1) {
       setTimeout(() => {
         setIsOpenDetailGiftBox(false);
         toast({
