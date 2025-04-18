@@ -1,10 +1,11 @@
-import Chip from "../common/Chip";
 import { CarouselApi } from "../ui/carousel";
 import { GIFT_ANSWER_CHIP_TEXTES } from "@/constants/constants";
 import {
   useGiftAnswerStore,
   useIsUploadAnswerStore,
 } from "@/stores/bundle/useStore";
+
+import ReceiveAnswerChip from "./ReceiveAnswerChip";
 
 const ReceiveAnswerChipList = ({
   mappedAnswers,
@@ -30,12 +31,12 @@ const ReceiveAnswerChipList = ({
   };
 
   return (
-    <div className="my-[18px] flex flex-col gap-[22px]">
+    <div className="flex w-full flex-col gap-[22px] px-[19px] pb-[19px]">
       <div className="flex flex-col gap-2">
         <p className="text-xs text-gray-500">선물에 대한 답변을 선택해주세요</p>
-        <div className="flex w-[272px] flex-wrap gap-2">
+        <div className="grid grid-cols-2 gap-[9px]">
           {GIFT_ANSWER_CHIP_TEXTES.map((answer, index) => (
-            <Chip
+            <ReceiveAnswerChip
               key={index}
               text={answer}
               isActive={mappedAnswers[giftIndex] === index}
