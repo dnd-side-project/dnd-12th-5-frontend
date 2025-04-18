@@ -3,7 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { PICKTORY_API } from "@/api/api-url";
+import { postGiftAnswers } from "@/api/bundle/api";
 import Chip from "@/components/bundle/Chip";
 import DetailGiftBox from "@/components/bundle/DetailGiftBox";
 import ReceiveGiftList from "@/components/bundle/ReceiveGiftList";
@@ -57,31 +57,16 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
   }, [answeredCount, mappedAnswers, gifts.length]);
 
   const submitGiftResponses = async () => {
-    const requestBody = {
-      bundleId: sessionStorage.getItem("receiveBundleId"),
-      gifts: gifts.map((gift, index) => ({
-        giftId: gift.id,
-        responseTag: RESPONSE_TAGS[mappedAnswers[index] ?? 0],
-      })),
-    };
+    const bundleId = sessionStorage.getItem("receiveBundleId");
+    if (!bundleId) return;
 
-    /** 답변 전송 api */
+    const requestBody = gifts.map((gift, index) => ({
+      giftId: gift.id,
+      responseTag: RESPONSE_TAGS[mappedAnswers[index] ?? 0],
+    }));
+
     try {
-      const response = await fetch(PICKTORY_API.postBundleAnswer(link), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        toast({
-          variant: "destructive",
-          description: "답변 전송에 실패했습니다.",
-        });
-        throw new Error("답변 전송에 실패했습니다.");
-      }
+      await postGiftAnswers(link, requestBody);
       setIsUploadedAnswer(true);
       router.push(`/bundle/${link}?step=3`);
     } catch (error) {

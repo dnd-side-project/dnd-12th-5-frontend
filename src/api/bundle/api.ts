@@ -278,3 +278,23 @@ export const getGiftDetail = async (giftId: number, bundleId: number) => {
 
   return response.json();
 };
+
+/** 답변 전송 api */
+export const postGiftAnswers = async (
+  bundleId: string,
+  gifts: { giftId: number; responseTag: string }[],
+) => {
+  const response = await fetch(PICKTORY_API.postBundleAnswer(bundleId), {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ bundleId, gifts }),
+  });
+
+  if (!response.ok) {
+    throw new Error("답변 전송에 실패했습니다.");
+  }
+
+  return response.json();
+};
