@@ -5,16 +5,13 @@ import {
   useGiftAnswerStore,
   useIsUploadAnswerStore,
 } from "@/stores/bundle/useStore";
-import { ReceiveGiftBox } from "@/types/bundle/types";
 
 const ReceiveAnswerChipList = ({
-  gift,
   mappedAnswers,
   giftIndex,
   carouselApi,
   giftListLength,
 }: {
-  gift: ReceiveGiftBox;
   mappedAnswers: Record<number, number>;
   giftIndex: number;
   carouselApi: CarouselApi;
@@ -34,10 +31,6 @@ const ReceiveAnswerChipList = ({
 
   return (
     <div className="my-[18px] flex flex-col gap-[22px]">
-      <div className="flex flex-col gap-[10px]">
-        <p className="text-xs text-gray-600">{gift.name}</p>
-        <p className="text-[15px]">{gift.message}</p>
-      </div>
       <div className="flex flex-col gap-2">
         <p className="text-xs text-gray-500">선물에 대한 답변을 선택해주세요</p>
         <div className="flex w-[272px] flex-wrap gap-2">

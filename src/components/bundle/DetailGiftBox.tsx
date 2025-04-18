@@ -84,12 +84,12 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
         })}
       </div>
       <Carousel className="w-[304px]" setApi={setCarouselApi}>
-        <CarouselContent className="gap-[14px] pb-0">
+        <CarouselContent className="gap-4 pb-0">
           {giftList.map((gift, giftIndex) => {
             return (
               <CarouselItem
                 key={giftIndex}
-                className="flex h-[540px] w-[304px] flex-col overflow-hidden rounded-[18px] bg-white"
+                className="flex h-[379px] w-[287px] flex-col overflow-hidden rounded-[22px] bg-white"
               >
                 <div className="-mx-4">
                   <Carousel
@@ -106,14 +106,14 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                         return (
                           <CarouselItem
                             key={index}
-                            className="relative h-[220px]"
+                            className="relative h-[236px]"
                           >
                             <Image
                               src={url}
                               alt={`image_${index}`}
                               layout="fill"
                               objectFit="cover"
-                              className="pointer-events-none rounded-t-[18px]"
+                              className="pointer-events-none rounded-t-[22px]"
                             />
                           </CarouselItem>
                         );
@@ -151,18 +151,27 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                     </div>
                   </Carousel>
                 </div>
-                <ReceiveAnswerChipList
-                  gift={gift}
-                  mappedAnswers={mappedAnswers}
-                  giftIndex={giftIndex}
-                  carouselApi={carouselApi}
-                  giftListLength={giftList.length}
-                />
+                <div className="mt-[9px] flex flex-col gap-[10px]">
+                  <p className="text-base font-bold text-gray-500">
+                    {gift.name}
+                  </p>
+                  <p className="text-[13px] tracking-[-0.13px]">
+                    {gift.message}
+                  </p>
+                </div>
               </CarouselItem>
             );
           })}
         </CarouselContent>
       </Carousel>
+      {giftList.length > 0 && currentCarousel > 0 && (
+        <ReceiveAnswerChipList
+          mappedAnswers={mappedAnswers}
+          giftIndex={currentCarousel - 1}
+          carouselApi={carouselApi}
+          giftListLength={giftList.length}
+        />
+      )}
     </div>
   );
 };
