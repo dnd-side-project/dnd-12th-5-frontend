@@ -94,7 +94,7 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
   };
 
   return (
-    <div className="relative h-full overflow-hidden bg-pink-50">
+    <div className="relative h-full overflow-hidden bg-gray-100">
       {isOpenDetailGiftBox ? (
         <DetailGiftBox giftList={gifts} mappedAnswers={mappedAnswers} />
       ) : (
