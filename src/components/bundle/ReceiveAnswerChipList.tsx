@@ -1,4 +1,3 @@
-import { CarouselApi } from "../ui/carousel";
 import { GIFT_ANSWER_CHIP_TEXTES } from "@/constants/constants";
 import { toast } from "@/hooks/use-toast";
 import {
@@ -6,6 +5,7 @@ import {
   useIsOpenDetailGiftBoxStore,
   useIsUploadAnswerStore,
 } from "@/stores/bundle/useStore";
+import { ReceiveAnswerChipListProps } from "@/types/bundle/types";
 
 import ReceiveAnswerChip from "./ReceiveAnswerChip";
 
@@ -14,12 +14,7 @@ const ReceiveAnswerChipList = ({
   giftIndex,
   carouselApi,
   giftListLength,
-}: {
-  mappedAnswers: Record<number, number>;
-  giftIndex: number;
-  carouselApi: CarouselApi;
-  giftListLength: number;
-}) => {
+}: ReceiveAnswerChipListProps) => {
   const { isUploadedAnswer } = useIsUploadAnswerStore();
   const { setAnswer } = useGiftAnswerStore();
   const { setIsOpenDetailGiftBox } = useIsOpenDetailGiftBoxStore();

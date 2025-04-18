@@ -1,4 +1,5 @@
 import { CharacterKey } from "../constants/types";
+import { CarouselApi } from "@/components/ui/carousel";
 
 export interface GiftBox {
   name: string;
@@ -113,4 +114,11 @@ export interface PutCharacterPayload {
 
 export interface PutCharacterResponse {
   link: string;
+}
+
+export interface ReceiveAnswerChipListProps {
+  mappedAnswers: Record<number, number>;
+  giftIndex: number;
+  carouselApi: CarouselApi;
+  giftListLength: number;
 }
