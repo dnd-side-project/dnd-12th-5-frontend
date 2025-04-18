@@ -23,8 +23,9 @@ export const REASON_CHIP_MESSAGES = [
 ];
 
 export const GIFT_ANSWER_CHIP_TEXTES = [
-  "갖고 싶던 선물이에요!",
-  "마음에 들어요!",
+  "갖고 싶던 선물이에요",
+  "정말 최고예요",
+  "마음에 들어요",
   "이미 가지고 있어요",
   "잘 모르겠어요",
   "제 취향이 아니에요",
@@ -51,6 +52,7 @@ export const BUNDLE_IMAGE_PATHS = [
 export const RESPONSE_TAGS = [
   "GREAT",
   "GOOD",
+  "LIKE",
   "ALREADY_HAVE",
   "NOT_SURE",
   "NOT_MY_STYLE",
@@ -76,8 +78,9 @@ export const GIFTBOX_SHAPE_SEQUENCE = [
 ];
 
 export const GIFT_ANSWER_MAP: Record<string, string> = {
-  GREAT: "갖고 싶던 선물이에요!",
-  GOOD: "마음에 들어요!",
+  GREAT: "갖고 싶던 선물이에요",
+  GOOD: "정말 최고예요",
+  LIKE: "마음에 들어요",
   ALREADY_HAVE: "이미 가지고 있어요",
   NOT_SURE: "잘 모르겠어요",
   NOT_MY_STYLE: "제 취향이 아니에요",
