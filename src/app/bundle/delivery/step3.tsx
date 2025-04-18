@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
 import { Icon } from "@/components/common/Icon";
-import { ToastAction } from "@/components/ui/toast";
 import { toast } from "@/hooks/use-toast";
 import { useSelectedBagStore } from "@/stores/bundle/useStore";
 import { CHARACTERS, BUNDLE_COLORS } from "@/constants/constants";
@@ -28,14 +27,12 @@ const Step3 = () => {
         .writeText(`${process.env.NEXT_PUBLIC_BASE_URL}/bundle/${link}?step=1`)
         .then(() => {
           toast({
-            description: "링크를 복사하였습니다.",
+            title: "링크를 복사했어요!",
           });
         })
         .catch(() =>
           toast({
-            variant: "destructive",
-            description: "링크 복사에 실패하였습니다.",
-            action: <ToastAction altText="Try again">다시 시도</ToastAction>,
+            title: "링크 복사에 실패했어요.",
           }),
         );
     }
@@ -68,9 +65,7 @@ const Step3 = () => {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       toast({
-        variant: "destructive",
-        description: "카카오톡 공유에 실패하였습니다.",
-        action: <ToastAction altText="Try again">다시 시도</ToastAction>,
+        title: "카카오톡 공유에 실패했어요.",
       });
     }
   };

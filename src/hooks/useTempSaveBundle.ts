@@ -39,15 +39,13 @@ export const useTempSaveBundle = () => {
       }
 
       toast({
-        title: "임시저장 성공",
-        description: "보따리가 임시저장되었습니다.",
+        title: "보따리 임시저장을 완료했어요!",
       });
       return true;
     } catch (error) {
       console.error(error);
       toast({
-        title: "임시저장 실패",
-        description: `보따리 임시저장에 실패했습니다.`,
+        title: "보따리 임시저장에 실패했어요",
       });
       return false;
     }
