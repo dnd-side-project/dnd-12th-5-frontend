@@ -65,9 +65,9 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
       })),
     };
 
-    /** 보따리 풀어보기 api */
+    /** 답변 전송 api */
     try {
-      const response = await fetch(PICKTORY_API.openBundle(link), {
+      const response = await fetch(PICKTORY_API.postBundleAnswer(link), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
