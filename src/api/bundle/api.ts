@@ -98,7 +98,7 @@ export const getDraftBundleGifts = async (bundleId: number) => {
 export const putDeliveryCharacter = async ({
   bundleId,
   deliveryCharacterType,
-}: PutCharacterPayload): Promise<PutCharacterResponse | undefined> => {
+}: PutCharacterPayload): Promise<PutCharacterResponse> => {
   try {
     const response = await axiosInstance.put(
       PICKTORY_API.putDeliveryCharacter(bundleId),
@@ -109,7 +109,7 @@ export const putDeliveryCharacter = async ({
 
     return response.data;
   } catch (error) {
-    return handleAxiosError(error, "배달부 설정 실패");
+    throw handleAxiosError(error, "배달부 설정 실패");
   }
 };
 
@@ -168,8 +168,6 @@ export const fetchResponseBundle = async (link: string) => {
       sessionStorage.setItem("receiveBundleId", bundleData.id.toString());
     }
 
-    console.log(bundleData);
-
     return bundleData;
   } catch (error) {
     handleAxiosError(error, "보따리 불러오기 실패");
@@ -177,14 +175,12 @@ export const fetchResponseBundle = async (link: string) => {
 };
 
 /** 보따리 결과 조회 */
-export const getBundleResult = async (
-  id: number,
-): Promise<ResultGiftBox[] | undefined> => {
+export const getBundleResult = async (id: number): Promise<ResultGiftBox[]> => {
   try {
     const response = await axiosInstance.get(PICKTORY_API.getBundleResult(id));
     return response.data.result.gifts;
   } catch (error) {
-    return handleAxiosError(error, "보따리 결과 조회 실패");
+    throw handleAxiosError(error, "보따리 결과 조회 실패");
   }
 };
 
