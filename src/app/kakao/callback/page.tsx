@@ -1,12 +1,12 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
-import { PICKTORY_API } from "@/api/api-url";
 import Loading from "@/components/common/Loading";
 import { toast } from "@/hooks/use-toast";
+import { useKakaoLogin } from "@/queries/kakao/useKakaoLogin";
+import { handleAxiosError } from "@/utils/axios";
 import { setToken } from "@/utils/utils";
 
 const Page = () => {
@@ -14,46 +14,20 @@ const Page = () => {
   const router = useRouter();
   const code = searchParams?.get("code");
 
-  /** 카카오 로그인 api */
-  const { mutate } = useMutation({
-    mutationFn: async (code: string) => {
-      const response = await fetch(PICKTORY_API.login, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({ code: code }),
-      });
-
-      if (!response.ok) {
-        throw new Error("로그인 실패");
-      }
-
-      const text = await response.text();
-      try {
-        const data = JSON.parse(text);
-        return data;
-      } catch {
-        throw new Error("응답 처리 실패");
-      }
-    },
-    onSuccess: (data) => {
+  const { mutate } = useKakaoLogin(
+    (data) => {
       const accessToken = data.result.accessToken;
       const refreshToken = data.result.refreshToken;
 
       setToken(accessToken, refreshToken);
 
-      toast({
-        title: "로그인 성공!",
-      });
-
-      router.push("/home"); // 로그인 후 홈으로
+      toast({ title: "로그인 성공!" });
+      router.push("/home");
     },
-    onError: (error) => {
-      console.error("로그인 실패:", error);
+    (error) => {
+      handleAxiosError(error, "카카오 로그인 실패");
     },
-  });
+  );
 
   useEffect(() => {
     if (code) {
