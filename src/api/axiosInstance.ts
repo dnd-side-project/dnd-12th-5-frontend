@@ -8,18 +8,11 @@ const axiosInstance = axios.create({
   },
 });
 
-// accessToken 자동 삽입
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = getCookie("accessToken");
+const token = getCookie("accessToken");
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-
-    return config;
-  },
-  (error) => Promise.reject(error),
-);
+// accessToken이 있다면 기본 헤더에 Authorization 설정
+if (token) {
+  axiosInstance.defaults.headers.Authorization = `Bearer ${token}`;
+}
 
 export default axiosInstance;
