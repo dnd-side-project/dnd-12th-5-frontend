@@ -4,7 +4,7 @@ import { getBundlesPreview } from "@/api/bundle/api";
 
 export const useBundlesPreviewQuery = () => {
   return useQuery({
-    queryKey: ["bundlePreview"],
+    queryKey: ["bundlesPreview"],
     queryFn: getBundlesPreview,
   });
 };

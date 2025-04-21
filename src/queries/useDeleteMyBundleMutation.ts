@@ -8,7 +8,7 @@ export const useDeleteMyBundleMutation = () => {
   return useMutation({
     mutationFn: deleteMyBundle,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["Bundles"] }); // 삭제 후 목록 업데이트
+      queryClient.invalidateQueries({ queryKey: ["bundles"] }); // 삭제 후 목록 업데이트
     },
     onError: (error) => {
       console.error("보따리 삭제 실패:", error);

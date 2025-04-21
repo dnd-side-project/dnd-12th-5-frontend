@@ -4,7 +4,7 @@ import { getDraftBundleGifts } from "@/api/bundle/api";
 
 export const useDraftBundleGiftsQuery = (bundleId: number) => {
   return useQuery({
-    queryKey: ["fillGift"],
+    queryKey: ["draftBundle"],
     queryFn: () => getDraftBundleGifts(bundleId),
   });
 };
