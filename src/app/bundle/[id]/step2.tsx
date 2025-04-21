@@ -57,13 +57,16 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
   }, [answeredCount, mappedAnswers, gifts.length]);
 
   const submitGiftResponses = async () => {
-    const bundleId = sessionStorage.getItem("receiveBundleId");
+    const bundleId = Number(sessionStorage.getItem("receiveBundleId"));
     if (!bundleId) return;
 
-    const requestBody = gifts.map((gift, index) => ({
-      giftId: gift.id,
-      responseTag: RESPONSE_TAGS[mappedAnswers[index] ?? 0],
-    }));
+    const requestBody = {
+      bundleId,
+      gifts: gifts.map((gift, index) => ({
+        giftId: gift.id,
+        responseTag: RESPONSE_TAGS[mappedAnswers[index] ?? 0],
+      })),
+    };
 
     try {
       await postGiftAnswers(link, requestBody);

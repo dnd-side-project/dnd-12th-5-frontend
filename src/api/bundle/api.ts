@@ -198,16 +198,16 @@ export const getGiftDetail = async (giftId: number, bundleId: number) => {
 
 /** 답변 전송 api */
 export const postGiftAnswers = async (
-  bundleId: string,
-  gifts: { giftId: number; responseTag: string }[],
+  link: string,
+  data: {
+    bundleId: number;
+    gifts: { giftId: number; responseTag: string }[];
+  },
 ) => {
   try {
     const response = await axiosInstance.post(
-      PICKTORY_API.postBundleAnswer(bundleId),
-      {
-        bundleId,
-        gifts,
-      },
+      PICKTORY_API.postBundleAnswer(link),
+      data,
     );
 
     return response.data;
