@@ -207,9 +207,7 @@ export const postGiftAnswers = async (
   try {
     const response = await axiosInstance.post(
       PICKTORY_API.postBundleAnswer(link),
-      {
-        data,
-      },
+      data,
     );
 
     return response.data;
