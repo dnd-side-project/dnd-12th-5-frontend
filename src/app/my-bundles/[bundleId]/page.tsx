@@ -1,13 +1,14 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
 import Image from "next/image";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 
-import { Button } from "@/components/ui/button";
-import MyBundleNameChip from "@/components/myBundle/MyBundleNameChip";
+import { Icon } from "@/components/common/Icon";
+import ShareSection from "@/components/common/ShareSection";
+import MyBundleStatusChip from "@/components/myBundle/MyBundleStatusChip";
 import MyCardList from "@/components/myBundle/MyCardList";
-import CopyLinkButton from "@/components/myBundle/CopyLinkButton";
+import { Button } from "@/components/ui/button";
 import {
   Drawer,
   DrawerClose,
@@ -16,15 +17,14 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { useMyBundleDetailQuery } from "@/queries/useMyBundleDetailQuery";
 import { useDeleteMyBundleMutation } from "@/queries/useDeleteMyBundleMutation";
+import { useMyBundleDetailQuery } from "@/queries/useMyBundleDetailQuery";
 import { toast } from "@/hooks/use-toast";
 import { useDraftBundleGiftsQuery } from "@/queries/useDraftBundleGiftsQuery";
-import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { useIsClickedUpdateFilledButton } from "@/stores/bundle/useStore";
+import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
 import { resetGiftBoxes } from "@/utils/utils";
-import { Icon } from "@/components/common/Icon";
 
 import CloseIcon from "/public/icons/close.svg";
 
@@ -36,7 +36,7 @@ const Page = () => {
   const { updateGiftBox } = useGiftStore();
 
   const { data } = useMyBundleDetailQuery(parseInt(bundleId));
-  const { name, designType, link, status, gifts } = data?.result || {
+  const { designType, link, status, gifts } = data?.result || {
     name: "",
     designType: "",
     link: "",
@@ -49,23 +49,6 @@ const Page = () => {
   useEffect(() => {
     setIsClickedUpdateFilledButton(false);
   }, [setIsClickedUpdateFilledButton]);
-
-  const handleCopyLink = () => {
-    if (link !== null) {
-      navigator.clipboard
-        .writeText(`${process.env.NEXT_PUBLIC_BASE_URL}/bundle/${link}?step=1`)
-        .then(() => {
-          toast({
-            title: "링크를 복사했어요!",
-          });
-        })
-        .catch(() =>
-          toast({
-            title: "링크 복사에 실패했어요.",
-          }),
-        );
-    }
-  };
 
   const { mutate: deleteBundle } = useDeleteMyBundleMutation();
   const handleDelete = () => {
@@ -174,19 +157,10 @@ const Page = () => {
   return (
     <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
       <div className="flex h-[calc(100%-52px)] flex-col items-center justify-center px-4">
-        {status === "DRAFT" ? (
-          <span className="rounded-[4px] bg-gray-100 px-[10px] py-[6px] text-[12px] font-medium">
-            임시 저장 중
-          </span>
-        ) : status === "PUBLISHED" ? (
-          <CopyLinkButton onClick={handleCopyLink} />
-        ) : null}
-
         <div className="mb-[40px] mt-[26px] flex flex-col items-center justify-center gap-[20px]">
           {bundleId && memoizedImage}
-          {name && <MyBundleNameChip name={name} />}
+          <MyBundleStatusChip status={status} type="message" size="md" />
         </div>
-
         <div className="flex w-full flex-col gap-[14px]">
           <p className="text-[15px] font-medium">내가 담았던 선물</p>
           <div
@@ -196,8 +170,13 @@ const Page = () => {
             <MyCardList data={gifts} type="gift" size="small" />
           </div>
         </div>
-
-        {/* 하단 버튼 */}
+        {/** 답변 대기 중인 상태 */}
+        {status === "PUBLISHED" && (
+          <div className="mt-[25px] w-full">
+            <ShareSection link={link} />
+          </div>
+        )}
+        {/* 하단 버튼 (임시 저장, 답변 완료) */}
         <div className="absolute bottom-4 w-full px-4">
           {status === "DRAFT" ? (
             <div className="flex gap-[5px]">
@@ -244,10 +223,6 @@ const Page = () => {
                 마저 채우기
               </Button>
             </div>
-          ) : status === "PUBLISHED" ? (
-            <Button size="lg" disabled={true}>
-              아직 상대방의 답변이 오지 않았어요
-            </Button>
           ) : (
             <Button
               size="lg"

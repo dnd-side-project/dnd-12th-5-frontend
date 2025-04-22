@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "next/navigation";
 
-import { getBundleResult, fetchResponseBundle } from "@/api/bundle/api";
+import { fetchResponseBundle, getAnswerResult } from "@/api/bundle/api";
 import Loading from "@/components/common/Loading";
 
 import Step1 from "./step1";
@@ -27,8 +27,8 @@ const Page = () => {
   });
 
   const { data: giftResultData, isError: isGiftResultDataError } = useQuery({
-    queryKey: ["giftResults", bundle?.id],
-    queryFn: () => getBundleResult(bundle?.id as number),
+    queryKey: ["answerResults", bundle?.id],
+    queryFn: () => getAnswerResult(link),
     enabled: !!bundle?.id && bundle?.status === "COMPLETED",
   });
 
@@ -55,8 +55,8 @@ const Page = () => {
     <div className={`relative h-full ${step === "2" && "bg-pink-50"}`}>
       {step === "1" && (
         <Step1
-          delivery={bundle.deliveryCharacterType}
-          color={bundle.designType.toLowerCase()}
+          delivery={bundle.delivery_character_type}
+          color={bundle.design_type.toLowerCase()}
           isCompleted={bundle.status === "COMPLETED"}
         />
       )}
@@ -67,7 +67,7 @@ const Page = () => {
           isCompleted={bundle.status === "COMPLETED"}
         />
       )}
-      {step === "3" && <Step3 delivery={bundle.deliveryCharacterType} />}
+      {step === "3" && <Step3 delivery={bundle.delivery_character_type} />}
     </div>
   );
 };

@@ -15,10 +15,10 @@ export interface GiftBox {
 export interface ReceiveBundle {
   id: number;
   status: string;
-  deliveryCharacterType: string;
-  designType: string;
+  delivery_character_type: string;
+  design_type: string;
   gifts: ReceiveGiftBox[];
-  totalGifts: number;
+  total_gifts: number;
 }
 
 export interface ReceiveGiftBox {
@@ -87,7 +87,7 @@ export interface Step1Props {
 
 export interface Step2Props {
   gifts: ReceiveGiftBox[];
-  giftResultData?: ResultGiftBox[];
+  giftResultData?: FilledGift[];
   isCompleted?: boolean;
 }
 

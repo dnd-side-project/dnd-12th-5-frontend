@@ -48,7 +48,12 @@ const MyBundleCard = ({
       }`}
     >
       <div className="flex-start flex w-full">
-        <MyBundleStatusChip status={status} isRead={is_read} />
+        <MyBundleStatusChip
+          status={status}
+          isRead={is_read}
+          type="label"
+          size="sm"
+        />
       </div>
       {isEdit && (
         <DrawerTrigger asChild>

@@ -3,72 +3,19 @@
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
-import { Icon } from "@/components/common/Icon";
-import { toast } from "@/hooks/use-toast";
-import { useSelectedBagStore } from "@/stores/bundle/useStore";
+import ShareSection from "@/components/common/ShareSection";
 import { CHARACTERS, BUNDLE_COLORS } from "@/constants/constants";
-
-import KakaoShareButtonIcon from "/public/icons/kakao_share_button.svg";
-import LinkCopyButtonIcon from "/public/icons/link_copy_button.svg";
+import { useSelectedBagStore } from "@/stores/bundle/useStore";
 
 const Step3 = () => {
   const searchParams = useSearchParams();
   const characterKo = searchParams?.get("character") ?? "포리";
-  const link = searchParams ? searchParams.get("link") : null;
+  const link = searchParams && searchParams.get("link");
 
   const characterEntry = Object.values(CHARACTERS).find(
     (char) => char.ko === characterKo,
   );
   const characterEn = characterEntry?.en ?? "pori";
-
-  const handleCopyLink = () => {
-    if (link !== null) {
-      navigator.clipboard
-        .writeText(`${process.env.NEXT_PUBLIC_BASE_URL}/bundle/${link}?step=1`)
-        .then(() => {
-          toast({
-            title: "링크를 복사했어요!",
-          });
-        })
-        .catch(() =>
-          toast({
-            title: "링크 복사에 실패했어요.",
-          }),
-        );
-    }
-  };
-
-  const shareKakao = () => {
-    const Kakao = window.Kakao;
-
-    try {
-      Kakao.Share.sendDefault({
-        objectType: "feed",
-        content: {
-          title: "Picktory",
-          description: "선물 보따리가 도착했어요. 🎁",
-          imageUrl: "https://i.imgur.com/4dHZTvt.png",
-          link: {
-            mobileWebUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/bundle/${link}?step=1`,
-            webUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/bundle/${link}?step=1`,
-          },
-        },
-        buttons: [
-          {
-            title: "서비스 이용하러 가기",
-            link: {
-              mobileWebUrl: process.env.NEXT_PUBLIC_BASE_URL,
-            },
-          },
-        ],
-      });
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      toast({
-        title: "카카오톡 공유에 실패했어요.",
-      });
-    }
-  };
 
   const { selectedBagIndex } = useSelectedBagStore();
   const color = BUNDLE_COLORS[selectedBagIndex].toLowerCase().trim();
@@ -93,31 +40,11 @@ const Step3 = () => {
           </p>
         </div>
       </section>
-
-      <div className="relative mb-[26px] mt-[53px] w-full px-4">
-        <hr className="w-full border-[0.5px] border-gray-200" />
-        <p className="absolute left-1/2 top-1/2 w-[60px] -translate-x-1/2 -translate-y-1/2 bg-pink-50 text-center text-xs font-medium text-gray-400">
-          공유하기
-        </p>
-      </div>
-
-      {/* Button Section */}
-      <section className="flex gap-3">
-        <button
-          className="flex flex-col items-center gap-1"
-          onClick={shareKakao}
-        >
-          <Icon src={KakaoShareButtonIcon} alt="kakaoShare" />
-          <p className="text-xs text-gray-600">카카오톡</p>
-        </button>
-        <button
-          className="flex flex-col items-center gap-1"
-          onClick={handleCopyLink}
-        >
-          <Icon src={LinkCopyButtonIcon} alt="linkCopy" />
-          <p className="text-xs text-gray-600">링크 복사</p>
-        </button>
-      </section>
+      {link && (
+        <div className="w-full px-4">
+          <ShareSection link={link} />
+        </div>
+      )}
     </div>
   );
 };
