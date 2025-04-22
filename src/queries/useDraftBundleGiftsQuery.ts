@@ -6,5 +6,6 @@ export const useDraftBundleGiftsQuery = (bundleId: number) => {
   return useQuery({
     queryKey: ["draftBundle"],
     queryFn: () => getDraftBundleGifts(bundleId),
+    enabled: false, // 초기 실행 방지
   });
 };
