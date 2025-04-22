@@ -1,7 +1,7 @@
 import { HTMLAttributes, ReactNode } from "react";
 
 import {
-  FilledGiftListPreview,
+  FilledGiftPreview,
   GiftBox,
   MyBundlePreview,
   ReceiveGiftBox,
@@ -12,8 +12,8 @@ import { ImageItem } from "../gift-upload/types";
 export interface CardProps {
   img: string;
   size: "small" | "medium";
-  type?: "design" | "image";
-  isRead?: boolean;
+  type: "gift" | "bundle";
+  isRead?: boolean; // bundle에만 해당
   isActive?: boolean;
   onClick?: () => void;
   noHoverStyle?: boolean;
@@ -117,12 +117,6 @@ export interface DetailGiftBoxProps {
   mappedAnswers: Record<number, number>;
 }
 
-export interface BundleListProps {
-  numberOfCards: number;
-  size: "small" | "medium";
-  imgPaths: string[];
-}
-
 export interface ReciveGiftListProps {
   giftList: ReceiveGiftBox[];
   onClick: () => void;
@@ -130,9 +124,10 @@ export interface ReciveGiftListProps {
 
 /** myBundle */
 export interface MyCardListProps {
-  type?: "design" | "image";
-  data: MyBundlePreview[] | FilledGiftListPreview[];
   size: "small" | "medium";
+  type: "gift" | "bundle";
+  data: MyBundlePreview[] | FilledGiftPreview[] | string[];
+  isSelectable?: boolean;
 }
 
 export interface MyBundleCardProps {

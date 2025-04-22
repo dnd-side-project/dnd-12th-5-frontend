@@ -43,14 +43,14 @@ export interface MyBundle {
 // 보따리 메인 목록
 export type MyBundlePreview = Pick<
   MyBundle,
-  "id" | "name" | "designType" | "updatedAt"
+  "id" | "name" | "designType" | "updatedAt" | "isRead"
 >;
 
 // 보따리 상세
 export type MyBundleDetail = Pick<MyBundle, "id" | "name" | "designType"> & {
   status: string;
   link: string | null;
-  gifts: FilledGiftListPreview[];
+  gifts: FilledGiftPreview[];
 };
 
 export interface FilledGift {
@@ -64,7 +64,7 @@ export interface FilledGift {
 }
 
 // 선물 리스트 프리뷰
-export type FilledGiftListPreview = Pick<FilledGift, "id" | "thumbnail">;
+export type FilledGiftPreview = Pick<FilledGift, "id" | "thumbnail">;
 
 // 보따리 결과 선물 박스 타입
 export interface ResultGiftBox {

@@ -17,7 +17,8 @@ const Page = () => {
   useResetStore();
 
   const { data, isLoading } = useBundlesPreviewQuery();
-  const hasBundle = data?.result?.length;
+  if (!data) return;
+  const myBundles = data.result;
 
   return (
     <main className="flex flex-col items-center justify-center gap-10 px-4 pt-3">
@@ -39,10 +40,7 @@ const Page = () => {
       <section className="flex w-full flex-col gap-[14px]">
         <div className="flex items-center justify-between">
           <p className="font-medium text-gray-900">내가 만든 보따리</p>
-          <Link
-            href="/bundle/list"
-            className="flex items-center justify-center"
-          >
+          <Link href="/my-bundles" className="flex items-center justify-center">
             <p className="text-sm text-gray-600">더보기</p>
             <Icon
               src={ArrowRightIcon}
@@ -60,8 +58,8 @@ const Page = () => {
             <div className="flex w-full items-center justify-center">
               <Loading />
             </div>
-          ) : hasBundle ? (
-            <MyCardList data={data.result} type="design" size="medium" />
+          ) : myBundles.length > 0 ? (
+            <MyCardList data={data.result} type="bundle" size="medium" />
           ) : (
             <p className="flex h-[88px] items-center justify-center text-gray-200">
               아직 만들어진 보따리가 없습니다.

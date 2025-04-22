@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-import BundleList from "@/components/bundle/BundleList";
 import SelectedBundle from "@/components/bundle/SelectedBundle";
 import { Button } from "@/components/ui/button";
+import MyCardList from "@/components/myBundle/MyCardList";
 
 const page = () => {
   const imagePaths = [
@@ -26,10 +26,11 @@ const page = () => {
         style={{ scrollbarWidth: "none" }}
       >
         <div className="min-w-max">
-          <BundleList
-            numberOfCards={imagePaths.length}
+          <MyCardList
+            type="bundle"
             size="small"
-            imgPaths={imagePaths}
+            data={imagePaths}
+            isSelectable={true}
           />
         </div>
       </div>

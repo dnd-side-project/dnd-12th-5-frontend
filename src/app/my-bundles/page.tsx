@@ -112,7 +112,7 @@ const Page = () => {
               ) : (
                 <>
                   {bundle.id && (
-                    <Link key={bundle.id} href={`/bundle/list/${bundle.id}`}>
+                    <Link key={bundle.id} href={`/my-bundles/${bundle.id}`}>
                       <MyBundleCard
                         isEdit={isEdit}
                         design_type={bundle.designType}
