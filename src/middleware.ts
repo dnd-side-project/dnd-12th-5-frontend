@@ -7,7 +7,7 @@ export const config = {
 // 로그인 정보가 있어야만 접근할 수 있는 페이지
 const protectedRoutes = [
   "/home",
-  "/bundle/list",
+  "/my-bundles",
   "/bundle/add",
   "/bundle/name",
   "/bundle/select",
@@ -15,9 +15,9 @@ const protectedRoutes = [
   "/bundle/delivery",
   "/setting",
   /^\/bundle\/\d+$/, // /bundle/[id]
-  /^\/bundle\/list\/\d+$/, // /bundle/list/[bundleId]
-  /^\/bundle\/list\/\d+\/\d+$/, // /bundle/list/[bundleId]/[giftId]
-  /^\/bundle\/list\/\d+\/answer$/, // /bundle/list/[bundlegId]/answer
+  /^\/bundle\/list\/\d+$/, // /my-bundles/[bundleId]
+  /^\/bundle\/list\/\d+\/\d+$/, // /my-bundles/[bundleId]/[giftId]
+  /^\/bundle\/list\/\d+\/answer$/, // /my-bundles/[bundlegId]/answer
 ];
 
 // 로그인 하지 않을 경우 접근할 수 있는 페이지
