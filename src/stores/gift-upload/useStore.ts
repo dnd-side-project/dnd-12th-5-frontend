@@ -1,6 +1,7 @@
-import { GiftBox } from "@/types/giftbag/types";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+
+import { GiftBox } from "@/types/bundle/types";
 
 interface TagIndexStore {
   selectedTagIndex: number;
@@ -56,3 +57,13 @@ export const useEditBoxStore = create<EditBoxStore>()(
     { name: "edit-storage" },
   ),
 );
+
+interface EditToastStore {
+  showEditToast: boolean;
+  setShowEditToast: (val: boolean) => void;
+}
+
+export const useToastStore = create<EditToastStore>((set) => ({
+  showEditToast: false,
+  setShowEditToast: (val) => set({ showEditToast: val }),
+}));

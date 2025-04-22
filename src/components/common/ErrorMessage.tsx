@@ -1,9 +1,5 @@
-interface ErrorMessageProps {
-  message: string;
-}
-
-const ErrorMessage = ({ message }: ErrorMessageProps) => {
-  return <p className="text-symantic-negative text-xs">{message}</p>;
+const ErrorMessage = ({ message }: { message: string }) => {
+  return <p className="text-xs text-symantic-negative">{message}</p>;
 };
 
 export default ErrorMessage;

@@ -1,26 +1,23 @@
-import { getCookie } from "cookies-next";
-
-{
-  /** 이미지 업로드 API */
-}
+import { PICKTORY_API } from "../api-url";
+import axiosInstance from "../axiosInstance";
+import { handleAxiosError } from "@/utils/axios";
 
 export const uploadGiftImages = async (
   formData: FormData,
 ): Promise<string[]> => {
-  const accessToken = getCookie("accessToken");
+  try {
+    const response = await axiosInstance.post(
+      PICKTORY_API.postGiftImageUpload,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      },
+    );
 
-  const response = await fetch("/api/v1/gifts/images/upload", {
-    method: "POST",
-    body: formData,
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("이미지 업로드 실패");
+    return response.data.result.uploadedUrls;
+  } catch (error) {
+    return handleAxiosError(error, "이미지 업로드 실패");
   }
-
-  const data = await response.json();
-  return data.result.uploadedUrls as string[];
 };

@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
+
 import localFont from "next/font/local";
 import { headers } from "next/headers";
+import { Suspense } from "react";
 
 import "./globals.css";
 
-import Header from "@/layout/Header";
-import { Toaster } from "@/components/ui/toaster";
 import PageTransition from "@/app/PageTransition";
+import KakaoInitScript from "@/components/KakaoInitScript";
+import { Toaster } from "@/components/ui/toaster";
+import Header from "@/layout/Header";
+
 import { Providers } from "./providers";
 
 const pretendard = localFont({
@@ -48,16 +51,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${pretendard.variable} ${nanumSquareRound.variable} antialiased `}
+        className={`${pretendard.variable} ${nanumSquareRound.variable} antialiased`}
       >
-        <div className="max-w-[430px] min-w-[375px] mx-auto min-h-screen flex flex-col relative">
+        <div className="relative mx-auto flex min-w-[375px] max-w-[430px] flex-col">
           <Suspense>
             <PageTransition>
               <Header />
               <Providers>
                 <div
                   className={`flex-grow ${bgColor}`}
-                  style={{ height: "calc(100vh - 56px)" }}
+                  style={{ height: "calc(100svh - 56px)" }}
                 >
                   {children}
                 </div>
@@ -66,6 +69,7 @@ export default function RootLayout({
             </PageTransition>
           </Suspense>
         </div>
+        <KakaoInitScript />
       </body>
     </html>
   );

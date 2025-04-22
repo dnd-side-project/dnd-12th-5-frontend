@@ -1,5 +1,6 @@
-import type { Config } from "tailwindcss";
 import tailwindAnimate from "tailwindcss-animate";
+
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   darkMode: ["class"],
@@ -127,6 +128,20 @@ const config: Config = {
       fontFamily: {
         pretendard: "var(--font-pretendard)",
         nanum: "var(--font-nanum-square-round)",
+      },
+      keyframes: {
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        "fade-out": {
+          "0%": { opacity: "1" },
+          "100%": { opacity: "0.6" },
+        },
+      },
+      animation: {
+        "fade-in": "fade-in 0.35s ease-in-out forwards",
+        "fade-out": "fade-out 0.5s ease-in-out forwards",
       },
     },
   },

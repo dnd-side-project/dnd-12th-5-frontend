@@ -3,79 +3,49 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import MyCardList from "@/components/myGiftbag/MyCardList";
+import MyCardList from "@/components/myBundle/MyCardList";
 import Loading from "@/components/common/Loading";
+import { Icon } from "@/components/common/Icon";
+import { Button } from "@/components/ui/button";
+import { useBundlesPreviewQuery } from "@/queries/useBundlesPreviewQuery";
+import useResetStore from "@/hooks/useResetStore";
 
 import MainGraphic from "/public/img/main_graphic.svg";
 import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
 
-import { useGiftBagPreview } from "@/hooks/api/useMyGiftBagPreview";
-import { useGiftStore } from "@/stores/gift-upload/useStore";
-import {
-  useSelectedBagStore,
-  useGiftBagStore,
-  useIsClickedUpdateFilledButton,
-} from "@/stores/giftbag/useStore";
-import { useEffect } from "react";
-
 const Page = () => {
-  const { data, isLoading } = useGiftBagPreview();
-  const hasGiftBag = data?.result?.length;
+  useResetStore();
 
-  const { setSelectedBagIndex } = useSelectedBagStore();
-  const { setGiftBagName } = useGiftBagStore();
-  const { setIsClickedUpdateFilledButton } = useIsClickedUpdateFilledButton();
-
-  const resetStore = () => {
-    //추후 util로 빼야함
-    useGiftStore.setState({
-      giftBoxes: Array(6).fill({
-        name: "",
-        filled: false,
-        reason: "",
-        tagIndex: 0,
-        purchase_url: "",
-        tag: "",
-        imgUrls: [],
-        id: null,
-      }),
-    });
-
-    setSelectedBagIndex(0);
-    setGiftBagName("");
-    sessionStorage.removeItem("giftBagId");
-    setIsClickedUpdateFilledButton(false);
-  };
-
-  useEffect(() => {
-    resetStore();
-  }, []);
+  const { data, isLoading, isError } = useBundlesPreviewQuery();
+  if (!data) return;
+  const myBundles = data.result;
 
   return (
-    <main className="flex flex-col gap-10 items-center justify-center pt-3 px-4">
-      <Link href="/giftbag/select" className="mx-[2px]">
+    <main className="flex flex-col items-center justify-center gap-10 px-4 pt-3">
+      <div className="relative">
         <Image
           src={MainGraphic}
           alt="MainGraphic"
           width={394}
           height={346}
           loading="eager"
-          className="hover:opacity-70"
         />
-      </Link>
-      <section className="flex flex-col gap-[14px] w-full">
-        <div className="flex justify-between items-center">
+        <Link
+          href="/bundle/select"
+          className="absolute bottom-3 left-1/2 w-[calc(100%-24px)] max-w-[370px] -translate-x-1/2"
+        >
+          <Button size="lg">보따리 만들러 가기</Button>
+        </Link>
+      </div>
+      <section className="flex w-full flex-col gap-[14px]">
+        <div className="flex items-center justify-between">
           <p className="font-medium text-gray-900">내가 만든 보따리</p>
-          <Link
-            href="/giftbag/list"
-            className="flex justify-center items-center"
-          >
-            <p className="text-gray-600 text-sm">더보기</p>
-            <Image
+          <Link href="/my-bundles" className="flex items-center justify-center">
+            <p className="text-sm text-gray-600">더보기</p>
+            <Icon
               src={ArrowRightIcon}
               alt="more"
-              width={14}
-              height={14}
+              size="small"
               loading="eager"
             />
           </Link>
@@ -84,14 +54,18 @@ const Page = () => {
           className="overflow-x-auto overflow-y-hidden"
           style={{ scrollbarWidth: "none" }}
         >
-          {isLoading ? (
-            <div className="w-full flex justify-center items-center">
+          {isError ? (
+            <p className="flex h-[88px] items-center justify-center text-coral-600">
+              데이터를 불러오는 도중 오류가 발생했습니다.
+            </p>
+          ) : isLoading ? (
+            <div className="flex h-[88px] w-full items-center justify-center">
               <Loading />
             </div>
-          ) : hasGiftBag ? (
-            <MyCardList data={data.result} type="design" size="medium" />
+          ) : myBundles.length > 0 ? (
+            <MyCardList data={data.result} type="bundle" size="medium" />
           ) : (
-            <p className="h-[88px] flex justify-center items-center text-gray-200">
+            <p className="flex h-[88px] items-center justify-center text-gray-200">
               아직 만들어진 보따리가 없습니다.
             </p>
           )}
