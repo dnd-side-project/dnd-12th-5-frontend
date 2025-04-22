@@ -101,12 +101,16 @@ const Page = () => {
     return 0; // 기본값 0
   };
 
-  const { data: fillGiftData } = useDraftBundleGiftsQuery(parseInt(bundleId));
+  const { refetch: refetchDraftGiftData } = useDraftBundleGiftsQuery(
+    parseInt(bundleId),
+  );
   const fetchSavedGift = async () => {
     if (!bundleId) return;
-    if (!fillGiftData) return;
 
-    const gifts = fillGiftData.gifts;
+    const { data } = await refetchDraftGiftData(); // 수동
+    if (!data) return;
+
+    const gifts = data.gifts;
 
     try {
       const updatePromises = gifts.map(
@@ -224,12 +228,14 @@ const Page = () => {
               </Button>
             </div>
           ) : (
-            <Button
-              size="lg"
-              onClick={() => router.push(`/my-bundles/${bundleId}/answer`)}
-            >
-              답변 확인하기
-            </Button>
+            status === "COMPLETED" && (
+              <Button
+                size="lg"
+                onClick={() => router.push(`/my-bundles/${bundleId}/answer`)}
+              >
+                답변 확인하기
+              </Button>
+            )
           )}
         </div>
       </div>
