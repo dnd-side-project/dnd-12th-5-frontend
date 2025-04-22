@@ -16,7 +16,7 @@ import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
 const Page = () => {
   useResetStore();
 
-  const { data, isLoading } = useBundlesPreviewQuery();
+  const { data, isLoading, isError } = useBundlesPreviewQuery();
   const hasBundle = data?.result?.length;
 
   return (
@@ -56,8 +56,12 @@ const Page = () => {
           className="overflow-x-auto overflow-y-hidden"
           style={{ scrollbarWidth: "none" }}
         >
-          {isLoading ? (
-            <div className="flex w-full items-center justify-center">
+          {isError ? (
+            <p className="flex h-[88px] items-center justify-center text-coral-600">
+              데이터를 불러오는 도중 오류가 발생했습니다.
+            </p>
+          ) : isLoading ? (
+            <div className="flex h-[88px] w-full items-center justify-center">
               <Loading />
             </div>
           ) : hasBundle ? (
