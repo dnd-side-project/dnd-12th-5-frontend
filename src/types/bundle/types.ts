@@ -87,7 +87,7 @@ export interface Step1Props {
 
 export interface Step2Props {
   gifts: ReceiveGiftBox[];
-  giftResultData?: ResultGiftBox[];
+  giftResultData?: FilledGift[];
   isCompleted?: boolean;
 }
 
