@@ -17,17 +17,16 @@ const Card = ({
   noActiveStyle,
   noCursorPointerStyle,
 }: CardProps) => {
-  const sizeClasses =
+  const sizeClass =
     size === "small"
       ? "w-[70px] h-[70px] min-w-[70px]"
       : "w-[88px] h-[88px] min-w-[88px]";
   const borderColorClasses = isActive ? "border-gray-700" : "border-gray-100";
-  const hoverClass = noHoverStyle ? "" : "hover:border-gray-700";
+  const hoverClass = noHoverStyle ? "" : "hover:border-gray-600";
   const activeClass = noActiveStyle ? "" : "active:border-gray-700";
 
   const imageSize = size === "small" ? 60 : 75;
-  const paddingSize =
-    type && type === "image" ? "" : size === "small" ? "p-[10px]" : "p-[13px]";
+  const paddingSize = type === "bundle" && "p-3";
 
   const cursorClass = noCursorPointerStyle
     ? "cursor-default"
@@ -35,7 +34,7 @@ const Card = ({
 
   return (
     <div
-      className={`relative flex items-center justify-center border-[1.4px] ${borderColorClasses} ${sizeClasses} box-border rounded-xl bg-gray-50 ${cursorClass} ${paddingSize} ${activeClass} ${hoverClass} `}
+      className={`relative flex items-center justify-center border-[1.4px] ${borderColorClasses} ${sizeClass} box-border rounded-xl bg-gray-50 ${cursorClass} ${paddingSize} ${activeClass} ${hoverClass}`}
       onClick={onClick}
     >
       <Image
@@ -43,7 +42,7 @@ const Card = ({
         alt="card"
         width={imageSize}
         height={imageSize}
-        className={`rounded-xl object-cover ${type && type === "image" ? "h-full w-full" : ""}`}
+        className="h-full w-full rounded-xl object-cover"
       />
       <div className="absolute right-2 top-2">
         {isRead === false && <Image src={IndicatorIcon} alt="IndicatorIcon" />}

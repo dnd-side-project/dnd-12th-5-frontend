@@ -56,7 +56,7 @@ const Page = () => {
 
     deleteBundle(parseInt(bundleId), {
       onSuccess: () => {
-        router.push("/bundle/list");
+        router.push("/my-bundles");
       },
       onError: () => {
         toast({
@@ -167,7 +167,7 @@ const Page = () => {
             className="overflow-x-auto overflow-y-hidden"
             style={{ scrollbarWidth: "none" }}
           >
-            <MyCardList data={gifts} type="image" size="small" />
+            <MyCardList data={gifts} type="gift" size="small" />
           </div>
         </div>
         {/** 답변 대기 중인 상태 */}
@@ -224,14 +224,12 @@ const Page = () => {
               </Button>
             </div>
           ) : (
-            status === "COMPLETED" && (
-              <Button
-                size="lg"
-                onClick={() => router.push(`/bundle/list/${bundleId}/answer`)}
-              >
-                답변 확인하기
-              </Button>
-            )
+            <Button
+              size="lg"
+              onClick={() => router.push(`/my-bundles/${bundleId}/answer`)}
+            >
+              답변 확인하기
+            </Button>
           )}
         </div>
       </div>
