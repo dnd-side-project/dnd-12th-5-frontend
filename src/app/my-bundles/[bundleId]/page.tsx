@@ -224,12 +224,14 @@ const Page = () => {
               </Button>
             </div>
           ) : (
-            <Button
-              size="lg"
-              onClick={() => router.push(`/my-bundles/${bundleId}/answer`)}
-            >
-              답변 확인하기
-            </Button>
+            status === "COMPLETED" && (
+              <Button
+                size="lg"
+                onClick={() => router.push(`/my-bundles/${bundleId}/answer`)}
+              >
+                답변 확인하기
+              </Button>
+            )
           )}
         </div>
       </div>
