@@ -73,7 +73,7 @@ const Page = () => {
                     <Card
                       img={gift.thumbnail}
                       size="small"
-                      type="image"
+                      type="gift"
                       noHoverStyle={true}
                       noActiveStyle={true}
                       noCursorPointerStyle={true}
@@ -112,7 +112,7 @@ const Page = () => {
                     variant="ghost"
                     className="absolute left-44 top-1/2 -translate-y-1/2 transform hover:opacity-70"
                     onClick={() =>
-                      router.push(`/bundle/list/${bundleId}/${gift.id}`)
+                      router.push(`/my-bundles/${bundleId}/${gift.id}`)
                     }
                   >
                     <Icon src={ArrowIcon} alt="arrowIcon" />

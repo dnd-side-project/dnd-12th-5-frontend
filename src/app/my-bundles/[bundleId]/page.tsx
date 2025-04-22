@@ -73,7 +73,7 @@ const Page = () => {
 
     deleteBundle(parseInt(bundleId), {
       onSuccess: () => {
-        router.push("/bundle/list");
+        router.push("/my-bundles");
       },
       onError: () => {
         toast({
@@ -193,7 +193,7 @@ const Page = () => {
             className="overflow-x-auto overflow-y-hidden"
             style={{ scrollbarWidth: "none" }}
           >
-            <MyCardList data={gifts} type="image" size="small" />
+            <MyCardList data={gifts} type="gift" size="small" />
           </div>
         </div>
 
@@ -251,7 +251,7 @@ const Page = () => {
           ) : (
             <Button
               size="lg"
-              onClick={() => router.push(`/bundle/list/${bundleId}/answer`)}
+              onClick={() => router.push(`/my-bundles/${bundleId}/answer`)}
             >
               답변 확인하기
             </Button>

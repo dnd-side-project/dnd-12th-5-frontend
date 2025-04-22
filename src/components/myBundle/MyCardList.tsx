@@ -5,25 +5,41 @@ import React from "react";
 
 import Card from "@/components/common/Card";
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
-import { FilledGiftListPreview, MyBundlePreview } from "@/types/bundle/types";
+import { useSelectedBagStore } from "@/stores/bundle/useStore";
+import { FilledGiftPreview, MyBundlePreview } from "@/types/bundle/types";
 import { MyCardListProps } from "@/types/components/types";
+import { formatDateLabel } from "@/utils/dateFormatter";
 
-const MyCardList = ({ type, data, size }: MyCardListProps) => {
+const MyCardList = ({ type, data, size, isSelectable }: MyCardListProps) => {
   const router = useRouter();
   const { bundleId } = useParams() as { bundleId: string };
 
-  const handleCardClick = (clickedIndex: number) => {
-    if (type === "image") {
-      router.push(`/bundle/list/${bundleId}/${clickedIndex}`);
-    } else {
-      router.push(`/bundle/list/${clickedIndex}`);
+  const { selectedBagIndex, setSelectedBagIndex } = useSelectedBagStore();
+
+  const handleCardClick = (clickedId: number) => {
+    if (type === "gift") {
+      router.push(`/my-bundles/${bundleId}/${clickedId}`);
+    } else if (type === "bundle") {
+      if (isSelectable) setSelectedBagIndex(clickedId);
+      else router.push(`/my-bundles/${clickedId}`);
     }
   };
 
-  const hasThumbnailField = (
-    item: MyBundlePreview | FilledGiftListPreview,
-  ): item is FilledGiftListPreview => {
-    return "thumbnail" in item;
+  const isFilledGiftPreview = (
+    item: MyBundlePreview | FilledGiftPreview | string,
+  ): item is FilledGiftPreview => {
+    return typeof item === "object" && item !== null && "thumbnail" in item;
+  };
+
+  const isMyBundlePreview = (
+    item: MyBundlePreview | FilledGiftPreview | string,
+  ): item is MyBundlePreview => {
+    return (
+      typeof item === "object" &&
+      item !== null &&
+      "isRead" in item &&
+      "designType" in item
+    );
   };
 
   return (
@@ -31,23 +47,45 @@ const MyCardList = ({ type, data, size }: MyCardListProps) => {
       {data &&
         data.map((item, index) => {
           const bundleDesignURL =
-            "designType" in item && DESIGN_TYPE_MAP[item.designType];
+            isMyBundlePreview(item) && DESIGN_TYPE_MAP[item.designType];
 
           return (
-            <Card
-              key={index}
-              type={type}
-              size={size}
-              isRead={
-                "isRead" in item
-                  ? (item.isRead as boolean | undefined)
-                  : undefined
-              }
-              img={
-                hasThumbnailField(item) ? item.thumbnail : bundleDesignURL || ""
-              }
-              onClick={() => handleCardClick(item.id)}
-            />
+            <div key={index} className="flex flex-col gap-[3px]">
+              <Card
+                type={type}
+                size={size}
+                isRead={isMyBundlePreview(item) ? item.isRead : undefined}
+                isActive={
+                  !isMyBundlePreview(item) &&
+                  !isFilledGiftPreview(item) &&
+                  index === selectedBagIndex
+                }
+                img={
+                  typeof item === "string"
+                    ? item
+                    : isFilledGiftPreview(item)
+                      ? item.thumbnail
+                      : bundleDesignURL || ""
+                }
+                onClick={() =>
+                  handleCardClick(
+                    isMyBundlePreview(item) || isFilledGiftPreview(item)
+                      ? item.id
+                      : index,
+                  )
+                }
+              />
+              {isMyBundlePreview(item) && (
+                <div className="ml-[1px]">
+                  <p className="max-w-[86px] truncate text-[12px]">
+                    {item?.name}
+                  </p>
+                  <p className="text-[10px] text-gray-300">
+                    {formatDateLabel(item?.updatedAt)}
+                  </p>
+                </div>
+              )}
+            </div>
           );
         })}
     </div>

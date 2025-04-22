@@ -44,7 +44,7 @@ const BundleDrawer = ({
                 <Card
                   img={url}
                   size="medium"
-                  type="image"
+                  type="gift"
                   noHoverStyle={true}
                   noActiveStyle={true}
                   noCursorPointerStyle={true}
