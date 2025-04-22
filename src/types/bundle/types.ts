@@ -37,7 +37,7 @@ export interface MyBundle {
   designType: string;
   isRead: boolean;
   status: "PUBLISHED" | "COMPLETED" | "DRAFT";
-  updatedAt: Date;
+  updatedAt: string;
 }
 
 // 보따리 메인 목록
