@@ -8,6 +8,7 @@ import { DESIGN_TYPE_MAP } from "@/constants/constants";
 import { useSelectedBagStore } from "@/stores/bundle/useStore";
 import { FilledGiftPreview, MyBundlePreview } from "@/types/bundle/types";
 import { MyCardListProps } from "@/types/components/types";
+import { formatDateLabel } from "@/utils/dateFormatter";
 
 const MyCardList = ({ type, data, size, isSelectable }: MyCardListProps) => {
   const router = useRouter();
@@ -49,10 +50,8 @@ const MyCardList = ({ type, data, size, isSelectable }: MyCardListProps) => {
             isMyBundlePreview(item) && DESIGN_TYPE_MAP[item.designType];
 
           return (
-            <>
-              {" "}
+            <div key={index} className="flex flex-col gap-[3px]">
               <Card
-                key={index}
                 type={type}
                 size={size}
                 isRead={isMyBundlePreview(item) ? item.isRead : undefined}
@@ -76,7 +75,17 @@ const MyCardList = ({ type, data, size, isSelectable }: MyCardListProps) => {
                   )
                 }
               />
-            </>
+              {isMyBundlePreview(item) && (
+                <div className="ml-[1px]">
+                  <p className="max-w-[86px] truncate text-[12px]">
+                    {item?.name}
+                  </p>
+                  <p className="text-[10px] text-gray-300">
+                    {formatDateLabel(item?.updatedAt)}
+                  </p>
+                </div>
+              )}
+            </div>
           );
         })}
     </div>

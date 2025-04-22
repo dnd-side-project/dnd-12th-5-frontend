@@ -136,6 +136,6 @@ export interface MyBundleCardProps {
   is_read: boolean;
   status: string;
   name: string;
-  updatedAt: Date;
+  updatedAt: string;
   onDelete?: () => void;
 }
