@@ -10,8 +10,13 @@ import LogoIcon from "/public/icons/logo.svg";
 import SettingIcon from "/public/icons/setting_large.svg";
 import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
 import CloseIcon from "/public/icons/close.svg";
+import EditIcon from "/public/icons/edit.svg";
 
-import { MIN_GIFTBOX_AMOUNT } from "@/constants/constants";
+import { Input } from "@/components/ui/input";
+import {
+  BUNDLE_NAME_MAX_LENGTH,
+  MIN_GIFTBOX_AMOUNT,
+} from "@/constants/constants";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 import {
@@ -186,11 +191,72 @@ const Header = () => {
     );
   };
 
-  const Title = () => (
-    <h1 className="absolute left-1/2 z-20 w-[185px] -translate-x-1/2 overflow-hidden text-ellipsis whitespace-nowrap text-center text-lg font-medium">
-      {dynamicTitle}
-    </h1>
-  );
+  const Title = () => {
+    const { setBundleName } = useBundleStore();
+    const [isEditing, setIsEditing] = useState(false);
+    const [inputValue, setInputValue] = useState(dynamicTitle);
+
+    useEffect(() => {
+      setInputValue(dynamicTitle);
+    }, [dynamicTitle]);
+
+    const handleEditBundleNameButton = () => {
+      setIsEditing(true);
+    };
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      if (value.length <= BUNDLE_NAME_MAX_LENGTH) {
+        setInputValue(value);
+      }
+    };
+
+    const saveAndClose = () => {
+      setIsEditing(false);
+      setBundleName(inputValue);
+    };
+
+    const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter") saveAndClose();
+      if (e.key === "Escape") {
+        setIsEditing(false);
+        setInputValue(dynamicTitle);
+      }
+    };
+
+    return isBundleAddPage ? (
+      <div className="flex max-w-[200px] items-center justify-center">
+        {isEditing ? (
+          <Input
+            autoFocus
+            value={inputValue}
+            onChange={handleInputChange}
+            onBlur={saveAndClose}
+            maxLength={BUNDLE_NAME_MAX_LENGTH}
+            onKeyDown={handleInputKeyDown}
+            className="h-9 border-none bg-pink-50 text-center !text-lg font-medium text-gray-300 shadow-none outline-none ring-0 focus:border-none focus:shadow-none focus:outline-none focus:ring-0 focus-visible:shadow-none focus-visible:outline-none focus-visible:ring-0"
+          />
+        ) : (
+          <>
+            <h1 className="flex-grow overflow-hidden text-ellipsis whitespace-nowrap text-lg font-medium">
+              {dynamicTitle}
+            </h1>
+            <Button
+              variant="ghost"
+              onClick={handleEditBundleNameButton}
+              className="ml-[2px] w-[20px] min-w-[20px]"
+            >
+              <Icon src={EditIcon} alt="edit-bundleName" />
+            </Button>
+          </>
+        )}
+      </div>
+    ) : (
+      <h1 className="max-w-[220px] overflow-hidden text-ellipsis whitespace-nowrap text-center text-lg font-medium">
+        {dynamicTitle}
+      </h1>
+    );
+  };
 
   const RightButton = () => {
     if (showTempSave && isBundleAddPage) {
@@ -221,12 +287,16 @@ const Header = () => {
   };
 
   return (
-    <>
-      <div
-        className={`${isBundleAddPage ? "bg-pink-50" : "bg-white"} sticky top-0 z-20 flex h-[56px] items-center justify-between px-4`}
-      >
+    <div
+      className={`${isBundleAddPage ? "bg-pink-50" : "bg-white"} relative sticky top-0 z-20 flex h-[56px] items-center px-4`}
+    >
+      <div className="flex justify-start">
         <BackButton />
+      </div>
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <Title />
+      </div>
+      <div className="absolute right-4 top-1/2 -translate-y-1/2">
         <RightButton />
       </div>
       <GoToHomeDrawer
@@ -237,7 +307,7 @@ const Header = () => {
           router.push("/home");
         }}
       />
-    </>
+    </div>
   );
 };
 

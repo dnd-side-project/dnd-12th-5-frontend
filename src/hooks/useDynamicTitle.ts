@@ -15,7 +15,7 @@ const useDynamicTitle = () => {
   useEffect(() => {
     if (giftName && giftId) {
       setDynamicTitle(giftName);
-    } else if (bundleName && pathname === "/Bundle/add") {
+    } else if (bundleName && pathname === "/bundle/add") {
       setDynamicTitle(bundleName);
     } else {
       const title = searchParams?.get("title");
