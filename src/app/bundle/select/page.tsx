@@ -2,7 +2,6 @@ import Link from "next/link";
 
 import SelectedBundle from "@/components/bundle/SelectedBundle";
 import MyCardList from "@/components/myBundle/MyCardList";
-import MyCardList from "@/components/myBundle/MyCardList";
 import { Button } from "@/components/ui/button";
 
 const page = () => {
