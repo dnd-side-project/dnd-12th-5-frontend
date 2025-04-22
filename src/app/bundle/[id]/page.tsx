@@ -55,8 +55,8 @@ const Page = () => {
     <div className={`relative h-full ${step === "2" && "bg-pink-50"}`}>
       {step === "1" && (
         <Step1
-          delivery={bundle.deliveryCharacterType}
-          color={bundle.designType.toLowerCase()}
+          delivery={bundle.delivery_character_type}
+          color={bundle.design_type.toLowerCase()}
           isCompleted={bundle.status === "COMPLETED"}
         />
       )}
@@ -67,7 +67,7 @@ const Page = () => {
           isCompleted={bundle.status === "COMPLETED"}
         />
       )}
-      {step === "3" && <Step3 delivery={bundle.deliveryCharacterType} />}
+      {step === "3" && <Step3 delivery={bundle.delivery_character_type} />}
     </div>
   );
 };
