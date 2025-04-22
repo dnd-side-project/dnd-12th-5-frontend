@@ -6,6 +6,7 @@ export const PICKTORY_API = {
   getMyBundleDetail: (id: number) => `/bundles/${id}`,
   deleteMyBundle: (id: number) => `/bundles/${id}`,
   getBundleResult: (id: number) => `/bundles/${id}/result`,
+  getAnswerResult: (link: string) => `/responses/bundles/${link}/result`,
   getGiftDetail: (bundleId: number, giftId: number) =>
     `/bundles/${bundleId}/gifts/${giftId}`,
   getDraftBundleGifts: (id: number) => `/bundles/${id}/gifts`,

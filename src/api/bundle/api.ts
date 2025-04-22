@@ -2,6 +2,7 @@ import { PICKTORY_API } from "../api-url";
 import axiosInstance from "../axiosInstance";
 import { BUNDLE_COLORS } from "@/constants/constants";
 import {
+  FilledGift,
   GiftBox,
   PutCharacterPayload,
   PutCharacterResponse,
@@ -178,6 +179,18 @@ export const fetchResponseBundle = async (link: string) => {
 export const getBundleResult = async (id: number): Promise<ResultGiftBox[]> => {
   try {
     const response = await axiosInstance.get(PICKTORY_API.getBundleResult(id));
+    return response.data.result.gifts;
+  } catch (error) {
+    throw handleAxiosError(error, "보따리 결과 조회 실패");
+  }
+};
+
+/** 선물 받는 사람 보따리 결과 조희 */
+export const getAnswerResult = async (link: string): Promise<FilledGift[]> => {
+  try {
+    const response = await axiosInstance.get(
+      PICKTORY_API.getAnswerResult(link),
+    );
     return response.data.result.gifts;
   } catch (error) {
     throw handleAxiosError(error, "보따리 결과 조회 실패");
