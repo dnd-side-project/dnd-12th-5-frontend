@@ -5,9 +5,9 @@ import React from "react";
 
 import Card from "@/components/common/Card";
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
+import { useSelectedBagStore } from "@/stores/bundle/useStore";
 import { FilledGiftPreview, MyBundlePreview } from "@/types/bundle/types";
 import { MyCardListProps } from "@/types/components/types";
-import { useSelectedBagStore } from "@/stores/bundle/useStore";
 
 const MyCardList = ({ type, data, size, isSelectable }: MyCardListProps) => {
   const router = useRouter();
@@ -24,14 +24,18 @@ const MyCardList = ({ type, data, size, isSelectable }: MyCardListProps) => {
     }
   };
 
-  const isFilledGiftPreview = (item: any): item is FilledGiftPreview => {
-    return item && typeof item === "object" && "thumbnail" in item;
+  const isFilledGiftPreview = (
+    item: MyBundlePreview | FilledGiftPreview | string,
+  ): item is FilledGiftPreview => {
+    return typeof item === "object" && item !== null && "thumbnail" in item;
   };
 
-  const isMyBundlePreview = (item: any): item is MyBundlePreview => {
+  const isMyBundlePreview = (
+    item: MyBundlePreview | FilledGiftPreview | string,
+  ): item is MyBundlePreview => {
     return (
-      item &&
       typeof item === "object" &&
+      item !== null &&
       "isRead" in item &&
       "designType" in item
     );
