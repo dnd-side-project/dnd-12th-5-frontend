@@ -24,8 +24,8 @@ const SelectedBundle = () => {
           src={BUNDLE_IMAGE_PATHS[selectedBagIndex % BUNDLE_IMAGE_PATHS.length]}
           alt={`Gift Bag ${selectedBagIndex}`}
           className="h-full w-full"
-          width="200"
-          height="200"
+          width={200}
+          height={200}
         />
       )}
     </div>

@@ -43,6 +43,7 @@ const Card = ({
         width={imageSize}
         height={imageSize}
         className="h-full w-full rounded-xl object-cover"
+        priority
       />
       <div className="absolute right-2 top-2">
         {isRead === false && <Image src={IndicatorIcon} alt="IndicatorIcon" />}

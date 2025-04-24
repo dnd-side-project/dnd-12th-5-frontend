@@ -21,6 +21,7 @@ export const Icon = ({
       height={pixelSize}
       className={className}
       loading={loading}
+      priority
     />
   );
 };

@@ -107,8 +107,8 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                           src={imageSrc}
                           alt={`gift-item-${index}`}
                           className="h-full w-full object-contain hover:opacity-[75%]"
-                          width="130"
-                          height="130"
+                          width={130}
+                          height={130}
                         />
                       </div>
                     </DrawerTrigger>
@@ -139,8 +139,8 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                             src={GIFTBOX_DEFAULT_IMAGES[index % 2]}
                             alt={`gift-item-${index}`}
                             className="h-full w-full object-contain hover:opacity-[75%]"
-                            width="130"
-                            height="130"
+                            width={130}
+                            height={130}
                           />
                         </TooltipTrigger>
                         <TooltipContent
@@ -156,8 +156,8 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                         src={imageSrc}
                         alt={`gift-item-${index}`}
                         className="h-full w-full object-contain hover:opacity-[75%]"
-                        width="130"
-                        height="130"
+                        width={130}
+                        height={130}
                       />
                     )}
                   </div>

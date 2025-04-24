@@ -52,8 +52,8 @@ const Page = () => {
               src={MainGraphic}
               alt="MainGraphic"
               width={430}
-              height={396}
-              loading="eager"
+              style={{ height: "auto" }}
+              priority
               className="absolute bottom-0"
             />
           </div>

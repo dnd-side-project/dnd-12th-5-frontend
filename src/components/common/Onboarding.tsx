@@ -20,8 +20,8 @@ const Onboarding = ({ onComplete }: { onComplete: () => void }) => {
         src={MainGraphic}
         alt="MainGraphic"
         width={430}
-        height={396}
-        loading="eager"
+        style={{ height: "auto" }}
+        priority
       />
 
       <div className="absolute bottom-4 w-full px-4">
