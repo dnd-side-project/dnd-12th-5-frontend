@@ -73,10 +73,12 @@ const Page = () => {
           <div className="absolute top-[10px]">
             <Chip
               text={`채워진 선물박스 ${filledGiftCount}개`}
-              icon={<Icon src={RightArrowIcon} />}
+              icon={filledGiftCount > 0 ? <Icon src={RightArrowIcon} /> : ""}
               width="126px"
-              onClick={() => setDrawerOpen(true)}
-              isClickable
+              onClick={() => {
+                if (filledGiftCount > 0) setDrawerOpen(true);
+              }}
+              isClickable={filledGiftCount > 0}
             />
           </div>
           <GiftList value={giftBoxes} />
