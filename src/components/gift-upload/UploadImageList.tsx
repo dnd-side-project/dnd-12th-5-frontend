@@ -9,7 +9,11 @@ import {
 import Image from "next/image";
 
 import ImageIcon from "../../../public/icons/image_medium.svg";
-import { IMAGE_EXTENSIONS, IMAGE_MAX_SIZE_MB } from "@/constants/constants";
+import {
+  GIFT_IMAGE_MAX_AMOUNT,
+  IMAGE_EXTENSIONS,
+  IMAGE_MAX_SIZE_MB,
+} from "@/constants/constants";
 import { UploadImageListProps } from "@/types/components/types";
 import { ImageItem } from "@/types/gift-upload/types";
 
@@ -19,7 +23,7 @@ import SortableImageWrapper from "./SortableImageWrapper";
 const UploadImageList = ({
   combinedImages,
   setCombinedImages,
-  maxImages = 5,
+  maxImages = GIFT_IMAGE_MAX_AMOUNT,
 }: UploadImageListProps) => {
   const handleUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
