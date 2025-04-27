@@ -1,8 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
+import GiftListDrawer from "@/components/bundle/add/GiftListDrawer";
 import Chip from "@/components/bundle/Chip";
 import GiftList from "@/components/bundle/GiftList";
 import { Button } from "@/components/ui/button";
@@ -43,6 +44,8 @@ const Page = () => {
     }
   }, [setShowEditToast, showEditToast]);
 
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
   const createMutation = useCreateBundleMutation();
 
   const updateMutation = useUpdateBundleMutation();
@@ -72,6 +75,8 @@ const Page = () => {
               text={`채워진 선물박스 ${filledGiftCount}개`}
               icon={<Icon src={RightArrowIcon} />}
               width="126px"
+              onClick={() => setDrawerOpen(true)}
+              isClickable
             />
           </div>
           <GiftList value={giftBoxes} />
@@ -86,6 +91,11 @@ const Page = () => {
           </Button>
         </div>
       </div>
+      <GiftListDrawer
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        giftBoxes={giftBoxes}
+      />
     </div>
   );
 };
