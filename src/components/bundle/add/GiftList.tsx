@@ -115,6 +115,7 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                     </DrawerTrigger>
                     {deleteBox ? (
                       <DeleteBundleDrawer
+                        box={selectedBox}
                         handleDeleteButton={emptyGiftBox}
                         setClickedDeleteBoxButton={setDeleteBox}
                       />
