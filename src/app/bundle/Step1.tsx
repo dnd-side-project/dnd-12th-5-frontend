@@ -11,7 +11,7 @@ const Step1 = () => {
       <div className="flex flex-col items-center gap-[34px]">
         <SelectedBundle />
         <p className="font-nanum text-base font-bold">
-          어떤 보따리에 선물을 담아볼까요?
+          보따리의 색상을 골라주세요
         </p>
       </div>
       <div
