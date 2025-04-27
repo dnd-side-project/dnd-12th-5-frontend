@@ -91,11 +91,7 @@ const Page = () => {
           </Button>
         </div>
       </div>
-      <GiftListDrawer
-        open={drawerOpen}
-        onClose={() => setDrawerOpen(false)}
-        giftBoxes={giftBoxes}
-      />
+      <GiftListDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </div>
   );
 };
