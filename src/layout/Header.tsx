@@ -196,7 +196,7 @@ const Header = () => {
 
     useEffect(() => {
       setInputValue(dynamicTitle);
-    }, [dynamicTitle]);
+    }, []);
 
     const handleEditBundleNameButton = () => {
       setIsEditing(true);
