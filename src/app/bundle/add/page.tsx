@@ -1,22 +1,20 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
-import { createBundle, updateBundle } from "@/api/bundle/api";
 import Chip from "@/components/bundle/Chip";
 import GiftList from "@/components/bundle/GiftList";
 import { Button } from "@/components/ui/button";
 import { MIN_GIFTBOX_AMOUNT } from "@/constants/constants";
 import { toast } from "@/hooks/use-toast";
-import { useSelectedBagStore, useBundleStore } from "@/stores/bundle/useStore";
+import { useCreateBundleMutation } from "@/queries/useCreateBundleMutation";
+import { useUpdateBundleMutation } from "@/queries/useUpdateBundleMutation";
 import {
   useEditBoxStore,
   useGiftStore,
   useToastStore,
 } from "@/stores/gift-upload/useStore";
-import { GiftBox } from "@/types/bundle/types";
 
 const Page = () => {
   const { giftBoxes } = useGiftStore();
@@ -25,8 +23,6 @@ const Page = () => {
   ).length;
 
   const router = useRouter();
-  const { selectedBagIndex } = useSelectedBagStore();
-  const { bundleName } = useBundleStore();
   const { setIsBoxEditing } = useEditBoxStore();
 
   useEffect(() => {
@@ -44,34 +40,9 @@ const Page = () => {
     }
   }, [setShowEditToast, showEditToast]);
 
-  const createMutation = useMutation({
-    mutationFn: () =>
-      createBundle({
-        bundleName,
-        selectedBagIndex,
-        giftBoxes,
-      }),
-    onSuccess: (res) => {
-      if (res?.id) {
-        sessionStorage.setItem("bundleId", res.id);
-      }
+  const createMutation = useCreateBundleMutation();
 
-      if (res?.gifts?.length) {
-        res.gifts.forEach((gift: GiftBox, index: number) => {
-          useGiftStore.getState().updateGiftBox(index, { id: gift.id });
-        });
-      }
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: () => updateBundle(giftBoxes),
-    onSuccess: (res) => {
-      res.result.gifts.forEach((gift: GiftBox, index: number) => {
-        useGiftStore.getState().updateGiftBox(index, { id: gift.id });
-      });
-    },
-  });
+  const updateMutation = useUpdateBundleMutation();
 
   const handleClickButton = async () => {
     try {
