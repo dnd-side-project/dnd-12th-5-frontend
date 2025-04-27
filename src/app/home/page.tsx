@@ -31,7 +31,7 @@ const Page = () => {
           priority
         />
         <Link
-          href="/bundle/select"
+          href="/bundle?step=1"
           className="absolute bottom-3 left-1/2 w-[calc(100%-24px)] max-w-[370px] -translate-x-1/2"
         >
           <Button size="lg">보따리 만들러 가기</Button>

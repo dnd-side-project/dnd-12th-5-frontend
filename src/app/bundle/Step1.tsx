@@ -3,16 +3,9 @@ import Link from "next/link";
 import SelectedBundle from "@/components/bundle/SelectedBundle";
 import MyCardList from "@/components/myBundle/MyCardList";
 import { Button } from "@/components/ui/button";
+import { BUNDLE_IMAGE_PATHS } from "@/constants/constants";
 
-const page = () => {
-  const imagePaths = [
-    "/img/bundle_red.svg",
-    "/img/bundle_pink.svg",
-    "/img/bundle_blue.svg",
-    "/img/bundle_yellow.svg",
-    "/img/bundle_green.svg",
-  ];
-
+const Step1 = () => {
   return (
     <div className="flex h-[calc(100%-52px)] flex-col items-center justify-center gap-[46px] px-4">
       <div className="flex flex-col items-center gap-[34px]">
@@ -29,16 +22,16 @@ const page = () => {
           <MyCardList
             type="bundle"
             size="small"
-            data={imagePaths}
+            data={BUNDLE_IMAGE_PATHS}
             isSelectable={true}
           />
         </div>
       </div>
-      <Link href="/bundle/name" className="absolute bottom-4 w-full px-4">
+      <Link href="/bundle?step=2" className="absolute bottom-4 w-full px-4">
         <Button size="lg">선택 완료</Button>
       </Link>
     </div>
   );
 };
 
-export default page;
+export default Step1;

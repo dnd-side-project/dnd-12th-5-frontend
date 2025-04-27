@@ -1,7 +1,7 @@
 import BundleForm from "@/components/bundle/BundleForm";
 import SelectedBundle from "@/components/bundle/SelectedBundle";
 
-const page = () => {
+const Step2 = () => {
   return (
     <div className="flex h-[calc(100%-52px)] flex-col items-center justify-center gap-[40px] px-4">
       <div className="flex flex-col items-center gap-[34px]">
@@ -15,4 +15,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Step2;

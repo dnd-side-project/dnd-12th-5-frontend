@@ -87,9 +87,7 @@ const Header = () => {
     !pathname.includes("list") &&
     !pathname.includes("detail") &&
     !pathname.includes("add") &&
-    !pathname.includes("delivery") &&
-    !pathname.includes("name") &&
-    !pathname.includes("select");
+    !pathname.includes("delivery");
 
   {
     /** 보따리 임시저장 관련 코드 */
