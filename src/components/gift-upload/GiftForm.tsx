@@ -1,13 +1,12 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, useMemo } from "react";
 
 import CharacterCountInput from "../common/CharacterCountInput";
 import { Button } from "../ui/button";
-import { uploadGiftImages } from "@/api/gift-upload/api";
 import { GIFT_NAME_MAX_LENGTH } from "@/constants/constants";
+import { useUploadImageMutation } from "@/queries/useUploadImageMutation";
 import {
   useTagIndexStore,
   useGiftStore,
@@ -67,15 +66,10 @@ const GiftForm = () => {
     setIsFormValid(giftName.trim().length > 0 && combinedImages.length > 0);
   }, [giftName, combinedImages]);
 
-  const uploadMutation = useMutation<string[], Error, FormData>({
-    mutationFn: uploadGiftImages,
-    onSuccess: (uploadedUrls: string[]) => {
-      const existingUrls = combinedImages
-        .filter((item) => item.type === "existing")
-        .map((item) => item.url);
-      const merged = [...existingUrls, ...uploadedUrls];
-      updateGiftBox(index, { ...existingGift, imgUrls: merged });
-    },
+  const uploadImage = useUploadImageMutation({
+    combinedImages,
+    existingGift,
+    index,
   });
 
   const handleSubmit = () => {
@@ -103,14 +97,7 @@ const GiftForm = () => {
           formData.append("files", item.file);
         }
       });
-      uploadMutation.mutate(formData, {
-        onSuccess: (uploadedUrls: string[]) => {
-          const mergedImages = isBoxEditing
-            ? [...existingItems, ...uploadedUrls]
-            : uploadedUrls;
-          updateGiftBox(index, { ...updatedGiftBox, imgUrls: mergedImages });
-        },
-      });
+      uploadImage.mutate(formData);
     }
 
     if (isBoxEditing) {
