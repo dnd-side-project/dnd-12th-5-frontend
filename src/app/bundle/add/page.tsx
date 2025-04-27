@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 import GiftListDrawer from "@/components/bundle/add/GiftListDrawer";
 import Chip from "@/components/bundle/Chip";
-import GiftList from "@/components/bundle/GiftList";
+import GiftList from "@/components/bundle/add/GiftList";
 import { Button } from "@/components/ui/button";
 import { MIN_GIFTBOX_AMOUNT } from "@/constants/constants";
 import { toast } from "@/hooks/use-toast";
