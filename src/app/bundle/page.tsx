@@ -2,8 +2,8 @@
 
 import { useSearchParams } from "next/navigation";
 
-import Step1 from "./Step1";
-import Step2 from "./Step2";
+import Step1 from "./step1";
+import Step2 from "./step2";
 
 const Page = () => {
   const searchParams = useSearchParams();
