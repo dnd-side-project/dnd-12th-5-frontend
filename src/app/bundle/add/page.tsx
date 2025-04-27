@@ -15,6 +15,9 @@ import {
   useGiftStore,
   useToastStore,
 } from "@/stores/gift-upload/useStore";
+import { Icon } from "@/components/common/Icon";
+
+import RightArrowIcon from "/public/icons/arrow_right_small.svg";
 
 const Page = () => {
   const { giftBoxes } = useGiftStore();
@@ -65,7 +68,11 @@ const Page = () => {
       <div className="relative flex h-full flex-col items-center justify-center">
         <div className="flex w-[300px] flex-col items-center gap-7">
           <div className="absolute top-[10px]">
-            <Chip text={`채워진 선물박스 ${filledGiftCount}개`} width="126px" />
+            <Chip
+              text={`채워진 선물박스 ${filledGiftCount}개`}
+              icon={<Icon src={RightArrowIcon} />}
+              width="126px"
+            />
           </div>
           <GiftList value={giftBoxes} />
         </div>

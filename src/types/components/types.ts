@@ -110,6 +110,7 @@ export interface UploadImageListProps {
 export interface BundleChipProps {
   text: string;
   width: string;
+  icon?: ReactNode;
 }
 
 export interface DetailGiftBoxProps {
