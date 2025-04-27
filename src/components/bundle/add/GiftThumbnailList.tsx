@@ -6,11 +6,21 @@ import TrashIcon from "/public/icons/trash_icon.svg";
 import Card from "@/components/common/Card";
 import { Icon } from "@/components/common/Icon";
 import { Button } from "@/components/ui/button";
-import { useGiftStore } from "@/stores/gift-upload/useStore";
+import { useEditBoxStore, useGiftStore } from "@/stores/gift-upload/useStore";
+
+import { useRouter } from "next/navigation";
 
 const GiftThumbnailList = () => {
   const { giftBoxes } = useGiftStore();
   const filledGiftBoxes = giftBoxes.filter((giftBox) => giftBox.filled);
+  const router = useRouter();
+
+  const { setIsBoxEditing } = useEditBoxStore();
+
+  const handleGiftClick = (index: number) => {
+    setIsBoxEditing(true);
+    router.push(`/gift-upload?index=${index}`);
+  };
 
   return (
     <div className="mb-5 mt-[26px] px-5">
@@ -29,8 +39,10 @@ const GiftThumbnailList = () => {
               noCursorPointerStyle
             />
             <div className="flex items-center gap-1">
-              <p>{giftBox.name}</p>
-              <Icon src={RightArrowIcon} alt="rightArrowIcon" />
+              <Button variant="ghost" onClick={() => handleGiftClick(index)}>
+                <p>{giftBox.name}</p>
+                <Icon src={RightArrowIcon} alt="rightArrowIcon" />
+              </Button>
             </div>
           </div>
           <Button variant="ghost" className="w-5">
