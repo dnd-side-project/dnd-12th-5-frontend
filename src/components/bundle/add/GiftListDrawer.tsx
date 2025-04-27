@@ -8,14 +8,13 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer";
-import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { GiftListDrawerProps } from "@/types/bundle/add/types";
 
 import CloseIcon from "/public/icons/close.svg";
 
-const GiftListDrawer = ({ open, onClose }: GiftListDrawerProps) => {
-  const { giftBoxes } = useGiftStore();
+import GiftThumbnailList from "./GiftThumbnailList";
 
+const GiftListDrawer = ({ open, onClose }: GiftListDrawerProps) => {
   return (
     <Drawer open={open} onOpenChange={onClose}>
       <DrawerContent>
@@ -27,11 +26,7 @@ const GiftListDrawer = ({ open, onClose }: GiftListDrawerProps) => {
             </DrawerClose>
           </DrawerTitle>
         </DrawerHeader>
-        {giftBoxes.map((_, index) => (
-          <div key={index}>
-            <p>name</p>
-          </div>
-        ))}
+        <GiftThumbnailList />
       </DrawerContent>
     </Drawer>
   );
