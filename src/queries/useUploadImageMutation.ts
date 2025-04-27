@@ -1,31 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
 
 import { uploadGiftImages } from "@/api/gift-upload/api";
-import { useGiftStore } from "@/stores/gift-upload/useStore";
-import { GiftBox } from "@/types/bundle/types";
-import { ImageItem } from "@/types/gift-upload/types";
+import { toast } from "@/hooks/use-toast";
 
-interface UseUploadImageMutationProps {
-  combinedImages: ImageItem[];
-  existingGift: GiftBox;
-  index: number;
-}
-
-export const useUploadImageMutation = ({
-  combinedImages,
-  existingGift,
-  index,
-}: UseUploadImageMutationProps) => {
-  const { updateGiftBox } = useGiftStore();
-
+export const useUploadImageMutation = () => {
   return useMutation<string[], Error, FormData>({
     mutationFn: uploadGiftImages,
-    onSuccess: (uploadedUrls: string[]) => {
-      const existingUrls = combinedImages
-        .filter((item) => item.type === "existing")
-        .map((item) => item.url);
-      const merged = [...existingUrls, ...uploadedUrls];
-      updateGiftBox(index, { ...existingGift, imgUrls: merged });
+    onError: () => {
+      toast({
+        title: "이미지를 서버에 업로드하는 데 실패했어요.",
+      });
     },
   });
 };

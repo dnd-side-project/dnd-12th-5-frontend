@@ -66,29 +66,13 @@ const GiftForm = () => {
     setIsFormValid(giftName.trim().length > 0 && combinedImages.length > 0);
   }, [giftName, combinedImages]);
 
-  const uploadImage = useUploadImageMutation({
-    combinedImages,
-    existingGift,
-    index,
-  });
+  const uploadImage = useUploadImageMutation();
 
   const handleSubmit = () => {
     const existingItems = combinedImages
       .filter((item) => item.type === "existing")
       .map((item) => item.url);
     const newItems = combinedImages.filter((item) => item.type === "new");
-
-    const updatedGiftBox = {
-      name: giftName,
-      reason: giftReason,
-      purchase_url: giftLink,
-      tag: giftTag,
-      tagIndex: selectedTagIndex,
-      filled: true,
-      imgUrls: isBoxEditing ? existingItems : [],
-    };
-
-    updateGiftBox(index, updatedGiftBox);
 
     if (newItems.length > 0) {
       const formData = new FormData();
@@ -97,13 +81,48 @@ const GiftForm = () => {
           formData.append("files", item.file);
         }
       });
-      uploadImage.mutate(formData);
-    }
+      uploadImage.mutate(formData, {
+        onSuccess: (uploadedUrls) => {
+          const finalImgUrls = isBoxEditing
+            ? [...existingItems, ...uploadedUrls]
+            : uploadedUrls;
 
-    if (isBoxEditing) {
-      useToastStore.getState().setShowEditToast(true);
+          const updatedGiftBox = {
+            name: giftName,
+            reason: giftReason,
+            purchase_url: giftLink,
+            tag: giftTag,
+            tagIndex: selectedTagIndex,
+            filled: true,
+            imgUrls: finalImgUrls,
+          };
+
+          updateGiftBox(index, updatedGiftBox);
+
+          if (isBoxEditing) {
+            useToastStore.getState().setShowEditToast(true);
+          }
+          router.push("/bundle/add");
+        },
+      });
+    } else {
+      const updatedGiftBox = {
+        name: giftName,
+        reason: giftReason,
+        purchase_url: giftLink,
+        tag: giftTag,
+        tagIndex: selectedTagIndex,
+        filled: true,
+        imgUrls: existingItems,
+      };
+
+      updateGiftBox(index, updatedGiftBox);
+
+      if (isBoxEditing) {
+        useToastStore.getState().setShowEditToast(true);
+      }
+      router.push("/bundle/add");
     }
-    router.push("/bundle/add");
   };
 
   const imageTextColor =
