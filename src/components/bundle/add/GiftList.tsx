@@ -14,7 +14,7 @@ import {
   GIFTBOX_FILLED_IMAGES,
   GIFTBOX_SHAPE_SEQUENCE,
 } from "@/constants/constants";
-import { useDeleteGiftBox } from "@/hooks/bundle/add/useDeleteGiftBox";
+import { toast } from "@/hooks/use-toast";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { GiftBox } from "@/types/bundle/types";
 
@@ -26,13 +26,34 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
   const [selectedBox, setSelectedBox] = useState<GiftBox | null>(null);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
 
-  const { giftBoxes } = useGiftStore();
+  const { giftBoxes, updateGiftBox } = useGiftStore();
 
   const filledGiftCount = giftBoxes.filter(
     (gift) => gift && gift.filled === true,
   ).length;
 
   const [deleteBox, setDeleteBox] = useState(false);
+
+  const emptyGiftBox = () => {
+    if (selectedIndex !== null) {
+      updateGiftBox(selectedIndex, {
+        name: "",
+        reason: "",
+        purchase_url: "",
+        tag: "",
+        filled: false,
+        imgUrls: [],
+        id: null,
+      });
+    }
+    setSelectedBox(null);
+    setSelectedIndex(null);
+    setDeleteBox(false);
+
+    toast({
+      title: "선물박스를 성공적으로 비웠어요!",
+    });
+  };
 
   const [showTooltip, setShowTooltip] = useState(false);
 
@@ -44,8 +65,6 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const { emptyGiftBox } = useDeleteGiftBox();
 
   return (
     <>
