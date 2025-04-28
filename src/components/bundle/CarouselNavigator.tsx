@@ -10,7 +10,7 @@ const CarouselNavigator = ({
   currentCarousel: number;
 }) => {
   return (
-    <div className="flex flex-row gap-2">
+    <div className="flex h-4 flex-row items-center gap-2">
       {giftList.map((_, index) => {
         return (
           <p
