@@ -71,7 +71,7 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
   };
 
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-12">
+    <div className="flex h-fit flex-col items-center justify-center gap-16 pt-8">
       <div className="flex flex-col items-center justify-center gap-6">
         <CarouselNavigator
           giftList={giftList}
