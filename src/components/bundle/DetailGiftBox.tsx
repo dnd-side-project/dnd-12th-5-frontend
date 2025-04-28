@@ -78,7 +78,7 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
           currentCarousel={currentCarousel}
         />
         <Carousel className="w-[304px]" setApi={setCarouselApi}>
-          <CarouselContent className="gap-4 pb-0">
+          <CarouselContent className="gap-7 pb-0">
             {giftList.map((gift, giftIndex) => {
               return (
                 <CarouselItem
