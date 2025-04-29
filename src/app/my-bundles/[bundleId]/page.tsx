@@ -152,7 +152,7 @@ const Page = () => {
 
       await Promise.all(updatePromises);
 
-      router.push("/bundle/add");
+      router.push("/bundle/add?isEdit=true");
     } catch (error) {
       console.error(error);
     }
