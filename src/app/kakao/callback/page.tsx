@@ -7,7 +7,7 @@ import Loading from "@/components/common/Loading";
 import { toast } from "@/hooks/use-toast";
 import { useKakaoLogin } from "@/queries/kakao/useKakaoLogin";
 import { handleAxiosError } from "@/utils/axios";
-import { setToken } from "@/utils/utils";
+import { setToken } from "@/utils/tokenUtils";
 
 const Page = () => {
   const searchParams = useSearchParams();

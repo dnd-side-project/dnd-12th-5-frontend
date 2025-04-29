@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookie, setCookie } from "cookies-next";
 
 import { toast } from "@/hooks/use-toast";
-import { deleteToken } from "@/utils/utils";
+import { deleteToken } from "@/utils/tokenUtils";
 
 const axiosInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_BASE_PATH}`,

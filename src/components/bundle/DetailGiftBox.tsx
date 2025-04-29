@@ -18,6 +18,7 @@ import RightIcon from "/public/icons/arrow_right_large.svg";
 import { useSelectedGiftBoxStore } from "@/stores/bundle/useStore";
 import { DetailGiftBoxProps } from "@/types/components/types";
 
+import CarouselNavigator from "./CarouselNavigator";
 import ReceiveAnswerChipList from "./ReceiveAnswerChipList";
 
 const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
@@ -70,100 +71,94 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
   };
 
   return (
-    <div className="flex h-full flex-col items-center justify-center gap-6">
-      <div className="mt-[17px] flex gap-2">
-        {giftList.map((_, index) => {
-          return (
-            <p
-              className={`h-[6px] w-[6px] rounded-full ${
-                currentCarousel === index + 1 ? "bg-pink-500" : "bg-gray-300"
-              }`}
-              key={index}
-            ></p>
-          );
-        })}
-      </div>
-      <Carousel className="w-[304px]" setApi={setCarouselApi}>
-        <CarouselContent className="gap-4 pb-0">
-          {giftList.map((gift, giftIndex) => {
-            return (
-              <CarouselItem
-                key={giftIndex}
-                className="flex h-[379px] w-[287px] flex-col overflow-hidden rounded-[22px] bg-white"
-              >
-                <div className="-mx-4">
-                  <Carousel
-                    setApi={(api) => {
-                      imgCarouselApis.current[giftIndex] = api;
-                      api?.on("select", () =>
-                        handleImageCarouselSelect(giftIndex),
-                      );
-                    }}
-                    opts={{ watchDrag: false }}
-                  >
-                    <CarouselContent className="flex">
-                      {gift.imageUrls.map((url, index) => {
-                        return (
-                          <CarouselItem
-                            key={index}
-                            className="relative h-[236px]"
-                          >
-                            <Image
-                              src={url}
-                              alt={`image_${index}`}
-                              layout="fill"
-                              objectFit="cover"
-                              className="pointer-events-none rounded-t-[22px]"
-                            />
-                          </CarouselItem>
+    <div className="flex h-fit flex-col items-center justify-center gap-16 pt-8">
+      <div className="flex flex-col items-center justify-center gap-6">
+        <CarouselNavigator
+          giftList={giftList}
+          currentCarousel={currentCarousel}
+        />
+        <Carousel className="w-[304px]" setApi={setCarouselApi}>
+          <CarouselContent className="gap-7 pb-0">
+            {giftList.map((gift, giftIndex) => {
+              return (
+                <CarouselItem
+                  key={giftIndex}
+                  className="flex h-[379px] w-[287px] flex-col overflow-hidden rounded-[22px] bg-white"
+                >
+                  <div className="-mx-4">
+                    <Carousel
+                      setApi={(api) => {
+                        imgCarouselApis.current[giftIndex] = api;
+                        api?.on("select", () =>
+                          handleImageCarouselSelect(giftIndex),
                         );
-                      })}
-                    </CarouselContent>
-                    {currentImageIndexes[giftIndex] !== 0 && (
-                      <Button
-                        className="absolute left-2 top-1/2 h-7 w-7 -translate-y-1/2 transform rounded-full bg-gray-100 opacity-30 hover:opacity-60"
-                        onClick={() => handlePrevImage(giftIndex)}
-                        disabled={currentImageIndexes[giftIndex] === 0}
-                        variant="ghost"
-                      >
-                        <Icon src={LeftIcon} alt="leftArrow" size="small" />
-                      </Button>
-                    )}
-                    {currentImageIndexes[giftIndex] !==
-                      gift.imageUrls.length - 1 && (
-                      <Button
-                        className="absolute right-2 top-1/2 h-7 w-7 -translate-y-1/2 transform rounded-full bg-gray-100 opacity-30 hover:opacity-60"
-                        onClick={() => handleNextImage(giftIndex)}
-                        disabled={
-                          currentImageIndexes[giftIndex] ===
-                          gift.imageUrls.length - 1
-                        }
-                        variant="ghost"
-                      >
-                        <Icon src={RightIcon} alt="RightArrow" size="small" />
-                      </Button>
-                    )}
-                    <div className="absolute bottom-2 right-2 h-[23px] w-10 rounded-[40px] bg-white/70 px-[10px] py-1 text-center">
-                      <p className="text-[10px] tracking-[2px] text-gray-600">
-                        {currentImageIndexes[giftIndex] + 1}/
-                        {gift.imageUrls.length}
-                      </p>
-                    </div>
-                  </Carousel>
-                </div>
-                <div className="mt-[9px] flex flex-col gap-[10px]">
-                  <p className="text-base font-bold text-gray-500">
-                    {gift.name}
-                  </p>
-                  <p className="text-[13px] tracking-[-0.13px]">
-                    {gift.message}
-                  </p>
-                </div>
-              </CarouselItem>
-            );
-          })}
-        </CarouselContent>
-      </Carousel>
+                      }}
+                      opts={{ watchDrag: false }}
+                    >
+                      <CarouselContent className="flex">
+                        {gift.imageUrls.map((url, index) => {
+                          return (
+                            <CarouselItem
+                              key={index}
+                              className="relative h-[236px]"
+                            >
+                              <Image
+                                src={url}
+                                alt={`image_${index}`}
+                                layout="fill"
+                                objectFit="cover"
+                                className="pointer-events-none rounded-t-[22px]"
+                              />
+                            </CarouselItem>
+                          );
+                        })}
+                      </CarouselContent>
+                      {currentImageIndexes[giftIndex] !== 0 && (
+                        <Button
+                          className="absolute left-2 top-1/2 h-7 w-7 -translate-y-1/2 transform rounded-full bg-gray-100 opacity-30 hover:opacity-60"
+                          onClick={() => handlePrevImage(giftIndex)}
+                          disabled={currentImageIndexes[giftIndex] === 0}
+                          variant="ghost"
+                        >
+                          <Icon src={LeftIcon} alt="leftArrow" size="small" />
+                        </Button>
+                      )}
+                      {currentImageIndexes[giftIndex] !==
+                        gift.imageUrls.length - 1 && (
+                        <Button
+                          className="absolute right-2 top-1/2 h-7 w-7 -translate-y-1/2 transform rounded-full bg-gray-100 opacity-30 hover:opacity-60"
+                          onClick={() => handleNextImage(giftIndex)}
+                          disabled={
+                            currentImageIndexes[giftIndex] ===
+                            gift.imageUrls.length - 1
+                          }
+                          variant="ghost"
+                        >
+                          <Icon src={RightIcon} alt="RightArrow" size="small" />
+                        </Button>
+                      )}
+                      <div className="absolute bottom-2 right-2 h-[23px] w-10 rounded-[40px] bg-white/70 px-[10px] py-1 text-center">
+                        <p className="text-[10px] tracking-[2px] text-gray-600">
+                          {currentImageIndexes[giftIndex] + 1}/
+                          {gift.imageUrls.length}
+                        </p>
+                      </div>
+                    </Carousel>
+                  </div>
+                  <div className="mt-[9px] flex flex-col gap-[10px]">
+                    <p className="text-base font-bold text-gray-500">
+                      {gift.name}
+                    </p>
+                    <p className="text-[13px] tracking-[-0.13px]">
+                      {gift.message}
+                    </p>
+                  </div>
+                </CarouselItem>
+              );
+            })}
+          </CarouselContent>
+        </Carousel>
+      </div>
       {giftList.length > 0 && currentCarousel > 0 && (
         <ReceiveAnswerChipList
           mappedAnswers={mappedAnswers}

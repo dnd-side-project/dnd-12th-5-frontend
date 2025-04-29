@@ -83,7 +83,9 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
   const bgColor = isOpenDetailGiftBox ? "bg-gray-100" : "bg-pink-50";
 
   return (
-    <div className={`relative h-full overflow-hidden ${bgColor}`}>
+    <div
+      className={`relative h-full overflow-y-auto overflow-x-hidden ${bgColor}`}
+    >
       {isOpenDetailGiftBox ? (
         <DetailGiftBox giftList={gifts} mappedAnswers={mappedAnswers} />
       ) : (

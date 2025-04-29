@@ -1,22 +1,24 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { createBundle, updateBundle } from "@/api/bundle/api";
+import GiftListDrawer from "@/components/bundle/add/GiftListDrawer";
 import Chip from "@/components/bundle/Chip";
-import GiftList from "@/components/bundle/GiftList";
+import GiftList from "@/components/bundle/add/GiftList";
 import { Button } from "@/components/ui/button";
 import { MIN_GIFTBOX_AMOUNT } from "@/constants/constants";
 import { toast } from "@/hooks/use-toast";
-import { useSelectedBagStore, useBundleStore } from "@/stores/bundle/useStore";
+import { useCreateBundleMutation } from "@/queries/useCreateBundleMutation";
+import { useUpdateBundleMutation } from "@/queries/useUpdateBundleMutation";
 import {
   useEditBoxStore,
   useGiftStore,
   useToastStore,
 } from "@/stores/gift-upload/useStore";
-import { GiftBox } from "@/types/bundle/types";
+import { Icon } from "@/components/common/Icon";
+
+import RightArrowIcon from "/public/icons/arrow_right_small.svg";
 
 const Page = () => {
   const { giftBoxes } = useGiftStore();
@@ -25,8 +27,6 @@ const Page = () => {
   ).length;
 
   const router = useRouter();
-  const { selectedBagIndex } = useSelectedBagStore();
-  const { bundleName } = useBundleStore();
   const { setIsBoxEditing } = useEditBoxStore();
 
   useEffect(() => {
@@ -44,34 +44,11 @@ const Page = () => {
     }
   }, [setShowEditToast, showEditToast]);
 
-  const createMutation = useMutation({
-    mutationFn: () =>
-      createBundle({
-        bundleName,
-        selectedBagIndex,
-        giftBoxes,
-      }),
-    onSuccess: (res) => {
-      if (res?.id) {
-        sessionStorage.setItem("bundleId", res.id);
-      }
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-      if (res?.gifts?.length) {
-        res.gifts.forEach((gift: GiftBox, index: number) => {
-          useGiftStore.getState().updateGiftBox(index, { id: gift.id });
-        });
-      }
-    },
-  });
+  const createMutation = useCreateBundleMutation();
 
-  const updateMutation = useMutation({
-    mutationFn: () => updateBundle(giftBoxes),
-    onSuccess: (res) => {
-      res.result.gifts.forEach((gift: GiftBox, index: number) => {
-        useGiftStore.getState().updateGiftBox(index, { id: gift.id });
-      });
-    },
-  });
+  const updateMutation = useUpdateBundleMutation();
 
   const handleClickButton = async () => {
     try {
@@ -94,7 +71,15 @@ const Page = () => {
       <div className="relative flex h-full flex-col items-center justify-center">
         <div className="flex w-[300px] flex-col items-center gap-7">
           <div className="absolute top-[10px]">
-            <Chip text={`채워진 선물박스 ${filledGiftCount}개`} width="126px" />
+            <Chip
+              text={`채워진 선물박스 ${filledGiftCount}개`}
+              icon={filledGiftCount > 0 ? <Icon src={RightArrowIcon} /> : ""}
+              width="126px"
+              onClick={() => {
+                if (filledGiftCount > 0) setDrawerOpen(true);
+              }}
+              isClickable={filledGiftCount > 0}
+            />
           </div>
           <GiftList value={giftBoxes} />
         </div>
@@ -108,6 +93,7 @@ const Page = () => {
           </Button>
         </div>
       </div>
+      <GiftListDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </div>
   );
 };
