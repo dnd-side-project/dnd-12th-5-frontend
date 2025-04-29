@@ -53,11 +53,12 @@ export default function RootLayout({
       <body
         className={`${pretendard.variable} ${nanumSquareRound.variable} antialiased`}
       >
-        <div className="relative mx-auto flex min-w-[375px] max-w-[430px] flex-col">
-          <Suspense>
-            <PageTransition>
-              <Header />
-              <Providers>
+        <Providers>
+          <div className="relative mx-auto flex min-w-[375px] max-w-[430px] flex-col">
+            <Suspense>
+              <PageTransition>
+                <Header />
+
                 <div
                   className={`flex-grow ${bgColor}`}
                   style={{ height: "calc(100svh - 56px)" }}
@@ -65,11 +66,11 @@ export default function RootLayout({
                   {children}
                 </div>
                 <Toaster />
-              </Providers>
-            </PageTransition>
-          </Suspense>
-        </div>
-        <KakaoInitScript />
+              </PageTransition>
+            </Suspense>
+          </div>
+          <KakaoInitScript />
+        </Providers>
       </body>
     </html>
   );
