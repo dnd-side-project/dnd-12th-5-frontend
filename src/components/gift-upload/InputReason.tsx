@@ -30,7 +30,7 @@ const InputReason = ({
   const [inputValue, setInputValue] = useState(value);
 
   const { giftBoxes } = useGiftStore();
-  const [isClicked, setIsClicked] = useState(giftBoxes[giftBoxIndex].filled);
+  const [isClicked, setIsClicked] = useState(value.trim().length > 0);
   const [tagIndex, setTagIndex] = useState(giftBoxes[giftBoxIndex].tagIndex);
 
   useEffect(() => {
@@ -40,10 +40,6 @@ const InputReason = ({
   useEffect(() => {
     setSelectedTagIndex(tagIndex);
   }, [setSelectedTagIndex, tagIndex]);
-
-  useEffect(() => {
-    if (giftBoxes[giftBoxIndex].filled) setIsClicked(true);
-  }, [giftBoxIndex, giftBoxes, isBoxEditing]);
 
   useEffect(() => {
     if (isBoxEditing) {

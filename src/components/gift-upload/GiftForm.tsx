@@ -1,13 +1,12 @@
 "use client";
 
-import { useMutation } from "@tanstack/react-query";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, useMemo } from "react";
 
 import CharacterCountInput from "../common/CharacterCountInput";
 import { Button } from "../ui/button";
-import { uploadGiftImages } from "@/api/gift-upload/api";
 import { GIFT_NAME_MAX_LENGTH } from "@/constants/constants";
+import { useUploadImageMutation } from "@/queries/useUploadImageMutation";
 import {
   useTagIndexStore,
   useGiftStore,
@@ -67,34 +66,13 @@ const GiftForm = () => {
     setIsFormValid(giftName.trim().length > 0 && combinedImages.length > 0);
   }, [giftName, combinedImages]);
 
-  const uploadMutation = useMutation<string[], Error, FormData>({
-    mutationFn: uploadGiftImages,
-    onSuccess: (uploadedUrls: string[]) => {
-      const existingUrls = combinedImages
-        .filter((item) => item.type === "existing")
-        .map((item) => item.url);
-      const merged = [...existingUrls, ...uploadedUrls];
-      updateGiftBox(index, { ...existingGift, imgUrls: merged });
-    },
-  });
+  const uploadImage = useUploadImageMutation();
 
   const handleSubmit = () => {
     const existingItems = combinedImages
       .filter((item) => item.type === "existing")
       .map((item) => item.url);
     const newItems = combinedImages.filter((item) => item.type === "new");
-
-    const updatedGiftBox = {
-      name: giftName,
-      reason: giftReason,
-      purchase_url: giftLink,
-      tag: giftTag,
-      tagIndex: selectedTagIndex,
-      filled: true,
-      imgUrls: isBoxEditing ? existingItems : [],
-    };
-
-    updateGiftBox(index, updatedGiftBox);
 
     if (newItems.length > 0) {
       const formData = new FormData();
@@ -103,20 +81,48 @@ const GiftForm = () => {
           formData.append("files", item.file);
         }
       });
-      uploadMutation.mutate(formData, {
-        onSuccess: (uploadedUrls: string[]) => {
-          const mergedImages = isBoxEditing
+      uploadImage.mutate(formData, {
+        onSuccess: (uploadedUrls) => {
+          const finalImgUrls = isBoxEditing
             ? [...existingItems, ...uploadedUrls]
             : uploadedUrls;
-          updateGiftBox(index, { ...updatedGiftBox, imgUrls: mergedImages });
+
+          const updatedGiftBox = {
+            name: giftName,
+            reason: giftReason,
+            purchase_url: giftLink,
+            tag: giftTag,
+            tagIndex: selectedTagIndex,
+            filled: true,
+            imgUrls: finalImgUrls,
+          };
+
+          updateGiftBox(index, updatedGiftBox);
+
+          if (isBoxEditing) {
+            useToastStore.getState().setShowEditToast(true);
+          }
+          router.push("/bundle/add");
         },
       });
-    }
+    } else {
+      const updatedGiftBox = {
+        name: giftName,
+        reason: giftReason,
+        purchase_url: giftLink,
+        tag: giftTag,
+        tagIndex: selectedTagIndex,
+        filled: true,
+        imgUrls: existingItems,
+      };
 
-    if (isBoxEditing) {
-      useToastStore.getState().setShowEditToast(true);
+      updateGiftBox(index, updatedGiftBox);
+
+      if (isBoxEditing) {
+        useToastStore.getState().setShowEditToast(true);
+      }
+      router.push("/bundle/add");
     }
-    router.push("/bundle/add");
   };
 
   const imageTextColor =
@@ -129,7 +135,6 @@ const GiftForm = () => {
           <UploadImageList
             combinedImages={combinedImages}
             setCombinedImages={setCombinedImages}
-            maxImages={5}
           />
           <p className={`text-xs font-medium ${imageTextColor}`}>
             최소 1장의 사진이 필요해요 (사진 용량 제한 10MB)

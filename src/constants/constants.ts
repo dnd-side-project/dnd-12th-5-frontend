@@ -3,6 +3,7 @@ import { CharacterInfo, CharacterKey } from "@/types/constants/types";
 
 export const BUNDLE_NAME_MAX_LENGTH = 20;
 export const GIFT_NAME_MAX_LENGTH = 20;
+export const GIFT_IMAGE_MAX_AMOUNT = 5;
 
 export const GIFT_SELECT_REASON_MAX_LENGTH = 100;
 

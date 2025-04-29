@@ -103,13 +103,15 @@ export interface InputReasonProps {
 export interface UploadImageListProps {
   combinedImages: ImageItem[];
   setCombinedImages: (items: ImageItem[]) => void;
-  maxImages?: number;
 }
 
 /** bundle */
 export interface BundleChipProps {
   text: string;
   width: string;
+  icon?: ReactNode;
+  isClickable?: boolean;
+  onClick?: () => void;
 }
 
 export interface DetailGiftBoxProps {
