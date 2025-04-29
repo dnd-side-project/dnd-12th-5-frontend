@@ -5,7 +5,7 @@ import {
   useBundleStore,
   useIsClickedUpdateFilledButton,
 } from "@/stores/bundle/useStore";
-import { resetGiftBoxes } from "@/utils/utils";
+import { resetGiftBoxes } from "@/utils/giftBoxUtils";
 
 const useResetStore = () => {
   const { setSelectedBagIndex } = useSelectedBagStore();

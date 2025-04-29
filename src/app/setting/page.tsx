@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 import { Icon } from "@/components/common/Icon";
 import { toast } from "@/hooks/use-toast";
-import { deleteToken } from "@/utils/utils";
+import { deleteToken } from "@/utils/tokenUtils";
 
 const Page = () => {
   const router = useRouter();

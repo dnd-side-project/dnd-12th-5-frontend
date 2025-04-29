@@ -1,14 +1,14 @@
 import Link from "next/link";
 
-import Card from "../common/Card";
-import { Icon } from "../common/Icon";
-import LinkButton from "../common/LinkButton";
+import Card from "../../common/Card";
+import { Icon } from "../../common/Icon";
+import LinkButton from "../../common/LinkButton";
 import {
   DrawerClose,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
-} from "../ui/drawer";
+} from "../../ui/drawer";
 import { Button } from "@/components/ui/button";
 import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 

@@ -2,9 +2,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import BundleDrawer from "../gift-upload/BundleDrawer";
-import DeleteBundleDrawer from "../gift-upload/DeleteBundleDrawer";
-import { Drawer, DrawerTrigger } from "../ui/drawer";
+import { Drawer, DrawerTrigger } from "../../ui/drawer";
 import {
   Tooltip,
   TooltipContent,
@@ -19,6 +17,9 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { GiftBox } from "@/types/bundle/types";
+
+import BundleDrawer from "./BundleDrawer";
+import DeleteBundleDrawer from "./DeleteBundleDrawer";
 
 const GiftList = ({ value }: { value: GiftBox[] }) => {
   const router = useRouter();
@@ -114,6 +115,7 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                     </DrawerTrigger>
                     {deleteBox ? (
                       <DeleteBundleDrawer
+                        box={selectedBox}
                         handleDeleteButton={emptyGiftBox}
                         setClickedDeleteBoxButton={setDeleteBox}
                       />

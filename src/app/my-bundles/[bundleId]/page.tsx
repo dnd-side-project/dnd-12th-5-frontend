@@ -17,16 +17,17 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { useDeleteMyBundleMutation } from "@/queries/useDeleteMyBundleMutation";
-import { useMyBundleDetailQuery } from "@/queries/useMyBundleDetailQuery";
+import { DESIGN_TYPE_MAP } from "@/constants/constants";
 import { toast } from "@/hooks/use-toast";
+import { useDeleteMyBundleMutation } from "@/queries/useDeleteMyBundleMutation";
 import { useDraftBundleGiftsQuery } from "@/queries/useDraftBundleGiftsQuery";
+import { useMyBundleDetailQuery } from "@/queries/useMyBundleDetailQuery";
 import { useIsClickedUpdateFilledButton } from "@/stores/bundle/useStore";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
-import { DESIGN_TYPE_MAP } from "@/constants/constants";
-import { resetGiftBoxes } from "@/utils/utils";
 
 import CloseIcon from "/public/icons/close.svg";
+
+import { resetGiftBoxes } from "@/utils/giftBoxUtils";
 
 const Page = () => {
   const router = useRouter();
