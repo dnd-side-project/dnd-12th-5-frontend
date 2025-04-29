@@ -103,7 +103,6 @@ export interface InputReasonProps {
 export interface UploadImageListProps {
   combinedImages: ImageItem[];
   setCombinedImages: (items: ImageItem[]) => void;
-  maxImages?: number;
 }
 
 /** bundle */
