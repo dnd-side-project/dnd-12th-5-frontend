@@ -9,7 +9,7 @@ import { CHARACTERS, DELIVERY_CHARACTER_MAP } from "@/constants/constants";
 import { useDeliveryCharacterMutation } from "@/queries/useDeliveryCharacterMutation";
 import { useBundleStore } from "@/stores/bundle/useStore";
 import { CharacterKey } from "@/types/constants/types";
-import { resetGiftBoxes } from "@/utils/utils";
+import { resetGiftBoxes } from "@/utils/giftBoxUtils";
 
 const Step2 = () => {
   const router = useRouter();
