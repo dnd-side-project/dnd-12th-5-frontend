@@ -9,8 +9,13 @@ export const deleteToken = () => {
 };
 
 export const setToken = (accessToken: string, refreshToken: string) => {
-  setCookie("accessToken", accessToken);
-  setCookie("refreshToken", refreshToken);
+  setCookie("accessToken", accessToken, {
+    path: "/",
+  });
+
+  setCookie("refreshToken", refreshToken, {
+    path: "/",
+  });
 };
 
 export const resetGiftBoxes = () => {
