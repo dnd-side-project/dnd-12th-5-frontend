@@ -135,7 +135,6 @@ const GiftForm = () => {
           <UploadImageList
             combinedImages={combinedImages}
             setCombinedImages={setCombinedImages}
-            maxImages={5}
           />
           <p className={`text-xs font-medium ${imageTextColor}`}>
             최소 1장의 사진이 필요해요 (사진 용량 제한 10MB)
