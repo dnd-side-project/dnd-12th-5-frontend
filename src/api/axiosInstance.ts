@@ -1,8 +1,8 @@
 import axios from "axios";
-import { getCookie, setCookie } from "cookies-next";
+import { getCookie } from "cookies-next";
 
 import { toast } from "@/hooks/use-toast";
-import { deleteToken } from "@/utils/utils";
+import { deleteToken, setToken } from "@/utils/utils";
 
 const axiosInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_BASE_PATH}`,
@@ -61,9 +61,8 @@ axiosInstance.interceptors.response.use(
         const newAccessToken = res.data.result.accessToken;
         const newRefreshToken = res.data.result.refreshToken;
 
-        // 새 accessToken 저장
-        setCookie("accessToken", newAccessToken);
-        setCookie("refreshToken", newRefreshToken);
+        // 새 Token 저장
+        setToken(newAccessToken, newRefreshToken);
 
         console.log("저장 완료! 재요청합니다.");
 
