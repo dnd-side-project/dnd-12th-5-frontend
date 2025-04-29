@@ -5,7 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { createBundle } from "@/api/bundle/api";
 import { useBundleStore, useSelectedBagStore } from "@/stores/bundle/useStore";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
-import { GiftBox } from "@/types/bundle/types";
+import { updateGiftBoxesFromResponse } from "@/utils/giftBoxUtils";
 
 export const useCreateBundleMutation = () => {
   const { giftBoxes } = useGiftStore();
@@ -25,9 +25,7 @@ export const useCreateBundleMutation = () => {
       }
 
       if (res?.gifts?.length) {
-        res.gifts.forEach((gift: GiftBox, index: number) => {
-          useGiftStore.getState().updateGiftBox(index, { id: gift.id });
-        });
+        updateGiftBoxesFromResponse(res.gifts);
       }
     },
   });

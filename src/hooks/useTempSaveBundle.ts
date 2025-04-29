@@ -1,10 +1,10 @@
 import { createBundle, updateBundle } from "@/api/bundle/api";
 import { toast } from "@/hooks/use-toast";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
-import { GiftBox } from "@/types/bundle/types";
+import { updateGiftBoxesFromResponse } from "@/utils/giftBoxUtils";
 
 export const useTempSaveBundle = () => {
-  const { giftBoxes, updateGiftBox } = useGiftStore();
+  const { giftBoxes } = useGiftStore();
 
   const handleTempSave = async ({
     bundleName,
@@ -30,9 +30,7 @@ export const useTempSaveBundle = () => {
       } else {
         const res = await updateBundle(giftBoxes);
         if (res?.result?.gifts) {
-          res.result.gifts.forEach((gift: GiftBox, index: number) => {
-            updateGiftBox(index, { id: gift.id });
-          });
+          updateGiftBoxesFromResponse(res.result.gifts);
         } else {
           throw new Error("gifts가 존재하지 않습니다.");
         }
