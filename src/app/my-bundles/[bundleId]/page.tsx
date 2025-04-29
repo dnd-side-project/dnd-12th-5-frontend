@@ -21,7 +21,10 @@ import { useDeleteMyBundleMutation } from "@/queries/useDeleteMyBundleMutation";
 import { useMyBundleDetailQuery } from "@/queries/useMyBundleDetailQuery";
 import { toast } from "@/hooks/use-toast";
 import { useDraftBundleGiftsQuery } from "@/queries/useDraftBundleGiftsQuery";
-import { useIsClickedUpdateFilledButton } from "@/stores/bundle/useStore";
+import {
+  useBundleStore,
+  useIsClickedUpdateFilledButton,
+} from "@/stores/bundle/useStore";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
 import { resetGiftBoxes } from "@/utils/utils";
@@ -32,17 +35,24 @@ const Page = () => {
   const router = useRouter();
   const { bundleId } = useParams() as { bundleId: string };
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { setBundleName } = useBundleStore();
 
   const { updateGiftBox } = useGiftStore();
 
   const { data } = useMyBundleDetailQuery(parseInt(bundleId));
-  const { designType, link, status, gifts } = data?.result || {
+  const { name, designType, link, status, gifts } = data?.result || {
     name: "",
     designType: "",
     link: "",
     status: "",
     gifts: [],
   };
+
+  useEffect(() => {
+    if (name) {
+      setBundleName(name);
+    }
+  }, [name]);
 
   const { setIsClickedUpdateFilledButton } = useIsClickedUpdateFilledButton();
 
@@ -51,6 +61,7 @@ const Page = () => {
   }, [setIsClickedUpdateFilledButton]);
 
   const { mutate: deleteBundle } = useDeleteMyBundleMutation();
+
   const handleDelete = () => {
     if (!bundleId) return;
 
