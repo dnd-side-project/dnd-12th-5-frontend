@@ -14,10 +14,21 @@ const axiosInstance = axios.create({
 // 요청 시 토큰 동적으로 주입
 axiosInstance.interceptors.request.use(
   (config) => {
-    const accessToken = getCookie("accessToken");
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+    // 인증 토큰이 필요하지 않는 API
+    const isPublicApi = config.url?.startsWith("/responses");
+
+    if (!isPublicApi) {
+      const accessToken = getCookie("accessToken");
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      }
+    } else {
+      // 토큰이 들어있을 경우 제거
+      if (config.headers?.Authorization) {
+        delete config.headers.Authorization;
+      }
     }
+
     return config;
   },
   (error) => Promise.reject(error),
