@@ -50,7 +50,6 @@ axiosInstance.interceptors.response.use(
         const refreshToken = getCookie("refreshToken");
 
         if (!refreshToken) {
-          console.log("refreshToken 없음. 로그아웃.", refreshToken);
           deleteToken();
           toast({ title: "다시 로그인해 주세요." });
           return (window.location.href = "/auth/login");
@@ -76,8 +75,6 @@ axiosInstance.interceptors.response.use(
 
         // 새 Token 저장
         setToken(newAccessToken, newRefreshToken);
-
-        console.log("저장 완료! 재요청합니다.");
 
         // 원래 요청에 새 accessToken 넣어서 재요청
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
