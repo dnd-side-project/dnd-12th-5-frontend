@@ -1,22 +1,12 @@
-import axios from "axios";
-
 import { PICKTORY_API } from "../api-url";
+import axiosInstance from "../axiosInstance";
 import { handleAxiosError } from "@/utils/axios";
 
 export const kakaoLogin = async (code: string) => {
   try {
-    const response = await axios.post(
-      PICKTORY_API.login,
-      {
-        code,
-      },
-      {
-        baseURL: `${process.env.NEXT_PUBLIC_API_BASE_PATH}`,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
+    const response = await axiosInstance.post(PICKTORY_API.login, {
+      code,
+    });
 
     return response.data;
   } catch (error) {

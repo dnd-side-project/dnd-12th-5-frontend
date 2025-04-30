@@ -11,18 +11,31 @@ const axiosInstance = axios.create({
   },
 });
 
-const accessToken = getCookie("accessToken");
-
-// accessToken이 있다면 기본 헤더에 Authorization 설정
-if (accessToken) {
-  axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
-}
+// 요청 시 토큰 동적으로 주입
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const accessToken = getCookie("accessToken");
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
 
 // accessToken 만료 시 refreshToken으로 재발급
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+
+    // 인가 코드 요청은 refresh 로직에서 제외
+    if (
+      originalRequest.url.includes("/oauth/login") ||
+      originalRequest.url.includes("/kakao/callback")
+    ) {
+      return Promise.reject(error);
+    }
 
     // accessToken이 만료되어 401을 받은 경우
     if (
