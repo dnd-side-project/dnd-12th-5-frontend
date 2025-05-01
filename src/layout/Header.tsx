@@ -233,7 +233,7 @@ const Header = () => {
     };
 
     return isBundleAddPage ? (
-      <div className="flex items-center justify-center">
+      <div className="flex max-w-[200px] items-center justify-center">
         {isEditing ? (
           <Input
             autoFocus
