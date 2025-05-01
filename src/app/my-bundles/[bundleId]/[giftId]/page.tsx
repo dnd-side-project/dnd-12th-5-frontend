@@ -84,7 +84,7 @@ const Page = () => {
   const filteredMessage = !hasMessage ? "입력된 내용이 없어요" : message;
 
   return (
-    <div className="h-full">
+    <div className="flex h-full flex-col gap-7">
       <Carousel
         setApi={setInnerCarouselApi}
         className="h-[375px] w-full overflow-hidden"
@@ -103,7 +103,7 @@ const Page = () => {
           ))}
         </CarouselContent>
 
-        <div className="absolute bottom-[12px] right-[12px] h-[23px] rounded-[40px] bg-white/70 px-[10px] py-1 text-center">
+        <div className="absolute bottom-3 right-3 h-[23px] rounded-[40px] bg-white/70 px-[10px] py-1 text-center">
           <p className="text-[10px] tracking-[2px] text-gray-600">
             {currentImageIndexes[parseInt(giftId)] !== undefined
               ? currentImageIndexes[parseInt(giftId)] + 1
@@ -113,7 +113,7 @@ const Page = () => {
         </div>
       </Carousel>
 
-      <div className="my-[18px] flex flex-col gap-4 px-4">
+      <div className="flex flex-col gap-4 px-4">
         <div className="flex flex-col gap-[2px]">
           <p className="text-xs text-gray-600">선물을 고른 이유</p>
           <p className={`text-[15px] ${!hasMessage ? "text-gray-300" : ""}`}>
