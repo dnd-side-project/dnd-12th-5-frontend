@@ -8,6 +8,11 @@ export const deleteToken = () => {
 
 /** token 저장 */
 export const setToken = (accessToken: string, refreshToken: string) => {
-  setCookie("accessToken", accessToken);
-  setCookie("refreshToken", refreshToken);
+  setCookie("accessToken", accessToken, {
+    path: "/",
+  });
+
+  setCookie("refreshToken", refreshToken, {
+    path: "/",
+  });
 };

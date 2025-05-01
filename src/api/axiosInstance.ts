@@ -1,8 +1,8 @@
 import axios from "axios";
-import { getCookie, setCookie } from "cookies-next";
+import { getCookie } from "cookies-next";
 
 import { toast } from "@/hooks/use-toast";
-import { deleteToken } from "@/utils/tokenUtils";
+import { deleteToken, setToken } from "@/utils/tokenUtils";
 
 const axiosInstance = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_API_BASE_PATH}`,
@@ -11,18 +11,42 @@ const axiosInstance = axios.create({
   },
 });
 
-const accessToken = getCookie("accessToken");
+// 요청 시 토큰 동적으로 주입
+axiosInstance.interceptors.request.use(
+  (config) => {
+    // 인증 토큰이 필요하지 않는 API
+    const isPublicApi = config.url?.startsWith("/responses");
 
-// accessToken이 있다면 기본 헤더에 Authorization 설정
-if (accessToken) {
-  axiosInstance.defaults.headers.Authorization = `Bearer ${accessToken}`;
-}
+    if (!isPublicApi) {
+      const accessToken = getCookie("accessToken");
+      if (accessToken) {
+        config.headers.Authorization = `Bearer ${accessToken}`;
+      }
+    } else {
+      // 토큰이 들어있을 경우 제거
+      if (config.headers?.Authorization) {
+        delete config.headers.Authorization;
+      }
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
 
 // accessToken 만료 시 refreshToken으로 재발급
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+
+    // 인가 코드 요청은 refresh 로직에서 제외
+    if (
+      originalRequest.url.includes("/oauth/login") ||
+      originalRequest.url.includes("/kakao/callback")
+    ) {
+      return Promise.reject(error);
+    }
 
     // accessToken이 만료되어 401을 받은 경우
     if (
@@ -37,7 +61,6 @@ axiosInstance.interceptors.response.use(
         const refreshToken = getCookie("refreshToken");
 
         if (!refreshToken) {
-          console.log("refreshToken 없음. 로그아웃.", refreshToken);
           deleteToken();
           toast({ title: "다시 로그인해 주세요." });
           return (window.location.href = "/auth/login");
@@ -61,11 +84,8 @@ axiosInstance.interceptors.response.use(
         const newAccessToken = res.data.result.accessToken;
         const newRefreshToken = res.data.result.refreshToken;
 
-        // 새 accessToken 저장
-        setCookie("accessToken", newAccessToken);
-        setCookie("refreshToken", newRefreshToken);
-
-        console.log("저장 완료! 재요청합니다.");
+        // 새 Token 저장
+        setToken(newAccessToken, newRefreshToken);
 
         // 원래 요청에 새 accessToken 넣어서 재요청
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
