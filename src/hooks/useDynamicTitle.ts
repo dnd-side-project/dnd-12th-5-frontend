@@ -23,6 +23,7 @@ const useDynamicTitle = () => {
       setDynamicTitle(bundleName);
     } else {
       const pageTitles: { [path: string]: string } = {
+        "/my-bundles": "내가 만든 보따리",
         "/bundle/delivery": "선물 보따리 배달하기",
         "/bundle": "선물 보따리 만들기",
         "/gift-upload": "선물 박스 채우기",
