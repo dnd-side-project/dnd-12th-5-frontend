@@ -36,8 +36,8 @@ const Page = () => {
   const router = useRouter();
   const { bundleId } = useParams() as { bundleId: string };
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  
   const { setBundleName } = useBundleNameStore();
-
   const { updateGiftBox } = useGiftStore();
 
   const { data } = useMyBundleDetailQuery(parseInt(bundleId));
@@ -152,7 +152,7 @@ const Page = () => {
 
       await Promise.all(updatePromises);
 
-      router.push("/bundle/add");
+      router.push("/bundle/add?isEdit=true");
     } catch (error) {
       console.error(error);
     }
