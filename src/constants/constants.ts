@@ -1,7 +1,7 @@
 import { IconSize } from "@/types/components/types";
 import { CharacterInfo, CharacterKey } from "@/types/constants/types";
 
-export const BUNDLE_NAME_MAX_LENGTH = 20;
+export const BUNDLE_NAME_MAX_LENGTH = 15;
 export const GIFT_NAME_MAX_LENGTH = 20;
 export const GIFT_IMAGE_MAX_AMOUNT = 5;
 
