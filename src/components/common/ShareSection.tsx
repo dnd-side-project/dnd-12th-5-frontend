@@ -67,7 +67,7 @@ const ShareSection = ({ link }: { link: string }) => {
       </div>
 
       {/* Button Section */}
-      <section className="flex gap-[17px]">
+      <section className="flex gap-3">
         <button
           className="flex flex-col items-center gap-1"
           onClick={shareKakao}
