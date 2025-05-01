@@ -110,20 +110,18 @@ const Page = () => {
                   }}
                 />
               ) : (
-                <>
-                  {bundle.id && (
-                    <Link key={bundle.id} href={`/my-bundles/${bundle.id}`}>
-                      <MyBundleCard
-                        isEdit={isEdit}
-                        design_type={bundle.designType}
-                        is_read={bundle.isRead}
-                        status={bundle.status}
-                        name={bundle.name}
-                        updatedAt={bundle.updatedAt}
-                      />
-                    </Link>
-                  )}
-                </>
+                bundle.id && (
+                  <Link key={bundle.id} href={`/my-bundles/${bundle.id}`}>
+                    <MyBundleCard
+                      isEdit={isEdit}
+                      design_type={bundle.designType}
+                      is_read={bundle.isRead}
+                      status={bundle.status}
+                      name={bundle.name}
+                      updatedAt={bundle.updatedAt}
+                    />
+                  </Link>
+                )
               ),
             )}
           </section>
