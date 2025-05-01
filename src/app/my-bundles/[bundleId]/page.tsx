@@ -36,7 +36,7 @@ const Page = () => {
   const router = useRouter();
   const { bundleId } = useParams() as { bundleId: string };
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  
+
   const { setBundleName } = useBundleNameStore();
   const { updateGiftBox } = useGiftStore();
 
