@@ -233,7 +233,7 @@ const Header = () => {
     };
 
     return isBundleAddPage ? (
-      <div className="flex max-w-[200px] items-center justify-center">
+      <div className="flex items-center justify-center">
         {isEditing ? (
           <Input
             autoFocus
@@ -260,7 +260,7 @@ const Header = () => {
         )}
       </div>
     ) : (
-      <h1 className="max-w-[220px] overflow-hidden text-ellipsis whitespace-nowrap text-center text-lg font-medium">
+      <h1 className="overflow-hidden text-ellipsis whitespace-nowrap text-center text-lg font-medium">
         {dynamicTitle}
       </h1>
     );
