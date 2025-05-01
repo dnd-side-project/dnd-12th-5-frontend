@@ -21,7 +21,7 @@ const DeleteBundleDrawer = ({
     <DrawerContent>
       <DrawerHeader>
         <>
-          <DrawerTitle className="relative mt-3 text-center text-base font-medium">
+          <DrawerTitle className="relative text-center text-base font-medium">
             <p className="text-center text-base font-medium">
               채워진 선물 정보
             </p>
@@ -31,12 +31,12 @@ const DeleteBundleDrawer = ({
           </DrawerTitle>
         </>
       </DrawerHeader>
-      <div className="flex flex-col items-center justify-center gap-[22px] px-[18px] pb-5">
+      <div className="flex flex-col items-center justify-center px-[18px] pb-5">
         <div className="my-[26px] flex flex-col items-center gap-[7px]">
           <Card img={box?.imgUrls[0] as string} size="small" type="gift" />
           <p>{box?.name}</p>
         </div>
-        <div className="mb-5 flex flex-col gap-1 text-center">
+        <div className="mb-5 flex flex-col text-center">
           <p className="text-[15px]">선택한 박스를 정말 삭제할까요?</p>
           <p className="text-sm text-gray-500">
             삭제된 박스는 되돌릴 수 없어요.

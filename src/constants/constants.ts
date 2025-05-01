@@ -160,7 +160,8 @@ export const ICON_SIZE_MAP: Record<IconSize, number> = {
   xsmall: 12,
   small: 14,
   medium: 18,
-  large: 24,
+  large: 20,
+  extraLarge: 24,
 };
 
 export const IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "webp", "heic", "heif"];
