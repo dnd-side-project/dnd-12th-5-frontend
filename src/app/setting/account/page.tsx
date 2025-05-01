@@ -9,9 +9,7 @@ const page = () => {
         <Icon src={KakaoLogoIcon} alt="kakao" />
         <p className="text-[15px] font-medium">카카오</p>
       </div>
-      <p className="mt-[24px] px-4 text-[15px] text-symantic-negative">
-        회원 탈퇴
-      </p>
+      <p className="mt-6 px-4 text-[15px] text-symantic-negative">회원 탈퇴</p>
     </div>
   );
 };

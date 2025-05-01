@@ -35,7 +35,7 @@ const MyBundleCard = ({
         alt="Bundle"
         width={89}
         height={94}
-        className="mb-[14px] mt-[8px]"
+        className="mb-[14px] mt-2"
       />
     ),
     [imageSrc],

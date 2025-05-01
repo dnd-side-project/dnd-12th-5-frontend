@@ -8,7 +8,7 @@ const CopyLinkButton = ({ onClick }: { onClick: () => void }) => {
       onClick={onClick}
       className="flex cursor-pointer items-center gap-[5px] rounded-[4px] bg-gray-100 px-[10px] py-[6px] hover:opacity-70"
     >
-      <p className="text-[12px] font-medium">링크 복사하기</p>
+      <p className="text-xs font-medium">링크 복사하기</p>
       <Icon src={CopyLinkIcon} alt="copy" size="medium" />
     </span>
   );

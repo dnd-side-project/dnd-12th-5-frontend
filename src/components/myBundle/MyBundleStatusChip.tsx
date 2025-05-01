@@ -33,10 +33,9 @@ const MyBundleStatusChip = ({
     if (type === "message") text = "임시 저장 중";
   }
 
-  const paddingClass =
-    size === "sm" ? "px-[8px] py-[3px]" : "px-[10px] py-[6px]";
+  const paddingClass = size === "sm" ? "px-2 py-[3px]" : "px-[10px] py-[6px]";
 
-  const textSizeClass = size === "sm" ? "text-[10px]" : "text-[12px]";
+  const textSizeClass = size === "sm" ? "text-[10px]" : "text-xs";
 
   return (
     <span
