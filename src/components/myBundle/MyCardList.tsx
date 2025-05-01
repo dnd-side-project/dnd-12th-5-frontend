@@ -43,7 +43,9 @@ const MyCardList = ({ type, data, size, isSelectable }: MyCardListProps) => {
   };
 
   return (
-    <div className="flex gap-[13px] whitespace-nowrap">
+    <div
+      className={`flex ${size === "small" ? "gap-[13px]" : "gap-[10px]"} whitespace-nowrap`}
+    >
       {data &&
         data.map((item, index) => {
           const bundleDesignURL =
@@ -76,10 +78,8 @@ const MyCardList = ({ type, data, size, isSelectable }: MyCardListProps) => {
                 }
               />
               {isMyBundlePreview(item) && (
-                <div className="ml-[1px]">
-                  <p className="max-w-[86px] truncate text-[12px]">
-                    {item?.name}
-                  </p>
+                <div className="mx-[1px]">
+                  <p className="max-w-[86px] truncate text-xs">{item?.name}</p>
                   <p className="text-[10px] text-gray-300">
                     {formatDateLabel(item?.updatedAt)}
                   </p>
