@@ -8,7 +8,7 @@ export const useUploadImageMutation = () => {
     mutationFn: uploadGiftImages,
     onError: () => {
       toast({
-        title: "이미지를 서버에 업로드하는 데 실패했어요. ",
+        title: "이미지를 서버에 업로드하는 데 실패했어요.",
         description: "다시 시도해주세요.",
       });
     },

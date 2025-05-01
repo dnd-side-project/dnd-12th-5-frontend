@@ -19,7 +19,7 @@ import {
 } from "@/constants/constants";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
-import { useEditDraftBundleNameMutation } from "@/queries/useEditDrafeBundleName";
+import { useEditDraftBundleNameMutation } from "@/queries/useEditDrafeBundleNameMutation";
 import {
   useBundleNameStore,
   useIsClickedUpdateFilledButton,
