@@ -174,8 +174,8 @@ const Page = () => {
 
   return (
     <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-      <div className="flex h-[calc(100%-52px)] flex-col items-center justify-center px-4">
-        <div className="mb-[40px] mt-[26px] flex flex-col items-center justify-center gap-[20px]">
+      <div className="flex h-[calc(100%-52px)] flex-col items-center justify-center gap-10 px-4">
+        <div className="flex flex-col items-center justify-center gap-5">
           {bundleId && memoizedImage}
           <MyBundleStatusChip status={status} type="message" size="md" />
         </div>
@@ -208,9 +208,9 @@ const Page = () => {
 
               {isDrawerOpen && (
                 <DrawerContent>
-                  <DrawerHeader className="relative mt-3 flex justify-center py-3">
+                  <DrawerHeader className="relative flex justify-center py-3">
                     <DrawerTitle>보따리 삭제</DrawerTitle>
-                    <DrawerClose className="absolute right-[14px] top-2">
+                    <DrawerClose className="absolute right-4 top-[14px]">
                       <Icon src={CloseIcon} alt="close" size="large" />
                     </DrawerClose>
                   </DrawerHeader>
