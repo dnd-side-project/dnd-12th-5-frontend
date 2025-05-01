@@ -186,12 +186,14 @@ const Page = () => {
             <MyCardList data={gifts} type="gift" size="small" />
           </div>
         </div>
-        {/** 답변 대기 중인 상태 */}
+
+        {/** 답변 대기 중인 상태만 링크 공유 가능 */}
         {status === "PUBLISHED" && (
-          <div className="mt-[25px] w-full">
+          <div className="absolute bottom-6 w-full px-4">
             <ShareSection link={link} />
           </div>
         )}
+
         {/* 하단 버튼 (임시 저장, 답변 완료) */}
         <div className="absolute bottom-4 w-full px-4">
           {status === "DRAFT" ? (
