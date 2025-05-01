@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import { Icon } from "@/components/common/Icon";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 import LogoIcon from "/public/icons/logo.svg";
 import SettingIcon from "/public/icons/setting_large.svg";
@@ -12,13 +13,13 @@ import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
 import CloseIcon from "/public/icons/close.svg";
 import EditIcon from "/public/icons/edit.svg";
 
-import { Input } from "@/components/ui/input";
 import {
   BUNDLE_NAME_MAX_LENGTH,
   MIN_GIFTBOX_AMOUNT,
 } from "@/constants/constants";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
+import { useEditDraftBundleNameMutation } from "@/queries/useEditDrafeBundleName";
 import {
   useBundleStore,
   useIsClickedUpdateFilledButton,
@@ -46,6 +47,7 @@ const Header = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const step = searchParams?.get("step");
+  const isEdit = searchParams.get("isEdit") === "true";
 
   const dynamicTitle = useDynamicTitle(); // 타이틀 동적 업데이트
 
@@ -193,6 +195,10 @@ const Header = () => {
     const { setBundleName } = useBundleStore();
     const [isEditing, setIsEditing] = useState(false);
     const [inputValue, setInputValue] = useState(dynamicTitle);
+    const { mutate } = useEditDraftBundleNameMutation(
+      inputValue,
+      bundleId ?? "",
+    );
 
     useEffect(() => {
       setInputValue(dynamicTitle);
@@ -212,6 +218,10 @@ const Header = () => {
     const saveAndClose = () => {
       setIsEditing(false);
       setBundleName(inputValue);
+
+      if (isEdit) {
+        mutate();
+      }
     };
 
     const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

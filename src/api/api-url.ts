@@ -16,4 +16,5 @@ export const PICKTORY_API = {
   openBundle: (link: string) => `/responses/bundles/${link}`,
   postBundleAnswer: (link: string) => `/responses/bundles/${link}/answers`,
   getAnswerResult: (link: string) => `/responses/bundles/${link}/result`,
+  patchBundleName: (bundleId: string) => `/bundles/${bundleId}`,
 };
