@@ -20,7 +20,7 @@ import {
 import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 import {
-  useBundleStore,
+  useBundleNameStore,
   useIsClickedUpdateFilledButton,
   useIsOpenDetailGiftBoxStore,
   useSelectedBagStore,
@@ -66,7 +66,7 @@ const Header = () => {
   const isGiftUploadPage = pathname === "/gift-upload";
   const isBundleAddPage = pathname === "/bundle/add";
 
-  const { bundleName } = useBundleStore();
+  const { bundleName } = useBundleNameStore();
 
   const bgColor = isAuthPage ? "bg-pink-50" : "bg-white";
 
@@ -190,7 +190,7 @@ const Header = () => {
   };
 
   const Title = () => {
-    const { setBundleName } = useBundleStore();
+    const { setBundleName } = useBundleNameStore();
     const [isEditing, setIsEditing] = useState(false);
     const [inputValue, setInputValue] = useState(dynamicTitle);
 

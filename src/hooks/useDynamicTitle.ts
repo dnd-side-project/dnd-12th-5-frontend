@@ -1,12 +1,12 @@
 import { useSearchParams, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { useBundleStore, useGiftNameStore } from "@/stores/bundle/useStore";
+import { useBundleNameStore, useGiftNameStore } from "@/stores/bundle/useStore";
 
 const useDynamicTitle = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const { bundleName } = useBundleStore();
+  const { bundleName } = useBundleNameStore();
   const { giftName } = useGiftNameStore();
 
   const [dynamicTitle, setDynamicTitle] = useState("");

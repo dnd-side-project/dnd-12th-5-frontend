@@ -2,14 +2,14 @@ import { useEffect } from "react";
 
 import {
   useSelectedBagStore,
-  useBundleStore,
+  useBundleNameStore,
   useIsClickedUpdateFilledButton,
 } from "@/stores/bundle/useStore";
 import { resetGiftBoxes } from "@/utils/giftBoxUtils";
 
 const useResetStore = () => {
   const { setSelectedBagIndex } = useSelectedBagStore();
-  const { setBundleName } = useBundleStore();
+  const { setBundleName } = useBundleNameStore();
   const { setIsClickedUpdateFilledButton } = useIsClickedUpdateFilledButton();
 
   useEffect(() => {

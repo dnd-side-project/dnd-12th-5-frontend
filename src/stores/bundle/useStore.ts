@@ -21,7 +21,7 @@ interface BundleState {
   setBundleName: (name: string) => void;
 }
 
-export const useBundleStore = create<BundleState>()(
+export const useBundleNameStore = create<BundleState>()(
   persist(
     (set) => ({
       bundleName: "",

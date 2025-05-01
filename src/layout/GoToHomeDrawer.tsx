@@ -14,11 +14,14 @@ import {
 import CloseIcon from "/public/icons/close.svg";
 
 import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
-import { useBundleStore, useSelectedBagStore } from "@/stores/bundle/useStore";
+import {
+  useBundleNameStore,
+  useSelectedBagStore,
+} from "@/stores/bundle/useStore";
 import { GoToHomeDrawerProps } from "@/types/bundle/types";
 
 const GoToHomeDrawer = ({ open, onClose, onConfirm }: GoToHomeDrawerProps) => {
-  const { bundleName } = useBundleStore();
+  const { bundleName } = useBundleNameStore();
   const { selectedBagIndex } = useSelectedBagStore();
 
   const { handleTempSave } = useTempSaveBundle();

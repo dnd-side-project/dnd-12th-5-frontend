@@ -7,7 +7,7 @@ import { Fragment } from "react";
 import { Button } from "@/components/ui/button";
 import { CHARACTERS, DELIVERY_CHARACTER_MAP } from "@/constants/constants";
 import { useDeliveryCharacterMutation } from "@/queries/useDeliveryCharacterMutation";
-import { useBundleStore } from "@/stores/bundle/useStore";
+import { useBundleNameStore } from "@/stores/bundle/useStore";
 import { CharacterKey } from "@/types/constants/types";
 import { resetGiftBoxes } from "@/utils/giftBoxUtils";
 
@@ -23,7 +23,7 @@ const Step2 = () => {
 
   const characterKey = (characterEntry?.[0] ?? "CHARACTER_1") as CharacterKey;
 
-  const { setBundleName } = useBundleStore();
+  const { setBundleName } = useBundleNameStore();
 
   const resetStore = () => {
     resetGiftBoxes();
