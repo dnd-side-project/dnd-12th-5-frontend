@@ -140,7 +140,7 @@ const Page = () => {
               <div className="mb-5 mt-[26px] flex w-full flex-col items-center justify-center gap-[22px]">
                 <div>
                   <p className="text-[15px] font-medium">
-                    선물 보따리를 정말 삭제할까요?
+                    선택한 선물 보따리를 정말 삭제할까요?
                   </p>
                   <p className="text-sm text-gray-300">
                     삭제된 보따리는 되돌릴 수 없어요.
