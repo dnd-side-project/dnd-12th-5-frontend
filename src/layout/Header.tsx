@@ -260,7 +260,7 @@ const Header = () => {
         )}
       </div>
     ) : (
-      <h1 className="max-w-[220px] overflow-hidden text-ellipsis whitespace-nowrap text-center text-lg font-medium">
+      <h1 className="overflow-hidden text-ellipsis whitespace-nowrap text-center text-lg font-medium">
         {dynamicTitle}
       </h1>
     );
