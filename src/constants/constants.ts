@@ -1,7 +1,7 @@
 import { IconSize } from "@/types/components/types";
 import { CharacterInfo, CharacterKey } from "@/types/constants/types";
 
-export const BUNDLE_NAME_MAX_LENGTH = 20;
+export const BUNDLE_NAME_MAX_LENGTH = 15;
 export const GIFT_NAME_MAX_LENGTH = 20;
 export const GIFT_IMAGE_MAX_AMOUNT = 5;
 
@@ -160,7 +160,8 @@ export const ICON_SIZE_MAP: Record<IconSize, number> = {
   xsmall: 12,
   small: 14,
   medium: 18,
-  large: 24,
+  large: 20,
+  extraLarge: 24,
 };
 
 export const IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "webp", "heic", "heif"];
