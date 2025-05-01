@@ -81,6 +81,8 @@ const Page = () => {
   const memoizedImage = useMemo(() => {
     const imageSrc = DESIGN_TYPE_MAP[designType];
 
+    if (!imageSrc) return null;
+
     return (
       <Image
         src={imageSrc}
