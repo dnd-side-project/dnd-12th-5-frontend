@@ -43,7 +43,7 @@ const MyBundleCard = ({
 
   return (
     <div
-      className={`relative box-border flex cursor-pointer flex-col items-center justify-center rounded-[12px] border-[1px] border-gray-200 bg-white px-2 pb-[22px] pt-[8px] ${
+      className={`relative box-border flex min-w-[165px] max-w-[192px] cursor-pointer flex-col items-center justify-center rounded-[12px] border-[1px] border-gray-200 bg-white px-2 pb-[22px] pt-[8px] ${
         !isEdit && "hover:bg-gray-100"
       }`}
     >
@@ -66,8 +66,11 @@ const MyBundleCard = ({
         </DrawerTrigger>
       )}
       {memoizedImage}
-      <div>
-        <p className="max-w-[149px] truncate text-center text-[15px] font-medium">
+      <div className="w-full">
+        <p
+          className="mx-auto truncate text-center text-[15px] font-medium"
+          style={{ maxWidth: "calc(100% - 20px)" }}
+        >
           {name}
         </p>
         <p className="text-center text-xs font-medium text-gray-400">
