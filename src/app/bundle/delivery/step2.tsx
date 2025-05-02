@@ -65,7 +65,7 @@ const Step2 = () => {
   return (
     <div className="h-full bg-[url('/img/background_union.svg')] bg-cover bg-center">
       {characterData && (
-        <div className="flex h-[calc(100%-52px)] w-full flex-col items-center justify-center gap-7">
+        <div className="flex h-[calc(100%-68px)] w-full flex-col items-center justify-center gap-7">
           <section className="flex flex-col items-center">
             <div className="flex flex-col items-center">
               <div className="mb-[3px]">
