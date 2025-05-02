@@ -110,8 +110,14 @@ const Header = () => {
 
   if (isBundleDetailStepTwo && isOpenDetailGiftBox) {
     return (
-      <div className="sticky top-0 z-20 flex h-[56px] items-center justify-end bg-gray-100 px-4">
-        <button onClick={() => setIsOpenDetailGiftBox(false)}>
+      <div className="relative sticky top-0 z-20 flex h-[56px] items-center justify-center bg-gray-100 px-4">
+        <h1 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-lg font-medium">
+          답변 선택하기
+        </h1>
+        <button
+          className="ml-auto"
+          onClick={() => setIsOpenDetailGiftBox(false)}
+        >
           <Icon src={CloseIcon} alt="close" size="large" />
         </button>
       </div>
