@@ -138,10 +138,15 @@ const config: Config = {
           "0%": { opacity: "1" },
           "100%": { opacity: "0.6" },
         },
+        bounceY: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
       },
       animation: {
         "fade-in": "fade-in 0.35s ease-in-out forwards",
         "fade-out": "fade-out 0.5s ease-in-out forwards",
+        bounceY: "bounceY 1.2s ease-in-out infinite",
       },
     },
   },
