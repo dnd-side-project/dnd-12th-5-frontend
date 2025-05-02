@@ -7,15 +7,15 @@ import { BUNDLE_IMAGE_PATHS } from "@/constants/constants";
 
 const Step1 = () => {
   return (
-    <div className="flex h-[calc(100%-52px)] flex-col items-center justify-center gap-[46px] px-4">
-      <div className="flex flex-col items-center gap-[34px]">
+    <div className="flex h-[calc(100%-68px)] flex-col items-center justify-center gap-[39px] px-4">
+      <div className="flex flex-col items-center gap-[42px]">
         <SelectedBundle />
         <p className="font-nanum text-base font-bold">
           보따리의 색상을 골라주세요
         </p>
       </div>
       <div
-        className="w-full overflow-x-auto px-4"
+        className="w-full overflow-x-auto"
         style={{ scrollbarWidth: "none" }}
       >
         <div className="min-w-max">
