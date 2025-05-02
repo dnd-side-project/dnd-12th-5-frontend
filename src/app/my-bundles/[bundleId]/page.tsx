@@ -22,7 +22,10 @@ import { toast } from "@/hooks/use-toast";
 import { useDeleteMyBundleMutation } from "@/queries/useDeleteMyBundleMutation";
 import { useDraftBundleGiftsQuery } from "@/queries/useDraftBundleGiftsQuery";
 import { useMyBundleDetailQuery } from "@/queries/useMyBundleDetailQuery";
-import { useIsClickedUpdateFilledButton } from "@/stores/bundle/useStore";
+import {
+  useBundleNameStore,
+  useIsClickedUpdateFilledButton,
+} from "@/stores/bundle/useStore";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 
 import CloseIcon from "/public/icons/close.svg";
@@ -34,16 +37,23 @@ const Page = () => {
   const { bundleId } = useParams() as { bundleId: string };
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
+  const { setBundleName } = useBundleNameStore();
   const { updateGiftBox } = useGiftStore();
 
   const { data } = useMyBundleDetailQuery(parseInt(bundleId));
-  const { designType, link, status, gifts } = data?.result || {
+  const { name, designType, link, status, gifts } = data?.result || {
     name: "",
     designType: "",
     link: "",
     status: "",
     gifts: [],
   };
+
+  useEffect(() => {
+    if (name) {
+      setBundleName(name);
+    }
+  }, [name]);
 
   const { setIsClickedUpdateFilledButton } = useIsClickedUpdateFilledButton();
 
@@ -52,6 +62,7 @@ const Page = () => {
   }, [setIsClickedUpdateFilledButton]);
 
   const { mutate: deleteBundle } = useDeleteMyBundleMutation();
+
   const handleDelete = () => {
     if (!bundleId) return;
 
@@ -69,6 +80,8 @@ const Page = () => {
 
   const memoizedImage = useMemo(() => {
     const imageSrc = DESIGN_TYPE_MAP[designType];
+
+    if (!imageSrc) return null;
 
     return (
       <Image
@@ -141,7 +154,7 @@ const Page = () => {
 
       await Promise.all(updatePromises);
 
-      router.push("/bundle/add");
+      router.push("/bundle/add?isEdit=true");
     } catch (error) {
       console.error(error);
     }
@@ -175,12 +188,14 @@ const Page = () => {
             <MyCardList data={gifts} type="gift" size="small" />
           </div>
         </div>
-        {/** 답변 대기 중인 상태 */}
+
+        {/** 답변 대기 중인 상태만 링크 공유 가능 */}
         {status === "PUBLISHED" && (
-          <div className="mt-[25px] w-full">
+          <div className="absolute bottom-6 w-full px-4">
             <ShareSection link={link} />
           </div>
         )}
+
         {/* 하단 버튼 (임시 저장, 답변 완료) */}
         <div className="absolute bottom-4 w-full px-4">
           {status === "DRAFT" ? (

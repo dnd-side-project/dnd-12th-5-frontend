@@ -5,10 +5,10 @@ import Link from "next/link";
 import CharacterCountInput from "@/components/common/CharacterCountInput";
 import { Button } from "@/components/ui/button";
 import { BUNDLE_NAME_MAX_LENGTH } from "@/constants/constants";
-import { useBundleStore } from "@/stores/bundle/useStore";
+import { useBundleNameStore } from "@/stores/bundle/useStore";
 
 const BundleForm = () => {
-  const { bundleName, setBundleName } = useBundleStore();
+  const { bundleName, setBundleName } = useBundleNameStore();
 
   return (
     <div className="flex w-full flex-col items-center gap-[57px]">

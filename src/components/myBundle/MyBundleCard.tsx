@@ -67,7 +67,9 @@ const MyBundleCard = ({
       )}
       {memoizedImage}
       <div>
-        <p className="text-center text-[15px] font-medium">{name}</p>
+        <p className="max-w-[149px] truncate text-center text-[15px] font-medium">
+          {name}
+        </p>
         <p className="text-center text-xs font-medium text-gray-400">
           {new Date(updatedAt).toISOString().split("T")[0]}
         </p>

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import { Icon } from "@/components/common/Icon";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 import LogoIcon from "/public/icons/logo.svg";
 import SettingIcon from "/public/icons/setting_large.svg";
@@ -12,15 +13,15 @@ import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
 import CloseIcon from "/public/icons/close.svg";
 import EditIcon from "/public/icons/edit.svg";
 
-import { Input } from "@/components/ui/input";
 import {
   BUNDLE_NAME_MAX_LENGTH,
   MIN_GIFTBOX_AMOUNT,
 } from "@/constants/constants";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
+import { useEditDraftBundleNameMutation } from "@/queries/useEditDraftBundleNameMutation";
 import {
-  useBundleStore,
+  useBundleNameStore,
   useIsClickedUpdateFilledButton,
   useIsOpenDetailGiftBoxStore,
   useSelectedBagStore,
@@ -46,6 +47,7 @@ const Header = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const step = searchParams?.get("step");
+  const isEdit = searchParams.get("isEdit") === "true";
 
   const dynamicTitle = useDynamicTitle(); // 타이틀 동적 업데이트
 
@@ -66,7 +68,7 @@ const Header = () => {
   const isGiftUploadPage = pathname === "/gift-upload";
   const isBundleAddPage = pathname === "/bundle/add";
 
-  const { bundleName } = useBundleStore();
+  const { bundleName } = useBundleNameStore();
 
   const bgColor = isAuthPage ? "bg-pink-50" : "bg-white";
 
@@ -196,9 +198,13 @@ const Header = () => {
   };
 
   const Title = () => {
-    const { setBundleName } = useBundleStore();
+    const { setBundleName } = useBundleNameStore();
     const [isEditing, setIsEditing] = useState(false);
     const [inputValue, setInputValue] = useState(dynamicTitle);
+    const { mutate } = useEditDraftBundleNameMutation(
+      inputValue,
+      bundleId ?? "",
+    );
 
     useEffect(() => {
       setInputValue(dynamicTitle);
@@ -218,6 +224,10 @@ const Header = () => {
     const saveAndClose = () => {
       setIsEditing(false);
       setBundleName(inputValue);
+
+      if (isEdit) {
+        mutate();
+      }
     };
 
     const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -256,7 +266,7 @@ const Header = () => {
         )}
       </div>
     ) : (
-      <h1 className="max-w-[220px] overflow-hidden text-ellipsis whitespace-nowrap text-center text-lg font-medium">
+      <h1 className="overflow-hidden text-ellipsis whitespace-nowrap text-center text-lg font-medium">
         {dynamicTitle}
       </h1>
     );

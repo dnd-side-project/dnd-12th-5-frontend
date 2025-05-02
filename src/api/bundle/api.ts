@@ -149,6 +149,15 @@ export const getMyBundleDetail = async (id: number) => {
   }
 };
 
+/** 보따리 이름 수정 api */
+export const patchBundleName = async (bundleId: string, name: string) => {
+  try {
+    await axiosInstance.patch(PICKTORY_API.patchBundleName(bundleId), { name });
+  } catch (error) {
+    handleAxiosError(error, "보따리 이름 수정 실패");
+  }
+};
+
 /** 보따리 삭제 */
 export const deleteMyBundle = async (bundleId: number) => {
   try {

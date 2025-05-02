@@ -5,7 +5,7 @@ import { handleAxiosError } from "@/utils/axios";
 export const kakaoLogin = async (code: string) => {
   try {
     const response = await axiosInstance.post(PICKTORY_API.login, {
-      code: code,
+      code,
     });
 
     return response.data;

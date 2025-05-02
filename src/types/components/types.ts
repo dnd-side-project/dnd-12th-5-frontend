@@ -41,7 +41,7 @@ export interface DeliveryCardProps {
   characterTitle: string;
 }
 
-export type IconSize = "xsmall" | "small" | "medium" | "large";
+export type IconSize = "xsmall" | "small" | "medium" | "large" | "extraLarge";
 
 export interface IconProps {
   src: string;
