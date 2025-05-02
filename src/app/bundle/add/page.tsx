@@ -67,31 +67,29 @@ const Page = () => {
   };
 
   return (
-    <div className="h-full bg-pink-50 px-4">
-      <div className="relative flex h-full flex-col items-center justify-center">
-        <div className="flex w-[300px] flex-col items-center gap-7">
-          <div className="absolute top-[10px]">
-            <Chip
-              text={`채워진 선물박스 ${filledGiftCount}개`}
-              icon={filledGiftCount > 0 ? <Icon src={RightArrowIcon} /> : ""}
-              width="126px"
-              onClick={() => {
-                if (filledGiftCount > 0) setDrawerOpen(true);
-              }}
-              isClickable={filledGiftCount > 0}
-            />
-          </div>
-          <GiftList value={giftBoxes} />
+    <div className="relative flex h-full flex-col items-center justify-center bg-pink-50">
+      <div className="mb-[68px] flex w-[300px] flex-col items-center gap-7">
+        <div className="absolute top-[10px]">
+          <Chip
+            text={`채워진 선물박스 ${filledGiftCount}개`}
+            icon={filledGiftCount > 0 ? <Icon src={RightArrowIcon} /> : ""}
+            width="126px"
+            onClick={() => {
+              if (filledGiftCount > 0) setDrawerOpen(true);
+            }}
+            isClickable={filledGiftCount > 0}
+          />
         </div>
-        <div className="absolute bottom-4 w-full px-4">
-          <Button
-            disabled={filledGiftCount < MIN_GIFTBOX_AMOUNT}
-            size="lg"
-            onClick={handleClickButton}
-          >
-            선물 배달하러 가기
-          </Button>
-        </div>
+        <GiftList value={giftBoxes} />
+      </div>
+      <div className="absolute bottom-4 w-full px-4">
+        <Button
+          disabled={filledGiftCount < MIN_GIFTBOX_AMOUNT}
+          size="lg"
+          onClick={handleClickButton}
+        >
+          선물 배달하러 가기
+        </Button>
       </div>
       <GiftListDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </div>
