@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import ShareSection from "@/components/common/ShareSection";
@@ -10,12 +10,24 @@ import { useSelectedBagStore } from "@/stores/bundle/useStore";
 
 const Step3 = () => {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const router = useRouter();
+
   const characterKo = searchParams?.get("character") ?? "포리";
   const link = searchParams && searchParams.get("link");
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 3000);
+    // 로딩 시작 시 URL에 hideClose=true 추가
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("hideClose", "true");
+    router.replace(`${pathname}?${params.toString()}`);
+
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      params.delete("hideClose");
+      router.replace(`${pathname}?${params.toString()}`);
+    }, 3000);
+
     return () => clearTimeout(timer);
   }, []);
 

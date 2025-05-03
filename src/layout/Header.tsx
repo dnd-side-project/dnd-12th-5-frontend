@@ -285,7 +285,9 @@ const Header = () => {
       );
     }
 
-    if (isBundleDeliveryPage && isStepThree) {
+    const hideClose = searchParams?.get("hideClose") === "true";
+
+    if (isBundleDeliveryPage && isStepThree && !hideClose) {
       return (
         <Button
           onClick={() => router.push("/home")}
