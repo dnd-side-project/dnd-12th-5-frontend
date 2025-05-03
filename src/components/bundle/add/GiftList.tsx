@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { Drawer, DrawerTrigger } from "../../ui/drawer";
 import {
@@ -19,6 +19,7 @@ import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { GiftBox } from "@/types/bundle/types";
 
 import BundleDrawer from "./BundleDrawer";
+import CustomTooltipArrow from "./CustomTooltipArrow";
 import DeleteBundleDrawer from "./DeleteBundleDrawer";
 
 const GiftList = ({ value }: { value: GiftBox[] }) => {
@@ -54,17 +55,6 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
       title: "선물박스를 성공적으로 비웠어요!",
     });
   };
-
-  const [showTooltip, setShowTooltip] = useState(false);
-
-  useEffect(() => {
-    if (filledGiftCount === 0) {
-      setShowTooltip(true);
-      const timer = setTimeout(() => setShowTooltip(false), 3000);
-      return () => clearTimeout(timer);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <>
@@ -134,8 +124,8 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                       router.push(`/gift-upload?index=${index}`);
                     }}
                   >
-                    {index === 0 ? (
-                      <Tooltip open={showTooltip}>
+                    {index === 0 && filledGiftCount === 0 ? (
+                      <Tooltip open={true}>
                         <TooltipTrigger asChild>
                           <Image
                             src={GIFTBOX_DEFAULT_IMAGES[index % 2]}
@@ -150,6 +140,7 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                           align="center"
                           className="-mt-1 border-[1px] border-gray-800 bg-white px-4 py-2 font-nanum text-[13px] font-bold text-black"
                         >
+                          <CustomTooltipArrow />
                           사진으로 간단하게 <br /> 선물박스를 채워볼까요?
                         </TooltipContent>
                       </Tooltip>

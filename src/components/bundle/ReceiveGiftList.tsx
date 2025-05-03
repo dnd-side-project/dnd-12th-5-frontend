@@ -14,7 +14,13 @@ const ReceiveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
   const { isUploadedAnswer } = useIsUploadAnswerStore();
 
   return (
-    <div className="grid-rows-[repeat(auto-fill, minmax(130px, 1fr))] grid max-h-[390px] grid-cols-2 gap-[3px]">
+    <div
+      className={`${
+        giftList.length === 1
+          ? "flex h-[130px] items-center justify-center"
+          : "grid max-h-[390px] grid-cols-2 grid-rows-[repeat(auto-fill,_minmax(130px,_1fr))] gap-[3px]"
+      }`}
+    >
       {giftList.map((gift, index) => {
         const isMessageEmpty = !gift.message;
         const shape =
