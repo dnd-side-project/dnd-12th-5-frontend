@@ -32,7 +32,7 @@ const ShareSection = ({ link }: { link: string }) => {
         objectType: "feed",
         content: {
           title: "Picktory",
-          description: "선물 보따리가 도착했어요. 🎁",
+          description: "선물 보따리가 도착했어요! 🎁",
           imageUrl: "https://i.imgur.com/4dHZTvt.png",
           link: {
             mobileWebUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/bundle/${link}?step=1`,
@@ -41,9 +41,10 @@ const ShareSection = ({ link }: { link: string }) => {
         },
         buttons: [
           {
-            title: "서비스 이용하러 가기",
+            title: "보따리 풀어보기",
             link: {
-              mobileWebUrl: process.env.NEXT_PUBLIC_BASE_URL,
+              mobileWebUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/bundle/${link}?step=1`,
+              webUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/bundle/${link}?step=1`,
             },
           },
         ],
