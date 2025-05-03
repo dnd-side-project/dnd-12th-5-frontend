@@ -19,6 +19,7 @@ import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { GiftBox } from "@/types/bundle/types";
 
 import BundleDrawer from "./BundleDrawer";
+import CustomTooltipArrow from "./CustomTooltipArrow";
 import DeleteBundleDrawer from "./DeleteBundleDrawer";
 
 const GiftList = ({ value }: { value: GiftBox[] }) => {
@@ -139,6 +140,7 @@ const GiftList = ({ value }: { value: GiftBox[] }) => {
                           align="center"
                           className="-mt-1 border-[1px] border-gray-800 bg-white px-4 py-2 font-nanum text-[13px] font-bold text-black"
                         >
+                          <CustomTooltipArrow />
                           사진으로 간단하게 <br /> 선물박스를 채워볼까요?
                         </TooltipContent>
                       </Tooltip>
