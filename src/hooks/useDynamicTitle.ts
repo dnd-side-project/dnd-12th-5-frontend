@@ -13,9 +13,12 @@ const useDynamicTitle = () => {
 
   const singleDetailRegex = /^\/my-bundles\/\d+\/?$/;
   const nestedDetailRegex = /^\/my-bundles\/\d+\/\d+$/;
+  const answerDetailRegex = /^\/my-bundles\/\d+\/answer$/;
 
   useEffect(() => {
-    if (bundleName && singleDetailRegex.test(pathname)) {
+    if (answerDetailRegex.test(pathname)) {
+      setDynamicTitle("보따리 결과");
+    } else if (bundleName && singleDetailRegex.test(pathname)) {
       setDynamicTitle(bundleName);
     } else if (giftName && nestedDetailRegex.test(pathname)) {
       setDynamicTitle(giftName);
