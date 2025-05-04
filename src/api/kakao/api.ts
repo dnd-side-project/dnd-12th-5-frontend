@@ -13,3 +13,11 @@ export const kakaoLogin = async (code: string) => {
     handleAxiosError(error, "카카오 로그인 실패");
   }
 };
+
+export const deleteUser = async () => {
+  try {
+    await axiosInstance.delete(PICKTORY_API.deleteUser);
+  } catch (error) {
+    handleAxiosError(error, "회원 탈퇴 실패");
+  }
+};

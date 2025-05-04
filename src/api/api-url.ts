@@ -1,6 +1,7 @@
 export const PICKTORY_API = {
   login: "/oauth/login",
   logout: "/oauth/logout",
+  deleteUser: "/user/me",
   getBundlesPreview: "/bundles/main",
   getMyBundles: "/bundles",
   getMyBundleDetail: (id: number) => `/bundles/${id}`,
