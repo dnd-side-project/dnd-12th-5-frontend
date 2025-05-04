@@ -1,12 +1,12 @@
 import { useRouter } from "next/navigation";
-import { useBundleCreateStore } from "@/stores/bundle/useStore";
+import { useCreatingBundleStore } from "@/stores/bundle/useStore";
 
 export const useHandleCreateBundleClick = () => {
   const router = useRouter();
-  const { setIsCreating } = useBundleCreateStore();
+  const { setIsCreatingBundle } = useCreatingBundleStore();
 
   return () => {
-    setIsCreating(true); // 최초 생성 상태
+    setIsCreatingBundle(true); // 최초 생성 상태
     router.push("/bundle?step=1");
   };
 };

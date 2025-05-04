@@ -24,7 +24,7 @@ import { useDraftBundleGiftsQuery } from "@/queries/useDraftBundleGiftsQuery";
 import { useMyBundleDetailQuery } from "@/queries/useMyBundleDetailQuery";
 import {
   useBundleNameStore,
-  useBundleCreateStore,
+  useCreatingBundleStore,
 } from "@/stores/bundle/useStore";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 
@@ -39,7 +39,7 @@ const Page = () => {
 
   const { setBundleName } = useBundleNameStore();
   const { updateGiftBox } = useGiftStore();
-  const { setIsCreating } = useBundleCreateStore();
+  const { setIsCreatingBundle } = useCreatingBundleStore();
 
   const { data } = useMyBundleDetailQuery(parseInt(bundleId));
   const { name, designType, link, status, gifts } = data?.result || {
@@ -159,7 +159,7 @@ const Page = () => {
   const handleFillBundle = async () => {
     resetStore(); // 기존 임시 저장 데이터 초기화
     if (bundleId) sessionStorage.setItem("bundleId", bundleId);
-    setIsCreating(false); // 최초 생성 상태 false
+    setIsCreatingBundle(false); // 최초 생성 상태 false
 
     try {
       await fetchSavedGift();

@@ -113,12 +113,13 @@ export const useIsUploadAnswerStore = create<IsUploadAnswerStore>()(
   ),
 );
 
+/** 보따리 최초 생성 상태를 관리하는 store */
 interface BundleCreateState {
-  isCreating: boolean;
-  setIsCreating: (value: boolean) => void;
+  isCreatingBundle: boolean;
+  setIsCreatingBundle: (value: boolean) => void;
 }
 
-export const useBundleCreateStore = create<BundleCreateState>((set) => ({
-  isCreating: false,
-  setIsCreating: (value) => set({ isCreating: value }),
+export const useCreatingBundleStore = create<BundleCreateState>((set) => ({
+  isCreatingBundle: false,
+  setIsCreatingBundle: (value) => set({ isCreatingBundle: value }),
 }));

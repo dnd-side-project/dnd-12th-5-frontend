@@ -21,7 +21,7 @@ import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 import { useEditDraftBundleNameMutation } from "@/queries/useEditDraftBundleNameMutation";
 import {
-  useBundleCreateStore,
+  useCreatingBundleStore,
   useBundleNameStore,
   useIsOpenDetailGiftBoxStore,
   useSelectedBagStore,
@@ -54,7 +54,7 @@ const Header = () => {
   const [showGoToHomeDrawer, setShowGoToHomeDrawer] = useState(false);
 
   const { setIsBoxEditing } = useEditBoxStore();
-  const { isCreating } = useBundleCreateStore();
+  const { isCreatingBundle } = useCreatingBundleStore();
 
   const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
     useIsOpenDetailGiftBoxStore();
@@ -169,7 +169,7 @@ const Header = () => {
         // 임시 저장된 보따리의 경우
         if (bundleId) {
           // 최초 생성 상태인 경우
-          if (isCreating) {
+          if (isCreatingBundle) {
             router.push("/home");
           } else {
             router.push(`/my-bundles/${bundleId}`);
