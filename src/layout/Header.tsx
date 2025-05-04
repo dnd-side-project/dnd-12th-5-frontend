@@ -1,5 +1,7 @@
 "use client";
 
+import cloneDeep from "lodash.clonedeep";
+import isEqual from "lodash.isequal";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -26,6 +28,7 @@ import {
   useIsOpenDetailGiftBoxStore,
   useSelectedBagStore,
   useLoadingStore,
+  useSnapshotGiftBoxesStore,
 } from "@/stores/bundle/useStore";
 import { useEditBoxStore, useGiftStore } from "@/stores/gift-upload/useStore";
 
@@ -99,6 +102,14 @@ const Header = () => {
 
   const { handleTempSave } = useTempSaveBundle();
 
+  const { snapshotGiftBoxes, setSnapshotGiftBoxes } =
+    useSnapshotGiftBoxesStore();
+
+  const handleTempSaveClick = () => {
+    handleTempSave({ bundleName, selectedBagIndex });
+    setSnapshotGiftBoxes(cloneDeep(giftBoxes));
+  };
+
   if (isBundleDetailStepTwo && isOpenDetailGiftBox) {
     return (
       <div className="relative sticky top-0 z-20 flex h-[56px] items-center justify-center bg-gray-100 px-4">
@@ -158,21 +169,16 @@ const Header = () => {
     const handleBack = () => {
       if (isGiftUploadPage) setIsBoxEditing(false);
       if (pathname === "/bundle/add") {
-        // 임시 저장된 보따리의 경우
+        if (snapshotGiftBoxes && !isEqual(snapshotGiftBoxes, giftBoxes)) {
+          setShowGoToHomeDrawer(true);
+          return;
+        }
+        const bundleId = sessionStorage.getItem("bundleId");
         if (bundleId) {
-          // 최초 생성 상태인 경우
-          if (isCreatingBundle) {
-            router.push("/home");
-          } else {
-            router.push(`/my-bundles/${bundleId}`);
-          }
+          if (isCreatingBundle) router.push("/home");
+          else router.push(`/my-bundles/${bundleId}`);
         } else {
-          const hasFilledBox = giftBoxes.some((box) => box?.filled);
-          if (hasFilledBox) {
-            setShowGoToHomeDrawer(true);
-          } else {
-            router.push("/home");
-          }
+          router.push("/home");
         }
         return;
       }
@@ -267,7 +273,7 @@ const Header = () => {
       return (
         <Button
           variant="ghost"
-          onClick={() => handleTempSave({ bundleName, selectedBagIndex })}
+          onClick={handleTempSaveClick}
           className="flex justify-end text-[15px] text-gray-200"
         >
           임시 저장
