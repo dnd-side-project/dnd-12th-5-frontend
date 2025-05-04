@@ -68,7 +68,7 @@ const Page = () => {
 
   return (
     <div className="relative flex h-full flex-col items-center justify-center bg-pink-50">
-      <div className="mb-[68px] flex w-[300px] flex-col items-center gap-7">
+      <div className="mb-[26px] flex w-[300px] flex-col items-center gap-7">
         <div className="absolute top-[10px]">
           <Chip
             text={`채워진 선물박스 ${filledGiftCount}개`}
