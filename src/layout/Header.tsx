@@ -25,6 +25,7 @@ import {
   useIsClickedUpdateFilledButton,
   useIsOpenDetailGiftBoxStore,
   useSelectedBagStore,
+  useLoadingStore,
 } from "@/stores/bundle/useStore";
 import { useEditBoxStore, useGiftStore } from "@/stores/gift-upload/useStore";
 
@@ -285,9 +286,9 @@ const Header = () => {
       );
     }
 
-    const hideClose = searchParams?.get("hideClose") === "true";
+    const isLoading = useLoadingStore((state) => state.isLoading);
 
-    if (isBundleDeliveryPage && isStepThree && !hideClose) {
+    if (isBundleDeliveryPage && isStepThree && !isLoading) {
       return (
         <Button
           onClick={() => router.push("/home")}
