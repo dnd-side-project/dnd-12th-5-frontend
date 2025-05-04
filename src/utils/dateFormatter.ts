@@ -1,5 +1,7 @@
 export const formatDateLabel = (isoDateString: string): string => {
-  const inputDate = new Date(isoDateString);
+  const KST_OFFSET = 9 * 60 * 60 * 1000;
+
+  const inputDate = new Date(new Date(isoDateString).getTime() + KST_OFFSET);
   const today = new Date();
 
   // 오늘 기준으로 시간 차이 계산
