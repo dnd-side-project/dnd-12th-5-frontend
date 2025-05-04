@@ -139,7 +139,7 @@ export const useLoadingStore = create<LoadingState>((set) => ({
 /** 임시저장 하기 전 기준의 giftBoxes를 저장 */
 interface SnapshotGiftBoxesStore {
   snapshotGiftBoxes: GiftBox[] | null;
-  setSnapshotGiftBoxes: (boxes: GiftBox[]) => void;
+  setSnapshotGiftBoxes: (boxes: GiftBox[] | null) => void;
 }
 
 export const useSnapshotGiftBoxesStore = create<SnapshotGiftBoxesStore>()(

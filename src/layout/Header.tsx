@@ -170,18 +170,24 @@ const Header = () => {
     const handleBack = () => {
       if (isGiftUploadPage) setIsBoxEditing(false);
       if (pathname === "/bundle/add") {
+        if (!snapshotGiftBoxes) {
+          router.push("/home");
+          return;
+        }
         if (snapshotGiftBoxes && !isEqual(snapshotGiftBoxes, giftBoxes)) {
+          if (filledCount >= MIN_GIFTBOX_AMOUNT) {
+            setShowGoToHomeDrawer(true);
+            return;
+          }
+        }
+        const bundleId = sessionStorage.getItem("bundleId");
+        if (bundleId) {
           if (filledCount < MIN_GIFTBOX_AMOUNT) {
             toast({
               title: "선물 박스를 하나 이상 채운 뒤에 임시 저장이 가능해요!",
             });
-          } else {
-            setShowGoToHomeDrawer(true);
+            return;
           }
-          return;
-        }
-        const bundleId = sessionStorage.getItem("bundleId");
-        if (bundleId) {
           if (isCreatingBundle) router.push("/home");
           else router.push(`/my-bundles/${bundleId}`);
         } else {
