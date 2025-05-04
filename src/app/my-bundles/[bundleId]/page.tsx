@@ -1,5 +1,6 @@
 "use client";
 
+import cloneDeep from "lodash.clonedeep";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
@@ -25,6 +26,7 @@ import { useMyBundleDetailQuery } from "@/queries/useMyBundleDetailQuery";
 import {
   useBundleNameStore,
   useCreatingBundleStore,
+  useSnapshotGiftBoxesStore,
 } from "@/stores/bundle/useStore";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 
@@ -38,7 +40,7 @@ const Page = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const { setBundleName } = useBundleNameStore();
-  const { updateGiftBox } = useGiftStore();
+  const { giftBoxes, updateGiftBox } = useGiftStore();
   const { setIsCreatingBundle } = useCreatingBundleStore();
 
   const { data } = useMyBundleDetailQuery(parseInt(bundleId));
@@ -155,6 +157,19 @@ const Page = () => {
     }
   };
 
+  const { setSnapshotGiftBoxes } = useSnapshotGiftBoxesStore();
+  const {} = useGiftStore(); // 최신 상태를 감지
+
+  const [shouldTakeSnapshot, setShouldTakeSnapshot] = useState(false);
+
+  useEffect(() => {
+    if (shouldTakeSnapshot) {
+      setSnapshotGiftBoxes(cloneDeep(giftBoxes));
+      setShouldTakeSnapshot(false); // 플래그 초기화
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [giftBoxes, shouldTakeSnapshot]);
+
   // 마저 채우기 버튼 클릭 시
   const handleFillBundle = async () => {
     resetStore(); // 기존 임시 저장 데이터 초기화
@@ -163,6 +178,7 @@ const Page = () => {
 
     try {
       await fetchSavedGift();
+      setShouldTakeSnapshot(true);
     } catch (error) {
       console.error(error);
     }

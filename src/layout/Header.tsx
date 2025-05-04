@@ -182,9 +182,15 @@ const Header = () => {
           snapshotGiftBoxes && !isEqual(snapshotGiftBoxes, giftBoxes);
 
         if (hasChanged) {
-          setShowGoToHomeDrawer(true);
+          if (filledCount === 0) {
+            toast({
+              title: "선물 박스를 하나 이상 채운 뒤에 임시 저장이 가능합니다.",
+            });
+          } else {
+            setShowGoToHomeDrawer(true);
+          }
         } else {
-          router.back();
+          router.push(`/my-bundles/${bundleId}`);
         }
         return;
       }
