@@ -19,6 +19,7 @@ import {
   BUNDLE_NAME_MAX_LENGTH,
   MIN_GIFTBOX_AMOUNT,
 } from "@/constants/constants";
+import { toast } from "@/hooks/use-toast";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 import { useEditDraftBundleNameMutation } from "@/queries/useEditDraftBundleNameMutation";
@@ -94,11 +95,11 @@ const Header = () => {
   const [showTempSave, setShowTempSave] = useState(false);
 
   const bundleId = sessionStorage.getItem("bundleId");
+  const filledCount = giftBoxes.filter((box) => box && box.filled).length;
 
   useEffect(() => {
-    const filledCount = giftBoxes.filter((box) => box && box.filled).length;
     setShowTempSave(filledCount >= MIN_GIFTBOX_AMOUNT);
-  }, [giftBoxes]);
+  }, [filledCount, giftBoxes]);
 
   const { handleTempSave } = useTempSaveBundle();
 
@@ -170,7 +171,13 @@ const Header = () => {
       if (isGiftUploadPage) setIsBoxEditing(false);
       if (pathname === "/bundle/add") {
         if (snapshotGiftBoxes && !isEqual(snapshotGiftBoxes, giftBoxes)) {
-          setShowGoToHomeDrawer(true);
+          if (filledCount < MIN_GIFTBOX_AMOUNT) {
+            toast({
+              title: "선물 박스를 하나 이상 채운 뒤에 임시 저장이 가능해요!",
+            });
+          } else {
+            setShowGoToHomeDrawer(true);
+          }
           return;
         }
         const bundleId = sessionStorage.getItem("bundleId");
