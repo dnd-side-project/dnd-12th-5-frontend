@@ -168,34 +168,50 @@ const Header = () => {
     if ((isStepThree && isBundleDeliveryPage) || isLoading) return null;
 
     const handleBack = () => {
-      if (isGiftUploadPage) setIsBoxEditing(false);
-      if (pathname === "/bundle/add") {
-        if (!snapshotGiftBoxes) {
-          router.push("/home");
-          return;
-        }
-        if (snapshotGiftBoxes && !isEqual(snapshotGiftBoxes, giftBoxes)) {
-          if (filledCount >= MIN_GIFTBOX_AMOUNT) {
-            setShowGoToHomeDrawer(true);
-            return;
-          }
-        }
-        const bundleId = sessionStorage.getItem("bundleId");
-        if (bundleId) {
-          if (filledCount < MIN_GIFTBOX_AMOUNT) {
-            toast({
-              title: "선물 박스를 하나 이상 채운 뒤에 임시 저장이 가능해요!",
-            });
-            return;
-          }
-          if (isCreatingBundle) router.push("/home");
-          else router.push(`/my-bundles/${bundleId}`);
+      if (isGiftUploadPage) {
+        setIsBoxEditing(false);
+      }
+
+      if (pathname !== "/bundle/add") {
+        router.back();
+        return;
+      }
+
+      if (bundleId && !isCreatingBundle) {
+        const hasChanged =
+          snapshotGiftBoxes && !isEqual(snapshotGiftBoxes, giftBoxes);
+
+        if (hasChanged) {
+          setShowGoToHomeDrawer(true);
         } else {
-          router.push("/home");
+          router.back();
         }
         return;
       }
-      router.back();
+
+      if (!snapshotGiftBoxes && filledCount > 0) {
+        setShowGoToHomeDrawer(true);
+        return;
+      }
+      if (snapshotGiftBoxes && !isEqual(snapshotGiftBoxes, giftBoxes)) {
+        if (filledCount === 0) {
+          toast({
+            title: "선물 박스를 하나 이상 채운 뒤에 임시 저장이 가능합니다.",
+          });
+        } else {
+          setShowGoToHomeDrawer(true);
+        }
+        return;
+      }
+      if (!bundleId) {
+        router.push("/home");
+        return;
+      }
+      if (isCreatingBundle) {
+        router.push("/home");
+      } else {
+        router.push(`/my-bundles/${bundleId}`);
+      }
     };
 
     return (
