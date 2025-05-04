@@ -1,12 +1,10 @@
 import { createBundle, updateBundle } from "@/api/bundle/api";
 import { toast } from "@/hooks/use-toast";
-import { useBundleEditStore } from "@/stores/bundle/useStore";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { updateGiftBoxesFromResponse } from "@/utils/giftBoxUtils";
 
 export const useTempSaveBundle = () => {
   const { giftBoxes } = useGiftStore();
-  const { setIsEditing } = useBundleEditStore();
 
   const handleTempSave = async ({
     bundleName,
@@ -41,7 +39,6 @@ export const useTempSaveBundle = () => {
       toast({
         title: "보따리 임시저장을 완료했어요!",
       });
-      setIsEditing(true); // 임시 저장 후 편집 상태로 전환
       return true;
     } catch (error) {
       console.error(error);

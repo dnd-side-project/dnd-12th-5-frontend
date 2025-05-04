@@ -24,7 +24,6 @@ import { useDraftBundleGiftsQuery } from "@/queries/useDraftBundleGiftsQuery";
 import { useMyBundleDetailQuery } from "@/queries/useMyBundleDetailQuery";
 import {
   useBundleNameStore,
-  useBundleEditStore,
   useBundleCreateStore,
 } from "@/stores/bundle/useStore";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
@@ -40,7 +39,6 @@ const Page = () => {
 
   const { setBundleName } = useBundleNameStore();
   const { updateGiftBox } = useGiftStore();
-  const { setIsEditing } = useBundleEditStore();
   const { setIsCreating } = useBundleCreateStore();
 
   const { data } = useMyBundleDetailQuery(parseInt(bundleId));
@@ -57,10 +55,6 @@ const Page = () => {
       setBundleName(name);
     }
   }, [name]);
-
-  useEffect(() => {
-    setIsEditing(false);
-  }, [setIsEditing]);
 
   const { mutate: deleteBundle } = useDeleteMyBundleMutation();
 
@@ -165,7 +159,6 @@ const Page = () => {
   const handleFillBundle = async () => {
     resetStore(); // 기존 임시 저장 데이터 초기화
     if (bundleId) sessionStorage.setItem("bundleId", bundleId);
-    setIsEditing(true); // 편집 상태로 전환
     setIsCreating(false); // 최초 생성 상태 false
 
     try {

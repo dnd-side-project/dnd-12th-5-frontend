@@ -113,16 +113,6 @@ export const useIsUploadAnswerStore = create<IsUploadAnswerStore>()(
   ),
 );
 
-interface BundleEditState {
-  isEditing: boolean;
-  setIsEditing: (value: boolean) => void;
-}
-
-export const useBundleEditStore = create<BundleEditState>((set) => ({
-  isEditing: false,
-  setIsEditing: (value) => set({ isEditing: value }),
-}));
-
 interface BundleCreateState {
   isCreating: boolean;
   setIsCreating: (value: boolean) => void;
