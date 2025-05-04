@@ -172,7 +172,7 @@ const Header = () => {
           if (isCreating) {
             router.push("/home");
           } else {
-            router.back();
+            router.push(`/my-bundles/${bundleId}`);
           }
         } else {
           const hasFilledBox = giftBoxes.some((box) => box?.filled);
