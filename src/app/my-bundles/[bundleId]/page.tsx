@@ -24,7 +24,7 @@ import { useDraftBundleGiftsQuery } from "@/queries/useDraftBundleGiftsQuery";
 import { useMyBundleDetailQuery } from "@/queries/useMyBundleDetailQuery";
 import {
   useBundleNameStore,
-  useIsClickedUpdateFilledButton,
+  useCreatingBundleStore,
 } from "@/stores/bundle/useStore";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 
@@ -39,6 +39,7 @@ const Page = () => {
 
   const { setBundleName } = useBundleNameStore();
   const { updateGiftBox } = useGiftStore();
+  const { setIsCreatingBundle } = useCreatingBundleStore();
 
   const { data } = useMyBundleDetailQuery(parseInt(bundleId));
   const { name, designType, link, status, gifts } = data?.result || {
@@ -54,12 +55,6 @@ const Page = () => {
       setBundleName(name);
     }
   }, [name]);
-
-  const { setIsClickedUpdateFilledButton } = useIsClickedUpdateFilledButton();
-
-  useEffect(() => {
-    setIsClickedUpdateFilledButton(false);
-  }, [setIsClickedUpdateFilledButton]);
 
   const { mutate: deleteBundle } = useDeleteMyBundleMutation();
 
@@ -154,16 +149,17 @@ const Page = () => {
 
       await Promise.all(updatePromises);
 
-      router.push("/bundle/add?isEdit=true");
+      router.push("/bundle/add");
     } catch (error) {
       console.error(error);
     }
   };
 
+  // 마저 채우기 버튼 클릭 시
   const handleFillBundle = async () => {
     resetStore(); // 기존 임시 저장 데이터 초기화
     if (bundleId) sessionStorage.setItem("bundleId", bundleId);
-    setIsClickedUpdateFilledButton(true);
+    setIsCreatingBundle(false); // 최초 생성 상태 false
 
     try {
       await fetchSavedGift();

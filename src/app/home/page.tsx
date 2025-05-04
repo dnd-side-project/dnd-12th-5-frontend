@@ -12,9 +12,11 @@ import useResetStore from "@/hooks/useResetStore";
 
 import MainGraphic from "/public/img/main_graphic.svg";
 import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
+import { useHandleCreateBundleClick } from "@/hooks/bundle/add/useHandleCreateBundleClick";
 
 const Page = () => {
   useResetStore();
+  const handleBundleCreate = useHandleCreateBundleClick();
 
   const { data, isLoading, isError } = useBundlesPreviewQuery();
   if (!data) return;
@@ -30,12 +32,14 @@ const Page = () => {
           style={{ height: "auto" }}
           priority
         />
-        <Link
-          href="/bundle?step=1"
+
+        <Button
+          size="lg"
+          onClick={handleBundleCreate}
           className="absolute bottom-3 left-1/2 w-[calc(100%-24px)] max-w-[370px] -translate-x-1/2"
         >
-          <Button size="lg">보따리 만들러 가기</Button>
-        </Link>
+          보따리 만들러 가기
+        </Button>
       </div>
       <section className="flex w-full flex-col gap-[14px]">
         <div className="flex items-center justify-between">

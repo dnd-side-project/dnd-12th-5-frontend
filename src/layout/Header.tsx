@@ -21,8 +21,8 @@ import useDynamicTitle from "@/hooks/useDynamicTitle";
 import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 import { useEditDraftBundleNameMutation } from "@/queries/useEditDraftBundleNameMutation";
 import {
+  useCreatingBundleStore,
   useBundleNameStore,
-  useIsClickedUpdateFilledButton,
   useIsOpenDetailGiftBoxStore,
   useSelectedBagStore,
   useLoadingStore,
@@ -49,13 +49,13 @@ const Header = () => {
   const searchParams = useSearchParams();
   const step = searchParams?.get("step");
   const isStepThree = step === "3";
-  const isEdit = searchParams.get("isEdit") === "true";
 
   const dynamicTitle = useDynamicTitle(); // 타이틀 동적 업데이트
 
   const [showGoToHomeDrawer, setShowGoToHomeDrawer] = useState(false);
 
   const { setIsBoxEditing } = useEditBoxStore();
+  const { isCreatingBundle } = useCreatingBundleStore();
   const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
     useIsOpenDetailGiftBoxStore();
   const { bundleName } = useBundleNameStore();
@@ -91,7 +91,6 @@ const Header = () => {
   const [showTempSave, setShowTempSave] = useState(false);
 
   const bundleId = sessionStorage.getItem("bundleId");
-  const { isClickedUpdateFilledButton } = useIsClickedUpdateFilledButton();
 
   useEffect(() => {
     const filledCount = giftBoxes.filter((box) => box && box.filled).length;
@@ -159,11 +158,13 @@ const Header = () => {
     const handleBack = () => {
       if (isGiftUploadPage) setIsBoxEditing(false);
       if (pathname === "/bundle/add") {
+        // 임시 저장된 보따리의 경우
         if (bundleId) {
-          if (!isClickedUpdateFilledButton) {
+          // 최초 생성 상태인 경우
+          if (isCreatingBundle) {
             router.push("/home");
           } else {
-            router.back();
+            router.push(`/my-bundles/${bundleId}`);
           }
         } else {
           const hasFilledBox = giftBoxes.some((box) => box?.filled);
@@ -191,7 +192,7 @@ const Header = () => {
 
   const Title = () => {
     const { setBundleName } = useBundleNameStore();
-    const [isEditing, setIsEditing] = useState(false);
+    const [isNameEditing, setIsNameEditing] = useState(false);
     const [inputValue, setInputValue] = useState(dynamicTitle);
     const { mutate } = useEditDraftBundleNameMutation(
       inputValue,
@@ -202,10 +203,6 @@ const Header = () => {
       setInputValue(dynamicTitle);
     }, []);
 
-    const handleEditBundleNameButton = () => {
-      setIsEditing(true);
-    };
-
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
       if (value.length <= BUNDLE_NAME_MAX_LENGTH) {
@@ -214,25 +211,26 @@ const Header = () => {
     };
 
     const saveAndClose = () => {
-      setIsEditing(false);
+      setIsNameEditing(false);
       setBundleName(inputValue);
 
-      if (isEdit) {
-        mutate();
+      // 임시 저장된 보따리의 경우
+      if (bundleId) {
+        mutate(); // 이름 수정 API 호출
       }
     };
 
     const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter") saveAndClose();
       if (e.key === "Escape") {
-        setIsEditing(false);
+        setIsNameEditing(false);
         setInputValue(dynamicTitle);
       }
     };
 
     return isBundleAddPage ? (
       <div className="flex items-center justify-center">
-        {isEditing ? (
+        {isNameEditing ? (
           <Input
             autoFocus
             value={inputValue}
@@ -249,7 +247,7 @@ const Header = () => {
             </h1>
             <Button
               variant="ghost"
-              onClick={handleEditBundleNameButton}
+              onClick={() => setIsNameEditing(true)}
               className="ml-[2px] w-[20px] min-w-[20px]"
             >
               <Icon src={EditIcon} alt="edit-bundleName" />

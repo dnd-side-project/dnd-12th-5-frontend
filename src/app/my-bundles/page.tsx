@@ -21,6 +21,7 @@ import {
 import { useDeleteMyBundleMutation } from "@/queries/useDeleteMyBundleMutation";
 import { useMyBundlesQuery } from "@/queries/useMyBundlesQuery";
 import { MyBundle } from "@/types/bundle/types";
+import { useHandleCreateBundleClick } from "@/hooks/bundle/add/useHandleCreateBundleClick";
 
 const Page = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -48,6 +49,8 @@ const Page = () => {
     },
     [deleteBundle],
   );
+
+  const handleBundleCreate = useHandleCreateBundleClick();
 
   if (isLoading) {
     return (
@@ -171,11 +174,13 @@ const Page = () => {
           <div className="flex h-full items-center justify-center">
             <div className="flex flex-col items-center justify-center gap-4">
               <p>아직 만들어진 보따리가 없어요</p>
-              <Link href="/bundle?step=1">
-                <Button className="w-[130px] rounded-[500px] px-[21px] py-[11px] text-xs font-medium">
-                  보따리 만들러 가기
-                </Button>
-              </Link>
+
+              <Button
+                onClick={handleBundleCreate}
+                className="w-[130px] rounded-[500px] px-[21px] py-[11px] text-xs font-medium"
+              >
+                보따리 만들러 가기
+              </Button>
             </div>
           </div>
         </>
