@@ -154,7 +154,7 @@ const Header = () => {
   }
 
   const BackButton = () => {
-    if (isStepThree && isBundleDeliveryPage) return null;
+    if (isStepThree && isBundleDeliveryPage && isLoading) return null;
 
     const handleBack = () => {
       if (isGiftUploadPage) setIsBoxEditing(false);
