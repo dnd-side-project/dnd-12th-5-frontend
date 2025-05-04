@@ -2,20 +2,26 @@
 
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import ShareSection from "@/components/common/ShareSection";
 import { CHARACTERS, BUNDLE_COLORS } from "@/constants/constants";
-import { useSelectedBagStore } from "@/stores/bundle/useStore";
+import { useLoadingStore, useSelectedBagStore } from "@/stores/bundle/useStore";
 
 const Step3 = () => {
   const searchParams = useSearchParams();
+
   const characterKo = searchParams?.get("character") ?? "포리";
   const link = searchParams && searchParams.get("link");
-  const [isLoading, setIsLoading] = useState(true);
+  const { isLoading, setIsLoading } = useLoadingStore();
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 3000);
+    setIsLoading(true);
+
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
     return () => clearTimeout(timer);
   }, []);
 

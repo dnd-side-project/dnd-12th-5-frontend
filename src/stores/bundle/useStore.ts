@@ -131,3 +131,13 @@ export const useIsClickedUpdateFilledButton =
       },
     ),
   );
+
+interface LoadingState {
+  isLoading: boolean;
+  setIsLoading: (val: boolean) => void;
+}
+
+export const useLoadingStore = create<LoadingState>((set) => ({
+  isLoading: false,
+  setIsLoading: (val) => set({ isLoading: val }),
+}));
