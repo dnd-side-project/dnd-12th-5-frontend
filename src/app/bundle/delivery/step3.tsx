@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import ShareSection from "@/components/common/ShareSection";
 import { CHARACTERS, BUNDLE_COLORS } from "@/constants/constants";

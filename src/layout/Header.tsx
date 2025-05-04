@@ -48,17 +48,18 @@ const Header = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const step = searchParams?.get("step");
+  const isStepThree = step === "3";
   const isEdit = searchParams.get("isEdit") === "true";
 
   const dynamicTitle = useDynamicTitle(); // 타이틀 동적 업데이트
 
-  const [isStepThree, setIsStepThree] = useState(false);
   const [showGoToHomeDrawer, setShowGoToHomeDrawer] = useState(false);
 
   const { setIsBoxEditing } = useEditBoxStore();
-
   const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
     useIsOpenDetailGiftBoxStore();
+  const { bundleName } = useBundleNameStore();
+  const isLoading = useLoadingStore((state) => state.isLoading);
 
   const isAuthPage = ["/auth/login"].includes(pathname ?? "");
   const isHomePage = pathname === "/home";
@@ -69,17 +70,7 @@ const Header = () => {
   const isGiftUploadPage = pathname === "/gift-upload";
   const isBundleAddPage = pathname === "/bundle/add";
 
-  const { bundleName } = useBundleNameStore();
-
   const bgColor = isAuthPage ? "bg-pink-50" : "bg-white";
-
-  useEffect(() => {
-    setIsStepThree(step === "3");
-  }, [searchParams, step]);
-
-  useEffect(() => {
-    setIsStepThree(false);
-  }, [pathname]);
 
   const isBundleDetailStepTwo =
     pathname?.startsWith("/bundle/") && searchParams?.get("step") === "2";
@@ -285,8 +276,6 @@ const Header = () => {
         </Button>
       );
     }
-
-    const isLoading = useLoadingStore((state) => state.isLoading);
 
     if (isBundleDeliveryPage && isStepThree && !isLoading) {
       return (
