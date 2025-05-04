@@ -113,21 +113,22 @@ export const useIsUploadAnswerStore = create<IsUploadAnswerStore>()(
   ),
 );
 
-interface IsClickedUpdateFilledButtonStore {
-  isClickedUpdateFilledButton: boolean;
-  setIsClickedUpdateFilledButton: (isClicked: boolean) => void;
+interface BundleEditState {
+  isEditing: boolean;
+  setIsEditing: (value: boolean) => void;
 }
 
-export const useIsClickedUpdateFilledButton =
-  create<IsClickedUpdateFilledButtonStore>()(
-    persist(
-      (set) => ({
-        isClickedUpdateFilledButton: false,
-        setIsClickedUpdateFilledButton: (isClicked) =>
-          set({ isClickedUpdateFilledButton: isClicked }),
-      }),
-      {
-        name: "cilcked-updateFilledButton",
-      },
-    ),
-  );
+export const useBundleEditStore = create<BundleEditState>((set) => ({
+  isEditing: false,
+  setIsEditing: (value) => set({ isEditing: value }),
+}));
+
+interface BundleCreateState {
+  isCreating: boolean;
+  setIsCreating: (value: boolean) => void;
+}
+
+export const useBundleCreateStore = create<BundleCreateState>((set) => ({
+  isCreating: false,
+  setIsCreating: (value) => set({ isCreating: value }),
+}));
