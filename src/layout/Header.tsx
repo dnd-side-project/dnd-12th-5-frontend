@@ -344,14 +344,13 @@ const Header = () => {
       <div className="absolute right-4 top-1/2 -translate-y-1/2">
         <RightButton />
       </div>
-      <GoToHomeDrawer
-        open={showGoToHomeDrawer}
-        onClose={() => setShowGoToHomeDrawer(false)}
-        onConfirm={() => {
-          setShowGoToHomeDrawer(false);
-          router.push("/home");
-        }}
-      />
+      {bundleId && (
+        <GoToHomeDrawer
+          open={showGoToHomeDrawer}
+          onClose={() => setShowGoToHomeDrawer(false)}
+          bundleId={bundleId}
+        />
+      )}
     </div>
   );
 };

@@ -94,7 +94,7 @@ export interface Step2Props {
 export interface GoToHomeDrawerProps {
   open: boolean;
   onClose: () => void;
-  onConfirm: () => void;
+  bundleId: string;
 }
 
 export interface GiftData {

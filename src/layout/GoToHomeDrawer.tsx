@@ -16,13 +16,15 @@ import CloseIcon from "/public/icons/close.svg";
 import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 import {
   useBundleNameStore,
+  useCreatingBundleStore,
   useSelectedBagStore,
 } from "@/stores/bundle/useStore";
 import { GoToHomeDrawerProps } from "@/types/bundle/types";
 
-const GoToHomeDrawer = ({ open, onClose, onConfirm }: GoToHomeDrawerProps) => {
+const GoToHomeDrawer = ({ open, onClose, bundleId }: GoToHomeDrawerProps) => {
   const { bundleName } = useBundleNameStore();
   const { selectedBagIndex } = useSelectedBagStore();
+  const { isCreatingBundle } = useCreatingBundleStore();
 
   const { handleTempSave } = useTempSaveBundle();
 
@@ -31,7 +33,7 @@ const GoToHomeDrawer = ({ open, onClose, onConfirm }: GoToHomeDrawerProps) => {
   const handleTempSaveButton = async () => {
     const success = await handleTempSave({ bundleName, selectedBagIndex });
     if (success) {
-      router.push("/home");
+      router.push(isCreatingBundle ? `/home` : `/my-bundles/${bundleId}`);
     }
   };
 
@@ -48,12 +50,21 @@ const GoToHomeDrawer = ({ open, onClose, onConfirm }: GoToHomeDrawerProps) => {
             </DrawerClose>
           </DrawerTitle>
           <p className="text-center text-sm text-gray-500">
-            지금까지 채운 내용이 모두 사라져요. <br /> 그래도 홈으로 이동할까요?
+            지금까지 채운 내용이 모두 사라져요. <br /> 그래도 이동할까요?
           </p>
         </DrawerHeader>
         <DrawerFooter className="mt-2 flex flex-row gap-2">
-          <Button variant="secondary" className="h-[52px]" onClick={onConfirm}>
-            홈으로 이동하기
+          <Button
+            variant="secondary"
+            className="h-[52px]"
+            onClick={() => {
+              onClose();
+              router.push(
+                isCreatingBundle ? "/home" : `/my-bundles/${bundleId}`,
+              );
+            }}
+          >
+            {isCreatingBundle ? "홈으로 이동하기" : "상세로 이동하기"}
           </Button>
           <Button className="h-[52px]" onClick={handleTempSaveButton}>
             저장하고 이동하기
