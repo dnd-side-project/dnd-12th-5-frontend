@@ -18,7 +18,7 @@ import {
 } from "@/stores/gift-upload/useStore";
 import { Icon } from "@/components/common/Icon";
 
-import RightArrowIcon from "/public/icons/arrow_right_small.svg";
+import RightArrowIcon from "/public/icons/arrow_right_large.svg";
 
 const Page = () => {
   const { giftBoxes } = useGiftStore();
@@ -72,7 +72,13 @@ const Page = () => {
         <div className="absolute top-[10px]">
           <Chip
             text={`채워진 선물박스 ${filledGiftCount}개`}
-            icon={filledGiftCount > 0 ? <Icon src={RightArrowIcon} /> : ""}
+            icon={
+              filledGiftCount > 0 ? (
+                <Icon src={RightArrowIcon} size="xsmall" />
+              ) : (
+                ""
+              )
+            }
             width="126px"
             onClick={() => {
               if (filledGiftCount > 0) setDrawerOpen(true);
