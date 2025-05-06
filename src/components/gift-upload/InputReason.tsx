@@ -103,7 +103,6 @@ const InputReason = ({
               text={inputValue}
               onTextChange={handleInputChange}
               maxLength={GIFT_SELECT_REASON_MAX_LENGTH}
-              disable={tagIndex !== 0}
             />
           </>
         )}

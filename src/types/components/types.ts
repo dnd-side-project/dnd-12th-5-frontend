@@ -63,7 +63,6 @@ export interface CustomTextAreaProps {
   maxLength: number;
   text: string;
   onTextChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  disable: boolean;
 }
 
 export interface BundleDrawerProps {
