@@ -196,7 +196,6 @@ const Header = () => {
       }
 
       if (!snapshotGiftBoxes && filledCount > 0) {
-        console.log("1번");
         setShowGoToHomeDrawer(true);
         return;
       }
