@@ -196,6 +196,7 @@ const Header = () => {
       }
 
       if (!snapshotGiftBoxes && filledCount > 0) {
+        console.log("1번");
         setShowGoToHomeDrawer(true);
         return;
       }
@@ -344,13 +345,11 @@ const Header = () => {
       <div className="absolute right-4 top-1/2 -translate-y-1/2">
         <RightButton />
       </div>
-      {bundleId && (
-        <GoToHomeDrawer
-          open={showGoToHomeDrawer}
-          onClose={() => setShowGoToHomeDrawer(false)}
-          bundleId={bundleId}
-        />
-      )}
+      <GoToHomeDrawer
+        open={showGoToHomeDrawer}
+        onClose={() => setShowGoToHomeDrawer(false)}
+        bundleId={bundleId || ""}
+      />
     </div>
   );
 };
