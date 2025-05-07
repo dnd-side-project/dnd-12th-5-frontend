@@ -1,5 +1,5 @@
 import { CharacterKey } from "../constants/types";
-import { FilledGiftWithResponse } from "../my-bundles/types";
+import { FilledGift } from "../my-bundles/types";
 import { CarouselApi } from "@/components/ui/carousel";
 
 export interface GiftBox {
@@ -51,7 +51,7 @@ export interface Step1Props {
 
 export interface Step2Props {
   gifts: ReceiveGiftBox[];
-  giftResultData?: FilledGiftWithResponse[];
+  giftResultData?: GiftWithResponseTag[];
   isCompleted?: boolean;
 }
 
@@ -61,12 +61,13 @@ export interface GoToHomeDrawerProps {
   bundleId: string;
 }
 
-/** 배달부 설정 */
+/** 배달부 설정 요청에 필요한 파라미터 타입 */
 export interface PutCharacterPayload {
   bundleId: number;
   deliveryCharacterType: CharacterKey;
 }
 
+/** 배달부 설정 요청에 필요한 응답 타입 */
 export interface PutCharacterResponse {
   link: string;
 }
@@ -77,3 +78,8 @@ export interface ReceiveAnswerChipListProps {
   carouselApi: CarouselApi;
   giftListLength: number;
 }
+
+/** 내가 제출한 응답 조회 요청에 필요한 응답 타입 */
+export type GiftWithResponseTag = FilledGift & {
+  responseTag: "GREAT" | "GOOD" | "ALREADY_HAVE" | "NOT_SURE" | "NOT_MY_STYLE";
+};

@@ -36,10 +36,6 @@ export interface FilledGift {
 /** 채워진 선물 프리뷰 */
 export type FilledGiftPreview = Pick<FilledGift, "id" | "thumbnail">;
 
-export type FilledGiftWithResponse = FilledGift & {
-  responseTag: "GREAT" | "GOOD" | "ALREADY_HAVE" | "NOT_SURE" | "NOT_MY_STYLE";
-};
-
 /** 답변된 선물 */
 export type AnsweredGift = Pick<
   FilledGift,

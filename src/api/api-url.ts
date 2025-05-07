@@ -16,6 +16,6 @@ export const PICKTORY_API = {
   postGiftImageUpload: "/gifts/images/upload",
   openBundle: (link: string) => `/responses/bundles/${link}`,
   postBundleAnswer: (link: string) => `/responses/bundles/${link}/answers`,
-  getMyAnswer: (link: string) => `/responses/bundles/${link}/result`,
+  getSubmittedAnswers: (link: string) => `/responses/bundles/${link}/result`,
   patchBundleName: (bundleId: string) => `/bundles/${bundleId}`,
 };

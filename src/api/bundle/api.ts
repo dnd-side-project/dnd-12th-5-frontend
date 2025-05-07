@@ -2,12 +2,12 @@ import { PICKTORY_API } from "../api-url";
 import axiosInstance from "../axiosInstance";
 import { BUNDLE_COLORS } from "@/constants/constants";
 import {
+  GiftWithResponseTag,
   GiftBox,
   PutCharacterPayload,
   PutCharacterResponse,
   ReceiveBundle,
 } from "@/types/bundle/types";
-import { FilledGiftWithResponse } from "@/types/my-bundles/types";
 import { handleAxiosError } from "@/utils/axios";
 
 /** 보따리 생성 api */
@@ -153,11 +153,13 @@ export const postGiftAnswers = async (
 };
 
 /** 제출한 응답 조희 */
-export const getMyAnswer = async (
+export const getSubmittedAnswers = async (
   link: string,
-): Promise<FilledGiftWithResponse[]> => {
+): Promise<GiftWithResponseTag[]> => {
   try {
-    const response = await axiosInstance.get(PICKTORY_API.getMyAnswer(link));
+    const response = await axiosInstance.get(
+      PICKTORY_API.getSubmittedAnswers(link),
+    );
     return response.data.result.gifts;
   } catch (error) {
     throw handleAxiosError(error, "내가 제출한 응답 조회 실패");
