@@ -9,7 +9,7 @@ export const useUploadImageMutation = () => {
     onError: () => {
       toast({
         title: "이미지를 서버에 업로드하는 데 실패했어요.",
-        description: "다시 시도해주세요.",
+        description: "다시 시도해 주세요.",
       });
     },
   });
