@@ -235,10 +235,7 @@ const Header = () => {
     const { setBundleName } = useBundleNameStore();
     const [isNameEditing, setIsNameEditing] = useState(false);
     const [inputValue, setInputValue] = useState(dynamicTitle);
-    const { mutate } = useEditDraftBundleNameMutation(
-      inputValue,
-      bundleId ?? "",
-    );
+    const { mutate } = useEditDraftBundleNameMutation();
 
     useEffect(() => {
       setInputValue(dynamicTitle);
@@ -256,8 +253,10 @@ const Header = () => {
       setBundleName(inputValue);
 
       // 임시 저장된 보따리의 경우
-      if (bundleId) {
-        mutate(); // 이름 수정 API 호출
+      const storedId = bundleId ?? sessionStorage.getItem("bundleId");
+
+      if (storedId) {
+        mutate({ name: inputValue, bundleId: storedId });
       }
     };
 

@@ -3,12 +3,15 @@ import { useMutation } from "@tanstack/react-query";
 import { patchBundleName } from "@/api/bundle/api";
 import { toast } from "@/hooks/use-toast";
 
-export const useEditDraftBundleNameMutation = (
-  name: string,
-  bundleId: string,
-) => {
+interface EditBundleNameParams {
+  name: string;
+  bundleId: string;
+}
+
+export const useEditDraftBundleNameMutation = () => {
   return useMutation({
-    mutationFn: () => patchBundleName(bundleId, name),
+    mutationFn: ({ name, bundleId }: EditBundleNameParams) =>
+      patchBundleName(bundleId, name),
     onError: () => {
       toast({
         title: "이름 수정에 실패했어요.",
