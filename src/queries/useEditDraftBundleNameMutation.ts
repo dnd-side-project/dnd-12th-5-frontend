@@ -2,11 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import { patchBundleName } from "@/api/my-bundle/api";
 import { toast } from "@/hooks/use-toast";
-
-interface EditBundleNameParams {
-  name: string;
-  bundleId: string;
-}
+import { EditBundleNameParams } from "@/types/my-bundles/types";
 
 export const useEditDraftBundleNameMutation = () => {
   return useMutation({

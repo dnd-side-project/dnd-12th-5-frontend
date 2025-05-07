@@ -47,3 +47,9 @@ export type AnsweredGift = Pick<
 > & {
   responseTag: "GREAT" | "GOOD" | "ALREADY_HAVE" | "NOT_SURE" | "NOT_MY_STYLE";
 };
+
+/** 보따리 이름 수정 요청에 필요한 파라미터 타입 */
+export interface EditBundleNameParams {
+  name: string;
+  bundleId: string;
+}
