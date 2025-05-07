@@ -89,13 +89,18 @@ const Page = () => {
         <GiftList value={giftBoxes} />
       </div>
       <div className="absolute bottom-4 w-full px-4">
-        <Button
-          disabled={filledGiftCount < MIN_GIFTBOX_AMOUNT}
-          size="lg"
-          onClick={handleClickButton}
-        >
-          선물 배달하러 가기
-        </Button>
+        <div className="grid grid-cols-[1.5fr_3fr] gap-3">
+          <Button variant="secondary" size="lg">
+            임시 저장
+          </Button>
+          <Button
+            disabled={filledGiftCount < MIN_GIFTBOX_AMOUNT}
+            size="lg"
+            onClick={handleClickButton}
+          >
+            선물 배달하러 가기
+          </Button>
+        </div>
       </div>
       <GiftListDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </div>
