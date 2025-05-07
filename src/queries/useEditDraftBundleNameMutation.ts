@@ -11,7 +11,7 @@ export const useEditDraftBundleNameMutation = () => {
     onError: () => {
       toast({
         title: "이름 수정에 실패했어요.",
-        description: "다시 시도해주세요.",
+        description: "다시 시도해 주세요.",
       });
     },
   });

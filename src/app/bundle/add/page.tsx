@@ -61,8 +61,11 @@ const Page = () => {
       }
 
       router.push("/bundle/delivery?step=1");
-    } catch (error) {
-      alert(`보따리 저장에 실패했습니다. ${error}`);
+    } catch {
+      toast({
+        title: "보따리 저장에 실패했습니다",
+        description: "다시 시도해 주세요.",
+      });
     }
   };
 

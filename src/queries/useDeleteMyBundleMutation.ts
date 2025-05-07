@@ -14,7 +14,7 @@ export const useDeleteMyBundleMutation = () => {
     onError: () => {
       toast({
         title: "보따리를 삭제하는데 실패했어요.",
-        description: "다시 시도해주세요.",
+        description: "다시 시도해 주세요.",
       });
     },
   });

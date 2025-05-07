@@ -72,8 +72,7 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
       await postGiftAnswers(link, requestBody);
       setIsUploadedAnswer(true);
       router.push(`/bundle/${link}?step=3`);
-    } catch (error) {
-      console.error(error);
+    } catch {
       toast({
         title: "답변 전송에 실패했어요.",
       });
