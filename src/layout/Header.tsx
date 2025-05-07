@@ -1,6 +1,5 @@
 "use client";
 
-import cloneDeep from "lodash.clonedeep";
 import isEqual from "lodash.isequal";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -15,19 +14,14 @@ import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
 import CloseIcon from "/public/icons/close.svg";
 import EditIcon from "/public/icons/edit.svg";
 
-import {
-  BUNDLE_NAME_MAX_LENGTH,
-  MIN_GIFTBOX_AMOUNT,
-} from "@/constants/constants";
+import { BUNDLE_NAME_MAX_LENGTH } from "@/constants/constants";
 import { toast } from "@/hooks/use-toast";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
-import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 import { useEditDraftBundleNameMutation } from "@/queries/useEditDraftBundleNameMutation";
 import {
   useCreatingBundleStore,
   useBundleNameStore,
   useIsOpenDetailGiftBoxStore,
-  useSelectedBagStore,
   useLoadingStore,
   useSnapshotGiftBoxesStore,
 } from "@/stores/bundle/useStore";
@@ -62,7 +56,6 @@ const Header = () => {
   const { isCreatingBundle } = useCreatingBundleStore();
   const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
     useIsOpenDetailGiftBoxStore();
-  const { bundleName } = useBundleNameStore();
   const isLoading = useLoadingStore((state) => state.isLoading);
 
   const isAuthPage = ["/auth/login"].includes(pathname ?? "");
@@ -91,25 +84,11 @@ const Header = () => {
     /** 보따리 임시저장 관련 코드 */
   }
   const { giftBoxes } = useGiftStore();
-  const { selectedBagIndex } = useSelectedBagStore();
-  const [showTempSave, setShowTempSave] = useState(false);
 
   const bundleId = sessionStorage.getItem("bundleId");
   const filledCount = giftBoxes.filter((box) => box && box.filled).length;
 
-  useEffect(() => {
-    setShowTempSave(filledCount >= MIN_GIFTBOX_AMOUNT);
-  }, [filledCount, giftBoxes]);
-
-  const { handleTempSave } = useTempSaveBundle();
-
-  const { snapshotGiftBoxes, setSnapshotGiftBoxes } =
-    useSnapshotGiftBoxesStore();
-
-  const handleTempSaveClick = () => {
-    handleTempSave({ bundleName, selectedBagIndex });
-    setSnapshotGiftBoxes(cloneDeep(giftBoxes));
-  };
+  const { snapshotGiftBoxes } = useSnapshotGiftBoxesStore();
 
   if (isBundleDetailStepTwo && isOpenDetailGiftBox) {
     return (
@@ -304,18 +283,6 @@ const Header = () => {
   };
 
   const RightButton = () => {
-    if (showTempSave && isBundleAddPage) {
-      return (
-        <Button
-          variant="ghost"
-          onClick={handleTempSaveClick}
-          className="flex justify-end text-[15px] text-gray-200"
-        >
-          임시 저장
-        </Button>
-      );
-    }
-
     if (isBundleDeliveryPage && isStepThree && !isLoading) {
       return (
         <Button

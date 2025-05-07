@@ -1,22 +1,29 @@
 "use client";
 
+import cloneDeep from "lodash.clonedeep";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import GiftList from "@/components/bundle/add/GiftList";
 import GiftListDrawer from "@/components/bundle/add/GiftListDrawer";
 import Chip from "@/components/bundle/Chip";
-import GiftList from "@/components/bundle/add/GiftList";
+import { Icon } from "@/components/common/Icon";
 import { Button } from "@/components/ui/button";
 import { MIN_GIFTBOX_AMOUNT } from "@/constants/constants";
 import { toast } from "@/hooks/use-toast";
+import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 import { useCreateBundleMutation } from "@/queries/useCreateBundleMutation";
 import { useUpdateBundleMutation } from "@/queries/useUpdateBundleMutation";
+import {
+  useBundleNameStore,
+  useSelectedBagStore,
+  useSnapshotGiftBoxesStore,
+} from "@/stores/bundle/useStore";
 import {
   useEditBoxStore,
   useGiftStore,
   useToastStore,
 } from "@/stores/gift-upload/useStore";
-import { Icon } from "@/components/common/Icon";
 
 import RightArrowIcon from "/public/icons/arrow_right_large.svg";
 
@@ -44,10 +51,14 @@ const Page = () => {
     }
   }, [setShowEditToast, showEditToast]);
 
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [giftDrawerOpen, setGiftDrawerOpen] = useState(false);
+
+  const { bundleName } = useBundleNameStore();
+  const { selectedBagIndex } = useSelectedBagStore();
+  const { setSnapshotGiftBoxes } = useSnapshotGiftBoxesStore();
+  const { handleTempSave } = useTempSaveBundle();
 
   const createMutation = useCreateBundleMutation();
-
   const updateMutation = useUpdateBundleMutation();
 
   const handleClickButton = async () => {
@@ -81,7 +92,7 @@ const Page = () => {
             }
             width="126px"
             onClick={() => {
-              if (filledGiftCount > 0) setDrawerOpen(true);
+              if (filledGiftCount > 0) setGiftDrawerOpen(true);
             }}
             isClickable={filledGiftCount > 0}
           />
@@ -90,7 +101,15 @@ const Page = () => {
       </div>
       <div className="absolute bottom-4 w-full px-4">
         <div className="grid grid-cols-[1.5fr_3fr] gap-3">
-          <Button variant="secondary" size="lg">
+          <Button
+            variant="secondary"
+            size="lg"
+            onClick={() => {
+              handleTempSave({ bundleName, selectedBagIndex });
+              setSnapshotGiftBoxes(cloneDeep(giftBoxes));
+            }}
+            disabled={filledGiftCount < MIN_GIFTBOX_AMOUNT}
+          >
             임시 저장
           </Button>
           <Button
@@ -102,7 +121,10 @@ const Page = () => {
           </Button>
         </div>
       </div>
-      <GiftListDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      <GiftListDrawer
+        open={giftDrawerOpen}
+        onClose={() => setGiftDrawerOpen(false)}
+      />
     </div>
   );
 };
