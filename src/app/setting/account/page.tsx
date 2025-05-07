@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+
 import KakaoLogoIcon from "/public/icons/kakao_circle_logo.svg";
+
 import { Icon } from "@/components/common/Icon";
 import {
   Drawer,
@@ -14,6 +16,7 @@ import {
 } from "@/components/ui/drawer";
 import { Button } from "@/components/ui/button";
 import { useDeleteUserMutation } from "@/queries/useDeleteUserMutation";
+
 import CloseIcon from "/public/icons/close.svg";
 
 const Page = () => {
