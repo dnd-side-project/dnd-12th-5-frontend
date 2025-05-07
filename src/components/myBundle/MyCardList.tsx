@@ -6,8 +6,8 @@ import React from "react";
 import Card from "@/components/common/Card";
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
 import { useSelectedBagStore } from "@/stores/bundle/useStore";
-import { FilledGiftPreview, MyBundlePreview } from "@/types/bundle/types";
 import { MyCardListProps } from "@/types/components/types";
+import { FilledGiftPreview, MyBundlePreview } from "@/types/my-bundles/types";
 import { formatDateLabel } from "@/utils/dateFormatter";
 
 const MyCardList = ({ type, data, size, isSelectable }: MyCardListProps) => {

@@ -1,4 +1,5 @@
 import { CharacterKey } from "../constants/types";
+import { FilledGiftWithResponse } from "../my-bundles/types";
 import { CarouselApi } from "@/components/ui/carousel";
 
 export interface GiftBox {
@@ -29,43 +30,6 @@ export interface ReceiveGiftBox {
   thumbnail: string;
 }
 
-/** 내가 만든 보따리 */
-
-export interface MyBundle {
-  id: number;
-  name: string;
-  designType: string;
-  isRead: boolean;
-  status: "PUBLISHED" | "COMPLETED" | "DRAFT";
-  updatedAt: string;
-}
-
-// 보따리 메인 목록
-export type MyBundlePreview = Pick<
-  MyBundle,
-  "id" | "name" | "designType" | "updatedAt" | "isRead"
->;
-
-// 보따리 상세
-export type MyBundleDetail = Pick<MyBundle, "id" | "name" | "designType"> & {
-  status: string;
-  link: string | null;
-  gifts: FilledGiftPreview[];
-};
-
-export interface FilledGift {
-  id: number;
-  name: string;
-  message: string;
-  thumbnail: string;
-  purchaseUrl: string;
-  responseTag: "GREAT" | "GOOD" | "ALREADY_HAVE" | "NOT_SURE" | "NOT_MY_STYLE";
-  imageUrls: string[];
-}
-
-// 선물 리스트 프리뷰
-export type FilledGiftPreview = Pick<FilledGift, "id" | "thumbnail">;
-
 // 보따리 결과 선물 박스 타입
 export interface ResultGiftBox {
   id: number;
@@ -87,7 +51,7 @@ export interface Step1Props {
 
 export interface Step2Props {
   gifts: ReceiveGiftBox[];
-  giftResultData?: FilledGift[];
+  giftResultData?: FilledGiftWithResponse[];
   isCompleted?: boolean;
 }
 
@@ -95,15 +59,6 @@ export interface GoToHomeDrawerProps {
   open: boolean;
   onClose: () => void;
   bundleId: string;
-}
-
-export interface GiftData {
-  id: number;
-  name: string;
-  link: string;
-  thumbnail: string;
-  purchaseUrl: string;
-  responseTag: string;
 }
 
 /** 배달부 설정 */
