@@ -50,7 +50,7 @@ const Page = () => {
 
   const updateMutation = useUpdateBundleMutation();
 
-  const handleClickButton = async () => {
+  const handleGiftDelivery = async () => {
     try {
       const bundleId = sessionStorage.getItem("bundleId");
 
@@ -86,7 +86,7 @@ const Page = () => {
         <Button
           disabled={filledGiftCount < MIN_GIFTBOX_AMOUNT}
           size="lg"
-          onClick={handleClickButton}
+          onClick={handleGiftDelivery}
         >
           선물 배달하러 가기
         </Button>
