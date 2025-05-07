@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { deleteMyBundle } from "@/api/bundle/api";
+import { deleteMyBundle } from "@/api/my-bundle/api";
 import { toast } from "@/hooks/use-toast";
 
 export const useDeleteMyBundleMutation = () => {

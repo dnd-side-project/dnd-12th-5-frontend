@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { patchBundleName } from "@/api/bundle/api";
+import { patchBundleName } from "@/api/my-bundle/api";
 import { toast } from "@/hooks/use-toast";
 
 interface EditBundleNameParams {
