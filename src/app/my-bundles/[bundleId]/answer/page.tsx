@@ -13,7 +13,7 @@ import ArrowIcon from "/public/icons/arrow_right_medium.svg";
 
 import { GIFT_ANSWER_MAP } from "@/constants/constants";
 import { useBundleResultQuery } from "@/queries/useBundleResultQuery";
-import { GiftData } from "@/types/bundle/types";
+import { AnsweredGift } from "@/types/my-bundles/types";
 
 const Page = () => {
   const { bundleId } = useParams() as { bundleId: string };
@@ -39,13 +39,13 @@ const Page = () => {
       </div>
     );
 
-  const groupedGifts = giftData.reduce(
+  const giftsGroupedByResponseTag = giftData.reduce(
     (acc, gift) => {
       if (!acc[gift.responseTag]) acc[gift.responseTag] = [];
-      acc[gift.responseTag].push(gift);
+      acc[gift.responseTag].push(gift as AnsweredGift);
       return acc;
     },
-    {} as Record<string, GiftData[]>,
+    {} as Record<string, AnsweredGift[]>,
   );
 
   return (
@@ -54,74 +54,76 @@ const Page = () => {
         className="h-[calc(100%-26px)] overflow-y-auto overflow-x-hidden px-4 pb-4"
         style={{ scrollbarWidth: "none" }}
       >
-        {Object.entries(groupedGifts).map(([responseTag, gifts], idx) => (
-          <div key={responseTag} className="flex flex-col gap-4">
-            <div className="mt-1">
-              {idx !== 0 && (
-                <hr className="my-[26px] border-[1px] border-gray-100" />
-              )}
-              {idx === 0 && <div className="mt-[26px]" />}
-              <AnswerChip text={GIFT_ANSWER_MAP[responseTag] || "기타"} />
-            </div>
-            <div className="flex flex-col gap-[14px]">
-              {gifts.map((gift, index) => (
-                <div
-                  className="relative flex h-[70px] items-center justify-between"
-                  key={index}
-                >
-                  <div className="flex w-full gap-3">
-                    <Card
-                      img={gift.thumbnail}
-                      size="small"
-                      type="gift"
-                      noHoverStyle={true}
-                      noActiveStyle={true}
-                      noCursorPointerStyle={true}
-                    />
-                    <div className="flex flex-col items-start justify-center">
-                      <div className="max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap text-[15px] font-medium">
-                        {gift.name}
-                      </div>
-                      {gift.purchaseUrl ? (
-                        <Link
-                          href={gift.purchaseUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Button
-                            variant="link"
-                            className="text-xs text-gray-600"
-                          >
-                            링크 바로가기
-                          </Button>
-                        </Link>
-                      ) : (
-                        <div>
-                          <Button
-                            variant="link"
-                            disabled
-                            className="text-xs text-gray-300"
-                          >
-                            링크 바로가기
-                          </Button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <Button
-                    variant="ghost"
-                    className="absolute left-44 top-1/2 -translate-y-1/2 transform hover:opacity-70"
-                    onClick={() =>
-                      router.push(`/my-bundles/${bundleId}/${gift.id}`)
-                    }
+        {Object.entries(giftsGroupedByResponseTag).map(
+          ([responseTag, gifts], idx) => (
+            <div key={responseTag} className="flex flex-col gap-4">
+              <div className="mt-1">
+                {idx !== 0 && (
+                  <hr className="my-[26px] border-[1px] border-gray-100" />
+                )}
+                {idx === 0 && <div className="mt-[26px]" />}
+                <AnswerChip text={GIFT_ANSWER_MAP[responseTag] || "기타"} />
+              </div>
+              <div className="flex flex-col gap-[14px]">
+                {gifts.map((gift, index) => (
+                  <div
+                    className="relative flex h-[70px] items-center justify-between"
+                    key={index}
                   >
-                    <Icon src={ArrowIcon} alt="arrowIcon" />
-                  </Button>
-                </div>
-              ))}
+                    <div className="flex w-full gap-3">
+                      <Card
+                        img={gift.thumbnail}
+                        size="small"
+                        type="gift"
+                        noHoverStyle={true}
+                        noActiveStyle={true}
+                        noCursorPointerStyle={true}
+                      />
+                      <div className="flex flex-col items-start justify-center">
+                        <div className="max-w-[250px] overflow-hidden text-ellipsis whitespace-nowrap text-[15px] font-medium">
+                          {gift.name}
+                        </div>
+                        {gift.purchaseUrl ? (
+                          <Link
+                            href={gift.purchaseUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <Button
+                              variant="link"
+                              className="text-xs text-gray-600"
+                            >
+                              링크 바로가기
+                            </Button>
+                          </Link>
+                        ) : (
+                          <div>
+                            <Button
+                              variant="link"
+                              disabled
+                              className="text-xs text-gray-300"
+                            >
+                              링크 바로가기
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <Button
+                      variant="ghost"
+                      className="absolute left-44 top-1/2 -translate-y-1/2 transform hover:opacity-70"
+                      onClick={() =>
+                        router.push(`/my-bundles/${bundleId}/${gift.id}`)
+                      }
+                    >
+                      <Icon src={ArrowIcon} alt="arrowIcon" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ),
+        )}
       </div>
     </div>
   );

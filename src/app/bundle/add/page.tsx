@@ -61,7 +61,7 @@ const Page = () => {
   const createMutation = useCreateBundleMutation();
   const updateMutation = useUpdateBundleMutation();
 
-  const handleClickButton = async () => {
+  const handleGiftDelivery = async () => {
     try {
       const bundleId = sessionStorage.getItem("bundleId");
 
@@ -72,8 +72,11 @@ const Page = () => {
       }
 
       router.push("/bundle/delivery?step=1");
-    } catch (error) {
-      alert(`보따리 저장에 실패했습니다. ${error}`);
+    } catch {
+      toast({
+        title: "보따리 저장에 실패했습니다",
+        description: "다시 시도해 주세요.",
+      });
     }
   };
 
@@ -112,14 +115,13 @@ const Page = () => {
           >
             임시 저장
           </Button>
-          <Button
-            disabled={filledGiftCount < MIN_GIFTBOX_AMOUNT}
-            size="lg"
-            onClick={handleClickButton}
-          >
-            선물 배달하러 가기
-          </Button>
-        </div>
+        <Button
+          disabled={filledGiftCount < MIN_GIFTBOX_AMOUNT}
+          size="lg"
+          onClick={handleGiftDelivery}
+        >
+          선물 배달하러 가기
+        </Button>
       </div>
       <GiftListDrawer
         open={giftDrawerOpen}

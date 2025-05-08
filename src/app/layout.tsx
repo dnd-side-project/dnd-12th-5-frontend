@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 
 import localFont from "next/font/local";
-import { headers } from "next/headers";
-import { Suspense } from "react";
 
 import "./globals.css";
+
+import Head from "next/head";
+import { headers } from "next/headers";
+import { Suspense } from "react";
 
 import PageTransition from "@/app/PageTransition";
 import KakaoInitScript from "@/components/KakaoInitScript";
@@ -50,6 +52,9 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </Head>
       <body
         className={`${pretendard.variable} ${nanumSquareRound.variable} antialiased`}
       >
