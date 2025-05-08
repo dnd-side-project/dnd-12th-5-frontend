@@ -4,7 +4,6 @@ import localFont from "next/font/local";
 
 import "./globals.css";
 
-import Head from "next/head";
 import { headers } from "next/headers";
 import { Suspense } from "react";
 
@@ -52,12 +51,6 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <Head>
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0,  maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
-        />
-      </Head>
       <body
         className={`${pretendard.variable} ${nanumSquareRound.variable} antialiased`}
       >
