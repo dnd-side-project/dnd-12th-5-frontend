@@ -70,7 +70,7 @@ const InputReason = ({
         이 선물을 고른 이유를 적어 함께 전달해볼까요?
       </p>
       <div
-        className="flex h-[208px] cursor-pointer flex-col gap-3 rounded-[10px] border-[1.4px] bg-gray-50 px-[14px] py-[15px]"
+        className="flex h-[208px] cursor-pointer flex-col gap-3 rounded-[10px] border-[1.4px] bg-gray-50 py-[15px]"
         onClick={() => setIsClicked(true)}
       >
         {!isClicked ? (
@@ -86,11 +86,8 @@ const InputReason = ({
           </div>
         ) : (
           <>
-            <div
-              className="flex w-full items-center overflow-x-auto"
-              style={{ scrollbarWidth: "none" }}
-            >
-              <div className="min-w-max">
+            <div className="overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+              <div className="flex w-fit gap-[7px] whitespace-nowrap px-[14px]">
                 <ChipList
                   chipText={REASON_CHIP_TEXTES}
                   selectedChipIndex={selectedTagIndex}
@@ -98,13 +95,14 @@ const InputReason = ({
                 />
               </div>
             </div>
-            <CustomTextArea
-              placeholder="직접 입력해주세요."
-              text={inputValue}
-              onTextChange={handleInputChange}
-              maxLength={GIFT_SELECT_REASON_MAX_LENGTH}
-              disable={tagIndex !== 0}
-            />
+            <div className="px-[14px]">
+              <CustomTextArea
+                placeholder="직접 입력해주세요."
+                text={inputValue}
+                onTextChange={handleInputChange}
+                maxLength={GIFT_SELECT_REASON_MAX_LENGTH}
+              />
+            </div>
           </>
         )}
       </div>

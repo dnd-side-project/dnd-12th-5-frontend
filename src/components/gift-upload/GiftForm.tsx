@@ -129,7 +129,7 @@ const GiftForm = () => {
     combinedImages.length <= 0 ? "text-symantic-negative" : "text-gray-300";
 
   return (
-    <div className="flex h-fit w-full flex-col px-4 py-5">
+    <div className="flex h-fit w-full flex-col px-4 py-4">
       <div className="flex flex-1 flex-col gap-[22px]">
         <div className="flex flex-col gap-2">
           <UploadImageList
