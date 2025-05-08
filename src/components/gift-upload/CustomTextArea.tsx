@@ -6,7 +6,7 @@ const CustomTextArea = ({
   maxLength,
   text,
   onTextChange,
-  disable,
+  //disable,
 }: CustomTextAreaProps) => {
   return (
     <div className="relative">
@@ -16,7 +16,6 @@ const CustomTextArea = ({
         value={text}
         maxLength={maxLength}
         onChange={(e) => onTextChange(e)}
-        disabled={disable}
       />
       <span className="absolute bottom-2 right-3 text-[10px] text-gray-400">
         {text.length} / {maxLength}

@@ -79,9 +79,9 @@ const UploadImageList = ({
   };
 
   return (
-    <div className="flex gap-2 whitespace-nowrap">
+    <div className="flex gap-2 overflow-visible whitespace-nowrap">
       <label
-        className={`flex h-[88px] w-[88px] flex-shrink-0 flex-col items-center justify-center rounded-[10px] border-[1.4px] border-input bg-gray-50 ${
+        className={`mt-2 flex h-[88px] w-[88px] flex-shrink-0 flex-col items-center justify-center rounded-[10px] border-[1.4px] border-input bg-gray-50 ${
           combinedImages.length >= GIFT_IMAGE_MAX_AMOUNT
             ? "cursor-not-allowed"
             : "cursor-pointer"

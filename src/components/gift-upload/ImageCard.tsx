@@ -30,7 +30,7 @@ const ImageCard = ({
           {...dragHandleProps}
         />
         {isPrimary && (
-          <div className="absolute bottom-0 h-5 w-[88px] rounded-bl-[10px] rounded-br-[10px] bg-[#0F0F10] pt-0.5 text-center text-xs text-gray-300 opacity-70">
+          <div className="absolute bottom-0 h-5 w-full rounded-bl-[10px] rounded-br-[10px] bg-[#0F0F10] pt-0.5 text-center text-xs text-gray-300 opacity-70">
             <p className="text-[10px]">대표 사진</p>
           </div>
         )}
