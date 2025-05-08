@@ -23,3 +23,14 @@ export const updateGiftBoxesFromResponse = (gifts: GiftBox[]) => {
     useGiftStore.getState().updateGiftBox(index, { id: gift.id });
   });
 };
+
+/** 선물상자 링크 유효성 검사 */
+export const linkRegex = (link: string) => {
+  if (!link) return true;
+  try {
+    const url = new URL(link.trim());
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+};

@@ -12,14 +12,13 @@ const ImageCard = ({
   dragHandleProps,
 }: ImageCardProps) => {
   return (
-    <div className="relative">
-      <button
-        className="absolute right-[-8px] top-[-8px] z-10"
-        onClick={onDelete}
-      >
-        <Icon src={EraseIcon} alt="EraseIcon" size="large" />
-      </button>
-      <div className="relative h-[88px] w-[88px] overflow-hidden rounded-[10px] border-[1.4px] border-gray-100 bg-gray-50">
+    <div className="relative mt-2 h-[88px] w-[88px]">
+      <div className="absolute -right-2 -top-2 z-10">
+        <button onClick={onDelete}>
+          <Icon src={EraseIcon} alt="EraseIcon" size="large" />
+        </button>
+      </div>
+      <div className="relative h-full w-full overflow-hidden rounded-[10px] border-[1.4px] border-gray-100 bg-gray-50">
         <Image
           src={src}
           alt="UploadedImage"
