@@ -51,7 +51,7 @@ const Page = () => {
     }
   }, [setShowEditToast, showEditToast]);
 
-  const [giftDrawerOpen, setGiftDrawerOpen] = useState(false);
+  const [giftListDrawerOpen, setGiftListDrawerOpen] = useState(false);
 
   const { bundleName } = useBundleNameStore();
   const { selectedBagIndex } = useSelectedBagStore();
@@ -95,7 +95,7 @@ const Page = () => {
             }
             width="126px"
             onClick={() => {
-              if (filledGiftCount > 0) setGiftDrawerOpen(true);
+              if (filledGiftCount > 0) setGiftListDrawerOpen(true);
             }}
             isClickable={filledGiftCount > 0}
           />
@@ -125,8 +125,8 @@ const Page = () => {
         </div>
       </div>
       <GiftListDrawer
-        open={giftDrawerOpen}
-        onClose={() => setGiftDrawerOpen(false)}
+        open={giftListDrawerOpen}
+        onClose={() => setGiftListDrawerOpen(false)}
       />
     </div>
   );
