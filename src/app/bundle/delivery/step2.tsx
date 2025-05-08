@@ -73,7 +73,7 @@ const Step2 = () => {
               </div>
               <Image
                 src={characterData.imageSrc}
-                alt="delivery"
+                alt={characterKey}
                 width={200}
                 height={200}
                 style={{ width: "200px", height: "200px" }}

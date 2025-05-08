@@ -136,7 +136,7 @@ const Page = () => {
                   {selectedBundleInfo ? selectedBundleInfo.name : ""}
                 </DrawerTitle>
                 <DrawerClose className="absolute right-[14px] top-2">
-                  <Icon src={CloseIcon} alt="close" size="large" />
+                  <Icon src={CloseIcon} alt="CloseIcon" size="large" />
                 </DrawerClose>
               </DrawerHeader>
 

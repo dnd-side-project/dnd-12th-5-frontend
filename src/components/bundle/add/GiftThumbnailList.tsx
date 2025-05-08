@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation";
 
-import RightArrowIcon from "/public/icons/arrow_right_small.svg";
-import TrashIcon from "/public/icons/trash_icon.svg";
+import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
+import TrashIcon from "/public/icons/trash.svg";
 
 import Card from "@/components/common/Card";
 import { Icon } from "@/components/common/Icon";
@@ -58,7 +58,7 @@ const GiftThumbnailList = () => {
               <div className="flex items-center gap-1">
                 <Button variant="ghost" onClick={() => handleGiftClick(index)}>
                   <p>{giftBox.name}</p>
-                  <Icon src={RightArrowIcon} alt="rightArrowIcon" />
+                  <Icon src={ArrowRightIcon} alt="ArrowRightIcon" />
                 </Button>
               </div>
             </div>
@@ -69,7 +69,7 @@ const GiftThumbnailList = () => {
                 openDeleteDrawer(giftBox, giftBoxes.indexOf(giftBox))
               }
             >
-              <Icon src={TrashIcon} alt="trashButton" />
+              <Icon src={TrashIcon} alt="TrashIcon" />
             </Button>
           </div>
         ))}

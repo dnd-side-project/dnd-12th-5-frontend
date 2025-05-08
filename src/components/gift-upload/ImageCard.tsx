@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-import EraseIcon from "../../../public/icons/btn_erase.svg";
+import EraseIcon from "../../../public/icons/erase.svg";
 import { Icon } from "../common/Icon";
 import { ImageCardProps } from "@/types/components/types";
 
@@ -17,12 +17,12 @@ const ImageCard = ({
         className="absolute right-[-8px] top-[-8px] z-10"
         onClick={onDelete}
       >
-        <Icon src={EraseIcon} alt="delete" size="large" />
+        <Icon src={EraseIcon} alt="EraseIcon" size="large" />
       </button>
       <div className="relative h-[88px] w-[88px] overflow-hidden rounded-[10px] border-[1.4px] border-gray-100 bg-gray-50">
         <Image
           src={src}
-          alt="Uploaded"
+          alt="UploadedImage"
           width={88}
           height={88}
           className="h-full w-full object-cover"

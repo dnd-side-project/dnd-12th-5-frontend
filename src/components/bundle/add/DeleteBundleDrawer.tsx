@@ -26,7 +26,7 @@ const DeleteBundleDrawer = ({
               채워진 선물 정보
             </p>
             <DrawerClose className="absolute right-4 top-0">
-              <Icon src={CloseIcon} alt="close" size="large" />
+              <Icon src={CloseIcon} alt="CloseIcon" size="large" />
             </DrawerClose>
           </DrawerTitle>
         </>

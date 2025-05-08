@@ -226,7 +226,7 @@ const Page = () => {
                   <DrawerHeader className="relative flex justify-center py-3">
                     <DrawerTitle>보따리 삭제</DrawerTitle>
                     <DrawerClose className="absolute right-4 top-[14px]">
-                      <Icon src={CloseIcon} alt="close" size="large" />
+                      <Icon src={CloseIcon} alt="CloseIcon" size="large" />
                     </DrawerClose>
                   </DrawerHeader>
 

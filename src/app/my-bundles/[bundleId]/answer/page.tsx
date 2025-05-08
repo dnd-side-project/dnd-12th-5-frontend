@@ -9,7 +9,7 @@ import { Icon } from "@/components/common/Icon";
 import Loading from "@/components/common/Loading";
 import { Button } from "@/components/ui/button";
 
-import ArrowIcon from "/public/icons/arrow_right_medium.svg";
+import ArrowRightIcon from "/public/icons/arrow_right_medium.svg";
 
 import { GIFT_ANSWER_MAP } from "@/constants/constants";
 import { useBundleResultQuery } from "@/queries/useBundleResultQuery";
@@ -116,7 +116,7 @@ const Page = () => {
                         router.push(`/my-bundles/${bundleId}/${gift.id}`)
                       }
                     >
-                      <Icon src={ArrowIcon} alt="arrowIcon" />
+                      <Icon src={ArrowRightIcon} alt="ArrowRightIcon" />
                     </Button>
                   </div>
                 ))}

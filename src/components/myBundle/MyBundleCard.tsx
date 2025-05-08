@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useMemo } from "react";
 
-import DeleteIcon from "/public/icons/btn_erase.svg";
+import EraseIcon from "/public/icons/erase.svg";
 
 import { Icon } from "../common/Icon";
 import { DrawerTrigger } from "../ui/drawer";
@@ -32,7 +32,7 @@ const MyBundleCard = ({
     () => (
       <Image
         src={imageSrc}
-        alt="Bundle"
+        alt={name}
         width={89}
         height={94}
         className="mb-[14px] mt-2"
@@ -61,7 +61,7 @@ const MyBundleCard = ({
             onClick={handleDelete}
             className="absolute right-[6px] top-[6px]"
           >
-            <Icon src={DeleteIcon} alt="delete-btn" />
+            <Icon src={EraseIcon} alt="EraseIcon" />
           </button>
         </DrawerTrigger>
       )}
