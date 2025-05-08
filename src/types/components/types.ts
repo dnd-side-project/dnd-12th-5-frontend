@@ -1,12 +1,8 @@
 import { HTMLAttributes, ReactNode } from "react";
 
-import {
-  FilledGiftPreview,
-  GiftBox,
-  MyBundlePreview,
-  ReceiveGiftBox,
-} from "../bundle/types";
+import { GiftBox, ReceiveGiftBox } from "../bundle/types";
 import { ImageItem } from "../gift-upload/types";
+import { FilledGiftPreview, MyBundlePreview } from "../my-bundles/types";
 
 /** common */
 export interface CardProps {
@@ -63,7 +59,6 @@ export interface CustomTextAreaProps {
   maxLength: number;
   text: string;
   onTextChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  disable: boolean;
 }
 
 export interface BundleDrawerProps {
@@ -124,7 +119,7 @@ export interface ReciveGiftListProps {
   onClick: () => void;
 }
 
-/** myBundle */
+/** 선물 및 보따리 카드 목록 */
 export interface MyCardListProps {
   size: "small" | "medium";
   type: "gift" | "bundle";
@@ -134,8 +129,8 @@ export interface MyCardListProps {
 
 export interface MyBundleCardProps {
   isEdit: boolean;
-  design_type: string;
-  is_read: boolean;
+  designType: string;
+  isRead: boolean;
   status: string;
   name: string;
   updatedAt: string;

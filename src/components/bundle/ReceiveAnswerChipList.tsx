@@ -49,15 +49,19 @@ const ReceiveAnswerChipList = ({
       <div className="flex flex-col gap-2">
         <p className="text-xs text-gray-500">선물에 대한 답변을 선택해주세요</p>
         <div className="grid grid-cols-2 gap-[9px]">
-          {GIFT_ANSWER_CHIP_TEXTES.map((answer, index) => (
-            <ReceiveAnswerChip
-              key={index}
-              text={answer}
-              isActive={mappedAnswers[giftIndex] === index}
-              onClick={() => handleSelectAnswer(giftIndex, index)}
-              disabled={isUploadedAnswer}
-            />
-          ))}
+          {GIFT_ANSWER_CHIP_TEXTES.map((answer, index) => {
+            const chipKey = `${giftIndex}-${index}`;
+
+            return (
+              <ReceiveAnswerChip
+                key={chipKey}
+                text={answer}
+                isActive={mappedAnswers[giftIndex] === index}
+                onClick={() => handleSelectAnswer(giftIndex, index)}
+                disabled={isUploadedAnswer}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

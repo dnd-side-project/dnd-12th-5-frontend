@@ -34,7 +34,7 @@ const Step2 = () => {
   const { mutate } = useDeliveryCharacterMutation();
   const bundleId = Number(sessionStorage.getItem("bundleId"));
 
-  const handleApiPost = () => {
+  const handleDeliverySubmission = () => {
     if (bundleId) {
       mutate(
         {
@@ -43,21 +43,14 @@ const Step2 = () => {
         },
         {
           onSuccess: (data) => {
+            resetStore();
             router.push(
               `/bundle/delivery?step=3&character=${characterKo}&link=${data.link}`,
             );
           },
-          onError: (error) => {
-            console.error("API 호출 실패:", error);
-          },
         },
       );
     }
-  };
-
-  const handleClickButton = () => {
-    handleApiPost();
-    resetStore();
   };
 
   const characterData = DELIVERY_CHARACTER_MAP[characterKo];
@@ -80,7 +73,7 @@ const Step2 = () => {
               </div>
               <Image
                 src={characterData.imageSrc}
-                alt="delivery"
+                alt={characterKey}
                 width={200}
                 height={200}
                 style={{ width: "200px", height: "200px" }}
@@ -104,7 +97,7 @@ const Step2 = () => {
             </div>
           </section>
           <div className="absolute bottom-4 w-full px-4">
-            <Button onClick={handleClickButton} size="lg">
+            <Button onClick={handleDeliverySubmission} size="lg">
               선물 보따리 배달하기
             </Button>
           </div>

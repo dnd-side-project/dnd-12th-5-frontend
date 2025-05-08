@@ -46,7 +46,7 @@ const Step3 = () => {
             </div>
             <Image
               src={`/img/bundle_${color}.svg`}
-              alt="bundle"
+              alt={`${color}_bundle`}
               width={160}
               height={160}
               style={{ width: "160px", height: "160px" }}
@@ -59,7 +59,7 @@ const Step3 = () => {
           <section className="flex h-full flex-col items-center justify-center gap-[34px]">
             <Image
               src={`/img/${characterEn}_${color}.svg`}
-              alt="delivery"
+              alt={`${characterEn}_${color}`}
               width={200}
               height={200}
               style={{ width: "200px", height: "200px" }}

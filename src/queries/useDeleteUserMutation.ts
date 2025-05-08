@@ -19,7 +19,7 @@ export const useDeleteUserMutation = () => {
     onError: () => {
       toast({
         title: "회원 탈퇴에 실패했어요.",
-        description: "다시 시도해주세요.",
+        description: "다시 시도해 주세요.",
       });
     },
   });

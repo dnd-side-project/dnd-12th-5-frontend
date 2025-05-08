@@ -1,6 +1,5 @@
 "use client";
 
-import cloneDeep from "lodash.clonedeep";
 import isEqual from "lodash.isequal";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -15,19 +14,14 @@ import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
 import CloseIcon from "/public/icons/close.svg";
 import EditIcon from "/public/icons/edit.svg";
 
-import {
-  BUNDLE_NAME_MAX_LENGTH,
-  MIN_GIFTBOX_AMOUNT,
-} from "@/constants/constants";
+import { BUNDLE_NAME_MAX_LENGTH } from "@/constants/constants";
 import { toast } from "@/hooks/use-toast";
 import useDynamicTitle from "@/hooks/useDynamicTitle";
-import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 import { useEditDraftBundleNameMutation } from "@/queries/useEditDraftBundleNameMutation";
 import {
   useCreatingBundleStore,
   useBundleNameStore,
   useIsOpenDetailGiftBoxStore,
-  useSelectedBagStore,
   useLoadingStore,
   useSnapshotGiftBoxesStore,
 } from "@/stores/bundle/useStore";
@@ -62,7 +56,6 @@ const Header = () => {
   const { isCreatingBundle } = useCreatingBundleStore();
   const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
     useIsOpenDetailGiftBoxStore();
-  const { bundleName } = useBundleNameStore();
   const isLoading = useLoadingStore((state) => state.isLoading);
 
   const isAuthPage = ["/auth/login"].includes(pathname ?? "");
@@ -91,25 +84,11 @@ const Header = () => {
     /** 보따리 임시저장 관련 코드 */
   }
   const { giftBoxes } = useGiftStore();
-  const { selectedBagIndex } = useSelectedBagStore();
-  const [showTempSave, setShowTempSave] = useState(false);
 
   const bundleId = sessionStorage.getItem("bundleId");
   const filledCount = giftBoxes.filter((box) => box && box.filled).length;
 
-  useEffect(() => {
-    setShowTempSave(filledCount >= MIN_GIFTBOX_AMOUNT);
-  }, [filledCount, giftBoxes]);
-
-  const { handleTempSave } = useTempSaveBundle();
-
-  const { snapshotGiftBoxes, setSnapshotGiftBoxes } =
-    useSnapshotGiftBoxesStore();
-
-  const handleTempSaveClick = () => {
-    handleTempSave({ bundleName, selectedBagIndex });
-    setSnapshotGiftBoxes(cloneDeep(giftBoxes));
-  };
+  const { snapshotGiftBoxes } = useSnapshotGiftBoxesStore();
 
   if (isBundleDetailStepTwo && isOpenDetailGiftBox) {
     return (
@@ -121,7 +100,7 @@ const Header = () => {
           className="ml-auto"
           onClick={() => setIsOpenDetailGiftBox(false)}
         >
-          <Icon src={CloseIcon} alt="close" size="large" />
+          <Icon src={CloseIcon} alt="CloseIcon" size="large" />
         </button>
       </div>
     );
@@ -132,7 +111,7 @@ const Header = () => {
       <div
         className={`z-20 flex h-[56px] items-center justify-center ${step === "2" ? "bg-pink-50" : "bg-white"}`}
       >
-        <Icon src={LogoIcon} alt="logo" />
+        <Icon src={LogoIcon} alt="LogoIcon" />
       </div>
     );
   }
@@ -143,10 +122,10 @@ const Header = () => {
       <div className="z-20 flex h-[56px] bg-white">
         <div className="flex w-full items-center justify-between px-4">
           <button onClick={() => router.push("/")}>
-            <Icon src={LogoIcon} alt="logo" />
+            <Icon src={LogoIcon} alt="LogoIcon" />
           </button>
           <button onClick={() => router.push("/setting")}>
-            <Icon src={SettingIcon} alt="setting" size="large" />
+            <Icon src={SettingIcon} alt="SettingIcon" size="large" />
           </button>
         </div>
       </div>
@@ -159,7 +138,7 @@ const Header = () => {
       <div
         className={`${bgColor} z-20 flex h-[56px] items-center justify-center`}
       >
-        <Icon src={LogoIcon} alt="logo" />
+        <Icon src={LogoIcon} alt="LogoIcon" />
       </div>
     );
   }
@@ -184,7 +163,7 @@ const Header = () => {
         if (hasChanged) {
           if (filledCount === 0) {
             toast({
-              title: "선물 박스를 하나 이상 채운 뒤에 임시 저장이 가능합니다.",
+              title: "선물 박스를 최소 1개 이상 채워야 임시 저장할 수 있어요.",
             });
           } else {
             setShowGoToHomeDrawer(true);
@@ -202,7 +181,7 @@ const Header = () => {
       if (snapshotGiftBoxes && !isEqual(snapshotGiftBoxes, giftBoxes)) {
         if (filledCount === 0) {
           toast({
-            title: "선물 박스를 하나 이상 채운 뒤에 임시 저장이 가능합니다.",
+            title: "선물 박스를 최소 1개 이상 채워야 임시 저장할 수 있어요.",
           });
         } else {
           setShowGoToHomeDrawer(true);
@@ -226,7 +205,7 @@ const Header = () => {
         variant="ghost"
         className="flex justify-start"
       >
-        <Icon src={ArrowLeftIcon} alt="back" size="large" />
+        <Icon src={ArrowLeftIcon} alt="ArrowLeftIcon" size="large" />
       </Button>
     );
   };
@@ -235,10 +214,7 @@ const Header = () => {
     const { setBundleName } = useBundleNameStore();
     const [isNameEditing, setIsNameEditing] = useState(false);
     const [inputValue, setInputValue] = useState(dynamicTitle);
-    const { mutate } = useEditDraftBundleNameMutation(
-      inputValue,
-      bundleId ?? "",
-    );
+    const { mutate } = useEditDraftBundleNameMutation();
 
     useEffect(() => {
       setInputValue(dynamicTitle);
@@ -256,8 +232,10 @@ const Header = () => {
       setBundleName(inputValue);
 
       // 임시 저장된 보따리의 경우
-      if (bundleId) {
-        mutate(); // 이름 수정 API 호출
+      const storedId = bundleId ?? sessionStorage.getItem("bundleId");
+
+      if (storedId) {
+        mutate({ name: inputValue, bundleId: storedId });
       }
     };
 
@@ -291,7 +269,7 @@ const Header = () => {
               onClick={() => setIsNameEditing(true)}
               className="ml-[2px] w-[20px] min-w-[20px]"
             >
-              <Icon src={EditIcon} alt="edit-bundleName" />
+              <Icon src={EditIcon} alt="EditIcon" />
             </Button>
           </>
         )}
@@ -304,18 +282,6 @@ const Header = () => {
   };
 
   const RightButton = () => {
-    if (showTempSave && isBundleAddPage) {
-      return (
-        <Button
-          variant="ghost"
-          onClick={handleTempSaveClick}
-          className="flex justify-end text-[15px] text-gray-200"
-        >
-          임시 저장
-        </Button>
-      );
-    }
-
     if (isBundleDeliveryPage && isStepThree && !isLoading) {
       return (
         <Button
@@ -323,7 +289,7 @@ const Header = () => {
           variant="ghost"
           className="flex justify-end"
         >
-          <Icon src={CloseIcon} alt="close" size="large" />
+          <Icon src={CloseIcon} alt="CloseIcon" size="large" />
         </Button>
       );
     }
@@ -344,13 +310,11 @@ const Header = () => {
       <div className="absolute right-4 top-1/2 -translate-y-1/2">
         <RightButton />
       </div>
-      {bundleId && (
-        <GoToHomeDrawer
-          open={showGoToHomeDrawer}
-          onClose={() => setShowGoToHomeDrawer(false)}
-          bundleId={bundleId}
-        />
-      )}
+      <GoToHomeDrawer
+        open={showGoToHomeDrawer}
+        onClose={() => setShowGoToHomeDrawer(false)}
+        bundleId={bundleId || ""}
+      />
     </div>
   );
 };

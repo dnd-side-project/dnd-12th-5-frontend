@@ -21,7 +21,7 @@ import {
 import { useHandleCreateBundleClick } from "@/hooks/bundle/add/useHandleCreateBundleClick";
 import { useDeleteMyBundleMutation } from "@/queries/useDeleteMyBundleMutation";
 import { useMyBundlesQuery } from "@/queries/useMyBundlesQuery";
-import { MyBundle } from "@/types/bundle/types";
+import { MyBundle } from "@/types/my-bundles/types";
 
 const Page = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -99,8 +99,8 @@ const Page = () => {
                 <MyBundleCard
                   key={bundle.id}
                   isEdit={isEdit}
-                  design_type={bundle.designType}
-                  is_read={bundle.isRead}
+                  designType={bundle.designType}
+                  isRead={bundle.isRead}
                   status={bundle.status}
                   name={bundle.name}
                   updatedAt={bundle.updatedAt}
@@ -117,8 +117,8 @@ const Page = () => {
                   <Link key={bundle.id} href={`/my-bundles/${bundle.id}`}>
                     <MyBundleCard
                       isEdit={isEdit}
-                      design_type={bundle.designType}
-                      is_read={bundle.isRead}
+                      designType={bundle.designType}
+                      isRead={bundle.isRead}
                       status={bundle.status}
                       name={bundle.name}
                       updatedAt={bundle.updatedAt}
@@ -136,7 +136,7 @@ const Page = () => {
                   {selectedBundleInfo ? selectedBundleInfo.name : ""}
                 </DrawerTitle>
                 <DrawerClose className="absolute right-[14px] top-2">
-                  <Icon src={CloseIcon} alt="close" size="large" />
+                  <Icon src={CloseIcon} alt="CloseIcon" size="large" />
                 </DrawerClose>
               </DrawerHeader>
 

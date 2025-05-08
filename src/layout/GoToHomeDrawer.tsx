@@ -46,7 +46,7 @@ const GoToHomeDrawer = ({ open, onClose, bundleId }: GoToHomeDrawerProps) => {
               잠깐! 보따리를 채우는 중이에요
             </p>
             <DrawerClose className="absolute right-4">
-              <Icon src={CloseIcon} alt="close" size="large" />
+              <Icon src={CloseIcon} alt="CloseIcon" size="large" />
             </DrawerClose>
           </DrawerTitle>
           <p className="text-center text-sm text-gray-500">

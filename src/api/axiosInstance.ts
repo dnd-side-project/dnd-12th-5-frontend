@@ -55,8 +55,6 @@ axiosInstance.interceptors.response.use(
     ) {
       originalRequest._retry = true;
 
-      console.log("accessToken이 만료되었습니다.", error);
-
       try {
         const refreshToken = getCookie("refreshToken");
 
@@ -79,8 +77,6 @@ axiosInstance.interceptors.response.use(
           },
         );
 
-        console.log("재발급 요청에 성공하였습니다.", res.data);
-
         const newAccessToken = res.data.result.accessToken;
         const newRefreshToken = res.data.result.refreshToken;
 
@@ -90,9 +86,7 @@ axiosInstance.interceptors.response.use(
         // 원래 요청에 새 accessToken 넣어서 재요청
         originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
         return axiosInstance(originalRequest);
-      } catch (refreshError) {
-        console.log("refreshToken 오류", refreshError);
-
+      } catch {
         deleteToken(); // 로그아웃
         toast({ title: "장기간 사용하지 않아 로그아웃 되었습니다." });
 

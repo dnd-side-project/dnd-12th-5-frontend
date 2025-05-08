@@ -1,24 +1,31 @@
 "use client";
 
+import cloneDeep from "lodash.clonedeep";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import GiftList from "@/components/bundle/add/GiftList";
 import GiftListDrawer from "@/components/bundle/add/GiftListDrawer";
 import Chip from "@/components/bundle/Chip";
-import GiftList from "@/components/bundle/add/GiftList";
+import { Icon } from "@/components/common/Icon";
 import { Button } from "@/components/ui/button";
 import { MIN_GIFTBOX_AMOUNT } from "@/constants/constants";
 import { toast } from "@/hooks/use-toast";
+import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 import { useCreateBundleMutation } from "@/queries/useCreateBundleMutation";
 import { useUpdateBundleMutation } from "@/queries/useUpdateBundleMutation";
+import {
+  useBundleNameStore,
+  useSelectedBagStore,
+  useSnapshotGiftBoxesStore,
+} from "@/stores/bundle/useStore";
 import {
   useEditBoxStore,
   useGiftStore,
   useToastStore,
 } from "@/stores/gift-upload/useStore";
-import { Icon } from "@/components/common/Icon";
 
-import RightArrowIcon from "/public/icons/arrow_right_small.svg";
+import RightArrowIcon from "/public/icons/arrow_right_large.svg";
 
 const Page = () => {
   const { giftBoxes } = useGiftStore();
@@ -44,13 +51,17 @@ const Page = () => {
     }
   }, [setShowEditToast, showEditToast]);
 
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [giftListDrawerOpen, setGiftListDrawerOpen] = useState(false);
+
+  const { bundleName } = useBundleNameStore();
+  const { selectedBagIndex } = useSelectedBagStore();
+  const { setSnapshotGiftBoxes } = useSnapshotGiftBoxesStore();
+  const { handleTempSave } = useTempSaveBundle();
 
   const createMutation = useCreateBundleMutation();
-
   const updateMutation = useUpdateBundleMutation();
 
-  const handleClickButton = async () => {
+  const handleGiftDelivery = async () => {
     try {
       const bundleId = sessionStorage.getItem("bundleId");
 
@@ -61,8 +72,11 @@ const Page = () => {
       }
 
       router.push("/bundle/delivery?step=1");
-    } catch (error) {
-      alert(`보따리 저장에 실패했습니다. ${error}`);
+    } catch {
+      toast({
+        title: "보따리 저장에 실패했습니다",
+        description: "다시 시도해 주세요.",
+      });
     }
   };
 
@@ -72,10 +86,16 @@ const Page = () => {
         <div className="absolute top-[10px]">
           <Chip
             text={`채워진 선물박스 ${filledGiftCount}개`}
-            icon={filledGiftCount > 0 ? <Icon src={RightArrowIcon} /> : ""}
+            icon={
+              filledGiftCount > 0 ? (
+                <Icon src={RightArrowIcon} size="xsmall" />
+              ) : (
+                ""
+              )
+            }
             width="126px"
             onClick={() => {
-              if (filledGiftCount > 0) setDrawerOpen(true);
+              if (filledGiftCount > 0) setGiftListDrawerOpen(true);
             }}
             isClickable={filledGiftCount > 0}
           />
@@ -83,15 +103,31 @@ const Page = () => {
         <GiftList value={giftBoxes} />
       </div>
       <div className="absolute bottom-4 w-full px-4">
-        <Button
-          disabled={filledGiftCount < MIN_GIFTBOX_AMOUNT}
-          size="lg"
-          onClick={handleClickButton}
-        >
-          선물 배달하러 가기
-        </Button>
+        <div className="grid grid-cols-[1.5fr_3fr] gap-3">
+          <Button
+            variant="secondary"
+            size="lg"
+            onClick={() => {
+              handleTempSave({ bundleName, selectedBagIndex });
+              setSnapshotGiftBoxes(cloneDeep(giftBoxes));
+            }}
+            disabled={filledGiftCount < MIN_GIFTBOX_AMOUNT}
+          >
+            임시 저장
+          </Button>
+          <Button
+            disabled={filledGiftCount < MIN_GIFTBOX_AMOUNT}
+            size="lg"
+            onClick={handleGiftDelivery}
+          >
+            선물 배달하러 가기
+          </Button>
+        </div>
       </div>
-      <GiftListDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+      <GiftListDrawer
+        open={giftListDrawerOpen}
+        onClose={() => setGiftListDrawerOpen(false)}
+      />
     </div>
   );
 };

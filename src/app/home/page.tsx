@@ -48,7 +48,7 @@ const Page = () => {
             <p className="text-sm text-gray-600">더보기</p>
             <Icon
               src={ArrowRightIcon}
-              alt="more"
+              alt="ArrowRightIcon"
               size="small"
               loading="eager"
             />

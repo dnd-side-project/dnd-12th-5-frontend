@@ -179,8 +179,11 @@ const Page = () => {
     try {
       await fetchSavedGift();
       setShouldTakeSnapshot(true);
-    } catch (error) {
-      console.error(error);
+    } catch {
+      toast({
+        title: "임시저장된 보따리를 불러오는 데 실패했어요.",
+        description: "다시 시도해 주세요.",
+      });
     }
   };
 
@@ -223,7 +226,7 @@ const Page = () => {
                   <DrawerHeader className="relative flex justify-center py-3">
                     <DrawerTitle>보따리 삭제</DrawerTitle>
                     <DrawerClose className="absolute right-4 top-[14px]">
-                      <Icon src={CloseIcon} alt="close" size="large" />
+                      <Icon src={CloseIcon} alt="CloseIcon" size="large" />
                     </DrawerClose>
                   </DrawerHeader>
 

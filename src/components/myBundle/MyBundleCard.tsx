@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useMemo } from "react";
 
-import DeleteIcon from "/public/icons/btn_erase.svg";
+import EraseIcon from "/public/icons/erase.svg";
 
 import { Icon } from "../common/Icon";
 import { DrawerTrigger } from "../ui/drawer";
@@ -12,8 +12,8 @@ import MyBundleStatusChip from "./MyBundleStatusChip";
 
 const MyBundleCard = ({
   isEdit,
-  design_type,
-  is_read,
+  designType,
+  isRead,
   status,
   name,
   updatedAt,
@@ -26,13 +26,13 @@ const MyBundleCard = ({
     if (onDelete) onDelete();
   };
 
-  const imageSrc = DESIGN_TYPE_MAP[design_type];
+  const imageSrc = DESIGN_TYPE_MAP[designType];
 
   const memoizedImage = useMemo(
     () => (
       <Image
         src={imageSrc}
-        alt="Bundle"
+        alt={name}
         width={89}
         height={94}
         className="mb-[14px] mt-2"
@@ -50,7 +50,7 @@ const MyBundleCard = ({
       <div className="flex-start flex w-full">
         <MyBundleStatusChip
           status={status}
-          isRead={is_read}
+          isRead={isRead}
           type="label"
           size="sm"
         />
@@ -61,7 +61,7 @@ const MyBundleCard = ({
             onClick={handleDelete}
             className="absolute right-[6px] top-[6px]"
           >
-            <Icon src={DeleteIcon} alt="delete-btn" />
+            <Icon src={EraseIcon} alt="EraseIcon" />
           </button>
         </DrawerTrigger>
       )}
