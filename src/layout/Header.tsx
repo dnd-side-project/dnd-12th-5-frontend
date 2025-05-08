@@ -163,7 +163,7 @@ const Header = () => {
         if (hasChanged) {
           if (filledCount === 0) {
             toast({
-              title: "선물 박스를 최소 1개 이상 채우면 임시 저장할 수 있어요.",
+              title: "선물 박스를 최소 1개 이상 채워야 임시 저장할 수 있어요.",
             });
           } else {
             setShowGoToHomeDrawer(true);
@@ -181,7 +181,7 @@ const Header = () => {
       if (snapshotGiftBoxes && !isEqual(snapshotGiftBoxes, giftBoxes)) {
         if (filledCount === 0) {
           toast({
-            title: "선물 박스를 최소 1개 이상 채우면 임시 저장할 수 있어요.",
+            title: "선물 박스를 최소 1개 이상 채워야 임시 저장할 수 있어요.",
           });
         } else {
           setShowGoToHomeDrawer(true);
