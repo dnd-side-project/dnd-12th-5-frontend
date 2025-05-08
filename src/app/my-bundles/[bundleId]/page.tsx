@@ -179,8 +179,11 @@ const Page = () => {
     try {
       await fetchSavedGift();
       setShouldTakeSnapshot(true);
-    } catch (error) {
-      console.error(error);
+    } catch {
+      toast({
+        title: "임시저장된 보따리를 불러오는 데 실패했어요.",
+        description: "다시 시도해 주세요.",
+      });
     }
   };
 

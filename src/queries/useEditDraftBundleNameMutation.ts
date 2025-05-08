@@ -1,12 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { patchBundleName } from "@/api/bundle/api";
+import { patchBundleName } from "@/api/my-bundle/api";
 import { toast } from "@/hooks/use-toast";
-
-interface EditBundleNameParams {
-  name: string;
-  bundleId: string;
-}
+import { EditBundleNameParams } from "@/types/my-bundles/types";
 
 export const useEditDraftBundleNameMutation = () => {
   return useMutation({
@@ -15,7 +11,7 @@ export const useEditDraftBundleNameMutation = () => {
     onError: () => {
       toast({
         title: "이름 수정에 실패했어요.",
-        description: "다시 시도해주세요.",
+        description: "다시 시도해 주세요.",
       });
     },
   });

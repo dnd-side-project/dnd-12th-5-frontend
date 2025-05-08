@@ -12,8 +12,8 @@ import MyBundleStatusChip from "./MyBundleStatusChip";
 
 const MyBundleCard = ({
   isEdit,
-  design_type,
-  is_read,
+  designType,
+  isRead,
   status,
   name,
   updatedAt,
@@ -26,7 +26,7 @@ const MyBundleCard = ({
     if (onDelete) onDelete();
   };
 
-  const imageSrc = DESIGN_TYPE_MAP[design_type];
+  const imageSrc = DESIGN_TYPE_MAP[designType];
 
   const memoizedImage = useMemo(
     () => (
@@ -50,7 +50,7 @@ const MyBundleCard = ({
       <div className="flex-start flex w-full">
         <MyBundleStatusChip
           status={status}
-          isRead={is_read}
+          isRead={isRead}
           type="label"
           size="sm"
         />

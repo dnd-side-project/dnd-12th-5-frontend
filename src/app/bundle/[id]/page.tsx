@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "next/navigation";
 
-import { fetchResponseBundle, getAnswerResult } from "@/api/bundle/api";
+import { fetchResponseBundle, getSubmittedAnswers } from "@/api/bundle/api";
 import Loading from "@/components/common/Loading";
 
 import Step1 from "./step1";
@@ -28,7 +28,7 @@ const Page = () => {
 
   const { data: giftResultData, isError: isGiftResultDataError } = useQuery({
     queryKey: ["answerResults", bundle?.id],
-    queryFn: () => getAnswerResult(link),
+    queryFn: () => getSubmittedAnswers(link),
     enabled: !!bundle?.id && bundle?.status === "COMPLETED",
   });
 

@@ -18,7 +18,7 @@ export const useDeliveryCharacterMutation = () => {
     onError: () => {
       toast({
         title: "배달부 설정에 실패했어요.",
-        description: "다시 시도해주세요.",
+        description: "다시 시도해 주세요.",
       });
     },
   });
