@@ -171,8 +171,10 @@ const GiftForm = () => {
           />
           <div className="flex flex-col gap-2">
             <InputLink value={giftLink} onChange={setGiftLink} />
-            {giftLink && !isLinkValid && (
+            {giftLink && !isLinkValid ? (
               <ErrorMessage message="올바른 링크 형식을 입력해주세요" />
+            ) : (
+              <div className="invisible h-4" />
             )}
           </div>
         </div>
