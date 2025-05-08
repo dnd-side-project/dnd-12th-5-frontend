@@ -12,8 +12,8 @@ import {
   CarouselItem,
 } from "../ui/carousel";
 
-import LeftIcon from "/public/icons/arrow_left_large.svg";
-import RightIcon from "/public/icons/arrow_right_large.svg";
+import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
+import ArrowRightIcon from "/public/icons/arrow_right_large.svg";
 
 import { useSelectedGiftBoxStore } from "@/stores/bundle/useStore";
 import { DetailGiftBoxProps } from "@/types/components/types";
@@ -120,7 +120,11 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                           disabled={currentImageIndexes[giftIndex] === 0}
                           variant="ghost"
                         >
-                          <Icon src={LeftIcon} alt="leftArrow" size="small" />
+                          <Icon
+                            src={ArrowLeftIcon}
+                            alt="ArrowLeftIcon"
+                            size="small"
+                          />
                         </Button>
                       )}
                       {currentImageIndexes[giftIndex] !==
@@ -134,7 +138,11 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                           }
                           variant="ghost"
                         >
-                          <Icon src={RightIcon} alt="RightArrow" size="small" />
+                          <Icon
+                            src={ArrowRightIcon}
+                            alt="ArrowRightIcon"
+                            size="small"
+                          />
                         </Button>
                       )}
                       <div className="absolute bottom-2 right-2 h-[23px] w-10 rounded-[40px] bg-white/70 px-[10px] py-1 text-center">

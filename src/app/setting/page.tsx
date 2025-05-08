@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import ArrowIcon from "/public/icons/arrow_right_small.svg";
+import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
 
 import { useRouter } from "next/navigation";
 
@@ -26,7 +26,7 @@ const Page = () => {
         <Link href={"/setting/account"}>
           <div className="flex cursor-pointer items-center justify-center">
             <p>카카오</p>
-            <Icon src={ArrowIcon} alt="arrow" size="small" />
+            <Icon src={ArrowRightIcon} alt="ArrowRightIcon" size="small" />
           </div>
         </Link>
       </div>

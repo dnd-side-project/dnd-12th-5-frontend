@@ -3,8 +3,8 @@ import React from "react";
 import { Icon } from "@/components/common/Icon";
 import { toast } from "@/hooks/use-toast";
 
-import KakaoShareButtonIcon from "/public/icons/kakao_share_button.svg";
-import LinkCopyButtonIcon from "/public/icons/link_copy_button.svg";
+import KakaoShareIcon from "/public/icons/kakao_circle_logo.svg";
+import LinkCopyIcon from "/public/icons/link_2.svg";
 
 const ShareSection = ({ link }: { link: string }) => {
   const handleCopyLink = () => {
@@ -73,14 +73,14 @@ const ShareSection = ({ link }: { link: string }) => {
           className="flex flex-col items-center gap-1"
           onClick={shareKakao}
         >
-          <Icon src={KakaoShareButtonIcon} alt="kakaoShare" />
+          <Icon src={KakaoShareIcon} alt="KakaoShareIcon" />
           <p className="text-xs text-gray-600">카카오톡</p>
         </button>
         <button
           className="flex flex-col items-center gap-1"
           onClick={handleCopyLink}
         >
-          <Icon src={LinkCopyButtonIcon} alt="linkCopy" />
+          <Icon src={LinkCopyIcon} alt="LinkCopyIcon" />
           <p className="text-xs text-gray-600">링크 복사</p>
         </button>
       </section>

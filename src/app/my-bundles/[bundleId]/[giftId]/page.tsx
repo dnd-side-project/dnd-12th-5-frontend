@@ -92,13 +92,15 @@ const Page = () => {
         <CarouselContent className="flex flex-nowrap">
           {combinedImages.map((url: string, index: Key | null | undefined) => (
             <CarouselItem key={index} className="relative h-[375px] min-w-full">
-              <Image
-                src={url || ""}
-                alt={`image_${index}`}
-                layout="fill"
-                style={{ objectFit: "cover" }}
-                className="pointer-events-none"
-              />
+              {url && (
+                <Image
+                  src={url}
+                  alt={`image_${index}`}
+                  layout="fill"
+                  style={{ objectFit: "cover" }}
+                  className="pointer-events-none"
+                />
+              )}
             </CarouselItem>
           ))}
         </CarouselContent>

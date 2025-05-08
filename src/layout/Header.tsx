@@ -100,7 +100,7 @@ const Header = () => {
           className="ml-auto"
           onClick={() => setIsOpenDetailGiftBox(false)}
         >
-          <Icon src={CloseIcon} alt="close" size="large" />
+          <Icon src={CloseIcon} alt="CloseIcon" size="large" />
         </button>
       </div>
     );
@@ -111,7 +111,7 @@ const Header = () => {
       <div
         className={`z-20 flex h-[56px] items-center justify-center ${step === "2" ? "bg-pink-50" : "bg-white"}`}
       >
-        <Icon src={LogoIcon} alt="logo" />
+        <Icon src={LogoIcon} alt="LogoIcon" />
       </div>
     );
   }
@@ -122,10 +122,10 @@ const Header = () => {
       <div className="z-20 flex h-[56px] bg-white">
         <div className="flex w-full items-center justify-between px-4">
           <button onClick={() => router.push("/")}>
-            <Icon src={LogoIcon} alt="logo" />
+            <Icon src={LogoIcon} alt="LogoIcon" />
           </button>
           <button onClick={() => router.push("/setting")}>
-            <Icon src={SettingIcon} alt="setting" size="large" />
+            <Icon src={SettingIcon} alt="SettingIcon" size="large" />
           </button>
         </div>
       </div>
@@ -138,7 +138,7 @@ const Header = () => {
       <div
         className={`${bgColor} z-20 flex h-[56px] items-center justify-center`}
       >
-        <Icon src={LogoIcon} alt="logo" />
+        <Icon src={LogoIcon} alt="LogoIcon" />
       </div>
     );
   }
@@ -205,7 +205,7 @@ const Header = () => {
         variant="ghost"
         className="flex justify-start"
       >
-        <Icon src={ArrowLeftIcon} alt="back" size="large" />
+        <Icon src={ArrowLeftIcon} alt="ArrowLeftIcon" size="large" />
       </Button>
     );
   };
@@ -269,7 +269,7 @@ const Header = () => {
               onClick={() => setIsNameEditing(true)}
               className="ml-[2px] w-[20px] min-w-[20px]"
             >
-              <Icon src={EditIcon} alt="edit-bundleName" />
+              <Icon src={EditIcon} alt="EditIcon" />
             </Button>
           </>
         )}
@@ -289,7 +289,7 @@ const Header = () => {
           variant="ghost"
           className="flex justify-end"
         >
-          <Icon src={CloseIcon} alt="close" size="large" />
+          <Icon src={CloseIcon} alt="CloseIcon" size="large" />
         </Button>
       );
     }

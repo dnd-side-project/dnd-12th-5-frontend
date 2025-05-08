@@ -27,7 +27,7 @@ const Page = () => {
   return (
     <div className="mt-[14px]">
       <div className="flex items-center gap-[10px] border-b border-[#f4f4f4] px-4 py-[18px]">
-        <Icon src={KakaoLogoIcon} alt="kakao" />
+        <Icon src={KakaoLogoIcon} alt="KakaoLogoIcon" />
         <p className="text-[15px] font-medium">카카오</p>
       </div>
 
@@ -43,7 +43,7 @@ const Page = () => {
             <DrawerTitle>
               회원 탈퇴
               <DrawerClose className="absolute right-4 top-3">
-                <Icon src={CloseIcon} alt="close" size="large" />
+                <Icon src={CloseIcon} alt="CloseIcon" size="large" />
               </DrawerClose>
             </DrawerTitle>
           </DrawerHeader>
