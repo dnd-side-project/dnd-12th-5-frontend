@@ -84,6 +84,7 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
   return (
     <div
       className={`relative h-full overflow-y-auto overflow-x-hidden ${bgColor}`}
+      style={{ scrollbarWidth: "none" }}
     >
       {isOpenDetailGiftBox ? (
         <DetailGiftBox giftList={gifts} mappedAnswers={mappedAnswers} />
