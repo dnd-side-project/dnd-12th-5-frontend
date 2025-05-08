@@ -115,13 +115,14 @@ const Page = () => {
           >
             임시 저장
           </Button>
-        <Button
-          disabled={filledGiftCount < MIN_GIFTBOX_AMOUNT}
-          size="lg"
-          onClick={handleGiftDelivery}
-        >
-          선물 배달하러 가기
-        </Button>
+          <Button
+            disabled={filledGiftCount < MIN_GIFTBOX_AMOUNT}
+            size="lg"
+            onClick={handleGiftDelivery}
+          >
+            선물 배달하러 가기
+          </Button>
+        </div>
       </div>
       <GiftListDrawer
         open={giftDrawerOpen}
