@@ -4,6 +4,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, useMemo } from "react";
 
 import CharacterCountInput from "../common/CharacterCountInput";
+import ErrorMessage from "../common/ErrorMessage";
 import { Button } from "../ui/button";
 import { GIFT_NAME_MAX_LENGTH } from "@/constants/constants";
 import { useUploadImageMutation } from "@/queries/useUploadImageMutation";
@@ -14,6 +15,7 @@ import {
   useToastStore,
 } from "@/stores/gift-upload/useStore";
 import { ImageItem } from "@/types/gift-upload/types";
+import { linkRegex } from "@/utils/giftBoxUtils";
 
 import InputLink from "./InputLink";
 import InputReason from "./InputReason";
@@ -49,6 +51,7 @@ const GiftForm = () => {
   const [giftLink, setGiftLink] = useState(existingGift.purchase_url || "");
   const [giftTag, setGiftTag] = useState(existingGift.tag || "");
   const [isFormValid, setIsFormValid] = useState(false);
+  const [isLinkValid, setIsLinkValid] = useState(true);
 
   useEffect(() => {
     if (isBoxEditing) {
@@ -63,12 +66,25 @@ const GiftForm = () => {
   }, [isBoxEditing, existingGift]);
 
   useEffect(() => {
-    setIsFormValid(giftName.trim().length > 0 && combinedImages.length > 0);
-  }, [giftName, combinedImages]);
+    const nameValid = giftName.trim().length > 0;
+    const hasImage = combinedImages.length > 0;
+    const linkValid = giftLink ? isLinkValid : true;
+
+    setIsFormValid(nameValid && hasImage && linkValid);
+  }, [giftName, combinedImages, giftLink, isLinkValid]);
+
+  useEffect(() => {
+    setIsLinkValid(linkRegex(giftLink));
+  }, [giftLink]);
 
   const uploadImage = useUploadImageMutation();
 
   const handleSubmit = () => {
+    const valid = linkRegex(giftLink);
+    setIsLinkValid(valid);
+
+    if (!valid) return;
+
     const existingItems = combinedImages
       .filter((item) => item.type === "existing")
       .map((item) => item.url);
@@ -153,7 +169,12 @@ const GiftForm = () => {
             onTagChange={setGiftTag}
             giftBoxIndex={index}
           />
-          <InputLink value={giftLink} onChange={setGiftLink} />
+          <div className="flex flex-col gap-2">
+            <InputLink value={giftLink} onChange={setGiftLink} />
+            {giftLink && !isLinkValid && (
+              <ErrorMessage message="올바른 링크 형식을 입력해주세요" />
+            )}
+          </div>
         </div>
       </div>
       <div className="mt-10">
