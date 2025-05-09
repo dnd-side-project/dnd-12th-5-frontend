@@ -11,7 +11,7 @@ import {
   DrawerClose,
 } from "@/components/ui/drawer";
 
-import CloseIcon from "/public/icons/close.svg";
+import CloseIcon from "/public/icons/close_black.svg";
 
 import { useTempSaveBundle } from "@/hooks/useTempSaveBundle";
 import {
