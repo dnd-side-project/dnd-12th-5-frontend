@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import LogoIcon from "/public/icons/logo.svg";
 import SettingIcon from "/public/icons/setting_large.svg";
 import ArrowLeftIcon from "/public/icons/arrow_left_large.svg";
-import CloseIcon from "/public/icons/close.svg";
+import CloseIcon from "/public/icons/close_black.svg";
 import EditIcon from "/public/icons/edit.svg";
 
 import { BUNDLE_NAME_MAX_LENGTH } from "@/constants/constants";

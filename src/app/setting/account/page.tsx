@@ -17,7 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useDeleteUserMutation } from "@/queries/useDeleteUserMutation";
 
-import CloseIcon from "/public/icons/close.svg";
+import CloseIcon from "/public/icons/close_black.svg";
 
 const Page = () => {
   const [isOpen, setIsOpen] = useState(false);
