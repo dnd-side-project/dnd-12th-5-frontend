@@ -7,7 +7,7 @@ import {
   DrawerClose,
 } from "../../ui/drawer";
 
-import CloseIcon from "/public/icons/close.svg";
+import CloseIcon from "/public/icons/close_black.svg";
 
 import Card from "@/components/common/Card";
 import { DeleteBundleDrawerProps } from "@/types/bundle/add/types";

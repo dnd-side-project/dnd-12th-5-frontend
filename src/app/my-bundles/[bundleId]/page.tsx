@@ -30,7 +30,7 @@ import {
 } from "@/stores/bundle/useStore";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 
-import CloseIcon from "/public/icons/close.svg";
+import CloseIcon from "/public/icons/close_black.svg";
 
 import { resetGiftBoxes } from "@/utils/giftBoxUtils";
 
@@ -189,7 +189,9 @@ const Page = () => {
 
   return (
     <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
-      <div className="flex h-[calc(100%-52px)] flex-col items-center justify-center gap-10 px-4">
+      <div
+        className={`flex ${status === "PUBLISHED" ? "h-[calc(100%-129px)]" : "h-[calc(100%-68px)]"} flex-col items-center justify-center gap-10 px-4`}
+      >
         <div className="flex flex-col items-center justify-center gap-6">
           {bundleId && memoizedImage}
           <MyBundleStatusChip status={status} type="message" size="md" />

@@ -136,3 +136,16 @@ export interface MyBundleCardProps {
   updatedAt: string;
   onDelete?: () => void;
 }
+
+/** 이미지 캐러셀 */
+export interface ImageCarouselViewerProps {
+  images: string[];
+  onClose: () => void;
+}
+
+/** 캐러셀 네비게이터  */
+export interface CarouselNavigatorProps<T> {
+  items: T[];
+  currentIndex: number;
+  activeColorClass?: string;
+}
