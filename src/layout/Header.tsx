@@ -1,6 +1,7 @@
 "use client";
 
 import isEqual from "lodash.isequal";
+import Link from "next/link";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -108,11 +109,12 @@ const Header = () => {
 
   if (isReceiveBundlePage) {
     return (
-      <div
+      <Link
         className={`z-20 flex h-[56px] items-center justify-center ${step === "2" ? "bg-pink-50" : "bg-white"}`}
+        href="/"
       >
         <Icon src={LogoIcon} alt="LogoIcon" />
-      </div>
+      </Link>
     );
   }
 
@@ -121,9 +123,9 @@ const Header = () => {
     return (
       <div className="z-20 flex h-[56px] bg-white">
         <div className="flex w-full items-center justify-between px-4">
-          <button onClick={() => router.push("/")}>
+          <Link href={"/"}>
             <Icon src={LogoIcon} alt="LogoIcon" />
-          </button>
+          </Link>
           <button onClick={() => router.push("/setting")}>
             <Icon src={SettingIcon} alt="SettingIcon" size="large" />
           </button>
@@ -135,11 +137,12 @@ const Header = () => {
   // auth 페이지, 404 페이지: 로고만 중앙 정렬
   if (isAuthPage || isNotFoundPage) {
     return (
-      <div
+      <Link
         className={`${bgColor} z-20 flex h-[56px] items-center justify-center`}
+        href={"/"}
       >
         <Icon src={LogoIcon} alt="LogoIcon" />
-      </div>
+      </Link>
     );
   }
 
