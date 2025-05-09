@@ -70,8 +70,8 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                       <ImageCarouselButton />
                     </div>
                   </div>
-                  <div className="mt-[9px] flex flex-col gap-[10px]">
-                    <p className="text-base font-bold text-gray-500">
+                  <div className="mt-4 flex flex-col gap-[10px]">
+                    <p className="text-base font-semibold text-gray-500">
                       {gift.name}
                     </p>
                     <p className="text-[13px] tracking-[-0.13px]">
