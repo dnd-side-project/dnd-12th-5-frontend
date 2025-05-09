@@ -12,7 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 
-import CloseIcon from "/public/icons/close.svg";
+import CloseIcon from "/public/icons/close_black.svg";
 
 import { BundleDrawerProps } from "@/types/components/types";
 

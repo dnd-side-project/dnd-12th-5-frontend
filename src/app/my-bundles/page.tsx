@@ -8,7 +8,7 @@ import Loading from "@/components/common/Loading";
 import MyBundleCard from "@/components/myBundle/MyBundleCard";
 
 import CheckIcon from "/public/icons/check.svg";
-import CloseIcon from "/public/icons/close.svg";
+import CloseIcon from "/public/icons/close_black.svg";
 
 import { Button } from "@/components/ui/button";
 import {

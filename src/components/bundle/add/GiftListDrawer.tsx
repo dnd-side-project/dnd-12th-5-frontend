@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/drawer";
 import { GiftListDrawerProps } from "@/types/bundle/add/types";
 
-import CloseIcon from "/public/icons/close.svg";
+import CloseIcon from "/public/icons/close_black.svg";
 
 import GiftThumbnailList from "./GiftThumbnailList";
 

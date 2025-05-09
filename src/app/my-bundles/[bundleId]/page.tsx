@@ -30,7 +30,7 @@ import {
 } from "@/stores/bundle/useStore";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 
-import CloseIcon from "/public/icons/close.svg";
+import CloseIcon from "/public/icons/close_black.svg";
 
 import { resetGiftBoxes } from "@/utils/giftBoxUtils";
 
