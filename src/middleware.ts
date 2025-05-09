@@ -8,16 +8,16 @@ export const config = {
 const protectedRoutes = [
   "/home",
   "/my-bundles",
+
+  /^\/my-bundles\/\d+$/, // /my-bundles/[bundleId]
+  /^\/my-bundles\/\d+\/\d+$/, // /my-bundles/[bundleId]/[giftId]
+  /^\/my-bundles\/\d+\/answer$/, // /my-bundles/[bundleId]/answer
+  "/bundle",
   "/bundle/add",
-  "/bundle/name",
-  "/bundle/select",
   "/gift-upload",
   "/bundle/delivery",
-  "/setting",
   /^\/bundle\/\d+$/, // /bundle/[id]
-  /^\/bundle\/list\/\d+$/, // /my-bundles/[bundleId]
-  /^\/bundle\/list\/\d+\/\d+$/, // /my-bundles/[bundleId]/[giftId]
-  /^\/bundle\/list\/\d+\/answer$/, // /my-bundles/[bundlegId]/answer
+  "/setting",
 ];
 
 // 로그인 하지 않을 경우 접근할 수 있는 페이지
