@@ -1,4 +1,5 @@
 import React from "react";
+import { usePathname } from "next/navigation";
 
 import { Icon } from "@/components/common/Icon";
 import { toast } from "@/hooks/use-toast";
@@ -7,6 +8,9 @@ import KakaoShareIcon from "/public/icons/kakao_circle_logo.svg";
 import LinkCopyIcon from "/public/icons/link_2.svg";
 
 const ShareSection = ({ link }: { link: string }) => {
+  const pathname = usePathname();
+  const isMyBundleDetail = /^\/my-bundles\/\d+$/.test(pathname);
+
   const handleCopyLink = () => {
     if (link !== null) {
       navigator.clipboard
@@ -49,8 +53,7 @@ const ShareSection = ({ link }: { link: string }) => {
           },
         ],
       });
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
+    } catch {
       toast({
         title: "카카오톡 공유에 실패했어요.",
       });
@@ -58,26 +61,27 @@ const ShareSection = ({ link }: { link: string }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-[15px]">
-      <div className="flex w-full items-center justify-center gap-2">
+    <div
+      className={`justify-center", flex flex-col items-center ${isMyBundleDetail ? "gap-[15px]" : "gap-[26px]"} `}
+    >
+      <div className="flex w-full items-center justify-center gap-2 py-[1px]">
         <hr className="w-full border-[0.5px] border-gray-200" />
         <p className="whitespace-nowrap text-center text-xs font-medium text-gray-400">
           공유하기
         </p>
         <hr className="w-full border-[0.5px] border-gray-200" />
       </div>
-
       {/* Button Section */}
       <section className="flex gap-3">
         <button
-          className="flex flex-col items-center gap-1"
+          className="flex flex-col items-center gap-[6px]"
           onClick={shareKakao}
         >
           <Icon src={KakaoShareIcon} alt="KakaoShareIcon" />
           <p className="text-xs text-gray-600">카카오톡</p>
         </button>
         <button
-          className="flex flex-col items-center gap-1"
+          className="flex flex-col items-center gap-[6px]"
           onClick={handleCopyLink}
         >
           <Icon src={LinkCopyIcon} alt="LinkCopyIcon" />
