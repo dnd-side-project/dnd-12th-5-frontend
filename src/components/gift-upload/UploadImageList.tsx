@@ -48,7 +48,7 @@ const UploadImageList = ({
     );
 
     if (oversizedFiles.length > 0) {
-      alert("10MB 이하 크기의 이미지만 업로드할 수 있어요!");
+      alert(`${IMAGE_MAX_SIZE_MB}MB 이하 크기의 이미지만 업로드할 수 있어요!`);
       event.target.value = "";
       return;
     }

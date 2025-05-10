@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 
 import AnswerChip from "@/components/bundle/AnswerChip";
+import BundleErrorPage from "@/components/common/BundleErrorPage";
 import Card from "@/components/common/Card";
 import { Icon } from "@/components/common/Icon";
 import Loading from "@/components/common/Loading";
@@ -32,10 +33,7 @@ const Page = () => {
   if (isError || !giftData)
     return (
       <div className="flex h-full flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold text-gray-800">ERROR</h1>
-        <p className="mt-2 text-lg text-gray-600">
-          보따리를 불러오는 중에 오류가 발생했어요!
-        </p>
+        <BundleErrorPage />
       </div>
     );
 
