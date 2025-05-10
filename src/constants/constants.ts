@@ -167,4 +167,4 @@ export const ICON_SIZE_MAP: Record<IconSize, number> = {
 export const IMAGE_EXTENSIONS = ["jpg", "jpeg", "png", "webp", "heic", "heif"];
 
 export const MIN_GIFTBOX_AMOUNT = 1;
-export const IMAGE_MAX_SIZE_MB = 10;
+export const IMAGE_MAX_SIZE_MB = 20;

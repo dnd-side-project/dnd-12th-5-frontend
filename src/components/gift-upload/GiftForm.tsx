@@ -6,7 +6,7 @@ import { useEffect, useState, useMemo } from "react";
 import CharacterCountInput from "../common/CharacterCountInput";
 import ErrorMessage from "../common/ErrorMessage";
 import { Button } from "../ui/button";
-import { GIFT_NAME_MAX_LENGTH } from "@/constants/constants";
+import { GIFT_NAME_MAX_LENGTH, IMAGE_MAX_SIZE_MB } from "@/constants/constants";
 import { useUploadImageMutation } from "@/queries/useUploadImageMutation";
 import {
   useTagIndexStore,
@@ -153,7 +153,7 @@ const GiftForm = () => {
             setCombinedImages={setCombinedImages}
           />
           <p className={`text-xs font-medium ${imageTextColor}`}>
-            최소 1장의 사진이 필요해요 (사진 용량 제한 10MB)
+            최소 1장의 사진이 필요해요 (사진 용량 제한 {IMAGE_MAX_SIZE_MB}MB)
           </p>
         </div>
         <div className="flex flex-col gap-[50px]">
