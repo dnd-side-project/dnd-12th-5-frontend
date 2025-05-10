@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "next/navigation";
 
 import { fetchResponseBundle, getSubmittedAnswers } from "@/api/bundle/api";
+import BundleErrorPage from "@/components/common/BundleErrorPage";
 import Loading from "@/components/common/Loading";
 
 import Step1 from "./step1";
@@ -44,10 +45,7 @@ const Page = () => {
   if (isError || !bundle || isGiftResultDataError)
     return (
       <div className="flex h-full flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold text-gray-800">ERROR</h1>
-        <p className="mt-2 text-lg text-gray-600">
-          보따리를 불러오는 중에 오류가 발생했어요!
-        </p>
+        <BundleErrorPage />
       </div>
     );
 
