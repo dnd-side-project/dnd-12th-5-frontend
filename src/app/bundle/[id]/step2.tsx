@@ -23,16 +23,22 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
 
   const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
     useIsOpenDetailGiftBoxStore();
-  const { answers } = useGiftAnswerStore();
+  const { answers, resetAnswers } = useGiftAnswerStore();
   const { isUploadedAnswer, setIsUploadedAnswer } = useIsUploadAnswerStore();
 
-  const [isAnswered, setIsAnswered] = useState(false);
+  const [isAllAnswered, setIsAllAnswered] = useState(false);
 
   useEffect(() => {
     if (isCompleted) {
       setIsUploadedAnswer(true);
+    } /*else {
+      setIsUploadedAnswer(false);
     }
-  }, [isCompleted, setIsUploadedAnswer]);
+    console.log(
+      "isCompleted => receiveBundle이 complete인지 확인:",
+      isCompleted,
+    );*/
+  }, [isCompleted]);
 
   const mappedAnswers = giftResultData
     ? giftResultData.reduce(
@@ -53,8 +59,8 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
       : "선물을 하나씩 열어볼까요?";
 
   useEffect(() => {
-    if (answeredCount === gifts.length) setIsAnswered(true);
-  }, [answeredCount, mappedAnswers, gifts.length]);
+    if (answeredCount === gifts.length) setIsAllAnswered(true);
+  }, [answeredCount, gifts.length]);
 
   const submitGiftResponses = async () => {
     const bundleId = Number(sessionStorage.getItem("receiveBundleId"));
@@ -70,8 +76,9 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
 
     try {
       await postGiftAnswers(link, requestBody);
-      setIsUploadedAnswer(true);
       router.push(`/bundle/${link}?step=3`);
+      resetAnswers();
+      //setIsUploadedAnswer(false);
     } catch {
       toast({
         title: "답변 전송에 실패했어요.",
@@ -103,7 +110,7 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
             <Button
               size="lg"
               onClick={submitGiftResponses}
-              disabled={isUploadedAnswer || !isAnswered}
+              disabled={isUploadedAnswer || !isAllAnswered}
             >
               {isUploadedAnswer ? "답변 전송 완료!" : "답변 전송하기"}
             </Button>

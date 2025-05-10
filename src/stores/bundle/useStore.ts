@@ -50,6 +50,7 @@ export const useIsOpenDetailGiftBoxStore = create<IsOpenDetailGiftBoxStore>(
 interface GiftAnswerStore {
   answers: { [key: number]: number };
   setAnswer: (giftIndex: number, answerIndex: number) => void;
+  resetAnswers: () => void;
 }
 
 export const useGiftAnswerStore = create(
@@ -60,6 +61,7 @@ export const useGiftAnswerStore = create(
         set((state) => ({
           answers: { ...state.answers, [giftIndex]: answerIndex },
         })),
+      resetAnswers: () => set({ answers: {} }),
     }),
     {
       name: "gift-answers",
