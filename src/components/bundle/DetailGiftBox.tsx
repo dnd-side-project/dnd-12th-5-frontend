@@ -70,7 +70,7 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                       className="rounded-t-[22px] object-cover"
                     />
                     {isAnswered && (
-                      <div className="absolute left-1/2 top-2 -translate-x-1/2">
+                      <div className="absolute left-1/2 top-5 -translate-x-1/2">
                         <AnswerCompleteChip />
                       </div>
                     )}
