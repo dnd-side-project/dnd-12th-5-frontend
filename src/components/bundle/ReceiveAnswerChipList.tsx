@@ -1,9 +1,9 @@
 import { GIFT_ANSWER_CHIP_TEXTES } from "@/constants/constants";
 import { toast } from "@/hooks/use-toast";
 import {
+  useBundleCompletedStore,
   useGiftAnswerStore,
   useIsOpenDetailGiftBoxStore,
-  useIsUploadAnswerStore,
 } from "@/stores/bundle/useStore";
 import { ReceiveAnswerChipListProps } from "@/types/bundle/types";
 
@@ -15,7 +15,7 @@ const ReceiveAnswerChipList = ({
   carouselApi,
   giftListLength,
 }: ReceiveAnswerChipListProps) => {
-  const { isUploadedAnswer } = useIsUploadAnswerStore();
+  const { isBundleCompleted } = useBundleCompletedStore();
   const { setAnswer } = useGiftAnswerStore();
   const { setIsOpenDetailGiftBox } = useIsOpenDetailGiftBoxStore();
 
@@ -58,7 +58,7 @@ const ReceiveAnswerChipList = ({
                 text={answer}
                 isActive={mappedAnswers[giftIndex] === index}
                 onClick={() => handleSelectAnswer(giftIndex, index)}
-                disabled={isUploadedAnswer}
+                disabled={isBundleCompleted}
               />
             );
           })}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -13,7 +14,6 @@ import { toast } from "@/hooks/use-toast";
 import {
   useGiftAnswerStore,
   useIsOpenDetailGiftBoxStore,
-  useIsUploadAnswerStore,
 } from "@/stores/bundle/useStore";
 import { Step2Props } from "@/types/bundle/types";
 
@@ -24,21 +24,8 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
   const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
     useIsOpenDetailGiftBoxStore();
   const { answers, resetAnswers } = useGiftAnswerStore();
-  const { isUploadedAnswer, setIsUploadedAnswer } = useIsUploadAnswerStore();
 
   const [isAllAnswered, setIsAllAnswered] = useState(false);
-
-  useEffect(() => {
-    if (isCompleted) {
-      setIsUploadedAnswer(true);
-    } /*else {
-      setIsUploadedAnswer(false);
-    }
-    console.log(
-      "isCompleted => receiveBundle이 complete인지 확인:",
-      isCompleted,
-    );*/
-  }, [isCompleted]);
 
   const mappedAnswers = giftResultData
     ? giftResultData.reduce(
@@ -62,6 +49,8 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
     if (answeredCount === gifts.length) setIsAllAnswered(true);
   }, [answeredCount, gifts.length]);
 
+  const queryClient = useQueryClient();
+
   const submitGiftResponses = async () => {
     const bundleId = Number(sessionStorage.getItem("receiveBundleId"));
     if (!bundleId) return;
@@ -76,9 +65,11 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
 
     try {
       await postGiftAnswers(link, requestBody);
+      await queryClient.invalidateQueries({
+        queryKey: ["receiveBundle", link],
+      });
       router.push(`/bundle/${link}?step=3`);
       resetAnswers();
-      //setIsUploadedAnswer(false);
     } catch {
       toast({
         title: "답변 전송에 실패했어요.",
@@ -110,9 +101,9 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
             <Button
               size="lg"
               onClick={submitGiftResponses}
-              disabled={isUploadedAnswer || !isAllAnswered}
+              disabled={isCompleted || !isAllAnswered}
             >
-              {isUploadedAnswer ? "답변 전송 완료!" : "답변 전송하기"}
+              {isCompleted ? "답변 전송 완료!" : "답변 전송하기"}
             </Button>
           </div>
         </div>

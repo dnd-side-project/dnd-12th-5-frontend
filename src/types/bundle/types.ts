@@ -46,13 +46,12 @@ export interface ResultGiftBox {
 export interface Step1Props {
   delivery: string;
   color: string;
-  isCompleted: boolean;
 }
 
 export interface Step2Props {
   gifts: ReceiveGiftBox[];
   giftResultData?: GiftWithResponseTag[];
-  isCompleted?: boolean;
+  isCompleted: boolean;
 }
 
 export interface GoToHomeDrawerProps {

@@ -2,10 +2,12 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 import { fetchResponseBundle, getSubmittedAnswers } from "@/api/bundle/api";
 import BundleErrorPage from "@/components/common/BundleErrorPage";
 import Loading from "@/components/common/Loading";
+import { useBundleCompletedStore } from "@/stores/bundle/useStore";
 
 import Step1 from "./step1";
 import Step2 from "./step2";
@@ -25,6 +27,8 @@ const Page = () => {
     queryKey: ["receiveBundle", link],
     queryFn: () => fetchResponseBundle(link),
     enabled: !!link,
+    staleTime: 0,
+    refetchOnMount: "always",
   });
 
   const { data: giftResultData, isError: isGiftResultDataError } = useQuery({
@@ -33,7 +37,18 @@ const Page = () => {
     enabled: !!bundle?.id && bundle?.status === "COMPLETED",
   });
 
-  if (isPending)
+  const { setIsBundleCompleted } = useBundleCompletedStore();
+
+  useEffect(() => {
+    if (bundle?.status) {
+      setIsBundleCompleted(bundle.status === "COMPLETED");
+    }
+  }, [bundle?.status, setIsBundleCompleted]);
+
+  const isBundleCompleted = bundle?.status === "COMPLETED";
+  const isGiftResultLoading = isBundleCompleted && giftResultData === undefined;
+
+  if (isPending || isGiftResultLoading)
     return (
       <div className="relative h-full w-full">
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
@@ -55,7 +70,6 @@ const Page = () => {
         <Step1
           delivery={bundle.deliveryCharacterType}
           color={bundle.designType.toLowerCase()}
-          isCompleted={bundle.status === "COMPLETED"}
         />
       )}
       {step === "2" && (

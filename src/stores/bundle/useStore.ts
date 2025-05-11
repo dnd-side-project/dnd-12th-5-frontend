@@ -98,25 +98,6 @@ export const useGiftNameStore = create<GiftName>()(
   ),
 );
 
-interface IsUploadAnswerStore {
-  isUploadedAnswer: boolean;
-  setIsUploadedAnswer: (isUploaded: boolean) => void;
-}
-
-export const useIsUploadAnswerStore = create<IsUploadAnswerStore>()(
-  persist(
-    (set) => ({
-      isUploadedAnswer: false,
-      setIsUploadedAnswer: (isUploaded) =>
-        set({ isUploadedAnswer: isUploaded }),
-    }),
-    {
-      name: "uploaded-answer",
-      storage: createJSONStorage(() => sessionStorage),
-    },
-  ),
-);
-
 /** 보따리 최초 생성 상태를 관리하는 store */
 interface BundleCreateState {
   isCreatingBundle: boolean;
@@ -151,5 +132,23 @@ export const useSnapshotGiftBoxesStore = create<SnapshotGiftBoxesStore>()(
       setSnapshotGiftBoxes: (boxes) => set({ snapshotGiftBoxes: boxes }),
     }),
     { name: "creating-bundle" },
+  ),
+);
+
+/** 답변 전송 완료 */
+interface BundleCompletedStore {
+  isBundleCompleted: boolean;
+  setIsBundleCompleted: (value: boolean) => void;
+}
+
+export const useBundleCompletedStore = create(
+  persist<BundleCompletedStore>(
+    (set) => ({
+      isBundleCompleted: false,
+      setIsBundleCompleted: (value) => set({ isBundleCompleted: value }),
+    }),
+    {
+      name: "bundle-completed",
+    },
   ),
 );
