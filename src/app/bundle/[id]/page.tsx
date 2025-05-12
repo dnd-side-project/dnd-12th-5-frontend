@@ -1,10 +1,13 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
-import { fetchResponseBundle, getSubmittedAnswers } from "@/api/bundle/api";
+import BundleErrorPage from "@/components/common/BundleErrorPage";
 import Loading from "@/components/common/Loading";
+import { useAnswerResultQuery } from "@/queries/useAnswerResultQuery";
+import { useReceiveBundleQuery } from "@/queries/useReceiveBundleQuery";
+import { useBundleAnswerCompletedStore } from "@/stores/bundle/useStore";
 
 import Step1 from "./step1";
 import Step2 from "./step2";
@@ -16,23 +19,24 @@ const Page = () => {
   const step = searchParams?.get("step");
   const link = params?.id as string;
 
-  const {
-    data: bundle,
-    isPending,
-    isError,
-  } = useQuery({
-    queryKey: ["receiveBundle", link],
-    queryFn: () => fetchResponseBundle(link),
-    enabled: !!link,
-  });
+  const { data: bundle, isPending, isError } = useReceiveBundleQuery(link);
 
-  const { data: giftResultData, isError: isGiftResultDataError } = useQuery({
-    queryKey: ["answerResults", bundle?.id],
-    queryFn: () => getSubmittedAnswers(link),
-    enabled: !!bundle?.id && bundle?.status === "COMPLETED",
-  });
+  const { data: giftResultData, isError: isGiftResultDataError } =
+    useAnswerResultQuery(link, bundle);
 
-  if (isPending)
+  const { setIsBundleAnswerCompleted } = useBundleAnswerCompletedStore();
+
+  useEffect(() => {
+    if (bundle?.status) {
+      setIsBundleAnswerCompleted(bundle.status === "COMPLETED");
+    }
+  }, [bundle?.status, setIsBundleAnswerCompleted]);
+
+  const isBundleStatusCompleted = bundle?.status === "COMPLETED";
+  const isGiftResultLoading =
+    isBundleStatusCompleted && giftResultData === undefined;
+
+  if (isPending || isGiftResultLoading)
     return (
       <div className="relative h-full w-full">
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
@@ -44,10 +48,7 @@ const Page = () => {
   if (isError || !bundle || isGiftResultDataError)
     return (
       <div className="flex h-full flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold text-gray-800">ERROR</h1>
-        <p className="mt-2 text-lg text-gray-600">
-          보따리를 불러오는 중에 오류가 발생했어요!
-        </p>
+        <BundleErrorPage />
       </div>
     );
 
@@ -57,7 +58,6 @@ const Page = () => {
         <Step1
           delivery={bundle.deliveryCharacterType}
           color={bundle.designType.toLowerCase()}
-          isCompleted={bundle.status === "COMPLETED"}
         />
       )}
       {step === "2" && (
