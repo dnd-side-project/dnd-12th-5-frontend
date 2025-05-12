@@ -1,12 +1,12 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
-import { fetchResponseBundle, getSubmittedAnswers } from "@/api/bundle/api";
 import BundleErrorPage from "@/components/common/BundleErrorPage";
 import Loading from "@/components/common/Loading";
+import { useAnswerResultQuery } from "@/queries/useAnswerResultQuery";
+import { useReceiveBundleQuery } from "@/queries/useReceiveBundleQuery";
 import { useBundleCompletedStore } from "@/stores/bundle/useStore";
 
 import Step1 from "./step1";
@@ -19,23 +19,10 @@ const Page = () => {
   const step = searchParams?.get("step");
   const link = params?.id as string;
 
-  const {
-    data: bundle,
-    isPending,
-    isError,
-  } = useQuery({
-    queryKey: ["receiveBundle", link],
-    queryFn: () => fetchResponseBundle(link),
-    enabled: !!link,
-    staleTime: 0,
-    refetchOnMount: "always",
-  });
+  const { data: bundle, isPending, isError } = useReceiveBundleQuery(link);
 
-  const { data: giftResultData, isError: isGiftResultDataError } = useQuery({
-    queryKey: ["answerResults", bundle?.id],
-    queryFn: () => getSubmittedAnswers(link),
-    enabled: !!bundle?.id && bundle?.status === "COMPLETED",
-  });
+  const { data: giftResultData, isError: isGiftResultDataError } =
+    useAnswerResultQuery(link, bundle);
 
   const { setIsBundleCompleted } = useBundleCompletedStore();
 
