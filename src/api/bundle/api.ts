@@ -133,7 +133,7 @@ export const fetchResponseBundle = async (link: string) => {
 };
 
 /** 답변 전송 api */
-export const postGiftAnswers = async (
+export const postBundleAnswers = async (
   link: string,
   data: {
     bundleId: number;

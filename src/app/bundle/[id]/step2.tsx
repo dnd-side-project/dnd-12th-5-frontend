@@ -4,13 +4,13 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { postGiftAnswers } from "@/api/bundle/api";
 import Chip from "@/components/bundle/Chip";
 import DetailGiftBox from "@/components/bundle/DetailGiftBox";
 import ReceiveGiftList from "@/components/bundle/ReceiveGiftList";
 import { Button } from "@/components/ui/button";
 import { RESPONSE_TAGS } from "@/constants/constants";
 import { toast } from "@/hooks/use-toast";
+import { usePostBundleAnswersMutation } from "@/queries/usePostBundleAnswersMutation";
 import {
   useGiftAnswerStore,
   useIsOpenDetailGiftBoxStore,
@@ -50,6 +50,7 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
   }, [answeredCount, gifts.length]);
 
   const queryClient = useQueryClient();
+  const { mutateAsync } = usePostBundleAnswersMutation(link);
 
   const submitGiftResponses = async () => {
     const bundleId = Number(sessionStorage.getItem("receiveBundleId"));
@@ -64,7 +65,7 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
     };
 
     try {
-      await postGiftAnswers(link, requestBody);
+      await mutateAsync(requestBody);
       await queryClient.invalidateQueries({
         queryKey: ["receiveBundle", link],
       });
