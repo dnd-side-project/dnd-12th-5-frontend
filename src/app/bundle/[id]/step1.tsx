@@ -5,14 +5,14 @@ import { useParams, useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { CHARACTERS, DELIVERY_RECEIVE_TEXT_MAP } from "@/constants/constants";
-import { useBundleCompletedStore } from "@/stores/bundle/useStore";
+import { useBundleAnswerCompletedStore } from "@/stores/bundle/useStore";
 import { Step1Props } from "@/types/bundle/types";
 import { CharacterKey } from "@/types/constants/types";
 
 const Step1 = ({ delivery, color }: Step1Props) => {
   const router = useRouter();
   const { id } = useParams() as { id: string };
-  const { isBundleCompleted } = useBundleCompletedStore();
+  const { isBundleAnswerCompleted } = useBundleAnswerCompletedStore();
 
   const characterInfo =
     CHARACTERS[delivery as CharacterKey] || CHARACTERS.CHARACTER_1;
@@ -37,7 +37,7 @@ const Step1 = ({ delivery, color }: Step1Props) => {
       <div className="relative flex h-full flex-col items-center justify-center gap-[90px]">
         <div className="flex flex-col items-center justify-center gap-8">
           <p className="text-center font-nanum text-lg font-bold tracking-[-0.03em]">
-            {isBundleCompleted ? (
+            {isBundleAnswerCompleted ? (
               <>
                 답변이 완료된 보따리에요. <br /> 어떤 선물을 받게될지
                 기대하세요!
@@ -59,14 +59,14 @@ const Step1 = ({ delivery, color }: Step1Props) => {
               height={230}
             />
           </div>
-          {!isBundleCompleted && (
+          {!isBundleAnswerCompleted && (
             <p className="pt-[2px] text-center font-nanum text-sm tracking-[-2%] text-gray-700">
               정성껏 고른 선물 후보들이 담긴 보따리예요. <br /> 마음에 드는
               선물을 배달부에게 살짝 알려주세요!
             </p>
           )}
         </div>
-        {!isBundleCompleted && (
+        {!isBundleAnswerCompleted && (
           <div className="absolute bottom-4 w-full px-4">
             <Button size="lg" onClick={handleOnClick}>
               선물 보따리 풀어보기

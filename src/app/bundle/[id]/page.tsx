@@ -7,7 +7,7 @@ import BundleErrorPage from "@/components/common/BundleErrorPage";
 import Loading from "@/components/common/Loading";
 import { useAnswerResultQuery } from "@/queries/useAnswerResultQuery";
 import { useReceiveBundleQuery } from "@/queries/useReceiveBundleQuery";
-import { useBundleCompletedStore } from "@/stores/bundle/useStore";
+import { useBundleAnswerCompletedStore } from "@/stores/bundle/useStore";
 
 import Step1 from "./step1";
 import Step2 from "./step2";
@@ -24,16 +24,17 @@ const Page = () => {
   const { data: giftResultData, isError: isGiftResultDataError } =
     useAnswerResultQuery(link, bundle);
 
-  const { setIsBundleCompleted } = useBundleCompletedStore();
+  const { setIsBundleAnswerCompleted } = useBundleAnswerCompletedStore();
 
   useEffect(() => {
     if (bundle?.status) {
-      setIsBundleCompleted(bundle.status === "COMPLETED");
+      setIsBundleAnswerCompleted(bundle.status === "COMPLETED");
     }
-  }, [bundle?.status, setIsBundleCompleted]);
+  }, [bundle?.status, setIsBundleAnswerCompleted]);
 
-  const isBundleCompleted = bundle?.status === "COMPLETED";
-  const isGiftResultLoading = isBundleCompleted && giftResultData === undefined;
+  const isBundleStatusCompleted = bundle?.status === "COMPLETED";
+  const isGiftResultLoading =
+    isBundleStatusCompleted && giftResultData === undefined;
 
   if (isPending || isGiftResultLoading)
     return (

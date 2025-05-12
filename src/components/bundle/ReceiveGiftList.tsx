@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import { GIFTBOX_SHAPE_SEQUENCE } from "@/constants/constants";
 import {
-  useBundleCompletedStore,
+  useBundleAnswerCompletedStore,
   useGiftAnswerStore,
   useSelectedGiftBoxStore,
 } from "@/stores/bundle/useStore";
@@ -11,7 +11,7 @@ import { ReciveGiftListProps } from "@/types/components/types";
 const ReceiveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
   const answers = useGiftAnswerStore((state) => state.answers);
   const { setSelectedGiftIndex } = useSelectedGiftBoxStore();
-  const { isBundleCompleted } = useBundleCompletedStore();
+  const { isBundleAnswerCompleted } = useBundleAnswerCompletedStore();
 
   return (
     <div
@@ -31,7 +31,7 @@ const ReceiveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
         const backgroundImage = `/img/gift_background_${shape}.svg`;
         const defaultGiftImage = `/img/gift_${letterType}_${shape}.svg`;
         const giftImageUrl =
-          isAnswered || isBundleCompleted ? gift.imageUrls[0] : null;
+          isAnswered || isBundleAnswerCompleted ? gift.imageUrls[0] : null;
 
         return (
           <div
@@ -44,16 +44,16 @@ const ReceiveGiftList = ({ giftList, onClick }: ReciveGiftListProps) => {
           >
             <Image
               src={
-                isAnswered || isBundleCompleted
+                isAnswered || isBundleAnswerCompleted
                   ? backgroundImage
                   : defaultGiftImage
               }
               alt="backgroundGift"
-              width={isAnswered || isBundleCompleted ? 110 : 130}
-              height={isAnswered || isBundleCompleted ? 110 : 130}
+              width={isAnswered || isBundleAnswerCompleted ? 110 : 130}
+              height={isAnswered || isBundleAnswerCompleted ? 110 : 130}
               className="object-cover"
             />
-            {(isAnswered || isBundleCompleted) && giftImageUrl && (
+            {(isAnswered || isBundleAnswerCompleted) && giftImageUrl && (
               <div
                 className={`absolute left-1/2 top-1/2 flex h-[90px] w-[90px] -translate-x-1/2 -translate-y-1/2 transform items-center justify-center overflow-hidden ${shape === "square" ? "rounded-2xl" : "rounded-full"}`}
               >

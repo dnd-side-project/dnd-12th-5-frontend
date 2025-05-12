@@ -136,16 +136,17 @@ export const useSnapshotGiftBoxesStore = create<SnapshotGiftBoxesStore>()(
 );
 
 /** 답변 전송 완료 */
-interface BundleCompletedStore {
-  isBundleCompleted: boolean;
-  setIsBundleCompleted: (value: boolean) => void;
+interface BundleAnswerCompletedStore {
+  isBundleAnswerCompleted: boolean;
+  setIsBundleAnswerCompleted: (value: boolean) => void;
 }
 
-export const useBundleCompletedStore = create(
-  persist<BundleCompletedStore>(
+export const useBundleAnswerCompletedStore = create(
+  persist<BundleAnswerCompletedStore>(
     (set) => ({
-      isBundleCompleted: false,
-      setIsBundleCompleted: (value) => set({ isBundleCompleted: value }),
+      isBundleAnswerCompleted: false,
+      setIsBundleAnswerCompleted: (value) =>
+        set({ isBundleAnswerCompleted: value }),
     }),
     {
       name: "bundle-completed",
