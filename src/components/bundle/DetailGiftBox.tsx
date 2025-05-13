@@ -14,6 +14,7 @@ import {
 import { useSelectedGiftBoxStore } from "@/stores/bundle/useStore";
 import { DetailGiftBoxProps } from "@/types/components/types";
 
+import AnswerCompleteChip from "./AnswerCompleteChip";
 import ImageCarouselViewer from "./ImageCarouselViewer";
 import ReceiveAnswerChipList from "./ReceiveAnswerChipList";
 
@@ -51,6 +52,8 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
         <Carousel className="w-[304px]" setApi={setCarouselApi}>
           <CarouselContent className="gap-7 pb-0">
             {giftList.map((gift, giftIndex) => {
+              const isAnswered = mappedAnswers[giftIndex] !== undefined;
+
               return (
                 <CarouselItem
                   key={giftIndex}
@@ -66,6 +69,11 @@ const DetailGiftBox = ({ giftList, mappedAnswers }: DetailGiftBoxProps) => {
                       fill
                       className="rounded-t-[22px] object-cover"
                     />
+                    {isAnswered && (
+                      <div className="absolute left-1/2 top-5 -translate-x-1/2">
+                        <AnswerCompleteChip />
+                      </div>
+                    )}
                     <div className="absolute bottom-3 right-3">
                       <ImageCarouselButton />
                     </div>

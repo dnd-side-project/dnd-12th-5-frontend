@@ -18,7 +18,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { DESIGN_TYPE_MAP } from "@/constants/constants";
+import { BUNDLE_COLORS, DESIGN_TYPE_MAP } from "@/constants/constants";
 import { toast } from "@/hooks/use-toast";
 import { useDeleteMyBundleMutation } from "@/queries/useDeleteMyBundleMutation";
 import { useDraftBundleGiftsQuery } from "@/queries/useDraftBundleGiftsQuery";
@@ -26,6 +26,7 @@ import { useMyBundleDetailQuery } from "@/queries/useMyBundleDetailQuery";
 import {
   useBundleNameStore,
   useCreatingBundleStore,
+  useSelectedBagStore,
   useSnapshotGiftBoxesStore,
 } from "@/stores/bundle/useStore";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
@@ -170,11 +171,14 @@ const Page = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [giftBoxes, shouldTakeSnapshot]);
 
+  const { setSelectedBagIndex } = useSelectedBagStore();
+
   // 마저 채우기 버튼 클릭 시
   const handleFillBundle = async () => {
     resetStore(); // 기존 임시 저장 데이터 초기화
     if (bundleId) sessionStorage.setItem("bundleId", bundleId);
     setIsCreatingBundle(false); // 최초 생성 상태 false
+    setSelectedBagIndex(BUNDLE_COLORS.indexOf(designType));
 
     try {
       await fetchSavedGift();

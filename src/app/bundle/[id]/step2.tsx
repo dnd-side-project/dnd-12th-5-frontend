@@ -1,19 +1,19 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { postGiftAnswers } from "@/api/bundle/api";
 import Chip from "@/components/bundle/Chip";
 import DetailGiftBox from "@/components/bundle/DetailGiftBox";
 import ReceiveGiftList from "@/components/bundle/ReceiveGiftList";
 import { Button } from "@/components/ui/button";
 import { RESPONSE_TAGS } from "@/constants/constants";
 import { toast } from "@/hooks/use-toast";
+import { usePostBundleAnswersMutation } from "@/queries/usePostBundleAnswersMutation";
 import {
   useGiftAnswerStore,
   useIsOpenDetailGiftBoxStore,
-  useIsUploadAnswerStore,
 } from "@/stores/bundle/useStore";
 import { Step2Props } from "@/types/bundle/types";
 
@@ -23,16 +23,9 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
 
   const { isOpenDetailGiftBox, setIsOpenDetailGiftBox } =
     useIsOpenDetailGiftBoxStore();
-  const { answers } = useGiftAnswerStore();
-  const { isUploadedAnswer, setIsUploadedAnswer } = useIsUploadAnswerStore();
+  const { answers, resetAnswers } = useGiftAnswerStore();
 
-  const [isAnswered, setIsAnswered] = useState(false);
-
-  useEffect(() => {
-    if (isCompleted) {
-      setIsUploadedAnswer(true);
-    }
-  }, [isCompleted, setIsUploadedAnswer]);
+  const [isAllAnswered, setIsAllAnswered] = useState(false);
 
   const mappedAnswers = giftResultData
     ? giftResultData.reduce(
@@ -53,8 +46,11 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
       : "선물을 하나씩 열어볼까요?";
 
   useEffect(() => {
-    if (answeredCount === gifts.length) setIsAnswered(true);
-  }, [answeredCount, mappedAnswers, gifts.length]);
+    if (answeredCount === gifts.length) setIsAllAnswered(true);
+  }, [answeredCount, gifts.length]);
+
+  const queryClient = useQueryClient();
+  const { mutateAsync } = usePostBundleAnswersMutation(link);
 
   const submitGiftResponses = async () => {
     const bundleId = Number(sessionStorage.getItem("receiveBundleId"));
@@ -69,9 +65,12 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
     };
 
     try {
-      await postGiftAnswers(link, requestBody);
-      setIsUploadedAnswer(true);
+      await mutateAsync(requestBody);
+      await queryClient.invalidateQueries({
+        queryKey: ["receiveBundle", link],
+      });
       router.push(`/bundle/${link}?step=3`);
+      resetAnswers();
     } catch {
       toast({
         title: "답변 전송에 실패했어요.",
@@ -103,9 +102,9 @@ const Step2 = ({ gifts, giftResultData, isCompleted }: Step2Props) => {
             <Button
               size="lg"
               onClick={submitGiftResponses}
-              disabled={isUploadedAnswer || !isAnswered}
+              disabled={isCompleted || !isAllAnswered}
             >
-              {isUploadedAnswer ? "답변 전송 완료!" : "답변 전송하기"}
+              {isCompleted ? "답변 전송 완료!" : "답변 전송하기"}
             </Button>
           </div>
         </div>

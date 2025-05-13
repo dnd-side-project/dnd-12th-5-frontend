@@ -50,6 +50,7 @@ export const useIsOpenDetailGiftBoxStore = create<IsOpenDetailGiftBoxStore>(
 interface GiftAnswerStore {
   answers: { [key: number]: number };
   setAnswer: (giftIndex: number, answerIndex: number) => void;
+  resetAnswers: () => void;
 }
 
 export const useGiftAnswerStore = create(
@@ -60,6 +61,7 @@ export const useGiftAnswerStore = create(
         set((state) => ({
           answers: { ...state.answers, [giftIndex]: answerIndex },
         })),
+      resetAnswers: () => set({ answers: {} }),
     }),
     {
       name: "gift-answers",
@@ -92,25 +94,6 @@ export const useGiftNameStore = create<GiftName>()(
     }),
     {
       name: "gift-name",
-    },
-  ),
-);
-
-interface IsUploadAnswerStore {
-  isUploadedAnswer: boolean;
-  setIsUploadedAnswer: (isUploaded: boolean) => void;
-}
-
-export const useIsUploadAnswerStore = create<IsUploadAnswerStore>()(
-  persist(
-    (set) => ({
-      isUploadedAnswer: false,
-      setIsUploadedAnswer: (isUploaded) =>
-        set({ isUploadedAnswer: isUploaded }),
-    }),
-    {
-      name: "uploaded-answer",
-      storage: createJSONStorage(() => sessionStorage),
     },
   ),
 );
@@ -149,5 +132,24 @@ export const useSnapshotGiftBoxesStore = create<SnapshotGiftBoxesStore>()(
       setSnapshotGiftBoxes: (boxes) => set({ snapshotGiftBoxes: boxes }),
     }),
     { name: "creating-bundle" },
+  ),
+);
+
+/** 답변 전송 완료 */
+interface BundleAnswerCompletedStore {
+  isBundleAnswerCompleted: boolean;
+  setIsBundleAnswerCompleted: (value: boolean) => void;
+}
+
+export const useBundleAnswerCompletedStore = create(
+  persist<BundleAnswerCompletedStore>(
+    (set) => ({
+      isBundleAnswerCompleted: false,
+      setIsBundleAnswerCompleted: (value) =>
+        set({ isBundleAnswerCompleted: value }),
+    }),
+    {
+      name: "bundle-completed",
+    },
   ),
 );
