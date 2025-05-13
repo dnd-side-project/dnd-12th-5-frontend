@@ -4,7 +4,7 @@ import { getMyBundleDetail } from "@/api/my-bundle/api";
 
 export const useMyBundleDetailQuery = (id: number) => {
   return useQuery({
-    queryKey: ["bundleDetail"],
+    queryKey: ["bundleDetail", id],
     queryFn: () => getMyBundleDetail(id),
   });
 };
