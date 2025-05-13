@@ -1,6 +1,7 @@
+import { CarouselApi } from "@/components/ui/carousel";
+
 import { CharacterKey } from "../constants/types";
 import { FilledGift } from "../my-bundles/types";
-import { CarouselApi } from "@/components/ui/carousel";
 
 export interface GiftBox {
   name: string;

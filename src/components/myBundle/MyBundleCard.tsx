@@ -5,6 +5,7 @@ import EraseIcon from "/public/icons/erase.svg";
 
 import { Icon } from "../common/Icon";
 import { DrawerTrigger } from "../ui/drawer";
+
 import { DESIGN_TYPE_MAP } from "@/constants/constants";
 import { MyBundleCardProps } from "@/types/components/types";
 

@@ -3,9 +3,6 @@
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect, useState, useMemo } from "react";
 
-import CharacterCountInput from "../common/CharacterCountInput";
-import ErrorMessage from "../common/ErrorMessage";
-import { Button } from "../ui/button";
 import { GIFT_NAME_MAX_LENGTH, IMAGE_MAX_SIZE_MB } from "@/constants/constants";
 import { useUploadImageMutation } from "@/queries/useUploadImageMutation";
 import {
@@ -16,6 +13,10 @@ import {
 } from "@/stores/gift-upload/useStore";
 import { ImageItem } from "@/types/gift-upload/types";
 import { linkRegex } from "@/utils/giftBoxUtils";
+
+import CharacterCountInput from "../common/CharacterCountInput";
+import ErrorMessage from "../common/ErrorMessage";
+import { Button } from "../ui/button";
 
 import InputLink from "./InputLink";
 import InputReason from "./InputReason";
