@@ -16,13 +16,13 @@ import type { Metadata } from "next";
 const pretendard = localFont({
   src: "./fonts/PretendardVariable.woff2",
   variable: "--font-pretendard",
-  weight: "100 200 300 400 500 600 700 800 900",
+  weight: "400 500 600 700",
 });
 
 const nanumSquareRound = localFont({
   src: "./fonts/NanumSquareRound.ttf",
   variable: "--font-nanum-square-round",
-  weight: "100 200 300 400 500 600 700 800 900",
+  weight: "400 500 600 700",
 });
 
 export const metadata: Metadata = {
