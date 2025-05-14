@@ -1,5 +1,9 @@
 import Link from "next/link";
 
+import { Button } from "@/components/ui/button";
+import { useEditBoxStore } from "@/stores/gift-upload/useStore";
+import { BundleDrawerProps } from "@/types/components/types";
+
 import Card from "../../common/Card";
 import { Icon } from "../../common/Icon";
 import LinkButton from "../../common/LinkButton";
@@ -9,12 +13,8 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "../../ui/drawer";
-import { Button } from "@/components/ui/button";
-import { useEditBoxStore } from "@/stores/gift-upload/useStore";
 
 import CloseIcon from "/public/icons/close_black.svg";
-
-import { BundleDrawerProps } from "@/types/components/types";
 
 const BundleDrawer = ({
   box,

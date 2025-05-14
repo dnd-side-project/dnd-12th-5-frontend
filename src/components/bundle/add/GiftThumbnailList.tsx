@@ -7,12 +7,13 @@ import TrashIcon from "/public/icons/trash.svg";
 
 import Card from "@/components/common/Card";
 import { Icon } from "@/components/common/Icon";
+
+import DeleteBundleDrawer from "./DeleteBundleDrawer";
+
 import { Button } from "@/components/ui/button";
 import { Drawer } from "@/components/ui/drawer";
 import { useDeleteGiftBox } from "@/hooks/bundle/add/useDeleteGiftBox";
 import { useEditBoxStore, useGiftStore } from "@/stores/gift-upload/useStore";
-
-import DeleteBundleDrawer from "./DeleteBundleDrawer";
 
 const GiftThumbnailList = () => {
   const { giftBoxes } = useGiftStore();

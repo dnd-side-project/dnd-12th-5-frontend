@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-import GiftIcon from "../../../public/img/gift_letter_square.svg";
 import {
   GIFT_SELECT_REASON_MAX_LENGTH,
   REASON_CHIP_MESSAGES,
@@ -15,6 +14,8 @@ import {
   useTagIndexStore,
 } from "@/stores/gift-upload/useStore";
 import { InputReasonProps } from "@/types/components/types";
+
+import GiftIcon from "../../../public/img/gift_letter_square.svg";
 
 import ChipList from "./ChipList";
 import CustomTextArea from "./CustomTextArea";

@@ -1,5 +1,3 @@
-import { PICKTORY_API } from "../api-url";
-import axiosInstance from "../axiosInstance";
 import { BUNDLE_COLORS } from "@/constants/constants";
 import {
   GiftWithResponseTag,
@@ -9,6 +7,9 @@ import {
   ReceiveBundle,
 } from "@/types/bundle/types";
 import { handleAxiosError } from "@/utils/axios";
+
+import { PICKTORY_API } from "../api-url";
+import axiosInstance from "../axiosInstance";
 
 /** 보따리 생성 api */
 export const createBundle = async ({

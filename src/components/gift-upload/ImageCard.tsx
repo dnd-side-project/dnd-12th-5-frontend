@@ -1,9 +1,10 @@
 import Image from "next/image";
 import React from "react";
 
+import { ImageCardProps } from "@/types/components/types";
+
 import EraseIcon from "../../../public/icons/erase.svg";
 import { Icon } from "../common/Icon";
-import { ImageCardProps } from "@/types/components/types";
 
 const ImageCard = ({
   src,

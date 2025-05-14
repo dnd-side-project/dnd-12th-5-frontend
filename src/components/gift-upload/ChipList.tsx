@@ -1,5 +1,6 @@
-import Chip from "../common/Chip";
 import { ChipListProps } from "@/types/components/types";
+
+import Chip from "../common/Chip";
 
 const ChipList = ({
   chipText,
