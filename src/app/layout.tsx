@@ -38,6 +38,19 @@ export const metadata: Metadata = {
       { rel: "icon", url: "/favicon/favicon-192x192.png", sizes: "192x192" },
     ],
   },
+  openGraph: {
+    title: "Picktory",
+    description: "마음을 전하는 가장 쉬운 방법",
+    url: "https://www.picktory.net",
+    images: [
+      {
+        url: "https://i.imgur.com/ZhadG4p.png",
+        width: 1200,
+        height: 630,
+        alt: "Picktory Thumbnail",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
