@@ -12,3 +12,18 @@ export const getIsSurveyTarget = async () => {
     handleAxiosError(error, "설문조사 대상자 검사 실패");
   }
 };
+
+export const postSurveyAnswer = async (data: {
+  surveySatisfaction: string;
+}) => {
+  try {
+    const response = await axiosInstance.post(
+      PICKTORY_API.postSurveyAnswer,
+      data,
+    );
+
+    return response.data;
+  } catch (error) {
+    handleAxiosError(error, "설문조사 응답 제출 실패");
+  }
+};

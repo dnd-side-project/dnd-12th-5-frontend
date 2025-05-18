@@ -94,7 +94,7 @@ const Page = () => {
           </div>
         </section>
       </main>
-      <SurveyDrawer />
+      <SurveyDrawer onClose={() => setIsDrawerOpen(false)} />
     </Drawer>
   );
 };

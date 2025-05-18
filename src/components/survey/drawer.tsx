@@ -1,12 +1,51 @@
+import { useState } from "react";
+
 import { Icon } from "../common/Icon";
-import { DrawerClose, DrawerContent, DrawerHeader } from "../ui/drawer";
+import { Button } from "../ui/button";
+import {
+  DrawerClose,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+} from "../ui/drawer";
 
 import CloseIcon from "/public/icons/close_black.svg";
 import Good from "/public/icons/face-good.svg";
 import OK from "/public/icons/face-ok.svg";
 import Bad from "/public/icons/face-bad.svg";
 
-const SurveyDrawer = () => {
+import { toast } from "@/hooks/use-toast";
+import { useSurveyAnswerMutation } from "@/queries/useSurveyAnswerMutation";
+
+const feedbackOptions = [
+  { id: "GOOD", label: "좋아요", icon: Good },
+  { id: "SOSO", label: "보통이에요", icon: OK },
+  { id: "BAD", label: "별로예요", icon: Bad },
+];
+
+const SurveyDrawer = ({ onClose }: { onClose: () => void }) => {
+  const [selected, setSelected] = useState("");
+  const { mutate } = useSurveyAnswerMutation();
+
+  const handleSurveySubmit = () => {
+    if (!selected) {
+      toast({ title: "옵션을 선택해주세요." });
+      return;
+    }
+
+    mutate(
+      { surveySatisfaction: selected },
+      {
+        onSuccess: () => {
+          toast({
+            title: "소중한 의견을 보내주셔서 감사합니다.",
+          });
+          onClose();
+        },
+      },
+    );
+  };
+
   return (
     <DrawerContent>
       <DrawerHeader className="h-[48px]">
@@ -14,23 +53,26 @@ const SurveyDrawer = () => {
           <Icon src={CloseIcon} alt="CloseIcon" size="large" />
         </DrawerClose>
       </DrawerHeader>
-      <p className="mb-[22px] text-center text-base font-medium">
+      <p className="text-center text-base font-medium">
         픽토리 서비스 사용 경험은 어떠셨나요?
       </p>
-      <ul className="mb-[50px] flex justify-center gap-4">
-        <li className="flex cursor-pointer flex-col items-center rounded-[12px] bg-gray-50 p-3">
-          <Icon src={Good} alt="good" />
-          <p>좋아요</p>
-        </li>
-        <li className="flex cursor-pointer flex-col items-center rounded-[12px] bg-gray-50 p-3">
-          <Icon src={OK} alt="ok" />
-          <p>보통이에요</p>
-        </li>
-        <li className="flex cursor-pointer flex-col items-center rounded-[12px] bg-gray-50 p-3">
-          <Icon src={Bad} alt="bad" />
-          <p>별로예요</p>
-        </li>
+      <ul className="my-[22px] flex justify-center gap-4">
+        {feedbackOptions.map(({ id, label, icon }) => (
+          <li
+            key={id}
+            onClick={() => setSelected(id)}
+            className={`flex cursor-pointer flex-col items-center rounded-[12px] p-3 transition-colors ${selected === id ? "bg-gray-100" : "bg-gray-50"}`}
+          >
+            <Icon src={icon} alt={id} />
+            <p>{label}</p>
+          </li>
+        ))}
       </ul>
+      <DrawerFooter>
+        <Button size="lg" onClick={handleSurveySubmit}>
+          답변 제출하기
+        </Button>
+      </DrawerFooter>
     </DrawerContent>
   );
 };

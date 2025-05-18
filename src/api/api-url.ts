@@ -19,4 +19,5 @@ export const PICKTORY_API = {
   getSubmittedAnswers: (link: string) => `/responses/bundles/${link}/result`,
   patchBundleName: (bundleId: string) => `/bundles/${bundleId}`,
   getIsSurveyTarget: "/users/me/survey-target",
+  postSurveyAnswer: "/surveys",
 };
