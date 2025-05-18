@@ -2,7 +2,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-import { Drawer, DrawerTrigger } from "../../ui/drawer";
 import {
   Tooltip,
   TooltipContent,
@@ -17,6 +16,8 @@ import {
 import { toast } from "@/hooks/use-toast";
 import { useGiftStore } from "@/stores/gift-upload/useStore";
 import { GiftBox } from "@/types/bundle/types";
+
+import { Drawer, DrawerTrigger } from "../../ui/drawer";
 
 import BundleDrawer from "./BundleDrawer";
 import CustomTooltipArrow from "./CustomTooltipArrow";

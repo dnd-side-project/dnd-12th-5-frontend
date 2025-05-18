@@ -8,7 +8,6 @@ import {
 } from "@dnd-kit/sortable";
 import Image from "next/image";
 
-import ImageIcon from "../../../public/icons/image_medium.svg";
 import {
   GIFT_IMAGE_MAX_AMOUNT,
   IMAGE_EXTENSIONS,
@@ -16,6 +15,8 @@ import {
 } from "@/constants/constants";
 import { UploadImageListProps } from "@/types/components/types";
 import { ImageItem } from "@/types/gift-upload/types";
+
+import ImageIcon from "../../../public/icons/image_medium.svg";
 
 import ImageCard from "./ImageCard";
 import SortableImageWrapper from "./SortableImageWrapper";

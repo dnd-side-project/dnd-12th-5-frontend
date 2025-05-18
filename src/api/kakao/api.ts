@@ -1,6 +1,7 @@
+import { handleAxiosError } from "@/utils/axios";
+
 import { PICKTORY_API } from "../api-url";
 import axiosInstance from "../axiosInstance";
-import { handleAxiosError } from "@/utils/axios";
 
 export const kakaoLogin = async (code: string) => {
   try {

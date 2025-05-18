@@ -1,7 +1,8 @@
-import { PICKTORY_API } from "../api-url";
-import axiosInstance from "../axiosInstance";
 import { ResultGiftBox } from "@/types/bundle/types";
 import { handleAxiosError } from "@/utils/axios";
+
+import { PICKTORY_API } from "../api-url";
+import axiosInstance from "../axiosInstance";
 
 /** 메인화면 보따리 조회 api */
 export const getBundlesPreview = async () => {

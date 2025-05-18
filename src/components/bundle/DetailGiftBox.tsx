@@ -3,6 +3,9 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import { useSelectedGiftBoxStore } from "@/stores/bundle/useStore";
+import { DetailGiftBoxProps } from "@/types/components/types";
+
 import CarouselNavigator from "../common/CarouselNavigator";
 import ImageCarouselButton from "../common/ImageCarouselButton";
 import {
@@ -11,8 +14,6 @@ import {
   CarouselContent,
   CarouselItem,
 } from "../ui/carousel";
-import { useSelectedGiftBoxStore } from "@/stores/bundle/useStore";
-import { DetailGiftBoxProps } from "@/types/components/types";
 
 import AnswerCompleteChip from "./AnswerCompleteChip";
 import ImageCarouselViewer from "./ImageCarouselViewer";
