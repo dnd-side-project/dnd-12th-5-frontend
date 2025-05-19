@@ -61,10 +61,10 @@ const SurveyDrawer = ({ onClose }: { onClose: () => void }) => {
           <li
             key={id}
             onClick={() => setSelected(id)}
-            className={`flex cursor-pointer flex-col items-center rounded-[12px] p-3 transition-colors ${selected === id ? "bg-gray-100" : "bg-gray-50"}`}
+            className={`flex w-[84px] cursor-pointer flex-col items-center rounded-[12px] transition-colors ${selected === id ? "bg-gray-100" : "bg-gray-50"}`}
           >
             <Icon src={icon} alt={id} />
-            <p>{label}</p>
+            <p className="whitespace-nowrap">{label}</p>
           </li>
         ))}
       </ul>
