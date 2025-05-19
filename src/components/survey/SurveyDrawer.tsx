@@ -38,7 +38,7 @@ const SurveyDrawer = ({ onClose }: { onClose: () => void }) => {
       {
         onSuccess: () => {
           toast({
-            title: "소중한 의견을 보내주셔서 감사합니다.",
+            title: "소중한 의견 보내주셔서 감사해요!",
           });
           onClose();
         },
