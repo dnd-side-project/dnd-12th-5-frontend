@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { Icon } from "@/components/common/Icon";
 import Loading from "@/components/common/Loading";
 import MyCardList from "@/components/myBundle/MyCardList";
-import SurveyDrawer from "@/components/survey/drawer";
+import SurveyDrawer from "@/components/survey/SurveyDrawer";
 import { Button } from "@/components/ui/button";
 import { Drawer } from "@/components/ui/drawer";
 import { useHandleCreateBundleClick } from "@/hooks/bundle/add/useHandleCreateBundleClick";
@@ -21,7 +21,7 @@ import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
 const Page = () => {
   useResetStore();
   const handleBundleCreate = useHandleCreateBundleClick();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(true);
 
   const { data: bundlesPreview, isLoading, isError } = useBundlesPreviewQuery();
   const { data: isSurveyTarget } = useIsSurveyTargetQuery();
