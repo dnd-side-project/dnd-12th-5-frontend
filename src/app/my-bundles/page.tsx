@@ -1,25 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 import { Icon } from "@/components/common/Icon";
 import Loading from "@/components/common/Loading";
 import MyBundleCard from "@/components/myBundle/MyBundleCard";
 
 import CheckIcon from "/public/icons/check.svg";
-import CloseIcon from "/public/icons/close_black.svg";
 
+import MyBundleDeleteDrawer from "@/components/myBundle/MyBundleDeleteDrawer";
 import { Button } from "@/components/ui/button";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerClose,
-} from "@/components/ui/drawer";
+import { Drawer } from "@/components/ui/drawer";
 import { useHandleCreateBundleClick } from "@/hooks/bundle/add/useHandleCreateBundleClick";
-import { useDeleteMyBundleMutation } from "@/queries/useDeleteMyBundleMutation";
 import { useMyBundlesQuery } from "@/queries/useMyBundlesQuery";
 import { MyBundle } from "@/types/my-bundles/types";
 
@@ -39,16 +32,6 @@ const Page = () => {
     data?.result?.filter(
       (bundle: { status: string }) => !isChecked || bundle.status === "DRAFT",
     ) || [];
-
-  const { mutate: deleteBundle } = useDeleteMyBundleMutation();
-
-  const handleDelete = useCallback(
-    (id: number) => {
-      deleteBundle(id);
-      setIsDrawerOpen(false);
-    },
-    [deleteBundle],
-  );
 
   const handleBundleCreate = useHandleCreateBundleClick();
 
@@ -129,44 +112,12 @@ const Page = () => {
             )}
           </section>
 
-          {isDrawerOpen && (
-            <DrawerContent>
-              <DrawerHeader className="relative mt-3 flex justify-center py-3">
-                <DrawerTitle>
-                  {selectedBundleInfo ? selectedBundleInfo.name : ""}
-                </DrawerTitle>
-                <DrawerClose className="absolute right-[14px] top-2">
-                  <Icon src={CloseIcon} alt="CloseIcon" size="large" />
-                </DrawerClose>
-              </DrawerHeader>
-
-              <div className="mb-5 mt-[26px] flex w-full flex-col items-center justify-center gap-[22px]">
-                <div>
-                  <p className="text-[15px] font-medium">
-                    선택한 선물 보따리를 정말 삭제할까요?
-                  </p>
-                  <p className="text-sm text-gray-300">
-                    삭제된 보따리는 되돌릴 수 없어요.
-                  </p>
-                </div>
-                <div className="flex w-full gap-[5px] px-[18px]">
-                  <DrawerClose asChild>
-                    <Button size="lg" variant={"secondary"}>
-                      돌아가기
-                    </Button>
-                  </DrawerClose>
-
-                  <Button
-                    size="lg"
-                    onClick={() =>
-                      selectedBundleInfo && handleDelete(selectedBundleInfo.id)
-                    }
-                  >
-                    삭제하기
-                  </Button>
-                </div>
-              </div>
-            </DrawerContent>
+          {isDrawerOpen && selectedBundleInfo && (
+            <MyBundleDeleteDrawer
+              selectedBundleId={selectedBundleInfo.id}
+              selectedBundleName={selectedBundleInfo.name}
+              onClose={() => setIsDrawerOpen(false)}
+            />
           )}
         </main>
       ) : (
