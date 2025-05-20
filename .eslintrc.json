@@ -5,7 +5,7 @@
     "plugin:prettier/recommended",
     "plugin:import/typescript"
   ],
-  "plugins": ["prettier", "eslint-plugin-import"],
+  "plugins": ["prettier", "import"],
   "rules": {
     "prettier/prettier": "error",
     "import/order": [
@@ -21,7 +21,9 @@
           "object",
           "type"
         ],
-        "pathGroups": [{ "pattern": "@/**", "group": "parent" }],
+        "pathGroups": [
+          { "pattern": "@/**", "group": "internal", "position": "after" }
+        ],
         "pathGroupsExcludedImportTypes": ["builtin"],
         "alphabetize": {
           "order": "asc", // 알파벳 순서로 정렬
