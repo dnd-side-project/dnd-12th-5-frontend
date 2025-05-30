@@ -21,7 +21,7 @@ import ArrowRightIcon from "/public/icons/arrow_right_small.svg";
 const Page = () => {
   useResetStore();
   const handleBundleCreate = useHandleCreateBundleClick();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(true);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const { data: bundlesPreview, isLoading, isError } = useBundlesPreviewQuery();
   const { data: isSurveyTarget } = useIsSurveyTargetQuery();

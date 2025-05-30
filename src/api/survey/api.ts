@@ -1,6 +1,7 @@
+import { handleAxiosError } from "@/utils/axios";
+
 import { PICKTORY_API } from "../api-url";
 import axiosInstance from "../axiosInstance";
-import { handleAxiosError } from "@/utils/axios";
 
 /** 설문조사 대상자 검사 api */
 export const getIsSurveyTarget = async () => {
